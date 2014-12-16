@@ -1,5 +1,7 @@
 package com.stone.db.entity;
 
+import com.stone.core.entity.IEntity;
+
 /**
  * Íæ¼ÒÊµÌå;
  * <p>
@@ -8,6 +10,12 @@ package com.stone.db.entity;
  * @author crazyjohn
  *
  */
-public class HumanEntity {
+public class HumanEntity implements IEntity<Long>{
+
+	@Override
+	public Long getId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
