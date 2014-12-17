@@ -7,13 +7,13 @@ import com.stone.core.processor.IDispatcher;
 import com.stone.core.processor.IMessageProcessor;
 
 /**
- * ÓÎÏ·Ö÷ÏûÏ¢·Ö·¢Èë¿Ú;
+ * æ¸¸æˆæ¶ˆæ¯åˆ†å‘å™¨;
  * 
  * @author crazyjohn
  *
  */
 public class GameDispatcher extends BaseDispatcher {
-	/** Êı¾İ¿â·Ö·¢Æ÷ */
+	/** dbæ¶ˆæ¯åˆ†å‘å™¨ */
 	private IDispatcher dbDispatcher;
 
 	public GameDispatcher(int processorCount) {
@@ -26,12 +26,12 @@ public class GameDispatcher extends BaseDispatcher {
 
 	@Override
 	public void put(IMessage msg) {
-		// TODO ´¦Àí·Ö·¢
-		// ´¦ÀíDBÏûÏ¢
+		// TODO åˆ†å‘é€»è¾‘
+		// æ•°æ®æ¶ˆæ¯åˆ†å‘
 		if (msg instanceof IDBMessage) {
 			dbDispatcher.put(msg);
 		}
-		// ´¦ÀíCGMessage
+		// CGæ¶ˆæ¯åˆ†å‘
 		if (msg instanceof CGMessage) {
 			IMessageProcessor processor = ((CGMessage) msg).getHuman()
 					.getProcessor(this);

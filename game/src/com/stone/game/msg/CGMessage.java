@@ -4,7 +4,7 @@ import com.stone.core.msg.ISessionMessage;
 import com.stone.game.human.Human;
 
 /**
- * 客户端发给服务器的消息接口;
+ * client鍜孏ameServer閫氫俊娑堟伅鎺ュ彛;
  * 
  * @author crazyjohn
  *

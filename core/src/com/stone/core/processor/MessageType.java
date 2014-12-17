@@ -1,13 +1,13 @@
 package com.stone.core.processor;
 
 /**
- * ÏûÏ¢ÀàĞÍ;
+ * æ¶ˆæ¯ç±»å‹æšä¸¾;
  * 
  * @author crazyjohn
  *
  */
 public enum MessageType {
-	/** ¿Í»§¶ËÇëÇó×°±¸¼¼ÄÜ */
+	/** å®¢æˆ·ç«¯è¯·æ±‚è£…å¤‡æŠ€èƒ½ */
 	CG_EQUIP_SKILL
 
 }

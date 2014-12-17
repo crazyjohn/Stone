@@ -8,17 +8,17 @@ import java.util.concurrent.LinkedBlockingQueue;
 import com.stone.core.msg.IMessage;
 
 /**
- * ¶ÓÁĞÏûÏ¢´¦ÀíÆ÷;
+ * é˜Ÿåˆ—æ¶ˆæ¯å¤„ç†å™¨;
  * 
  * @author crazyjohn
  *
  */
 public class QueueMessageProcessor implements IMessageProcessor, Runnable {
-	/** ÏûÏ¢¶ÓÁĞ */
+	/** é˜»å¡é˜Ÿåˆ— */
 	private BlockingQueue<IMessage> queue = new LinkedBlockingQueue<IMessage>();
-	/** Ö´ĞĞÏß³Ì */
+	/** æ‰§è¡Œå™¨ */
 	private ExecutorService executor = Executors.newSingleThreadExecutor();
-	/** Í£Ö¹±ê¼ÇÎ» */
+	/** åœæ­¢æœåŠ¡æ ‡è®° */
 	private volatile boolean stop = true;
 
 	@Override
@@ -57,7 +57,7 @@ public class QueueMessageProcessor implements IMessageProcessor, Runnable {
 	}
 
 	/**
-	 * ÏûÏ¢´¦Àí½Ó¿Ú;
+	 * å¤„ç†æ¶ˆæ¯å…¥å£;
 	 * 
 	 * @param msg
 	 */

@@ -1,8 +1,7 @@
 package com.stone.core.processor;
 
-
 /**
- * ·Ö·¢Æ÷½Ó¿Ú;
+ * åˆ†å‘å™¨æ¥å£;
  * 
  * @author crazyjohn
  *
@@ -10,14 +9,14 @@ package com.stone.core.processor;
 public interface IDispatcher extends IMessageProcessor {
 
 	/**
-	 * »ñÈ¡´¦ÀíÆ÷¸öÊı;
+	 * è¿”å›å¤„ç†å™¨ä¸ªæ•°;
 	 * 
 	 * @return
 	 */
 	public int getProcessorCount();
 
 	/**
-	 * ¸ù¾İ´¦ÀíÆ÷Ë÷Òı»ñÈ¡´¦ÀíÆ÷;
+	 * æ ¹æ®ç´¢å¼•è·å–å¤„ç†å™¨;
 	 * 
 	 * @param processorIndex
 	 * @return

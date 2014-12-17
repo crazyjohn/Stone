@@ -7,7 +7,7 @@ import com.stone.game.human.Human;
 import com.stone.game.msg.CGMessage;
 
 /**
- * 装备技能处理器;
+ * 瑁呭鎶�鑳藉鐞嗗櫒;
  * 
  * @author crazyjohn
  *

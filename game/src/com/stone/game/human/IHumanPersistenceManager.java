@@ -3,22 +3,19 @@ package com.stone.game.human;
 import com.stone.db.entity.HumanEntity;
 
 /**
- * Ö§³Ö³Ö¾Ã»¯¶¯×÷µÄÍæ¼ÒÒµÎñ¹ÜÀíÆ÷½Ó¿Ú;
- * 
+ * ç©å®¶æŒä¹…åŒ–ç®¡ç†å™¨æ¥å£;
  * @author crazyjohn
  *
  */
 public interface IHumanPersistenceManager {
 	/**
-	 * ¼ÓÔØ½Ó¿Ú;
-	 * 
+	 * åŠ è½½æ•°æ®;
 	 * @param entity
 	 */
 	public void onLoad(HumanEntity entity);
 
 	/**
-	 * ³Ö¾Ã»¯½Ó¿Ú;
-	 * 
+	 * æŒä¹…åŒ–æ•°æ®;
 	 * @param entity
 	 */
 	public void onPersistence(HumanEntity entity);

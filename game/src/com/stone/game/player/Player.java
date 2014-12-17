@@ -6,17 +6,16 @@ import com.stone.core.state.IStateManager;
 import com.stone.game.human.Human;
 
 /**
- * Íæ¼ÒÒµÎñ¶ÔÏó;
- * 
+ * æ¸¸æˆç©å®¶å¯¹è±¡;
  * @author crazyjohn
  *
  */
 public class Player implements IStateManager {
-	/** µ±Ç°½ÇÉ« */
+	/** å½“å‰ç»‘å®šçš„è§’è‰² */
 	private Human human;
-	/** »Ø»° */
+	/** ç»‘å®šçš„å›è¯ */
 	private ISession session;
-	/** µ±Ç°×´Ì¬ */
+	/** å½“å‰çŠ¶æ€ */
 	private IState currentState;
 
 	public Human getHuman() {

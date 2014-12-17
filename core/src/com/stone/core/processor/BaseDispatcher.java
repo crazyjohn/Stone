@@ -6,7 +6,7 @@ import java.util.List;
 import com.stone.core.msg.IMessage;
 
 /**
- * ·Ö·¢Æ÷»ù´¡ÊµÏÖ;
+ * æ¥è§¦åˆ†å‘å™¨å®ç°;
  * 
  * @author crazyjohn
  *
@@ -36,7 +36,7 @@ public abstract class BaseDispatcher implements IDispatcher {
 	}
 
 	/**
-	 * ´¦Àí·Ö·¢µÄ½Ó¿ÚÓÉ×ÓÀàÈ¥ÊµÏÖ;
+	 * ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½Ä½Ó¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¥Êµï¿½ï¿½;
 	 */
 	@Override
 	public abstract void put(IMessage msg);

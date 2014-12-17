@@ -3,37 +3,33 @@ package com.stone.core.msg;
 import com.stone.core.processor.MessageType;
 
 /**
- * ÏûÏ¢½Ó¿Ú;
+ * æ¶ˆæ¯æ¥å£;
  * 
  * @author crazyjohn
  *
  */
 public interface IMessage {
 	/**
-	 * »ñÈ¡ÏûÏ¢ÀàĞÍ;
+	 * è·å–æ¶ˆæ¯ç±»å‹;
 	 * 
 	 * @return
 	 */
 	public MessageType getMessageType();
 
 	/**
-	 * »ñÈ¡ÏûÏ¢Ãû³Æ;
+	 * è·å–æ¶ˆæ¯åç§°;
 	 * 
 	 * @return
 	 */
 	public String getShortName();
 
 	/**
-	 * Ğ´×Ô¼ºµ½Á÷;
-	 * <p>
-	 * ĞòÁĞ»¯·½·¨;
+	 * æ¶ˆæ¯å†™æ–¹æ³•;(åºåˆ—åŒ–)
 	 */
 	public void write();
 
 	/**
-	 * ´ÓÁ÷ÖĞ¶Á³ö×Ô¼º;
-	 * <p>
-	 * ·´ĞòÁĞ»¯;
+	 * æ¶ˆæ¯è¯»æ–¹æ³•;(ååºåˆ—åŒ–)
 	 */
 	public void read();
 }

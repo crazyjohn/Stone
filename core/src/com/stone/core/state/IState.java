@@ -3,14 +3,14 @@ package com.stone.core.state;
 import com.stone.core.processor.MessageType;
 
 /**
- * ×´Ì¬½Ó¿Ú;
+ * çŠ¶æ€æ¥å£;
  * 
  * @author crazyjohn
  *
  */
 public interface IState {
 	/**
-	 * ÊÇ·ñ¿ÉÒÔ´¦ÀíÖ¸¶¨ÏûÏ¢ÀàĞÍ;
+	 * æ˜¯å¦å¯ä»¥å¤„ç†æŒ‡å®šçš„æ¶ˆæ¯;
 	 * 
 	 * @param type
 	 * @return
@@ -18,7 +18,7 @@ public interface IState {
 	public boolean canProcessMessage(MessageType type);
 
 	/**
-	 * ÊÇ·ñ¿ÉÒÔ×ª»»µ½Ö¸¶¨µÄ×´Ì¬;
+	 * æ˜¯å¦å¯ä»¥è½¬æ¢åˆ°æŒ‡å®šçŠ¶æ€;
 	 * 
 	 * @param state
 	 * @return

@@ -3,14 +3,12 @@ package com.stone.db.entity;
 import com.stone.core.entity.IEntity;
 
 /**
- * Íæ¼ÒÊµÌå;
- * <p>
- * ³Ö¾Ã»¯²ãÓÃ, ORM¿ÉÒÔÈÎÒâÑ¡ÓÃ±ÈÈçhibernate;
+ * ç©å®¶æ•°æ®åº“å®ä½“;
  * 
  * @author crazyjohn
  *
  */
-public class HumanEntity implements IEntity<Long>{
+public class HumanEntity implements IEntity<Long> {
 
 	@Override
 	public Long getId() {

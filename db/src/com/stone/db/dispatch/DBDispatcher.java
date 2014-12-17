@@ -4,7 +4,7 @@ import com.stone.core.msg.IMessage;
 import com.stone.core.processor.BaseDispatcher;
 
 /**
- * Êı¾İÏûÏ¢·Ö·¢Èë¿Ú;
+ * DBæ¶ˆæ¯åˆ†å‘å™¨;
  * 
  * @author crazyjohn
  *

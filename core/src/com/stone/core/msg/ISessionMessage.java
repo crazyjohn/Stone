@@ -1,14 +1,14 @@
 package com.stone.core.msg;
 
 /**
- * ³ÖÓĞ»á»°µÄÏûÏ¢½Ó¿Ú;
+ * å›è¯æ¶ˆæ¯æ¥å£;
  * 
  * @author crazyjohn
  *
  */
 public interface ISessionMessage extends IMessage {
 	/**
-	 * »ñÈ¡»Ø»°ĞÅÏ¢;
+	 * è·å–ç»‘å®šçš„å›è¯;
 	 * 
 	 * @return
 	 */

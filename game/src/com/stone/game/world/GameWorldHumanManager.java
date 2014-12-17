@@ -4,7 +4,7 @@ import com.stone.core.lock.ILockableContainer;
 import com.stone.game.human.Human;
 
 /**
- * ÓÎÏ·ÊÀ½çÍæ¼Ò¹ÜÀíÆ÷;
+ * æ¸¸æˆä¸–ç•Œç©å®¶ç®¡ç†å™¨;
  * 
  * @author crazyjohn
  *

@@ -3,7 +3,7 @@ package com.stone.core.msg;
 import com.stone.core.entity.IEntity;
 
 /**
- * Êı¾İ¿â²Ù×÷ÏûÏ¢½Ó¿Ú;
+ * æ•°æ®åº“æ¶ˆæ¯æ¥å£;
  * 
  * @author crazyjohn
  *

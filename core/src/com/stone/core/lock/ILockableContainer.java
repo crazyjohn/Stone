@@ -1,7 +1,7 @@
 package com.stone.core.lock;
 
 /**
- * Ö§³ÖËø¶¨µÄ¶ÔÏóÈİÆ÷;
+ * æ”¯æŒé”å®šçš„å¯¹è±¡å®¹å™¨;
  * 
  * @author crazyjohn
  *

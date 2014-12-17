@@ -1,21 +1,21 @@
 package com.stone.core.lock;
 
 /**
- * Ö§³ÖËø¶¨µÄ½Ó¿Ú;
+ * æ”¯æŒé”å®šçš„å¯¹è±¡æ¥å£;
  * 
  * @author crazyjohn
  *
  */
 public interface ILockable {
 	/**
-	 * Ëø¶¨×Ô¼º;
+	 * é”å®šæ–¹æ³•;
 	 * 
 	 * @return
 	 */
 	public ILockable lock();
 
 	/**
-	 * ½âæi;
+	 * è§£é”æ–¹æ³•;
 	 */
 	public void unlock();
 

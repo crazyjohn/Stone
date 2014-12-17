@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * ÏûÏ¢´¦ÀíÆ÷×¢½â;
+ * æ¶ˆæ¯å¤„ç†å™¨æ³¨è§£;
  * 
  * @author crazyjohn
  *

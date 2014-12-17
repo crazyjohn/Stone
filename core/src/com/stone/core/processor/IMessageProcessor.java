@@ -3,24 +3,24 @@ package com.stone.core.processor;
 import com.stone.core.msg.IMessage;
 
 /**
- * ÏûÏ¢´¦ÀíÆ÷½Ó¿Ú;
+ * å¤„ç†å™¨æ¥å£;
  * 
  * @author crazyjohn
  *
  */
 public interface IMessageProcessor {
 	/**
-	 * Æô¶¯´¦ÀíÆ÷;
+	 * å¯åŠ¨;
 	 */
 	public void start();
 
 	/**
-	 * ¹Ø±Õ´¦ÀíÆ÷;
+	 * å…³é—­;
 	 */
 	public void stop();
 
 	/**
-	 * Í¶µİÏûÏ¢;
+	 * æŠ•é€’æ¶ˆæ¯;
 	 * 
 	 * @param msg
 	 */

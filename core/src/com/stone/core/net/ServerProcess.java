@@ -1,16 +1,19 @@
-package com.stone.game;
+package com.stone.core.net;
 
 import com.stone.core.config.IConfig;
+import com.stone.core.processor.IDispatcher;
 import com.stone.core.service.IService;
-
 /**
- * 游戏服务器;
- * 
- * @author Administrator
+ * 服务器网络io进程;
+ * @author crazyjohn
  *
  */
-public class GameServer implements IService{
-
+public class ServerProcess implements IService {
+	private IoAcceptor accepter;
+	public ServerProcess(String bindIp, int port, IDispatcher dispatcher) {
+		
+	}
+	
 	@Override
 	public void init(IConfig config) {
 		// TODO Auto-generated method stub
@@ -27,11 +30,6 @@ public class GameServer implements IService{
 	public void stop() {
 		// TODO Auto-generated method stub
 		
-	}
-	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

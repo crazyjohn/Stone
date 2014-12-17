@@ -5,7 +5,7 @@ import com.stone.game.human.Human;
 import com.stone.game.human.IHumanPersistenceManager;
 
 /**
- * Íæ¼Ò¼¼ÄÜ¹ÜÀíÆ÷;
+ * ç©å®¶æŠ€èƒ½ç®¡ç†å™¨;s
  * 
  * @author crazyjohn
  *
@@ -31,7 +31,7 @@ public class HumanSkillManager implements IHumanPersistenceManager {
 	}
 
 	/**
-	 * ×°±¸¼¼ÄÜ;
+	 * è£…å¤‡æŠ€èƒ½;
 	 */
 	public void equipSkill() {
 		// TODO Auto-generated method stub

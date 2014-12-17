@@ -10,9 +10,7 @@ import com.stone.core.processor.IMessageProcessor;
 import com.stone.game.human.skill.HumanSkillManager;
 
 /**
- * 游戏角色业务对象;
- * <p>
- * 玩家所有的业务管理器都在此处注册;
+ * 娓告垙瑙掕壊涓氬姟瀵硅薄;
  * 
  * @author crazyjohn
  *

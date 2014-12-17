@@ -1,21 +1,21 @@
 package com.stone.core.state;
 
 /**
- * ×´Ì¬¹ÜÀíÆ÷½Ó¿Ú;
+ * çŠ¶æ€ç®¡ç†å™¨æ¥å£;
  * 
  * @author crazyjohn
  *
  */
 public interface IStateManager {
 	/**
-	 * »ñÈ¡µ±Ç°×´Ì¬;
+	 * è·å–å½“å‰çŠ¶æ€;
 	 * 
 	 * @return
 	 */
 	public IState getCurrentState();
 
 	/**
-	 * ÉèÖÃµ±Ç°×´Ì¬;
+	 * è®¾ç½®å½“å‰çŠ¶æ€;
 	 * 
 	 * @param state
 	 * @return
@@ -23,7 +23,7 @@ public interface IStateManager {
 	public IState setCurrentState(IState state);
 
 	/**
-	 * ÊÇ·ñ¿ÉÒÔ×ª»»µ½Ö¸¶¨×´Ì¬;
+	 * æ˜¯å¦å¯ä»¥è½¬æ¢åˆ°æŒ‡å®šçŠ¶æ€;
 	 * 
 	 * @param state
 	 * @return
@@ -31,7 +31,7 @@ public interface IStateManager {
 	public boolean canTransferStateTo(IState state);
 
 	/**
-	 * ×ª»»µ½Ö¸¶¨×´Ì¬;
+	 * è½¬æ¢åˆ°æŒ‡å®šçŠ¶æ€;
 	 * 
 	 * @param state
 	 * @return

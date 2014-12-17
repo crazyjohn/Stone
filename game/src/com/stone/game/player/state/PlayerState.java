@@ -4,8 +4,7 @@ import com.stone.core.processor.MessageType;
 import com.stone.core.state.IState;
 
 /**
- * Íæ¼Ò×´Ì¬;
- * 
+ * ç©å®¶çŠ¶æ€ç±»å‹;
  * @author crazyjohn
  *
  */
@@ -23,7 +22,7 @@ public enum PlayerState implements IState {
 			return false;
 		}
 	},
-	/** ½¨Á¢Á¬½Ó */
+	/** å·²è¿æ¥ */
 	CONNECTED() {
 		@Override
 		public boolean canProcessMessage(MessageType type) {
@@ -37,7 +36,7 @@ public enum PlayerState implements IState {
 			return false;
 		}
 	},
-	/** ÒÑ¾­ÈÏÖ¤ */
+	/** å·²è®¤è¯ */
 	AUTHORIZED() {
 		@Override
 		public boolean canProcessMessage(MessageType type) {
@@ -51,7 +50,7 @@ public enum PlayerState implements IState {
 			return false;
 		}
 	},
-	/** ½øÈëÓÎÏ·ÖĞ */
+	/** è¿›å…¥æ¸¸æˆä¸­ */
 	ENTERING() {
 		@Override
 		public boolean canProcessMessage(MessageType type) {
@@ -65,7 +64,7 @@ public enum PlayerState implements IState {
 			return false;
 		}
 	},
-	/** ½øÈëÓÎÏ·ÖĞ */
+	/** æ¸¸æˆä¸­ */
 	GAMEING() {
 		@Override
 		public boolean canProcessMessage(MessageType type) {
@@ -79,7 +78,7 @@ public enum PlayerState implements IState {
 			return false;
 		}
 	},
-	/** Õ½¶·ÖĞ */
+	/** æˆ˜æ–—ä¸­  */
 	BATTLING() {
 		@Override
 		public boolean canProcessMessage(MessageType type) {

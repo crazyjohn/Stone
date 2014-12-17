@@ -1,14 +1,14 @@
 package com.stone.core.processor;
 
 /**
- * 可分发对象的接口;
+ * 鍙垎鍙戠殑瀵硅薄鎺ュ彛;
  * 
  * @author crazyjohn
  *
  */
 public interface IDispatchable {
 	/**
-	 * 获取处理器;
+	 * 杩斿洖鑷繁鐨勫垎鍙戝櫒;
 	 * 
 	 * @param myDispatcher
 	 * @return

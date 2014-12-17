@@ -5,26 +5,24 @@ import com.stone.core.processor.MessageType;
 import com.stone.game.msg.CGMessage;
 
 /**
- * ÏûÏ¢´¦ÀíÆ÷½Ó¿Ú;
+ * æ¶ˆæ¯å¤„ç†å™¨æ¥å£;
  * <p>
- * 1. ËùÓĞÏûÏ¢µÄÂß¼­´¦ÀíÈë¿Ú£¬¾ßÌåµÄÂß¼­¿ÉÒÔÎ¯ÍĞ¸øÍæ¼ÒÖÆ¶¨µÄÒµÎñ¹ÜÀíÆ÷È¥×ö;<br>
- * 2. ÊµÏÖ¿ÉÒÔÌí¼Ó×¢½â{@link Handler}
- * È»ºóÀûÓÃiocÈİÆ÷(±ÈÈçspring)»òÕß×Ô¼º½øĞĞÈ«¾ÖÉ¨Ãè,½¨Á¢ºÍmessageµÄÓ³Éä,±ÜÃâÒ×´íµÄÊÖ¶¯×¢²á;
- * 
+ * 1. å®ç°æ¶ˆæ¯çš„è‡ªå¤„ç†;<br>
+ * 2. å¯ä»¥å’Œæ³¨è§£ç»“åˆ{@link Handler} å®ç°æ›¿ä»£åå°„æ–¹æ¡ˆçš„åŠ¨æ€åå°„, æˆ–è€…å¯ä»¥ç›´æ¥ä½¿ç”¨iocå®¹å™¨ç®¡ç†;
  * 
  * @author crazyjohn
  *
  */
 public interface IMessageHandlerWithType {
 	/**
-	 * ÏûÏ¢´¦Àí½Ó¿Ú;
+	 * å¤„ç†æŒ‡å®šæ¶ˆæ¯;
 	 * 
 	 * @param msg
 	 */
 	public void execute(CGMessage msg);
 
 	/**
-	 * »ñÈ¡´¦ÀíµÄÏûÏ¢ÀàĞÍ;
+	 * è·å–å¤„ç†çš„æ¶ˆæ¯ç±»å‹;
 	 * 
 	 * @return
 	 */
