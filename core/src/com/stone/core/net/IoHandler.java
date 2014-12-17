@@ -9,8 +9,13 @@ import com.stone.core.msg.ISession;
  *
  */
 public interface IoHandler {
+
 	public void onSessionOpend(ISession session);
-	public void onSesssionClosed();
-	public void onMessageReceived();
-	public void onExceptionCaught();
+
+	public void onSesssionClosed(ISession session);
+
+	public void onMessageReceived(ISession session, Object msg);
+
+	public void onExceptionCaught(ISession session, Exception e);
+
 }

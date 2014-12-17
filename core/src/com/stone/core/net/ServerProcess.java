@@ -9,7 +9,8 @@ import com.stone.core.service.IService;
  *
  */
 public class ServerProcess implements IService {
-	private IoAcceptor accepter;
+	protected IoAcceptor accepter;
+	
 	public ServerProcess(String bindIp, int port, IDispatcher dispatcher) {
 		
 	}
