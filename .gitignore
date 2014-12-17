@@ -46,3 +46,4 @@ Temporary Items
 *.class
 .metadata/
 .settings/
+.recommenders/
