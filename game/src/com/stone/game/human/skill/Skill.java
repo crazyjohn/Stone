@@ -1,6 +1,6 @@
 package com.stone.game.human.skill;
 
-import com.stone.core.entity.IGameObject;
+import com.stone.core.game.IGameObject;
 import com.stone.db.entity.SkillEntity;
 
 /**
