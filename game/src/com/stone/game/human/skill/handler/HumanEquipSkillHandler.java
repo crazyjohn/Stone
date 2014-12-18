@@ -13,7 +13,8 @@ import com.stone.game.human.skill.msg.CGEquipSkillMessage;
  *
  */
 @Handler
-public class HumanEquipSkillHandler implements IMessageHandlerWithType<CGEquipSkillMessage> {
+public class HumanEquipSkillHandler implements
+		IMessageHandlerWithType<CGEquipSkillMessage> {
 
 	@Override
 	public MessageType getMessageType() {
@@ -22,9 +23,9 @@ public class HumanEquipSkillHandler implements IMessageHandlerWithType<CGEquipSk
 
 	@Override
 	public void execute(CGEquipSkillMessage msg) {
-		// TODO do some check
+		// 装备技能;
 		Human human = msg.getHuman();
-		human.getSkillManager().equipSkill();
+		human.getSkillManager().equipSkill(msg.getSkillId());
 	}
 
 }

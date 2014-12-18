@@ -9,5 +9,10 @@ import com.stone.game.msg.BaseCGMessage;
  *
  */
 public class CGEquipSkillMessage extends BaseCGMessage {
-	
+	private int skillId;
+
+	public int getSkillId() {
+		return skillId;
+	}
+
 }
