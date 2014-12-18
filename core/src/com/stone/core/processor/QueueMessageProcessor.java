@@ -5,6 +5,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import com.stone.core.log.ILogger;
+import com.stone.core.log.Loggers;
 import com.stone.core.msg.IMessage;
 
 /**
@@ -14,6 +16,7 @@ import com.stone.core.msg.IMessage;
  *
  */
 public class QueueMessageProcessor implements IMessageProcessor, Runnable {
+	private ILogger logger = Loggers.getLogger(QueueMessageProcessor.class);
 	/** 阻塞队列 */
 	private BlockingQueue<IMessage> queue = new LinkedBlockingQueue<IMessage>();
 	/** 执行器 */
@@ -38,8 +41,7 @@ public class QueueMessageProcessor implements IMessageProcessor, Runnable {
 		try {
 			queue.put(msg);
 		} catch (InterruptedException e) {
-			// TODO cancel policy
-			e.printStackTrace();
+			logger.error("Interrupted when put msg to queue", e);
 		}
 	}
 
@@ -50,8 +52,7 @@ public class QueueMessageProcessor implements IMessageProcessor, Runnable {
 				IMessage msg = queue.take();
 				process(msg);
 			} catch (InterruptedException e) {
-				// TODO cancel policy
-				e.printStackTrace();
+				logger.error("Interrupted when take msg from queue", e);
 			}
 		}
 	}
