@@ -1,8 +1,8 @@
 package com.stone.game.handler;
 
 import com.stone.core.annotation.Handler;
+import com.stone.core.msg.IMessage;
 import com.stone.core.processor.MessageType;
-import com.stone.game.msg.CGMessage;
 
 /**
  * 消息处理器接口;
@@ -13,13 +13,13 @@ import com.stone.game.msg.CGMessage;
  * @author crazyjohn
  *
  */
-public interface IMessageHandlerWithType {
+public interface IMessageHandlerWithType<Message extends IMessage> {
 	/**
 	 * 处理指定消息;
 	 * 
 	 * @param msg
 	 */
-	public void execute(CGMessage msg);
+	public void execute(Message msg);
 
 	/**
 	 * 获取处理的消息类型;

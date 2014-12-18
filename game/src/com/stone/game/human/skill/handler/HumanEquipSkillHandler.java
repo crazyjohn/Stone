@@ -4,7 +4,7 @@ import com.stone.core.annotation.Handler;
 import com.stone.core.processor.MessageType;
 import com.stone.game.handler.IMessageHandlerWithType;
 import com.stone.game.human.Human;
-import com.stone.game.msg.CGMessage;
+import com.stone.game.human.skill.msg.CGEquipSkillMessage;
 
 /**
  * 装备技能处理器;
@@ -13,7 +13,7 @@ import com.stone.game.msg.CGMessage;
  *
  */
 @Handler
-public class HumanEquipSkillHandler implements IMessageHandlerWithType {
+public class HumanEquipSkillHandler implements IMessageHandlerWithType<CGEquipSkillMessage> {
 
 	@Override
 	public MessageType getMessageType() {
@@ -21,7 +21,7 @@ public class HumanEquipSkillHandler implements IMessageHandlerWithType {
 	}
 
 	@Override
-	public void execute(CGMessage msg) {
+	public void execute(CGEquipSkillMessage msg) {
 		// TODO do some check
 		Human human = msg.getHuman();
 		human.getSkillManager().equipSkill();
