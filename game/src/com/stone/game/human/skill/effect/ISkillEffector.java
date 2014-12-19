@@ -22,7 +22,7 @@ public interface ISkillEffector {
 	 * @param battleRole
 	 * @param actions
 	 * @param params
-	 *            效果参数值;
+	 *            效果参数值, 根据不同类型进行自解释;
 	 * @return
 	 */
 	IEffectResult effect(BattleField field, BattleRole battleRole,
