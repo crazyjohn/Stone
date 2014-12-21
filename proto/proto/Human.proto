@@ -4,3 +4,9 @@ option java_outer_classname = "Humans";
 message Human {
 	required int64 guid = 1;
 }
+
+enum SceneObjectType {
+	MONSTER = 1;
+	HUMAN = 2;
+	NPC = 3;
+}

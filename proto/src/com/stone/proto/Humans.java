@@ -8,6 +8,97 @@ public final class Humans {
   public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistry registry) {
   }
+  /**
+   * Protobuf enum {@code SceneObjectType}
+   */
+  public enum SceneObjectType
+      implements com.google.protobuf.ProtocolMessageEnum {
+    /**
+     * <code>MONSTER = 1;</code>
+     */
+    MONSTER(0, 1),
+    /**
+     * <code>HUMAN = 2;</code>
+     */
+    HUMAN(1, 2),
+    /**
+     * <code>NPC = 3;</code>
+     */
+    NPC(2, 3),
+    ;
+
+    /**
+     * <code>MONSTER = 1;</code>
+     */
+    public static final int MONSTER_VALUE = 1;
+    /**
+     * <code>HUMAN = 2;</code>
+     */
+    public static final int HUMAN_VALUE = 2;
+    /**
+     * <code>NPC = 3;</code>
+     */
+    public static final int NPC_VALUE = 3;
+
+
+    public final int getNumber() { return value; }
+
+    public static SceneObjectType valueOf(int value) {
+      switch (value) {
+        case 1: return MONSTER;
+        case 2: return HUMAN;
+        case 3: return NPC;
+        default: return null;
+      }
+    }
+
+    public static com.google.protobuf.Internal.EnumLiteMap<SceneObjectType>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static com.google.protobuf.Internal.EnumLiteMap<SceneObjectType>
+        internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<SceneObjectType>() {
+            public SceneObjectType findValueByNumber(int number) {
+              return SceneObjectType.valueOf(number);
+            }
+          };
+
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+        getValueDescriptor() {
+      return getDescriptor().getValues().get(index);
+    }
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    public static final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptor() {
+      return com.stone.proto.Humans.getDescriptor().getEnumTypes().get(0);
+    }
+
+    private static final SceneObjectType[] VALUES = values();
+
+    public static SceneObjectType valueOf(
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      return VALUES[desc.getIndex()];
+    }
+
+    private final int index;
+    private final int value;
+
+    private SceneObjectType(int index, int value) {
+      this.index = index;
+      this.value = value;
+    }
+
+    // @@protoc_insertion_point(enum_scope:SceneObjectType)
+  }
+
   public interface HumanOrBuilder extends
       // @@protoc_insertion_point(interface_extends:Human)
       com.google.protobuf.MessageOrBuilder {
@@ -427,8 +518,9 @@ public final class Humans {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\013Human.proto\"\025\n\005Human\022\014\n\004guid\030\001 \002(\003B\031\n\017" +
-      "com.stone.protoB\006Humans"
+      "\n\013Human.proto\"\025\n\005Human\022\014\n\004guid\030\001 \002(\003*2\n\017" +
+      "SceneObjectType\022\013\n\007MONSTER\020\001\022\t\n\005HUMAN\020\002\022" +
+      "\007\n\003NPC\020\003B\031\n\017com.stone.protoB\006Humans"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
