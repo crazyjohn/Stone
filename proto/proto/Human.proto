@@ -1,0 +1,6 @@
+option java_package = "com.stone.proto";
+option java_outer_classname = "Humans";
+
+message Human {
+	required int64 guid = 1;
+}
