@@ -1,6 +1,7 @@
 package com.stone.game.player;
 
-import com.stone.core.msg.ISession;
+import org.apache.mina.core.session.IoSession;
+
 import com.stone.core.state.IState;
 import com.stone.core.state.IStateManager;
 import com.stone.game.human.Human;
@@ -14,7 +15,7 @@ public class Player implements IStateManager {
 	/** 当前绑定的角色 */
 	private Human human;
 	/** 绑定的回话 */
-	private ISession session;
+	private IoSession session;
 	/** 当前状态 */
 	private IState currentState;
 
@@ -26,11 +27,11 @@ public class Player implements IStateManager {
 		this.human = human;
 	}
 
-	public ISession getSession() {
+	public IoSession getSession() {
 		return session;
 	}
 
-	public void setSession(ISession session) {
+	public void setSession(IoSession session) {
 		this.session = session;
 	}
 

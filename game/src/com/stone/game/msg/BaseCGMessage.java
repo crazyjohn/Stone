@@ -1,7 +1,8 @@
 package com.stone.game.msg;
 
+import org.apache.mina.core.session.IoSession;
+
 import com.stone.core.msg.BaseMessage;
-import com.stone.core.msg.ISession;
 import com.stone.game.human.Human;
 
 /**
@@ -13,7 +14,7 @@ import com.stone.game.human.Human;
 public class BaseCGMessage extends BaseMessage implements CGMessage {
 
 	@Override
-	public ISession getSession() {
+	public IoSession getSession() {
 		// TODO Auto-generated method stub
 		return null;
 	}
