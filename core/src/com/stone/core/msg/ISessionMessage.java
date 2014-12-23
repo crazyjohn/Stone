@@ -15,4 +15,6 @@ public interface ISessionMessage extends IMessage {
 	 * @return
 	 */
 	public IoSession getSession();
+	
+	public void setSession(IoSession session);
 }

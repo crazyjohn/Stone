@@ -23,7 +23,9 @@ public abstract class BaseIoHandler extends IoHandlerAdapter {
 	public void messageReceived(IoSession session, Object message)
 			throws Exception {
 		if (message instanceof ISessionMessage) {
-			processor.put((ISessionMessage) message);
+			ISessionMessage msg = (ISessionMessage) message;
+			msg.setSession(session);
+			processor.put(msg);
 		}
 	}
 
@@ -37,5 +39,12 @@ public abstract class BaseIoHandler extends IoHandlerAdapter {
 	public void sessionOpened(IoSession session) throws Exception {
 		// TODO Auto-generated method stub
 		super.sessionOpened(session);
+	}
+	
+	@Override
+	public void exceptionCaught(IoSession session, Throwable cause)
+			throws Exception {
+		// TODO Auto-generated method stub
+		super.exceptionCaught(session, cause);
 	}
 }
