@@ -2,5 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="lib" path="lib/mina-core-2.0.9.jar" sourcepath="lib-src/mina-2.0.9-src.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/mina-example-2.0.9.jar" sourcepath="lib-src/mina-example-2.0.9.src.zip"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
