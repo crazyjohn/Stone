@@ -19,15 +19,20 @@ import com.stone.core.service.IService;
  *
  */
 public class ServerProcess implements IService {
-	protected IoAcceptor accepter;
+	/** Acceptor */
+	private IoAcceptor acceptor;
+	/** port */
 	private int port;
+	/** bindIp */
 	private String bindIp;
+	/** io回调处理器 */
 	private IoHandler ioHandler;
+	/** 编解码工厂 */
 	private ProtocolCodecFactory codecFactory;
 
 	public ServerProcess(String bindIp, int port, IoHandler ioHandler,
 			ProtocolCodecFactory codecFactory) {
-		accepter = new NioSocketAcceptor();
+		acceptor = new NioSocketAcceptor();
 		this.bindIp = bindIp;
 		this.port = port;
 		this.ioHandler = ioHandler;
@@ -42,17 +47,17 @@ public class ServerProcess implements IService {
 
 	@Override
 	public void start() throws IOException {
-		accepter.setHandler(ioHandler);
-		accepter.getFilterChain().addLast("codec",
+		acceptor.setHandler(ioHandler);
+		acceptor.getFilterChain().addLast("codec",
 				new ProtocolCodecFilter(codecFactory));
-		accepter.bind(new InetSocketAddress(this.bindIp, this.port));
+		acceptor.bind(new InetSocketAddress(this.bindIp, this.port));
 	}
 
 	@Override
 	public void stop() {
 		// 解除绑定;
-		accepter.unbind();
-		accepter.dispose();
+		acceptor.unbind();
+		acceptor.dispose();
 	}
 
 }
