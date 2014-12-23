@@ -1,5 +1,7 @@
 package com.stone.core.msg;
 
+import org.apache.mina.core.session.IoSession;
+
 /**
  * 回话消息接口;
  * 
@@ -12,5 +14,5 @@ public interface ISessionMessage extends IMessage {
 	 * 
 	 * @return
 	 */
-	public ISession getSession();
+	public IoSession getSession();
 }
