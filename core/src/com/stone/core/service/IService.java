@@ -1,5 +1,7 @@
 package com.stone.core.service;
 
+import java.io.IOException;
+
 import com.stone.core.config.IConfig;
 
 /**
@@ -19,7 +21,7 @@ public interface IService {
 	/**
 	 * 启动服务;
 	 */
-	public void start();
+	public void start() throws IOException;
 
 	/**
 	 * 停止服务;
