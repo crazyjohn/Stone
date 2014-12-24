@@ -1,8 +1,7 @@
 package com.stone.game.msg;
 
-import org.apache.mina.core.session.IoSession;
-
 import com.stone.core.msg.BaseMessage;
+import com.stone.core.session.ISession;
 import com.stone.game.human.Human;
 
 /**
@@ -12,9 +11,9 @@ import com.stone.game.human.Human;
  *
  */
 public class BaseCGMessage extends BaseMessage implements CGMessage {
-	protected IoSession session;
+	protected ISession session;
 	@Override
-	public IoSession getSession() {
+	public ISession getSession() {
 		return session;
 	}
 
@@ -25,7 +24,7 @@ public class BaseCGMessage extends BaseMessage implements CGMessage {
 	}
 
 	@Override
-	public void setSession(IoSession session) {
+	public void setSession(ISession session) {
 		this.session = session;
 	}
 
