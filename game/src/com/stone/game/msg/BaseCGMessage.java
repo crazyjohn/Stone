@@ -1,8 +1,8 @@
 package com.stone.game.msg;
 
 import com.stone.core.msg.BaseMessage;
-import com.stone.core.session.ISession;
 import com.stone.game.human.Human;
+import com.stone.game.session.GamePlayerSession;
 
 /**
  * 基础CG消息;
@@ -11,21 +11,21 @@ import com.stone.game.human.Human;
  *
  */
 public class BaseCGMessage extends BaseMessage implements CGMessage {
-	protected ISession session;
+	protected GamePlayerSession session;
+
 	@Override
-	public ISession getSession() {
+	public GamePlayerSession getSession() {
 		return session;
 	}
 
 	@Override
-	public Human getHuman() {
-		// TODO Auto-generated method stub
-		return null;
+	public void setSession(GamePlayerSession session) {
+		this.session = session;
 	}
 
 	@Override
-	public void setSession(ISession session) {
-		this.session = session;
+	public Human getHuman() {
+		return session.getPlayer().getHuman();
 	}
 
 }

@@ -2,6 +2,7 @@ package com.stone.game.msg;
 
 import com.stone.core.msg.ISessionMessage;
 import com.stone.game.human.Human;
+import com.stone.game.session.GamePlayerSession;
 
 /**
  * client和GameServer通信消息接口;
@@ -9,6 +10,6 @@ import com.stone.game.human.Human;
  * @author crazyjohn
  *
  */
-public interface CGMessage extends ISessionMessage {
+public interface CGMessage extends ISessionMessage<GamePlayerSession> {
 	public Human getHuman();
 }
