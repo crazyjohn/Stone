@@ -10,7 +10,7 @@ import com.stone.game.session.GamePlayerSession;
  * @author crazyjohn
  *
  */
-public class BaseCGMessage extends BaseMessage implements CGMessage {
+public abstract class BaseCGMessage extends BaseMessage implements CGMessage {
 	protected GamePlayerSession session;
 
 	@Override

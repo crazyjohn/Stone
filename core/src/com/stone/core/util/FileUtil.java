@@ -1,4 +1,4 @@
-package com.stone.core.utils;
+package com.stone.core.util;
 
 import java.io.File;
 import java.io.FileInputStream;

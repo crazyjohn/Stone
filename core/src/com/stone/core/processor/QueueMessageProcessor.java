@@ -7,7 +7,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 import com.stone.core.concurrent.NamedThreadFactory;
 import com.stone.core.log.ILogger;
-import com.stone.core.log.Loggers;
+import com.stone.core.log.SimpleLoggers;
 import com.stone.core.msg.IMessage;
 
 /**
@@ -17,7 +17,7 @@ import com.stone.core.msg.IMessage;
  *
  */
 public class QueueMessageProcessor implements IMessageProcessor, Runnable {
-	private ILogger logger = Loggers.getLogger(QueueMessageProcessor.class);
+	private ILogger logger = SimpleLoggers.getLogger(QueueMessageProcessor.class);
 	/** 阻塞队列 */
 	private BlockingQueue<IMessage> queue = new LinkedBlockingQueue<IMessage>();
 	/** 执行器 */

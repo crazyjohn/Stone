@@ -6,7 +6,7 @@ package com.stone.core.log;
  * @author crazyjohn
  *
  */
-public class Loggers {
+public class SimpleLoggers {
 	private static LoggerFactory factory = new LoggerFactory();
 
 	public static ILogger getLogger(String loggerName) {
