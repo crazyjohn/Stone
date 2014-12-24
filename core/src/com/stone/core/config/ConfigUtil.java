@@ -100,12 +100,25 @@ public class ConfigUtil {
 		return classLoader.getResource(fileName).getPath();
 	}
 
+	/**
+	 * 获取URL路径;
+	 * 
+	 * @param fileName
+	 * @return
+	 */
 	public static URL getConfigURL(String fileName) {
 		ClassLoader classLoader = Thread.currentThread()
 				.getContextClassLoader();
 		return classLoader.getResource(fileName);
 	}
 
+	/**
+	 * 按顺序执行指定的js文件;
+	 * 
+	 * @param configs
+	 * @throws ScriptException
+	 * @throws IOException
+	 */
 	public static void loadJsConfigsByOrder(String[] configs)
 			throws ScriptException, IOException {
 		Reader reader = null;
@@ -126,6 +139,15 @@ public class ConfigUtil {
 		}
 	}
 
+	/**
+	 * 加载指定路径的js文件;
+	 * 
+	 * @param isEncrypt
+	 * @param config
+	 * @param cfgFile
+	 * @throws ScriptException
+	 * @throws IOException
+	 */
 	public static void loadJsConfig(boolean isEncrypt, IConfig config,
 			String cfgFile) throws ScriptException, IOException {
 		logger.info(String.format("Load js config, file: %s", cfgFile));
@@ -168,6 +190,14 @@ public class ConfigUtil {
 		config.validate();
 	}
 
+	/**
+	 * 加载指定路径的js文件到config中;
+	 * 
+	 * @param config
+	 * @param cfgFile
+	 * @throws ScriptException
+	 * @throws IOException
+	 */
 	public static void loadJsConfig(IConfig config, String cfgFile)
 			throws ScriptException, IOException {
 		loadJsConfig(false, config, cfgFile);
