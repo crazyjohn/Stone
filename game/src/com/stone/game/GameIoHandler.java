@@ -3,7 +3,7 @@ package com.stone.game;
 import org.apache.mina.core.session.IoSession;
 
 import com.stone.core.msg.ISessionMessage;
-import com.stone.core.net.BaseIoHandler;
+import com.stone.core.net.AbstractIoHandler;
 import com.stone.core.processor.IMessageProcessor;
 import com.stone.game.session.GamePlayerSession;
 
@@ -13,7 +13,7 @@ import com.stone.game.session.GamePlayerSession;
  * @author crazyjohn
  *
  */
-public class GameIoHandler extends BaseIoHandler<GamePlayerSession> {
+public class GameIoHandler extends AbstractIoHandler<GamePlayerSession> {
 
 	public GameIoHandler(IMessageProcessor processor) {
 		super(processor);

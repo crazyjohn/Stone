@@ -13,12 +13,12 @@ import com.stone.core.session.ISession;
  * @author crazyjohn
  *
  */
-public abstract class BaseIoHandler<S extends ISession> extends
+public abstract class AbstractIoHandler<S extends ISession> extends
 		IoHandlerAdapter {
 	protected IMessageProcessor processor;
 	private static final String SESSION_INFO = "SESSION_INFO";
 
-	public BaseIoHandler(IMessageProcessor processor) {
+	public AbstractIoHandler(IMessageProcessor processor) {
 		this.processor = processor;
 	}
 
