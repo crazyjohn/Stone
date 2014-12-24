@@ -13,8 +13,10 @@ import com.stone.core.session.ISession;
  * @author crazyjohn
  *
  */
-public abstract class BaseIoHandler extends IoHandlerAdapter {
+public abstract class BaseIoHandler<S extends ISession> extends
+		IoHandlerAdapter {
 	protected IMessageProcessor processor;
+	private static final String SESSION_INFO = "SESSION_INFO";
 
 	public BaseIoHandler(IMessageProcessor processor) {
 		this.processor = processor;
@@ -23,13 +25,15 @@ public abstract class BaseIoHandler extends IoHandlerAdapter {
 	@Override
 	public void messageReceived(IoSession session, Object message)
 			throws Exception {
-		ISession sessionInfo = (ISession) session.getAttribute("sessionInfo");
+		@SuppressWarnings("unchecked")
+		S sessionInfo = (S) session.getAttribute(SESSION_INFO);
 		if (sessionInfo == null) {
 			// 无回话信息的直接关闭
 			session.close(true);
 		}
 		if (message instanceof ISessionMessage) {
-			ISessionMessage msg = (ISessionMessage) message;
+			@SuppressWarnings("unchecked")
+			ISessionMessage<S> msg = (ISessionMessage<S>) message;
 			msg.setSession(sessionInfo);
 			processor.put(msg);
 		}
@@ -37,20 +41,59 @@ public abstract class BaseIoHandler extends IoHandlerAdapter {
 
 	@Override
 	public void sessionClosed(IoSession session) throws Exception {
-		// TODO Auto-generated method stub
-		super.sessionClosed(session);
+		@SuppressWarnings("unchecked")
+		S sessionInfo = (S) session.getAttribute(SESSION_INFO);
+		if (sessionInfo != null) {
+			session.setAttribute(SESSION_INFO, null);
+		}
+		ISessionMessage<S> sessionCloseMessage = createSessionCloseMessage(sessionInfo);
+		if (sessionCloseMessage == null) {
+			return;
+		}
+		this.processor.put(sessionCloseMessage);
 	}
 
 	@Override
 	public void sessionOpened(IoSession session) throws Exception {
-		// TODO Auto-generated method stub
-		super.sessionOpened(session);
+		S sessionInfo = createSessionInfo(session);
+		session.setAttributeIfAbsent(SESSION_INFO, sessionInfo);
+		ISessionMessage<S> sessionOpenMessage = createSessionOpenMessage(sessionInfo);
+		if (sessionOpenMessage == null) {
+			return;
+		}
+		this.processor.put(sessionOpenMessage);
 	}
-	
+
 	@Override
 	public void exceptionCaught(IoSession session, Throwable cause)
 			throws Exception {
 		// TODO Auto-generated method stub
 		super.exceptionCaught(session, cause);
 	}
+
+	/**
+	 * 创建回话打开消息;
+	 * 
+	 * @param sessionInfo
+	 * @return
+	 */
+	protected abstract ISessionMessage<S> createSessionOpenMessage(S sessionInfo);
+
+	/**
+	 * 创建回话信息;
+	 * 
+	 * @param session
+	 * @return
+	 */
+	protected abstract S createSessionInfo(IoSession session);
+
+	/**
+	 * 创建回话关闭消息;
+	 * 
+	 * @param sessionInfo
+	 * @return
+	 */
+	protected abstract ISessionMessage<S> createSessionCloseMessage(
+			S sessionInfo);
+
 }

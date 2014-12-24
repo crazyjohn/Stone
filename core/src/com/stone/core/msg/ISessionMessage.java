@@ -8,13 +8,13 @@ import com.stone.core.session.ISession;
  * @author crazyjohn
  *
  */
-public interface ISessionMessage extends IMessage {
+public interface ISessionMessage<S extends ISession> extends IMessage {
 	/**
 	 * 获取绑定的回话;
 	 * 
 	 * @return
 	 */
-	public ISession getSession();
+	public S getSession();
 	
-	public void setSession(ISession session);
+	public void setSession(S session);
 }
