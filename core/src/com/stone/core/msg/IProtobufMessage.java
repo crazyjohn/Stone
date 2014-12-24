@@ -9,11 +9,11 @@ import com.google.protobuf.Message.Builder;
  *
  * @param <B>
  */
-public interface IProtobufMessage<B extends Builder> extends IMessage {
+public interface IProtobufMessage extends IMessage {
 	/**
 	 * 获取protobuf实体;
 	 * 
 	 * @return
 	 */
-	public B getBuilder();
+	public Builder getBuilder();
 }

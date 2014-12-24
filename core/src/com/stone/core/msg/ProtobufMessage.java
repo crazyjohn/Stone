@@ -1,7 +1,7 @@
 package com.stone.core.msg;
 
-import com.google.protobuf.AbstractMessage.Builder;
 import com.google.protobuf.InvalidProtocolBufferException;
+import com.google.protobuf.Message.Builder;
 
 /**
  * 基础的protobuf消息;
@@ -10,12 +10,15 @@ import com.google.protobuf.InvalidProtocolBufferException;
  *
  * @param <B>
  */
-public class ProtobufMessage<B extends Builder<B>> extends BaseMessage
-		implements IProtobufMessage<B> {
-	protected B builder;
+public class ProtobufMessage extends BaseMessage implements IProtobufMessage {
+	protected Builder builder;
+
+	public ProtobufMessage(Builder builder) {
+		this.builder = builder;
+	}
 
 	@Override
-	public B getBuilder() {
+	public Builder getBuilder() {
 		return builder;
 	}
 
