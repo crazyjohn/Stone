@@ -25,7 +25,7 @@ public class GameServer implements IService {
 	private GameServerConfig config;
 	private String configPath;
 	protected ServerProcess externalProcess;
-	protected IDispatcher mainDispatcher;
+	protected GameDispatcher mainDispatcher;
 	protected IDispatcher dbDispatcher;
 
 	public GameServer(String configPath) {
@@ -38,6 +38,7 @@ public class GameServer implements IService {
 		ConfigUtil.loadJsConfig(config, configPath);
 		mainDispatcher = new GameDispatcher(config.getGameProcessorCount());
 		dbDispatcher = new DBDispatcher(config.getDbProcessorCount());
+		mainDispatcher.setDbDispatcher(dbDispatcher);
 		// 对外服务
 		externalProcess = new ServerProcess(config.getBindIp(),
 				config.getPort(), new GameIoHandler(mainDispatcher),
