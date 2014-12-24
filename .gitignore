@@ -48,3 +48,4 @@ Temporary Items
 .settings/
 .recommenders/
 game/bin/game_server.cfg.js
+game/logs/
