@@ -4,10 +4,11 @@ import java.io.IOException;
 
 import javax.script.ScriptException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.stone.core.codec.GameCodecFactory;
 import com.stone.core.config.ConfigUtil;
-import com.stone.core.log.ILogger;
-import com.stone.core.log.Loggers;
 import com.stone.core.net.ServerProcess;
 import com.stone.core.processor.IDispatcher;
 import com.stone.core.service.IService;
@@ -21,7 +22,7 @@ import com.stone.game.msg.GameDispatcher;
  *
  */
 public class GameServer implements IService {
-	private static ILogger logger = Loggers.getLogger(GameServer.class);
+	private static Logger logger = LoggerFactory.getLogger(GameServer.class);
 	private GameServerConfig config;
 	private String configPath;
 	protected ServerProcess externalProcess;
@@ -48,6 +49,7 @@ public class GameServer implements IService {
 
 	@Override
 	public void start() throws IOException {
+		logger.info("Begin to start Server Process...");
 		mainDispatcher.start();
 		dbDispatcher.start();
 		externalProcess.start();
@@ -58,6 +60,7 @@ public class GameServer implements IService {
 				shutdown();
 			}
 		}));
+		logger.info("Server Process started.");
 	}
 
 	@Override
@@ -68,14 +71,14 @@ public class GameServer implements IService {
 	}
 
 	public static void main(String[] args) {
-		logger.info("Begin to start Game Server");
+		logger.info("Begin to start Game Server...");
 		try {
 			GameServer gameserver = new GameServer("game_server.cfg.js");
 			gameserver.init();
 			gameserver.start();
-			logger.info("Game Server started");
+			logger.info("Game Server started.");
 		} catch (Exception e) {
-			logger.error("Failed to start server", e);
+			logger.error("Failed to start server.", e);
 			System.exit(0);
 		}
 		
