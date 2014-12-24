@@ -47,3 +47,4 @@ Temporary Items
 .metadata/
 .settings/
 .recommenders/
+game/bin/game_server.cfg.js
