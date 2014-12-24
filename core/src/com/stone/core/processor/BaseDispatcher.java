@@ -35,9 +35,6 @@ public abstract class BaseDispatcher implements IDispatcher {
 		}
 	}
 
-	/**
-	 * ����ַ��Ľӿ�������ȥʵ��;
-	 */
 	@Override
 	public abstract void put(IMessage msg);
 

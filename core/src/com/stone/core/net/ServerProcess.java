@@ -9,7 +9,6 @@ import org.apache.mina.filter.codec.ProtocolCodecFactory;
 import org.apache.mina.filter.codec.ProtocolCodecFilter;
 import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
 
-import com.stone.core.config.IConfig;
 import com.stone.core.service.IService;
 
 /**
@@ -40,7 +39,7 @@ public class ServerProcess implements IService {
 	}
 
 	@Override
-	public void init(IConfig config) {
+	public void init() {
 		// TODO Auto-generated method stub
 
 	}

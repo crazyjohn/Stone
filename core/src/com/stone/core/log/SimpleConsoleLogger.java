@@ -6,35 +6,32 @@ package com.stone.core.log;
  * @author crazyjohn
  *
  */
-public class Logger implements ILogger {
+public class SimpleConsoleLogger implements ILogger {
 	protected int level;
 
-	public Logger(int level) {
+	public SimpleConsoleLogger(int level) {
 		this.level = level;
 	}
 
 	@Override
 	public void debug(String msg) {
-		// TODO Auto-generated method stub
-
+		System.out.println(String.format("[DEBUG] %S", msg));
 	}
 
 	@Override
 	public void info(String msg) {
-		// TODO Auto-generated method stub
-
+		System.out.println(String.format("[INFO] %S", msg));
 	}
 
 	@Override
 	public void warn(String msg) {
-		// TODO Auto-generated method stub
-
+		System.out.println(String.format("[WARN] %S", msg));
 	}
 
 	@Override
 	public void error(String msg, Exception e) {
-		// TODO Auto-generated method stub
-
+		System.out
+				.println(String.format("[ERROR] %S, %S", msg, e.getMessage()));
 	}
 
 }

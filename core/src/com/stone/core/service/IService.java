@@ -2,7 +2,7 @@ package com.stone.core.service;
 
 import java.io.IOException;
 
-import com.stone.core.config.IConfig;
+import javax.script.ScriptException;
 
 /**
  * 服务接口;
@@ -13,10 +13,8 @@ import com.stone.core.config.IConfig;
 public interface IService {
 	/**
 	 * 初始化;
-	 * 
-	 * @param config
 	 */
-	public void init(IConfig config);
+	public void init() throws ScriptException, IOException;
 
 	/**
 	 * 启动服务;

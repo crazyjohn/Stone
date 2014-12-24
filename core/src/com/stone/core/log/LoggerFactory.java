@@ -23,7 +23,7 @@ public class LoggerFactory implements ILoggerFactory {
 	}
 
 	private ILogger createLogger(int level) {
-		return new Logger(level);
+		return new SimpleConsoleLogger(level);
 	}
 
 	@Override
