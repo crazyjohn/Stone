@@ -26,5 +26,5 @@ public interface IService {
 	/**
 	 * 停止服务;
 	 */
-	public void stop();
+	public void shutdown();
 }

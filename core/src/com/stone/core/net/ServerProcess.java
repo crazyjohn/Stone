@@ -54,7 +54,7 @@ public class ServerProcess implements IService {
 	}
 
 	@Override
-	public void stop() {
+	public void shutdown() {
 		// 解除绑定;
 		acceptor.unbind();
 		acceptor.dispose();

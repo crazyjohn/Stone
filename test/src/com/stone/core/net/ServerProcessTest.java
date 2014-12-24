@@ -88,7 +88,7 @@ public class ServerProcessTest {
 					}
 				});
 		serverProcess.start();
-		serverProcess.stop();
+		serverProcess.shutdown();
 	}
 
 }
