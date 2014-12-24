@@ -3,6 +3,8 @@ package com.stone.core.msg;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
 
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.mina.core.buffer.IoBuffer;
 
 import com.stone.core.constants.Loggers;
@@ -417,5 +419,18 @@ public abstract class BaseMessage implements IMessage {
 	 * @return true,写入成功;false,写入失败
 	 */
 	protected abstract boolean writeBody();
+
+	private final static String[] toStringExcludeFields = { "buf",
+			"messageLength", "type", "typeName", "session" };
+
+	/**
+	 * 此方法效率较低，应只在debug模式下调用
+	 */
+	@Override
+	public String toString() {
+		ReflectionToStringBuilder _builder = new BaseToStringBuilder(this,
+				ToStringStyle.SHORT_PREFIX_STYLE, toStringExcludeFields);
+		return _builder.toString() + getType();
+	}
 
 }
