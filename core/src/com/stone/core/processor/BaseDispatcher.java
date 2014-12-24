@@ -14,10 +14,10 @@ import com.stone.core.msg.IMessage;
 public abstract class BaseDispatcher implements IDispatcher {
 	private List<IMessageProcessor> processors;
 
-	public BaseDispatcher(int processorCount) {
+	public BaseDispatcher(String name, int processorCount) {
 		processors = new ArrayList<IMessageProcessor>();
 		for (int i = 0; i < processorCount; i++) {
-			processors.add(new QueueMessageProcessor());
+			processors.add(new QueueMessageProcessor(name));
 		}
 	}
 

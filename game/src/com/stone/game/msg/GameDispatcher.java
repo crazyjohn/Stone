@@ -17,7 +17,7 @@ public class GameDispatcher extends BaseDispatcher {
 	private IDispatcher dbDispatcher;
 
 	public GameDispatcher(int processorCount) {
-		super(processorCount);
+		super("GameDispatcher", processorCount);
 	}
 
 	public void setDbDispatcher(IDispatcher dbDispatcher) {

@@ -5,6 +5,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import com.stone.core.concurrent.NamedThreadFactory;
 import com.stone.core.log.ILogger;
 import com.stone.core.log.Loggers;
 import com.stone.core.msg.IMessage;
@@ -20,9 +21,14 @@ public class QueueMessageProcessor implements IMessageProcessor, Runnable {
 	/** 阻塞队列 */
 	private BlockingQueue<IMessage> queue = new LinkedBlockingQueue<IMessage>();
 	/** 执行器 */
-	private ExecutorService executor = Executors.newSingleThreadExecutor();
+	private ExecutorService executor;
 	/** 停止服务标记 */
 	private volatile boolean stop = true;
+
+	public QueueMessageProcessor(String name) {
+		executor = Executors.newSingleThreadExecutor(new NamedThreadFactory(
+				name));
+	}
 
 	@Override
 	public void start() {

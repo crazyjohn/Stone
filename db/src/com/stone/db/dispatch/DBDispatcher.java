@@ -12,7 +12,7 @@ import com.stone.core.processor.BaseDispatcher;
 public class DBDispatcher extends BaseDispatcher {
 
 	public DBDispatcher(int processorCount) {
-		super(processorCount);
+		super("DBDispatcher", processorCount);
 	}
 
 	@Override
