@@ -5,6 +5,8 @@ import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.codec.ProtocolDecoder;
 import org.apache.mina.filter.codec.ProtocolDecoderOutput;
 
+import com.stone.core.msg.IMessage;
+
 /**
  * 游戏解码器;
  * 
@@ -12,11 +14,33 @@ import org.apache.mina.filter.codec.ProtocolDecoderOutput;
  *
  */
 public class GameDecoder implements ProtocolDecoder {
+	private IoBuffer readBuffer = IoBuffer
+			.allocate(IMessage.DECODE_MESSAGE_LENGTH);
 
 	@Override
 	public void decode(IoSession session, IoBuffer in, ProtocolDecoderOutput out)
 			throws Exception {
-		// TODO Auto-generated method stub
+		// decode
+		in.flip();
+		readBuffer.put(in);
+		while (true) {
+			// 是否足够消息头的长度?
+			if (readBuffer.remaining() < IMessage.HEADER_SIZE) {
+				return;
+			}
+			// 读出消息包的长度
+			short messageLength = readBuffer.getShort(2);
+			if (readBuffer.remaining() < messageLength) {
+				return;
+			}
+			// 读出消息包
+			byte[] datas = new byte[messageLength];
+			readBuffer.flip();
+			readBuffer.get(datas);
+			// FIXME: crazyjohn 把datas解析成protobuf消息然后投递到队列中
+			// 调整
+			readBuffer.compact();
+		}
 
 	}
 
@@ -29,8 +53,7 @@ public class GameDecoder implements ProtocolDecoder {
 
 	@Override
 	public void dispose(IoSession session) throws Exception {
-		// TODO Auto-generated method stub
-
+		this.readBuffer.free();
 	}
 
 }
