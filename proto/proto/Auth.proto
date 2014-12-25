@@ -1,0 +1,7 @@
+option java_package = "com.stone.proto";
+option java_outer_classname = "Auths";
+
+message Login {
+	required string userName = 1;
+	required string password = 2;
+}

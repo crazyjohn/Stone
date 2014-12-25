@@ -2,7 +2,6 @@ package com.stone.game.handler;
 
 import com.stone.core.annotation.Handler;
 import com.stone.core.msg.IMessage;
-import com.stone.core.processor.MessageType;
 
 /**
  * 消息处理器接口;
@@ -26,5 +25,5 @@ public interface IMessageHandlerWithType<Message extends IMessage> {
 	 * 
 	 * @return
 	 */
-	public MessageType getMessageType();
+	public short getMessageType();
 }

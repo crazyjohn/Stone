@@ -1,7 +1,7 @@
 package com.stone.game.human.skill.handler;
 
 import com.stone.core.annotation.Handler;
-import com.stone.core.processor.MessageType;
+import com.stone.core.msg.MessageType;
 import com.stone.game.handler.IMessageHandlerWithType;
 import com.stone.game.human.Human;
 import com.stone.game.human.skill.msg.CGEquipSkillMessage;
@@ -17,7 +17,7 @@ public class HumanEquipSkillHandler implements
 		IMessageHandlerWithType<CGEquipSkillMessage> {
 
 	@Override
-	public MessageType getMessageType() {
+	public short getMessageType() {
 		return MessageType.CG_EQUIP_SKILL;
 	}
 

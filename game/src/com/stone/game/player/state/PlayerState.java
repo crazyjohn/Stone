@@ -1,6 +1,5 @@
 package com.stone.game.player.state;
 
-import com.stone.core.processor.MessageType;
 import com.stone.core.state.IState;
 
 /**
@@ -11,7 +10,7 @@ import com.stone.core.state.IState;
 public enum PlayerState implements IState {
 	NONE() {
 		@Override
-		public boolean canProcessMessage(MessageType type) {
+		public boolean canProcessMessage(short type) {
 			// TODO Auto-generated method stub
 			return false;
 		}
@@ -25,7 +24,7 @@ public enum PlayerState implements IState {
 	/** 已连接 */
 	CONNECTED() {
 		@Override
-		public boolean canProcessMessage(MessageType type) {
+		public boolean canProcessMessage(short type) {
 			// TODO Auto-generated method stub
 			return false;
 		}
@@ -39,7 +38,7 @@ public enum PlayerState implements IState {
 	/** 已认证 */
 	AUTHORIZED() {
 		@Override
-		public boolean canProcessMessage(MessageType type) {
+		public boolean canProcessMessage(short type) {
 			// TODO Auto-generated method stub
 			return false;
 		}
@@ -53,7 +52,7 @@ public enum PlayerState implements IState {
 	/** 进入游戏中 */
 	ENTERING() {
 		@Override
-		public boolean canProcessMessage(MessageType type) {
+		public boolean canProcessMessage(short type) {
 			// TODO Auto-generated method stub
 			return false;
 		}
@@ -67,7 +66,7 @@ public enum PlayerState implements IState {
 	/** 游戏中 */
 	GAMEING() {
 		@Override
-		public boolean canProcessMessage(MessageType type) {
+		public boolean canProcessMessage(short type) {
 			// TODO Auto-generated method stub
 			return false;
 		}
@@ -81,7 +80,7 @@ public enum PlayerState implements IState {
 	/** 战斗中  */
 	BATTLING() {
 		@Override
-		public boolean canProcessMessage(MessageType type) {
+		public boolean canProcessMessage(short type) {
 			// TODO Auto-generated method stub
 			return false;
 		}
