@@ -6,6 +6,7 @@ import org.apache.mina.filter.codec.ProtocolDecoder;
 import org.apache.mina.filter.codec.ProtocolDecoderOutput;
 
 import com.stone.core.msg.IMessage;
+import com.stone.core.msg.ProtobufMessage;
 
 /**
  * 游戏解码器;
@@ -37,7 +38,11 @@ public class GameDecoder implements ProtocolDecoder {
 			byte[] datas = new byte[messageLength];
 			readBuffer.flip();
 			readBuffer.get(datas);
-			// FIXME: crazyjohn 把datas解析成protobuf消息然后投递到队列中
+			IoBuffer aMessageBuffer = IoBuffer.wrap(datas);
+			ProtobufMessage protobufMessage = new ProtobufMessage();
+			protobufMessage.setBuffer(aMessageBuffer);
+			protobufMessage.read();
+			out.write(protobufMessage);
 			// 调整
 			readBuffer.compact();
 		}
