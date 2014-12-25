@@ -15,14 +15,12 @@ public class GameCodecFactory implements ProtocolCodecFactory {
 
 	@Override
 	public ProtocolEncoder getEncoder(IoSession session) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return new GameEncoder();
 	}
 
 	@Override
 	public ProtocolDecoder getDecoder(IoSession session) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return new GameDecoder();
 	}
 
 }

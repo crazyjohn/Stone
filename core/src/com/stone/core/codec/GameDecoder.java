@@ -47,7 +47,7 @@ public class GameDecoder implements ProtocolDecoder {
 	@Override
 	public void finishDecode(IoSession session, ProtocolDecoderOutput out)
 			throws Exception {
-		// TODO Auto-generated method stub
+		// do nothing
 
 	}
 
