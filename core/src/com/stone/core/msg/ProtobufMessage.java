@@ -13,13 +13,9 @@ import com.google.protobuf.Message.Builder;
 public class ProtobufMessage extends BaseMessage implements IProtobufMessage {
 	protected Builder builder;
 
-	public ProtobufMessage(short type, Builder builder) {
-		this.builder = builder;
-		this.type = type;
-	}
-	
-	public ProtobufMessage() {
-		// TODO Auto-generated constructor stub
+	public ProtobufMessage(short messageType, Builder protoBuilder) {
+		this.type = messageType;
+		this.builder = protoBuilder;
 	}
 
 	@Override

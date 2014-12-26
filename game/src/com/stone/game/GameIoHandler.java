@@ -25,6 +25,13 @@ public class GameIoHandler extends AbstractIoHandler<GamePlayerSession> {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public void messageReceived(IoSession session, Object message)
+			throws Exception {
+		// TODO Auto-generated method stub
+		super.messageReceived(session, message);
+	}
 
 	@Override
 	protected GamePlayerSession createSessionInfo(IoSession session) {

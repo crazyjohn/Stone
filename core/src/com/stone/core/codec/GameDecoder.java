@@ -6,7 +6,6 @@ import org.apache.mina.filter.codec.ProtocolDecoder;
 import org.apache.mina.filter.codec.ProtocolDecoderOutput;
 
 import com.stone.core.msg.IMessage;
-import com.stone.core.msg.ProtobufMessage;
 
 /**
  * 游戏解码器;
@@ -17,12 +16,16 @@ import com.stone.core.msg.ProtobufMessage;
 public class GameDecoder implements ProtocolDecoder {
 	private IoBuffer readBuffer = IoBuffer
 			.allocate(IMessage.DECODE_MESSAGE_LENGTH);
+	private IMessageFactory messageFactory;
+
+	public GameDecoder() {
+		this.messageFactory = new ProtobufMessageFactory();
+	}
 
 	@Override
 	public void decode(IoSession session, IoBuffer in, ProtocolDecoderOutput out)
 			throws Exception {
 		// decode
-		in.flip();
 		readBuffer.put(in);
 		while (true) {
 			// 是否足够消息头的长度?
@@ -30,7 +33,8 @@ public class GameDecoder implements ProtocolDecoder {
 				return;
 			}
 			// 读出消息包的长度
-			short messageLength = readBuffer.getShort(2);
+			short messageLength = readBuffer.getShort(0);
+			short messageType = readBuffer.getShort(2);
 			if (readBuffer.remaining() < messageLength) {
 				return;
 			}
@@ -38,11 +42,13 @@ public class GameDecoder implements ProtocolDecoder {
 			byte[] datas = new byte[messageLength];
 			readBuffer.flip();
 			readBuffer.get(datas);
-			IoBuffer aMessageBuffer = IoBuffer.wrap(datas);
-			ProtobufMessage protobufMessage = new ProtobufMessage();
-			protobufMessage.setBuffer(aMessageBuffer);
-			protobufMessage.read();
-			out.write(protobufMessage);
+			IMessage aMessage = messageFactory.createMessage(messageType);
+			if (aMessage != null) {
+				IoBuffer aMessageBuffer = IoBuffer.wrap(datas);
+				aMessage.setBuffer(aMessageBuffer);
+				aMessage.read();
+				out.write(aMessage);
+			}
 			// 调整
 			readBuffer.compact();
 		}
