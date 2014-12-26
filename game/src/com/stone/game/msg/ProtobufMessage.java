@@ -1,7 +1,9 @@
-package com.stone.core.msg;
+package com.stone.game.msg;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Message.Builder;
+import com.stone.core.msg.IMessage;
+import com.stone.core.msg.IProtobufMessage;
 
 /**
  * 基础的protobuf消息;
@@ -10,7 +12,7 @@ import com.google.protobuf.Message.Builder;
  *
  * @param <B>
  */
-public class ProtobufMessage extends BaseMessage implements IProtobufMessage {
+public class ProtobufMessage extends BaseCGMessage implements IProtobufMessage {
 	protected Builder builder;
 
 	public ProtobufMessage(short messageType, Builder protoBuilder) {

@@ -1,4 +1,4 @@
-package com.stone.core.codec;
+package com.stone.game.codec;
 
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.codec.ProtocolCodecFactory;

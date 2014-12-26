@@ -1,11 +1,13 @@
-package com.stone.core.codec;
+package com.stone.game.codec;
 
 import org.apache.mina.core.buffer.IoBuffer;
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.codec.ProtocolDecoder;
 import org.apache.mina.filter.codec.ProtocolDecoderOutput;
 
+import com.stone.core.codec.IMessageFactory;
 import com.stone.core.msg.IMessage;
+import com.stone.game.msg.ProtobufMessageFactory;
 
 /**
  * 游戏解码器;

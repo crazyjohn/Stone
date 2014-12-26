@@ -7,12 +7,12 @@ import javax.script.ScriptException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.stone.core.codec.GameCodecFactory;
 import com.stone.core.config.ConfigUtil;
 import com.stone.core.net.ServerProcess;
 import com.stone.core.processor.IDispatcher;
 import com.stone.core.service.IService;
 import com.stone.db.dispatch.DBDispatcher;
+import com.stone.game.codec.GameCodecFactory;
 import com.stone.game.msg.GameDispatcher;
 
 /**

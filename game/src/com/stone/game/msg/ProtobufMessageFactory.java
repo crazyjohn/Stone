@@ -1,12 +1,12 @@
-package com.stone.core.codec;
+package com.stone.game.msg;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import com.google.protobuf.Message.Builder;
+import com.stone.core.codec.IMessageFactory;
 import com.stone.core.msg.IProtobufMessage;
 import com.stone.core.msg.MessageType;
-import com.stone.core.msg.ProtobufMessage;
 import com.stone.proto.Auths.Login;
 
 /**

@@ -1,4 +1,4 @@
-package com.stone.core.codec;
+package com.stone.game.codec;
 
 import org.apache.mina.core.buffer.IoBuffer;
 import org.apache.mina.core.session.IoSession;
@@ -7,7 +7,6 @@ import org.apache.mina.filter.codec.ProtocolEncoderOutput;
 
 import com.stone.core.msg.IMessage;
 import com.stone.core.msg.IProtobufMessage;
-import com.stone.core.msg.ProtobufMessage;
 
 /**
  * 游戏编码器;
@@ -22,10 +21,9 @@ public class GameEncoder implements ProtocolEncoder {
 			ProtocolEncoderOutput out) throws Exception {
 		IMessage msg = (IMessage) message;
 		if (msg instanceof IProtobufMessage) {
-			ProtobufMessage protobufMessage = (ProtobufMessage) msg;
 			IoBuffer writeBuffer = IoBuffer.allocate(IMessage.ENCODE_MESSAGE_LENGTH);
-			protobufMessage.setBuffer(writeBuffer);
-			protobufMessage.write();
+			msg.setBuffer(writeBuffer);
+			msg.write();
 			int length = writeBuffer.position();
 			byte[] datas = new byte[length];
 			writeBuffer.flip();
