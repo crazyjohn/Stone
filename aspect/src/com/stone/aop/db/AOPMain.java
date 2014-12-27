@@ -2,6 +2,7 @@ package com.stone.aop.db;
 
 import com.stone.aop.db.entity.MockAnnotationEntity;
 import com.stone.aop.db.entity.MockSetterEntity;
+import com.stone.aop.game.entity.MockGameSetterEntity;
 
 public class AOPMain {
 
@@ -12,6 +13,9 @@ public class AOPMain {
 		// new annotation
 		MockAnnotationEntity annotationEntity = new MockAnnotationEntity();
 		annotationEntity.setId(1002);
+		// new game
+		MockGameSetterEntity gameEntity = new MockGameSetterEntity();
+		gameEntity.setId(1003);
 	}
 
 }

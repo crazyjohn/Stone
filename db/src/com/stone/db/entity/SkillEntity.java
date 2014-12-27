@@ -10,6 +10,11 @@ import com.stone.core.entity.IEntity;
  */
 public class SkillEntity implements IEntity<Integer> {
 	private int id;
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	private int isEquiped;
 
 	@Override
