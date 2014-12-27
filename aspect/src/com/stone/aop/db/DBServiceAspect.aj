@@ -17,12 +17,12 @@ public aspect DBServiceAspect {
 	/**
 	 * 拦截set方法;
 	 */
-	public pointcut interceptSetter():execution(void com.stone.aop.db.MockSetterEntity.set*(*));
+	public pointcut interceptSetter():execution(void com.stone.aop.db.entity.MockSetterEntity.set*(*));
 
 	/**
 	 * 拦截注解;
 	 */
-	public pointcut interceptAnnotation():execution(void com.stone.aop.db.MockAnnotationEntity.*(*))
+	public pointcut interceptAnnotation():execution(void com.stone.aop.db.entity.MockAnnotationEntity.*(*))
 		&& @annotation(com.stone.aop.annotation.NotifyUpdate);
 
 	/**
