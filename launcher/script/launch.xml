@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="stone.launch" basedir="." default="gs">
+	
+	<tstamp>
+		<format property="launch.time" pattern="yyyyMMddhhmmss"/>
+	</tstamp>
+	<path id="cp">
+		<pathelement location="${basedir}/stone.jar"/>
+		<fileset dir="${basedir}/lib" includes="*.jar,*.zip"/>
+	</path>
+	
+	
+	 <presetdef name="java17">
+		<java classpathref="cp" fork="true">
+			<jvmarg value="-XX:+HeapDumpOnOutOfMemoryError"/>
+			<jvmarg value="-XX:+UseConcMarkSweepGC"/>
+			<jvmarg value="-Xloggc:gc_${launch.time}.log"/>
+		</java>
+	 </presetdef>
+	
+	<target name="gs">
+		<java17 classname="com.stone.game.GameServer">
+			<jvmarg value="-Xms4096M"/>
+			<jvmarg value="-Xmx4096M"/>
+			<jvmarg value="-Xmn1024M"/>
+			<jvmarg value="-Xss2M"/>
+			<jvmarg value="-XX:MaxTenuringThreshold=20"/>
+			<jvmarg value="-XX:SurvivorRatio=4"/>
+		</java17>
+	</target>
+	
+</project>
