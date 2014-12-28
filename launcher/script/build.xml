@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 服务器打包脚本  by crazyjohn -->
+<!-- server pack script  by crazyjohn -->
 <project name="stone.build" basedir="." default="copy">
 	<!-- define all props -->
 	<tstamp>
@@ -21,7 +21,7 @@
 	<property name="gs.dir" value="${game.dir}/game"/>
 	<property name="aspect.dir" value="${game.dir}/aspect"/>
 	
-	<!-- 引入aspectj资源文件  -->
+	<!-- import aspectj resuorce files  -->
 	<taskdef resource="org/aspectj/tools/ant/taskdefs/aspectjTaskdefs.properties">
 	</taskdef>
 	
@@ -59,7 +59,7 @@
 		</javac17>
 	</target>
 	
-	<!--对aspectj项目进行编译-->
+	<!--compile aspect protjects-->
 	<target name="compile.aspect" depends="compile">
 		<iajc destdir="${class.dir}" showWeaveInfo="true" source="1.7" classpathRef="libs">
 			<classpath>
