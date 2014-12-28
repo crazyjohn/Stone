@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 添加aspectj编译  by crazyjohn -->
+<project name="sgt.build" basedir="." default="copy">
+	
+	<tstamp>
+		<format property="build.time" pattern="yyyyMMdd"/>
+	</tstamp>
+	<property name="build.version" value="${build.time}"/>
+	<property name="root.dir" value="${basedir}"/>
+	<property name="build.dir" value="${root.dir}/build"/>
+	<property name="class.dir" value="${build.dir}/classes"/>
+	<property name="bin.dir" value="${build.dir}/bin"/>
+	<property name="config.dir" value="${bin.dir}"/>
+	<property name="lib.dir" value="${bin.dir}/lib"/>
+	<property name="resource.dir" value="${build.dir}/resource"/>
+	<property name="proto.dir" location="${root.dir}/protocol"/>
+	<property name="core.dir" value="${root.dir}/core"/>
+	<property name="ls.dir" value="${root.dir}/log_server"/>
+	<property name="ds.dir" value="${root.dir}/data_server"/>
+	<property name="as.dir" value="${root.dir}/agent_server"/>
+	<property name="ws.dir" value="${root.dir}/world_server"/>
+	<property name="ss.dir" value="${root.dir}/scene_server"/>
+	<property name="launcher.dir" value="${root.dir}/launcher"/>
+	<property name="aspect.dir" value="${root.dir}/aspect"/>
+	<property name="shared.dir" value="${root.dir}/../../shared/trunk/技术版本/server/server_${build.version}"/>
+	
+	<!-- 引入aspectj资源文件  -->
+	<taskdef resource="org/aspectj/tools/ant/taskdefs/aspectjTaskdefs.properties">
+	</taskdef>
+	<!-- 添加aspectj编译的条件  -->
+	<condition property="isCompileAspect">
+		<istrue value="true"/>
+	</condition>
+	<!--
+	<property name="shared.dir" value="${root.dir}/../../shared/trunk/server/server_current"/>
+	-->
+	
+	<path id="libs">
+		<pathelement path="${java.class.path}"/>
+		<fileset id="proto_lib" dir="${proto.dir}/lib" includes="*.jar"/>
+		<fileset id="core_lib" dir="${core.dir}/lib" includes="*.jar,*.zip,*.dll,*.so"/>
+	</path>
+	
+	 <presetdef name="javac16">
+		<javac destdir="${class.dir}" classpathref="libs" nowarn="true" encoding="UTF-8" source="1.6" target="1.6" compiler="javac1.6"/>
+	 </presetdef>
+	
+	<!-- 重置本地发布文件夹  -->
+	<target name="init">
+		<delete dir="${build.dir}" failonerror="false"/>
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${class.dir}"/>
+		<mkdir dir="${bin.dir}"/>
+		<mkdir dir="${config.dir}"/>
+		<mkdir dir="${resource.dir}"/>
+	</target>
+	
+	<!-- 将所有工程的代码编译到同一路径下  -->
+	<target name="compile" depends="init" >
+		<!--<echo message="compiling, classpath:${java.class.path}"/>-->
+		<javac16>
+			<src path="${proto.dir}/src"/>
+			<src path="${core.dir}/src"/>
+			<src path="${ls.dir}/src"/>
+			<src path="${ds.dir}/src"/>
+			<src path="${as.dir}/src"/>
+			<src path="${ss.dir}/src"/>
+			<src path="${ws.dir}/src"/>
+			<src path="${launcher.dir}/src"/>
+		</javac16>
+	</target>
+	
+	<!--对aspectj项目进行编译-->
+	<target name="compile.aspect" depends="compile" if="isCompileAspect">
+		<iajc destdir="${class.dir}" showWeaveInfo="true" source="1.6" classpathRef="libs">
+			<classpath>
+				<pathelement location="${class.dir}"/>
+			</classpath>
+			<sourceroots>
+				<pathelement location="${aspect.dir}/src"/>
+				<pathelement location="${ws.dir}/src"/>
+			</sourceroots>
+		</iajc>
+		<!--copy平台相关配置文件-->
+		<copy todir="${bin.dir}">
+			<fileset dir="${aspect.dir}/config" includes="*.js"/>
+		</copy>
+	</target>
+	
+	<!-- 打成一个jar包  -->
+	<target name="pack" depends="compile.aspect">
+		<copy todir="${class.dir}">
+			<!--
+			<fileset dir="${core.dir}/config"/>
+			-->
+			<fileset dir="${ls.dir}/config" excludes="*.js,*.tpl"/>
+			<fileset dir="${ds.dir}/config" excludes="*.js,*.tpl"/>
+			<fileset dir="${as.dir}/config" excludes="*.js,*.tpl"/>
+			<fileset dir="${ws.dir}/config" excludes="*.js,*.tpl"/>
+			<fileset dir="${ss.dir}/config" excludes="*.js,*.tpl"/>
+		</copy>
+		<jar basedir="${class.dir}" jarfile="${bin.dir}/sgt.jar"/>
+		<delete dir="${class.dir}" failonerror="false"/>
+	</target>
+	
+	<!-- 把第三方jar包,配置文件,资源文件和启动脚本拷贝到发布文件夹  -->
+	<target name="copy" depends="pack">
+		<copy todir="${bin.dir}">
+			<fileset dir="${core.dir}/config" excludes="*.tpl"/>
+			<fileset dir="${ls.dir}/config" includes="*.js"/>
+			<fileset dir="${ds.dir}/config" includes="*.js"/>
+			<fileset dir="${as.dir}/config" includes="*.js"/>
+			<fileset dir="${ws.dir}/config" includes="*.js"/>
+			<fileset dir="${ss.dir}/config" includes="*.js"/>
+		</copy>
+		<copy todir="${lib.dir}">
+			<fileset refid="proto_lib"/>
+			<fileset refid="core_lib"/>
+		</copy>
+		<copy todir="${resource.dir}">
+			<fileset dir="${root.dir}/resource" excludes=".*,**/test/"/>
+		</copy>
+		
+		<copy todir="${bin.dir}" file="${root.dir}/launch.xml"/>
+		<echo message="ant -f bin\launch.xml" file="${build.dir}/run.bat"/>
+	</target>
+	
+	<!-- 发布到shared文件夹 -->
+	<target name="copy_shared" depends="copy">
+		<mkdir dir="${shared.dir}"/>
+		<copy todir="${shared.dir}">
+			<fileset dir="${build.dir}"/>
+		</copy>
+	</target>
+</project>

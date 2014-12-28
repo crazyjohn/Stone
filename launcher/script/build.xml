@@ -19,6 +19,11 @@
 	<property name="ds.dir" value="${game.dir}/db"/>
 	<property name="ds.script.dir" value="${ds.dir}/sql"/>
 	<property name="gs.dir" value="${game.dir}/game"/>
+	<property name="aspect.dir" value="${game.dir}/aspect"/>
+	
+	<!-- 引入aspectj资源文件  -->
+	<taskdef resource="org/aspectj/tools/ant/taskdefs/aspectjTaskdefs.properties">
+	</taskdef>
 	
 	<!-- path -->
 	<path id="libs">
@@ -54,8 +59,21 @@
 		</javac17>
 	</target>
 	
+	<!--对aspectj项目进行编译-->
+	<target name="compile.aspect" depends="compile">
+		<iajc destdir="${class.dir}" showWeaveInfo="true" source="1.7" classpathRef="libs">
+			<classpath>
+				<pathelement location="${class.dir}"/>
+			</classpath>
+			<sourceroots>
+				<pathelement location="${aspect.dir}/src"/>
+				<pathelement location="${ds.dir}/src"/>
+			</sourceroots>
+		</iajc>
+	</target>
+	
 	<!-- to jar  -->
-	<target name="pack" depends="compile">
+	<target name="pack" depends="compile.aspect">
 		<copy todir="${class.dir}">
 			<!--
 			<fileset dir="${core.dir}/config"/>
