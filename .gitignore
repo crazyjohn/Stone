@@ -51,3 +51,4 @@ game/bin/game_server.cfg.js
 game/logs/
 aspect/logs/
 launcher/build/
+RemoteSystemsTempFiles/
