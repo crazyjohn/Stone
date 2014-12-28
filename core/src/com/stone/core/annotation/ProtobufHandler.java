@@ -5,14 +5,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-/**
- * 消息处理器注解;
- * 
- * @author crazyjohn
- *
- */
-@Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface Handler {
+@Retention(RetentionPolicy.RUNTIME)
+public @interface ProtobufHandler {
 
 }
