@@ -24,7 +24,7 @@ public class HumanEquipSkillHandler implements
 	@Override
 	public void execute(CGEquipSkillMessage msg) {
 		// 装备技能;
-		Human human = msg.getHuman();
+		Human human = msg.getPlayer().getHuman();
 		human.getSkillManager().equipSkill(msg.getSkillId());
 	}
 

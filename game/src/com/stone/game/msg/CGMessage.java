@@ -1,7 +1,7 @@
 package com.stone.game.msg;
 
 import com.stone.core.msg.ISessionMessage;
-import com.stone.game.human.Human;
+import com.stone.game.player.Player;
 import com.stone.game.session.GamePlayerSession;
 
 /**
@@ -11,5 +11,5 @@ import com.stone.game.session.GamePlayerSession;
  *
  */
 public interface CGMessage extends ISessionMessage<GamePlayerSession> {
-	public Human getHuman();
+	public Player getPlayer();
 }

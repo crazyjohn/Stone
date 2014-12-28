@@ -1,7 +1,7 @@
 package com.stone.game.msg;
 
 import com.stone.core.msg.BaseMessage;
-import com.stone.game.human.Human;
+import com.stone.game.player.Player;
 import com.stone.game.session.GamePlayerSession;
 
 /**
@@ -24,8 +24,8 @@ public abstract class BaseCGMessage extends BaseMessage implements CGMessage {
 	}
 
 	@Override
-	public Human getHuman() {
-		return session.getPlayer().getHuman();
+	public Player getPlayer() {
+		return session.getPlayer();
 	}
 
 }
