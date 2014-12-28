@@ -9,11 +9,16 @@ import com.stone.core.entity.IEntity;
  *
  */
 public class HumanEntity implements IEntity<Long> {
-
+	private long guid;
 	@Override
 	public Long getId() {
-		// TODO Auto-generated method stub
-		return null;
+		return guid;
+	}
+	public long getGuid() {
+		return guid;
+	}
+	public void setGuid(long guid) {
+		this.guid = guid;
 	}
 
 }
