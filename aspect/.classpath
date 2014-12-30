@@ -5,7 +5,5 @@
 	<classpathentry kind="con" path="org.eclipse.ajdt.core.ASPECTJRT_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/core"/>
 	<classpathentry kind="lib" path="lib/aspectjtools.jar" sourcepath="lib-src/aspectjtools1.8.4-src.jar"/>
-	<classpathentry kind="lib" path="lib/aspectjweaver.jar" sourcepath="lib-src/aspectjweaver1.8.4-src.jar"/>
-	<classpathentry kind="lib" path="lib/org.aspectj.matcher.jar" sourcepath="lib-src/org.aspectj.matcher-1.8.4-src.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

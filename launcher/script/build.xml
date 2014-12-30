@@ -30,7 +30,6 @@
 		<pathelement path="${java.class.path}"/>
 		<fileset id="proto_lib" dir="${proto.dir}/lib" includes="*.jar"/>
 		<fileset id="core_lib" dir="${core.dir}/lib" includes="*.jar,*.zip,*.dll,*.so"/>
-		<pathelement location="${bin.dir}/stone.jar"/>
 	</path>
 
 	<!-- java compile -->
@@ -62,12 +61,25 @@
 	<!--compile aspect protjects-->
 	<target name="compile.aspect" depends="compile">
 		<iajc destdir="${class.dir}" showWeaveInfo="true" source="1.7" classpathRef="libs">
+			<aspectpath> 
+				<!-- Similar to classpath, aspectpath contains read-only, binary aspect libraries that are woven into sources but not included in the output. aspectpath accepts jar/zip files (but, unlike classpath, not directories).-->
+				<!-- 可以设置aspect路径，但是只可以是jar包或者zip包 -->
+			</aspectpath>
+			<inpath>
+				<!-- Read .class files for bytecode weaving from directories or zip files (like classpath).-->
+				<!-- 可以设置class目录路径，适用于编译后植入 -->
+				<!-- <pathelement location="${class.dir}"/> -->
+			</inpath>
 			<classpath>
+				<!-- The classpath used by the sources being compiled. When compiling aspects, include the same version of the aspectjrt.jar.-->
 				<pathelement location="${class.dir}"/>
 			</classpath>
 			<sourceroots>
+				<!-- Directories containing source files (ending with .java or .aj) to compile.-->
+				<!-- <pathelement location="${ds.dir}/src"/> -->
+				<!-- <pathelement location="${gs.dir}/src"/> -->
+				<!-- 用来放置aspectj以及目标工程的源码目录，适用于编译时植入 -->
 				<pathelement location="${aspect.dir}/src"/>
-				<pathelement location="${ds.dir}/src"/>
 			</sourceroots>
 		</iajc>
 	</target>
