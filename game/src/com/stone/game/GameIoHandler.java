@@ -6,6 +6,7 @@ import com.stone.core.msg.IMessage;
 import com.stone.core.msg.ISessionMessage;
 import com.stone.core.net.AbstractIoHandler;
 import com.stone.core.processor.IMessageProcessor;
+import com.stone.game.player.Player;
 import com.stone.game.session.GamePlayerSession;
 
 /**
@@ -30,12 +31,15 @@ public class GameIoHandler extends AbstractIoHandler<GamePlayerSession> {
 	@Override
 	public void messageReceived(IoSession session, Object message)
 			throws Exception {
+		super.messageReceived(session, message);
 		processor.put((IMessage) message);
 	}
 
 	@Override
 	protected GamePlayerSession createSessionInfo(IoSession session) {
 		GamePlayerSession sessionInfo = new GamePlayerSession(session);
+		Player player = new Player();
+		sessionInfo.setPlayer(player);
 		return sessionInfo;
 	}
 
