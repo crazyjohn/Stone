@@ -54,7 +54,7 @@ public class ProtobufMessage extends BaseCGMessage implements IProtobufMessage {
 	@Override
 	public <B extends Builder> B parseBuilder(B newBuilder)
 			throws MessageParseException {
-		this.setBuilder(builder);
+		this.builder = newBuilder;
 		this.read();
 		return (B) builder;
 	}

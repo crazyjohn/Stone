@@ -33,13 +33,13 @@ public class GameDecoder implements ProtocolDecoder {
 		while (true) {
 			// 是否足够消息头的长度?
 			if (readBuffer.remaining() < IMessage.HEADER_SIZE) {
-				return;
+				break;
 			}
 			// 读出消息包的长度
 			short messageLength = readBuffer.getShort(0);
 			short messageType = readBuffer.getShort(2);
 			if (readBuffer.remaining() < messageLength) {
-				return;
+				break;
 			}
 			// 读出消息包
 			byte[] datas = new byte[messageLength];
@@ -55,9 +55,9 @@ public class GameDecoder implements ProtocolDecoder {
 				}
 				out.write(aMessage);
 			}
-			// 调整
-			readBuffer.compact();
 		}
+		// 调整
+		readBuffer.compact();
 
 	}
 

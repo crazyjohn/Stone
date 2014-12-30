@@ -60,8 +60,10 @@ public class QueueMessageProcessor implements IMessageProcessor, Runnable {
 			try {
 				IMessage msg = queue.take();
 				process(msg);
-			} catch (InterruptedException | MessageParseException e) {
+			} catch (InterruptedException e) {
 				logger.error("Interrupted when take msg from queue", e);
+			} catch (MessageParseException e) {
+				logger.error("Parse error when process msg", e);
 			}
 		}
 	}
