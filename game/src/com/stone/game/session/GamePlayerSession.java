@@ -1,5 +1,7 @@
 package com.stone.game.session;
 
+import org.apache.mina.core.session.IoSession;
+
 import com.stone.core.session.BaseSession;
 import com.stone.game.player.Player;
 
@@ -10,6 +12,10 @@ import com.stone.game.player.Player;
  *
  */
 public class GamePlayerSession extends BaseSession implements IPlayerSession {
+	public GamePlayerSession(IoSession session) {
+		super(session);
+	}
+
 	protected Player player;
 
 	@Override

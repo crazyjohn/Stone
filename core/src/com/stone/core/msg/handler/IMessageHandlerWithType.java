@@ -1,7 +1,8 @@
-package com.stone.game.handler;
+package com.stone.core.msg.handler;
 
 import com.stone.core.annotation.MessageHandler;
 import com.stone.core.msg.IMessage;
+import com.stone.core.msg.MessageParseException;
 
 /**
  * 消息处理器接口;
@@ -17,8 +18,9 @@ public interface IMessageHandlerWithType<Message extends IMessage> {
 	 * 处理指定消息;
 	 * 
 	 * @param msg
+	 * @throws MessageParseException 
 	 */
-	public void execute(Message msg);
+	public void execute(Message msg) throws MessageParseException;
 
 	/**
 	 * 获取处理的消息类型;

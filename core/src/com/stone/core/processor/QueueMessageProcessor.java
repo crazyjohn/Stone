@@ -9,6 +9,8 @@ import com.stone.core.concurrent.NamedThreadFactory;
 import com.stone.core.log.ILogger;
 import com.stone.core.log.SimpleLoggers;
 import com.stone.core.msg.IMessage;
+import com.stone.core.msg.IProtobufMessage;
+import com.stone.core.msg.MessageParseException;
 
 /**
  * 队列消息处理器;
@@ -17,7 +19,8 @@ import com.stone.core.msg.IMessage;
  *
  */
 public class QueueMessageProcessor implements IMessageProcessor, Runnable {
-	private ILogger logger = SimpleLoggers.getLogger(QueueMessageProcessor.class);
+	private ILogger logger = SimpleLoggers
+			.getLogger(QueueMessageProcessor.class);
 	/** 阻塞队列 */
 	private BlockingQueue<IMessage> queue = new LinkedBlockingQueue<IMessage>();
 	/** 执行器 */
@@ -57,7 +60,7 @@ public class QueueMessageProcessor implements IMessageProcessor, Runnable {
 			try {
 				IMessage msg = queue.take();
 				process(msg);
-			} catch (InterruptedException e) {
+			} catch (InterruptedException | MessageParseException e) {
 				logger.error("Interrupted when take msg from queue", e);
 			}
 		}
@@ -67,10 +70,13 @@ public class QueueMessageProcessor implements IMessageProcessor, Runnable {
 	 * 处理消息入口;
 	 * 
 	 * @param msg
+	 * @throws MessageParseException
 	 */
-	private void process(IMessage msg) {
-		// TODO Auto-generated method stub
-
+	private void process(IMessage msg) throws MessageParseException {
+		if (msg instanceof IProtobufMessage) {
+			IProtobufMessage protobufMessage = (IProtobufMessage) msg;
+			protobufMessage.execute();
+		}
 	}
 
 }

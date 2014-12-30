@@ -7,6 +7,7 @@ import org.apache.mina.filter.codec.ProtocolDecoderOutput;
 
 import com.stone.core.codec.IMessageFactory;
 import com.stone.core.msg.IMessage;
+import com.stone.core.msg.IProtobufMessage;
 import com.stone.game.msg.ProtobufMessageFactory;
 
 /**
@@ -48,7 +49,10 @@ public class GameDecoder implements ProtocolDecoder {
 			if (aMessage != null) {
 				IoBuffer aMessageBuffer = IoBuffer.wrap(datas);
 				aMessage.setBuffer(aMessageBuffer);
-				aMessage.read();
+				// protobuf消息延时解析;
+				if (!(aMessage instanceof IProtobufMessage)) {
+					aMessage.read();
+				}
 				out.write(aMessage);
 			}
 			// 调整

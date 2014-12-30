@@ -4,6 +4,8 @@ import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Message.Builder;
 import com.stone.core.msg.IMessage;
 import com.stone.core.msg.IProtobufMessage;
+import com.stone.core.msg.MessageParseException;
+import com.stone.game.msg.handler.MessageHandlers;
 
 /**
  * 基础的protobuf消息;
@@ -15,19 +17,13 @@ import com.stone.core.msg.IProtobufMessage;
 public class ProtobufMessage extends BaseCGMessage implements IProtobufMessage {
 	protected Builder builder;
 
-	public ProtobufMessage(short messageType, Builder protoBuilder) {
+	public ProtobufMessage(short messageType) {
 		this.type = messageType;
-		this.builder = protoBuilder;
 	}
 
 	@Override
-	public Builder getBuilder() {
-		return builder;
-	}
-
-	@Override
-	public void execute() {
-		throw new UnsupportedOperationException();
+	public void execute() throws MessageParseException {
+		MessageHandlers.handle(this);
 	}
 
 	@Override
@@ -47,6 +43,20 @@ public class ProtobufMessage extends BaseCGMessage implements IProtobufMessage {
 	protected boolean writeBody() {
 		this.buf.put(builder.build().toByteArray());
 		return true;
+	}
+
+	@Override
+	public void setBuilder(Builder builder) {
+		this.builder = builder;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public <B extends Builder> B parseBuilder(B newBuilder)
+			throws MessageParseException {
+		this.setBuilder(builder);
+		this.read();
+		return (B) builder;
 	}
 
 }

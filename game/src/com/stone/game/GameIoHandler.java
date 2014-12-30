@@ -35,8 +35,8 @@ public class GameIoHandler extends AbstractIoHandler<GamePlayerSession> {
 
 	@Override
 	protected GamePlayerSession createSessionInfo(IoSession session) {
-		// TODO Auto-generated method stub
-		return null;
+		GamePlayerSession sessionInfo = new GamePlayerSession(session);
+		return sessionInfo;
 	}
 
 	@Override

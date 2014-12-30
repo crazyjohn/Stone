@@ -12,7 +12,11 @@ import com.stone.core.msg.IMessage;
  */
 public abstract class BaseSession implements ISession {
 	/** 绑定的回话 */
-	private IoSession session;
+	protected IoSession session;
+	
+	public BaseSession(IoSession session) {
+		this.session = session;
+	}
 
 	@Override
 	public boolean isConnected() {

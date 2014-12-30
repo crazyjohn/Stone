@@ -2,7 +2,7 @@ package com.stone.game.human.skill.handler;
 
 import com.stone.core.annotation.MessageHandler;
 import com.stone.core.msg.MessageType;
-import com.stone.game.handler.IMessageHandlerWithType;
+import com.stone.core.msg.handler.IMessageHandlerWithType;
 import com.stone.game.human.Human;
 import com.stone.game.human.skill.msg.CGEquipSkillMessage;
 

@@ -88,8 +88,10 @@ public interface IMessage {
 
 	/**
 	 * 执行消息的处理
+	 * 
+	 * @throws MessageParseException
 	 */
-	public abstract void execute();
+	public abstract void execute() throws MessageParseException;
 
 	/**
 	 * 数据包解析工具类
