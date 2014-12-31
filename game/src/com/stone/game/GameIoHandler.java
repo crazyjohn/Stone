@@ -2,7 +2,6 @@ package com.stone.game;
 
 import org.apache.mina.core.session.IoSession;
 
-import com.stone.core.msg.IMessage;
 import com.stone.core.msg.ISessionMessage;
 import com.stone.core.net.AbstractIoHandler;
 import com.stone.core.processor.IMessageProcessor;
@@ -28,12 +27,6 @@ public class GameIoHandler extends AbstractIoHandler<GamePlayerSession> {
 		return null;
 	}
 	
-	@Override
-	public void messageReceived(IoSession session, Object message)
-			throws Exception {
-		super.messageReceived(session, message);
-		processor.put((IMessage) message);
-	}
 
 	@Override
 	protected GamePlayerSession createSessionInfo(IoSession session) {
