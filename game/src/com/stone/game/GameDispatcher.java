@@ -1,4 +1,4 @@
-package com.stone.game.msg;
+package com.stone.game;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +9,7 @@ import com.stone.core.processor.BaseDispatcher;
 import com.stone.core.processor.IDispatcher;
 import com.stone.core.processor.IMessageProcessor;
 import com.stone.core.session.ISession;
+import com.stone.game.msg.CGMessage;
 import com.stone.game.player.Player;
 
 /**
