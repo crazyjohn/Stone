@@ -1,4 +1,4 @@
-package com.stone.game.codec;
+package com.stone.core.codec;
 
 import org.apache.mina.core.buffer.IoBuffer;
 import org.apache.mina.core.session.IoSession;

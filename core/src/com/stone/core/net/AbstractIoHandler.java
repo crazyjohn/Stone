@@ -67,7 +67,6 @@ public abstract class AbstractIoHandler<S extends ISession> extends
 	@Override
 	public void exceptionCaught(IoSession session, Throwable cause)
 			throws Exception {
-		// TODO Auto-generated method stub
 		super.exceptionCaught(session, cause);
 	}
 

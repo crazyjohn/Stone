@@ -1,14 +1,12 @@
-package com.stone.game.codec;
+package com.stone.core.codec;
 
 import org.apache.mina.core.buffer.IoBuffer;
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.codec.ProtocolDecoder;
 import org.apache.mina.filter.codec.ProtocolDecoderOutput;
 
-import com.stone.core.codec.IMessageFactory;
 import com.stone.core.msg.IMessage;
 import com.stone.core.msg.IProtobufMessage;
-import com.stone.game.msg.ProtobufMessageFactory;
 
 /**
  * 游戏解码器;
@@ -21,8 +19,8 @@ public class GameDecoder implements ProtocolDecoder {
 			.allocate(IMessage.DECODE_MESSAGE_LENGTH);
 	private IMessageFactory messageFactory;
 
-	public GameDecoder() {
-		this.messageFactory = new ProtobufMessageFactory();
+	public GameDecoder(IMessageFactory messageFactory) {
+		this.messageFactory = messageFactory;
 	}
 
 	@Override

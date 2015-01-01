@@ -1,6 +1,8 @@
 package com.stone.game;
 
 import org.apache.mina.core.session.IoSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.stone.core.msg.ISessionMessage;
 import com.stone.core.net.AbstractIoHandler;
@@ -15,6 +17,7 @@ import com.stone.game.session.GamePlayerSession;
  *
  */
 public class GameIoHandler extends AbstractIoHandler<GamePlayerSession> {
+	private Logger logger = LoggerFactory.getLogger(GameIoHandler.class);
 
 	public GameIoHandler(IMessageProcessor processor) {
 		super(processor);
@@ -26,7 +29,6 @@ public class GameIoHandler extends AbstractIoHandler<GamePlayerSession> {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
 
 	@Override
 	protected GamePlayerSession createSessionInfo(IoSession session) {
@@ -34,6 +36,12 @@ public class GameIoHandler extends AbstractIoHandler<GamePlayerSession> {
 		Player player = new Player();
 		sessionInfo.setPlayer(player);
 		return sessionInfo;
+	}
+
+	@Override
+	public void exceptionCaught(IoSession session, Throwable cause)
+			throws Exception {
+		logger.error(String.format("Exception caught, session: %s", session), cause);
 	}
 
 	@Override

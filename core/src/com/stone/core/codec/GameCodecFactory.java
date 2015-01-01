@@ -1,4 +1,4 @@
-package com.stone.game.codec;
+package com.stone.core.codec;
 
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.codec.ProtocolCodecFactory;
@@ -12,6 +12,11 @@ import org.apache.mina.filter.codec.ProtocolEncoder;
  *
  */
 public class GameCodecFactory implements ProtocolCodecFactory {
+	private IMessageFactory messageFactory;
+
+	public GameCodecFactory(IMessageFactory messageFactory) {
+		this.messageFactory = messageFactory;
+	}
 
 	@Override
 	public ProtocolEncoder getEncoder(IoSession session) throws Exception {
@@ -20,7 +25,7 @@ public class GameCodecFactory implements ProtocolCodecFactory {
 
 	@Override
 	public ProtocolDecoder getDecoder(IoSession session) throws Exception {
-		return new GameDecoder();
+		return new GameDecoder(messageFactory);
 	}
 
 }
