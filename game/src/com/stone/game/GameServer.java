@@ -13,7 +13,6 @@ import com.stone.core.net.ServerProcess;
 import com.stone.core.processor.IDispatcher;
 import com.stone.core.service.IService;
 import com.stone.db.dispatch.DBDispatcher;
-import com.stone.game.msg.GameDispatcher;
 import com.stone.game.msg.ProtobufMessageFactory;
 
 /**
