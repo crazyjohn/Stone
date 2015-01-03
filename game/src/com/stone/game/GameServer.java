@@ -49,10 +49,15 @@ public class GameServer implements IService {
 
 	@Override
 	public void start() throws IOException {
-		logger.info("Begin to start Server Process...");
+		logger.info("Begin to start main dispatcher...");
 		mainDispatcher.start();
+		logger.info("Main dispatcher started.");
+		logger.info("Begin to start db dispatcher...");
 		dbDispatcher.start();
+		logger.info("DB dispatcher started.");
+		logger.info("Begin to start Server Process...");
 		externalProcess.start();
+		logger.info("Server Process started.");
 		// shutdown hook
 		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
 			@Override
@@ -60,7 +65,6 @@ public class GameServer implements IService {
 				shutdown();
 			}
 		}));
-		logger.info("Server Process started.");
 	}
 
 	@Override
