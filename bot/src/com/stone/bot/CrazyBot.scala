@@ -17,10 +17,6 @@ import com.stone.game.msg.ProtobufMessage
 import com.stone.game.msg.ProtobufMessageFactory
 import com.stone.proto.Auths.Login
 import com.stone.bot.handler.Handlers
-/**
- * bot Actor;
- * @author crazyjohn
- */
 
 /**
  * bot Actor;
