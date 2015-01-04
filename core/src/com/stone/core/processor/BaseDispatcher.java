@@ -6,7 +6,7 @@ import java.util.List;
 import com.stone.core.msg.IMessage;
 
 /**
- * 接触分发器实现;
+ * Basic Dispacher;
  * 
  * @author crazyjohn
  *

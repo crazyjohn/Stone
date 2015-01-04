@@ -1,13 +1,21 @@
 package com.stone.core.msg;
 
 import com.stone.core.entity.IEntity;
+import com.stone.core.processor.IDispatchable;
 
 /**
- * 数据库消息接口;
+ * DB message interface;
  * 
  * @author crazyjohn
  *
  */
-public interface IDBMessage extends IMessage {
+public interface IDBMessage extends IMessage, IDispatchable {
+	/**
+	 * get entity class;
+	 * 
+	 * @return
+	 */
 	public Class<? extends IEntity<?>> getEntityClass();
+
+	public IDBCallbackMessage executeSelf();
 }
