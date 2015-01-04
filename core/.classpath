@@ -12,7 +12,7 @@
 	<classpathentry exported="true" kind="lib" path="lib/log4j-1.2.17.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/slf4j-log4j12-1.7.6.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-lang-2.6.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/akka-actor_2.10-2.2.4.jar" sourcepath="lib-src/akka-actor_2.10-2.2.4-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/config-1.0.2.jar"/>
+	<classpathentry kind="lib" path="lib/akka-actor_2.10-2.2.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
