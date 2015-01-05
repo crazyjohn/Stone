@@ -53,3 +53,5 @@ aspect/logs/
 launcher/build/
 RemoteSystemsTempFiles/
 bot/.cache
+test/.cache
+test/.cache
