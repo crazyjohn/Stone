@@ -8,7 +8,7 @@ import com.stone.core.msg.IProtobufMessage
  * Handler static factory;
  */
 object Handlers {
-  private val handlers = new HashMap[Integer, (IMessage, CrazyBot) => Unit]()
+  private val handlers = new HashMap[Integer, (IProtobufMessage, CrazyBot) => Unit]()
 
   
 
@@ -21,7 +21,7 @@ object Handlers {
     }
   }
   
-  def registHandler(msgType: Int, handler:(IMessage, CrazyBot)=>Unit) {
+  def registHandler(msgType: Int, handler:(IProtobufMessage, CrazyBot)=>Unit) {
     handlers.put(msgType, handler)
   }
 }
