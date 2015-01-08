@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.stone.core.msg.MessageType;
+import com.stone.proto.MessageTypes.MessageType;
 
 /**
  * 消息类型工具

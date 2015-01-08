@@ -1,0 +1,9 @@
+option java_package = "com.stone.proto";
+option java_outer_classname = "MessageTypes";
+
+// 消息类型;
+enum MessageType {
+	// 请求登陆
+	CG_PLAYER_LOGIN = 1001;
+	GC_PLAYER_LOGIN_RESULT = 1002;
+}

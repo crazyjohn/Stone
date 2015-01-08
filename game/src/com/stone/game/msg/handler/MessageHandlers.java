@@ -5,9 +5,9 @@ import java.util.Map;
 
 import com.stone.core.msg.IProtobufMessage;
 import com.stone.core.msg.MessageParseException;
-import com.stone.core.msg.MessageType;
 import com.stone.core.msg.handler.IMessageHandlerWithType;
 import com.stone.game.player.login.PlayerLoginHandler;
+import com.stone.proto.MessageTypes.MessageType;
 
 /**
  * 处理器工厂;
@@ -16,8 +16,8 @@ import com.stone.game.player.login.PlayerLoginHandler;
  *
  */
 public class MessageHandlers {
-	private static Map<Short, IMessageHandlerWithType<?>> handlers = new HashMap<Short, IMessageHandlerWithType<?>>();
-	
+	private static Map<MessageType, IMessageHandlerWithType<?>> handlers = new HashMap<MessageType, IMessageHandlerWithType<?>>();
+
 	static {
 		handlers.put(MessageType.CG_PLAYER_LOGIN, new PlayerLoginHandler());
 	}
@@ -26,8 +26,8 @@ public class MessageHandlers {
 	public static void handle(IProtobufMessage protobufMessage)
 			throws MessageParseException {
 		@SuppressWarnings("rawtypes")
-		IMessageHandlerWithType handler = handlers.get(protobufMessage
-				.getType());
+		IMessageHandlerWithType handler = handlers.get(MessageType
+				.valueOf(protobufMessage.getType()));
 		if (handler == null) {
 			// TODO: prompt
 			return;

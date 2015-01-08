@@ -1,6 +1,6 @@
 package com.stone.bot
 
-import com.stone.core.msg.MessageType
+
 import com.stone.proto.Auths.Login
 /**
  * BotApp;

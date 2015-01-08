@@ -1,22 +1,19 @@
 package com.stone.bot
 
 import java.net.InetSocketAddress
-
 import scala.actors.Actor
 import scala.collection.mutable.MutableList
-
 import org.apache.mina.core.session.IoSession
 import org.apache.mina.filter.codec.ProtocolCodecFilter
 import org.apache.mina.transport.socket.nio.NioSocketConnector
-
 import com.google.protobuf.Message.Builder
 import com.stone.core.codec.GameCodecFactory
 import com.stone.core.msg.IProtobufMessage
-import com.stone.core.msg.MessageType
 import com.stone.game.msg.ProtobufMessage
 import com.stone.game.msg.ProtobufMessageFactory
 import com.stone.proto.Auths.Login
 import com.stone.bot.handler.Handlers
+import com.stone.proto.MessageTypes.MessageType
 
 /**
  * bot Actor;
@@ -77,7 +74,7 @@ class CrazyBot extends Actor {
   }
   
   def doLogin() {
-    sendMessage(MessageType.CG_PLAYER_LOGIN, Login.newBuilder().setUserName("bot").setPassword("bot"))
+    sendMessage(MessageType.CG_PLAYER_LOGIN_VALUE, Login.newBuilder().setUserName("bot").setPassword("bot"))
   }
 
 }
