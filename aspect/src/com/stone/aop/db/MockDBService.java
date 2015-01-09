@@ -27,9 +27,9 @@ public class MockDBService implements IDBService {
 	}
 
 	@Override
-	public void update(IEntity<?> entity, boolean async) {
+	public void update(IEntity<?> entity) {
 		logger.info(String.format("Update entity name: %s, id: %s, async: %s", entity
-				.getClass().getSimpleName(), entity.getId(), async));
+				.getClass().getSimpleName(), entity.getId()));
 	}
 
 }

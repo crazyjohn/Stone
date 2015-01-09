@@ -10,7 +10,7 @@ public class LoggerActor extends UntypedActor {
 	public void onReceive(Object msg) throws Exception {
 		if (msg instanceof String) {
 			logger.info("Received String message: {}", msg);
-			//this.getSender().tell(msg, this.getSelf());
+			this.getSender().tell(msg, this.getSelf());
 		} else {
 			this.unhandled(msg);
 		}

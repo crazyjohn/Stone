@@ -9,5 +9,5 @@ import com.stone.core.entity.IEntity;
  *
  */
 public interface IDBService {
-	public void update(IEntity<?> entity, boolean async);
+	public void update(IEntity<?> entity);
 }

@@ -25,7 +25,7 @@ public aspect DBEntitySetterAspect {
 		if (thisJoinPoint.getTarget() instanceof IEntity<?>) {
 			@SuppressWarnings("rawtypes")
 			IEntity entity = (IEntity) thisJoinPoint.getTarget();
-			dbService.update(entity, true);
+			dbService.update(entity);
 		}
 	}
 }

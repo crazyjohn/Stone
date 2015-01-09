@@ -36,7 +36,7 @@ public aspect DBEntityAnnotationAspect {
 				if (thisJoinPoint.getTarget() instanceof IEntity<?>) {
 					@SuppressWarnings("rawtypes")
 					IEntity entity = (IEntity) thisJoinPoint.getTarget();
-					MockDBService.getInstance().update(entity, annotation.async());
+					MockDBService.getInstance().update(entity);
 				}
 			}
 		}
