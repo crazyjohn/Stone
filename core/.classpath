@@ -15,5 +15,9 @@
 	<classpathentry exported="true" kind="lib" path="lib/config-1.0.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/akka-actor_2.10-2.2.4.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/scala-library.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/dom4j-1.6.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/hibernate-commons-annotations-4.0.5.Final.jar" sourcepath="lib-src/hibernate-core-4.3.8.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/hibernate-core-4.3.8.Final.jar" sourcepath="lib-src/hibernate-core-4.3.8.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/hibernate-jpa-2.1-api-1.0.0.Final.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
