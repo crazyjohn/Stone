@@ -4,7 +4,9 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * test Lock;
+ * 关于锁的互斥测试;<br>
+ * 测试目的: 锁的作用范围?<br>
+ * 测试结果: 只要线程对方法的调用绕开lock模块, 那么lock就是shit;不过好像是废话;
  * 
  * @author crazyjohn
  *
