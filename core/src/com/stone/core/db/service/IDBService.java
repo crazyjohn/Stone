@@ -12,17 +12,50 @@ import com.stone.core.entity.IEntity;
  *
  */
 public interface IDBService {
-
+	/**
+	 * 更新实体接口;
+	 * 
+	 * @param entity
+	 */
 	public void update(IEntity<?> entity);
 
+	/**
+	 * 插入实体接口;
+	 * 
+	 * @param entity
+	 * @return
+	 */
 	public Serializable insert(IEntity<?> entity);
 
+	/**
+	 * 删除实体接口;
+	 * 
+	 * @param entity
+	 */
 	public void delete(IEntity<?> entity);
 
+	/**
+	 * 根据id和类名删除实体;
+	 * 
+	 * @param entityClass
+	 * @param id
+	 */
 	public void deleteById(Class<?> entityClass, Serializable id);
 
-	public List<Object> queryByNameAndParams(String queryName, String[] params,
-			Object[] values);
+	/**
+	 * 查询接口;
+	 * 
+	 * @param queryName
+	 * @param params
+	 * @param values
+	 * @param maxResult
+	 * @param start
+	 * @return
+	 */
+	public List<Object> queryByNameAndParams(String queryName, String[] params, Object[] values, int maxResult, int start);
 
+	/**
+	 * 心跳接口;
+	 */
 	public void heartBeat();
 }
