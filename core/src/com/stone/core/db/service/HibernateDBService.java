@@ -89,11 +89,30 @@ public class HibernateDBService implements IDBService {
 
 	}
 
+	/**
+	 * 模板接口;
+	 * 
+	 * @author crazyjohn
+	 *
+	 */
 	interface IHibernateTemplate {
 		public <T> T doCallback(IHibernateOperationCallback<T> callback);
 	}
 
+	/**
+	 * 操作回调;
+	 * 
+	 * @author crazyjohn
+	 *
+	 * @param <T>
+	 */
 	interface IHibernateOperationCallback<T> {
+		/**
+		 * 执行回调;
+		 * 
+		 * @param session
+		 * @return
+		 */
 		public T doCallback(Session session);
 	}
 
