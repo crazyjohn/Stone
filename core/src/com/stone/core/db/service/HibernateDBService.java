@@ -2,9 +2,11 @@ package com.stone.core.db.service;
 
 import java.io.Serializable;
 import java.net.URL;
+import java.util.Collection;
 import java.util.List;
 import java.util.Properties;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -78,15 +80,39 @@ public class HibernateDBService implements IDBService {
 	}
 
 	@Override
-	public List<Object> queryByNameAndParams(String queryName, String[] params, Object[] values, int maxResult, int start) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Object> queryByNameAndParams(final String queryName, final String[] params, final Object[] values, final int maxResults, final int firstResult) {
+		List<Object> result = this.template.doCallback(new IHibernateOperationCallback<List<Object>>() {
+			@Override
+			public List<Object> doCallback(Session session) {
+				// get named query
+				Query query = session.getNamedQuery(queryName);
+				if (query == null) {
+					logger.error(String.format("Can't find such query: %s", queryName));
+				}
+				if (maxResults > -1) {
+					query.setMaxResults(maxResults);
+				}
+				if (firstResult > -1) {
+					query.setFirstResult(firstResult);
+				}
+				// prepare parameter
+				for (int i = 0; i < params.length; i++) {
+					if (values[i] instanceof Collection) {
+						query.setParameterList(params[i], (Collection<?>) values[i]);
+					} else {
+						query.setParameter(params[i], values[i]);
+					}
+				}
+				return null;
+			}
+		});
+		return result;
 	}
 
 	@Override
 	public void heartBeat() {
-		// TODO Auto-generated method stub
-
+		// TODO: crazyjohn slove mysql connection 8 hours problems
+		
 	}
 
 	/**

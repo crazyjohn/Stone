@@ -32,22 +32,21 @@ import org.hibernate.service.ServiceRegistry;
 
 /**
  * @author Steve Ebersole
+ * @author crazyjohn do copy things
  */
 public final class ServiceRegistryBuilder {
 	private ServiceRegistryBuilder() {
 	}
 
 	public static StandardServiceRegistryImpl buildServiceRegistry() {
-		return buildServiceRegistry( Environment.getProperties() );
+		return buildServiceRegistry(Environment.getProperties());
 	}
 
 	public static StandardServiceRegistryImpl buildServiceRegistry(@SuppressWarnings("rawtypes") Map serviceRegistryConfig) {
-		return (StandardServiceRegistryImpl) new StandardServiceRegistryBuilder()
-				.applySettings( serviceRegistryConfig )
-				.build();
+		return (StandardServiceRegistryImpl) new StandardServiceRegistryBuilder().applySettings(serviceRegistryConfig).build();
 	}
 
 	public static void destroy(ServiceRegistry serviceRegistry) {
-		( (StandardServiceRegistryImpl) serviceRegistry ).destroy();
+		((StandardServiceRegistryImpl) serviceRegistry).destroy();
 	}
 }
