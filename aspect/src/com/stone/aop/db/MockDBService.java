@@ -54,16 +54,16 @@ public class MockDBService implements IDBService {
 	}
 
 	@Override
-	public List<Object> queryByNameAndParams(String queryName, String[] params,
-			Object[] values) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void heartBeat() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List<Object> queryByNameAndParams(String queryName, String[] params,
+			Object[] values, int maxResult, int start) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
