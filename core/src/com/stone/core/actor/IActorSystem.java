@@ -6,7 +6,7 @@ package com.stone.core.actor;
  * @author crazyjohn
  *
  */
-public interface IActorScheduleCenter {
+public interface IActorSystem {
 
 	public IActor dispatch(IActorCallback call, IActorId actorId);
 

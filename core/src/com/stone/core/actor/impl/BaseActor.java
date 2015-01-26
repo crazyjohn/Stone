@@ -13,13 +13,13 @@ import com.stone.core.actor.IActor;
 import com.stone.core.actor.IActorCall;
 import com.stone.core.actor.IActorCallback;
 import com.stone.core.actor.IActorId;
-import com.stone.core.actor.IActorScheduleCenter;
+import com.stone.core.actor.IActorSystem;
 
 public abstract class BaseActor implements IActor {
 	protected BlockingQueue<IActorCall> calls = new LinkedBlockingQueue<>();
 	protected Map<IActorCall, IActorCallback> callbacks = new ConcurrentHashMap<IActorCall, IActorCallback>();
 	private volatile boolean stop = true;
-	protected IActorScheduleCenter actorSystem;
+	protected IActorSystem actorSystem;
 	private Logger logger = LoggerFactory.getLogger(BaseActor.class);
 
 	@Override
