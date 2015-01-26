@@ -1,7 +1,9 @@
 package com.stone.core.actor.impl;
 
 import java.util.Iterator;
+import java.util.Map;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import org.slf4j.Logger;
@@ -11,11 +13,24 @@ import com.stone.core.actor.IActor;
 import com.stone.core.actor.IActorCall;
 import com.stone.core.actor.IActorCallback;
 import com.stone.core.actor.IActorId;
+import com.stone.core.actor.IActorScheduleCenter;
 
-public class BaseActor implements IActor {
+public abstract class BaseActor implements IActor {
 	protected BlockingQueue<IActorCall> calls = new LinkedBlockingQueue<>();
-	private volatile boolean stop;
+	protected Map<IActorCall, IActorCallback> callbacks = new ConcurrentHashMap<IActorCall, IActorCallback>();
+	private volatile boolean stop = true;
+	protected IActorScheduleCenter actorSystem;
 	private Logger logger = LoggerFactory.getLogger(BaseActor.class);
+
+	@Override
+	public void start() {
+		this.stop = false;
+	}
+
+	@Override
+	public void stop() {
+		this.stop = true;
+	}
 
 	@Override
 	public void put(IActorCall call) {
@@ -24,8 +39,8 @@ public class BaseActor implements IActor {
 
 	@Override
 	public void put(IActorCall call, IActorCallback callback, IActorId source) {
-		// TODO Auto-generated method stub
-
+		callback.setTarget(source);
+		callbacks.put(call, callback);
 	}
 
 	@Override
@@ -36,6 +51,9 @@ public class BaseActor implements IActor {
 				while (iterator.hasNext()) {
 					IActorCall call = iterator.next();
 					call.execute();
+					if (callbacks.get(call) != null) {
+						actorSystem.dispatch(callbacks.get(call), callbacks.get(call).getTarget());
+					}
 					iterator.remove();
 				}
 			} catch (Exception e) {

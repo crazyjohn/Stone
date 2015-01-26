@@ -14,4 +14,8 @@ public interface IActor {
 
 	public void run();
 
+	public void start();
+
+	public void stop();
+
 }
