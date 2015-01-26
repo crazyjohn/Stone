@@ -18,4 +18,6 @@ public interface IActor {
 
 	public void stop();
 
+	public void put(IActorCallback callback);
+
 }

@@ -6,6 +6,6 @@ package com.stone.core.actor.impl;
  * @author crazyjohn
  *
  */
-public class GlobalManagerActor extends BaseActor {
+public class ManagerActor extends BaseActor {
 	
 }

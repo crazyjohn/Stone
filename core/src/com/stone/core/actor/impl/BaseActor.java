@@ -16,8 +16,9 @@ import com.stone.core.actor.IActorId;
 import com.stone.core.actor.IActorSystem;
 
 public abstract class BaseActor implements IActor {
-	protected BlockingQueue<IActorCall> calls = new LinkedBlockingQueue<>();
-	protected Map<IActorCall, IActorCallback> callbacks = new ConcurrentHashMap<IActorCall, IActorCallback>();
+	protected BlockingQueue<IActorCall> callQueue = new LinkedBlockingQueue<>();
+	protected BlockingQueue<IActorCallback> callbackQueue = new LinkedBlockingQueue<>();
+	protected Map<IActorCall, IActorCallback> registerCallbacks = new ConcurrentHashMap<IActorCall, IActorCallback>();
 	private volatile boolean stop = true;
 	protected IActorSystem actorSystem;
 	private Logger logger = LoggerFactory.getLogger(BaseActor.class);
@@ -34,25 +35,30 @@ public abstract class BaseActor implements IActor {
 
 	@Override
 	public void put(IActorCall call) {
-		calls.add(call);
+		callQueue.add(call);
+	}
+
+	@Override
+	public void put(IActorCallback callback) {
+		callbackQueue.add(callback);
 	}
 
 	@Override
 	public void put(IActorCall call, IActorCallback callback, IActorId source) {
 		callback.setTarget(source);
-		callbacks.put(call, callback);
+		registerCallbacks.put(call, callback);
 	}
 
 	@Override
 	public void run() {
 		while (!stop) {
 			try {
-				Iterator<IActorCall> iterator = this.calls.iterator();
+				Iterator<IActorCall> iterator = this.callQueue.iterator();
 				while (iterator.hasNext()) {
 					IActorCall call = iterator.next();
 					call.execute();
-					if (callbacks.get(call) != null) {
-						actorSystem.dispatch(callbacks.get(call), callbacks.get(call).getTarget());
+					if (registerCallbacks.get(call) != null) {
+						actorSystem.dispatch(registerCallbacks.get(call).getTarget(), registerCallbacks.get(call));
 					}
 					iterator.remove();
 				}
