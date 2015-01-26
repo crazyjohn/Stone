@@ -19,5 +19,7 @@
 	<classpathentry exported="true" kind="lib" path="lib/hibernate-commons-annotations-4.0.5.Final.jar" sourcepath="lib-src/hibernate-core-4.3.8.zip"/>
 	<classpathentry exported="true" kind="lib" path="lib/hibernate-core-4.3.8.Final.jar" sourcepath="lib-src/hibernate-core-4.3.8.zip"/>
 	<classpathentry exported="true" kind="lib" path="lib/hibernate-jpa-2.1-api-1.0.0.Final.jar"/>
+	<classpathentry kind="lib" path="lib/org.apache.httpcomponents.httpclient_4.4-beta1.jar" sourcepath="lib-src/http-client-4.4-beta1.zip"/>
+	<classpathentry kind="lib" path="lib/org.apache.httpcomponents.httpcore_4.4.jar" sourcepath="lib-src/org.apache.httpcomponents.httpcore_4.4.zip"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
