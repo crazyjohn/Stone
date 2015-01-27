@@ -13,4 +13,8 @@ public interface IActorSystem {
 
 	public void dispatch(IActorId actorId, IActorCall call);
 
+	public void start();
+
+	public void stop();
+
 }

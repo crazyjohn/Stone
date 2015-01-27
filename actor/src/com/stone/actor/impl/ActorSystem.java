@@ -2,21 +2,28 @@ package com.stone.actor.impl;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 import com.stone.actor.IActor;
 import com.stone.actor.IActorCall;
 import com.stone.actor.IActorCallback;
 import com.stone.actor.IActorId;
 import com.stone.actor.IActorSystem;
+import com.stone.actor.concurrent.ActorWokerThread;
+import com.stone.actor.concurrent.IActorRunnable;
+import com.stone.actor.concurrent.IActorWorkerThread;
 
-public class ActorSystem implements IActorSystem {
+public class ActorSystem implements IActorSystem, Runnable {
+	/** hash index */
 	protected Map<IActorId, IActor> actors = new ConcurrentHashMap<IActorId, IActor>();
-	protected Executor executor;
+	protected IActorWorkerThread[] workerThreads;
+	protected volatile boolean stop = true;
 
 	public ActorSystem(int threadNum) {
-		this.executor = Executors.newFixedThreadPool(threadNum);
+		// init worker thread
+		workerThreads = new IActorWorkerThread[threadNum];
+		for (int i = 0; i < threadNum; i++) {
+			workerThreads[i] = new ActorWokerThread();
+		}
 	}
 
 	@Override
@@ -35,6 +42,41 @@ public class ActorSystem implements IActorSystem {
 			return;
 		}
 		actor.put(call);
+	}
+
+	@Override
+	public void run() {
+		while (!stop) {
+			for (final Map.Entry<IActorId, IActor> eachActorEntry : this.actors.entrySet()) {
+				IActorWorkerThread workThread = getActorWorkerThread(eachActorEntry.getKey());
+				if (workThread != null) {
+					workThread.submit(new IActorRunnable() {
+						@Override
+						public void run() {
+							eachActorEntry.getValue().run();
+						}
+
+					});
+				} else {
+					// FIXME: crazyjohn log
+				}
+			}
+		}
+	}
+
+	private IActorWorkerThread getActorWorkerThread(IActorId key) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void start() {
+		stop = false;
+	}
+
+	@Override
+	public void stop() {
+		stop = true;
 	}
 
 }
