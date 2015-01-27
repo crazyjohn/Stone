@@ -44,16 +44,13 @@ public class GameDispatcher extends BaseDispatcher {
 			Player player = ((CGMessage) msg).getPlayer();
 			if (player == null) {
 				ISession sessionInfo = ((CGMessage) msg).getSession();
-				logger.info(String.format(
-						"Player null, close this session: %s", sessionInfo));
+				logger.info(String.format("Player null, close this session: %s", sessionInfo));
 				sessionInfo.close();
 				return;
 			}
-			IMessageProcessor processor = ((CGMessage) msg).getPlayer()
-					.getProcessor(this);
+			IMessageProcessor processor = ((CGMessage) msg).getPlayer().getProcessor(this);
 			if (processor == null) {
-				logger.info(String.format("Processor null, playerId: %d",
-						player.getPlayerId()));
+				logger.info(String.format("Processor null, playerId: %d", player.getPlayerId()));
 				return;
 			}
 			processor.put(msg);
