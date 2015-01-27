@@ -6,6 +6,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 import com.stone.core.actor.IActor;
+import com.stone.core.actor.IActorCall;
 import com.stone.core.actor.IActorCallback;
 import com.stone.core.actor.IActorId;
 import com.stone.core.actor.IActorSystem;
@@ -25,6 +26,15 @@ public class ActorSystem implements IActorSystem {
 			return;
 		}
 		actor.put(callback);
+	}
+
+	@Override
+	public void dispatch(IActorId actorId, IActorCall call) {
+		IActor actor = this.actors.get(actorId);
+		if (actor == null) {
+			return;
+		}
+		actor.put(call);
 	}
 
 }

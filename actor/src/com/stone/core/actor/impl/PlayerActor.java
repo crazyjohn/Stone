@@ -7,5 +7,5 @@ package com.stone.core.actor.impl;
  *
  */
 public class PlayerActor extends BaseActor {
-
+	
 }
