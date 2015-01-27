@@ -22,10 +22,16 @@ public abstract class BaseActor implements IActor {
 	private volatile boolean stop = true;
 	protected IActorSystem actorSystem;
 	private Logger logger = LoggerFactory.getLogger(BaseActor.class);
+	protected IActorId actorId;
 
 	@Override
 	public void start() {
 		this.stop = false;
+	}
+
+	@Override
+	public IActorId getActorId() {
+		return actorId;
 	}
 
 	@Override

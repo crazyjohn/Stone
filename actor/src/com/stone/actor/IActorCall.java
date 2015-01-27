@@ -8,5 +8,8 @@ package com.stone.actor;
  */
 public interface IActorCall {
 
+	/**
+	 * excute me;
+	 */
 	public void execute();
 }
