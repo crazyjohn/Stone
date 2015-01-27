@@ -8,4 +8,6 @@ package com.stone.actor;
  */
 public interface IActorId {
 
+	public int getWorkerThreadIndex(int workerNum);
+
 }

@@ -17,9 +17,11 @@ public class ActorSystem implements IActorSystem, Runnable {
 	protected Map<IActorId, IActor> actors = new ConcurrentHashMap<IActorId, IActor>();
 	protected IActorWorkerThread[] workerThreads;
 	protected volatile boolean stop = true;
+	private int workerNum;
 
 	public ActorSystem(int threadNum) {
 		// init worker thread
+		workerNum = threadNum;
 		workerThreads = new IActorWorkerThread[threadNum];
 		for (int i = 0; i < threadNum; i++) {
 			workerThreads[i] = new ActorWokerThread();
@@ -64,9 +66,9 @@ public class ActorSystem implements IActorSystem, Runnable {
 		}
 	}
 
-	private IActorWorkerThread getActorWorkerThread(IActorId key) {
-		// TODO Auto-generated method stub
-		return null;
+	private IActorWorkerThread getActorWorkerThread(IActorId actorId) {
+		int workerIndex = actorId.getWorkerThreadIndex(this.workerNum);
+		return this.workerThreads[workerIndex];
 	}
 
 	@Override
