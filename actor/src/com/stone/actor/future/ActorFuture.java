@@ -10,7 +10,7 @@ import com.stone.actor.listener.IActorFutureListener;
 import com.stone.core.annotation.GuardedByUnit;
 import com.stone.core.annotation.ThreadSafeUnit;
 
-@ThreadSafeUnit(isAsync = true)
+@ThreadSafeUnit
 public class ActorFuture<T> implements IActorFuture<T> {
 	protected volatile boolean isReady = false;
 	/** the execution result */

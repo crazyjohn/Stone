@@ -12,16 +12,10 @@ import org.apache.http.annotation.ThreadSafe;
  * 来自jdk并发设计者的推荐模式{@link ThreadSafe}
  * 
  * @author crazyjohn
- *
+ * 
  */
 @Retention(RetentionPolicy.CLASS)
 @Target(value = { ElementType.TYPE, ElementType.FIELD, ElementType.METHOD })
 public @interface ThreadSafeUnit {
-	/**
-	 * 是否是异步执行的;<br>
-	 * 如果是异步执行, 调用的时候要切记本次调用的后续逻辑不依赖这个单元的执行结果, 否则会有异步引发的值不一致的情况;
-	 * 
-	 * @return true 表示异步执行, false 表示同步执行;
-	 */
-	boolean isAsync();
+
 }
