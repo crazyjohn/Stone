@@ -17,7 +17,7 @@ import com.stone.actor.system.IActorSystem;
 
 public abstract class BaseActor implements IActor {
 	protected BlockingQueue<QueueCall> callQueue = new LinkedBlockingQueue<QueueCall>();
-	protected BlockingQueue<IActorCallback> callbackQueue = new LinkedBlockingQueue<>();
+	protected BlockingQueue<IActorCallback> callbackQueue = new LinkedBlockingQueue<IActorCallback>();
 	protected Map<IActorCall<?>, IActorCallback> registerCallbacks = new ConcurrentHashMap<IActorCall<?>, IActorCallback>();
 	private volatile boolean stop = true;
 	protected IActorSystem actorSystem;
