@@ -115,7 +115,11 @@ public class EncryptUtils {
 			md5 = MessageDigest.getInstance(ALGORITHM_MD5);
 		} catch (NoSuchAlgorithmException e) {			
 			e.printStackTrace();
-		} 
+		}
+		// editby: crazyjohn not null check
+		if (md5 == null) {
+			return new byte[0];
+		}
 		md5.update(data); 
 		return md5.digest();
 	}

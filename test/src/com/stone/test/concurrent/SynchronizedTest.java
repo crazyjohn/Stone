@@ -28,6 +28,9 @@ public class SynchronizedTest {
 
 	}
 
+	/**
+	 * 这种情况下的同步是无效的;
+	 */
 	public void lockMe() {
 		synchronized (this.lock) {
 			lock = new StateLock();
