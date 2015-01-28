@@ -8,8 +8,9 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import com.stone.actor.listener.IActorFutureListener;
 import com.stone.core.annotation.GuardedByUnit;
-import com.stone.core.annotation.NotThreadSafeUnit;
+import com.stone.core.annotation.ThreadSafeUnit;
 
+@ThreadSafeUnit(isAsync = true)
 public class ActorFuture<T> implements IActorFuture<T> {
 	protected volatile boolean isReady = false;
 	/** the execution result */
@@ -17,8 +18,7 @@ public class ActorFuture<T> implements IActorFuture<T> {
 	/** read write lock */
 	protected ReadWriteLock resultLock;
 	/** listeners */
-	@GuardedByUnit(whoCareMe = "nobody")
-	@NotThreadSafeUnit
+	@GuardedByUnit(whoCareMe = "this")
 	protected List<IActorFutureListener<T>> listeners = new LinkedList<IActorFutureListener<T>>();
 
 	public ActorFuture() {
@@ -48,8 +48,21 @@ public class ActorFuture<T> implements IActorFuture<T> {
 		try {
 			this.result = result;
 			ready();
+			// notify listeners
+			notifyListeners(this);
 		} finally {
 			writeLock.unlock();
+		}
+	}
+
+	/**
+	 * 通知监听器;
+	 * 
+	 * @param actorFuture
+	 */
+	private synchronized void notifyListeners(ActorFuture<T> actorFuture) {
+		for (IActorFutureListener<T> eachListener : this.listeners) {
+			eachListener.onComplete(actorFuture);
 		}
 	}
 
@@ -59,12 +72,12 @@ public class ActorFuture<T> implements IActorFuture<T> {
 	}
 
 	@Override
-	public void addListener(IActorFutureListener<T> listener) {
+	public synchronized void addListener(IActorFutureListener<T> listener) {
 		listeners.add(listener);
 	}
 
 	@Override
-	public void removeListener(IActorFutureListener<T> listener) {
+	public synchronized void removeListener(IActorFutureListener<T> listener) {
 		listeners.remove(listener);
 	}
 
