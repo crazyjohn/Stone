@@ -6,10 +6,12 @@ package com.stone.actor;
  * @author crazyjohn
  *
  */
-public interface IActorCall {
+public interface IActorCall<Result> {
 
 	/**
-	 * excute me;
+	 * execute me;
+	 * 
+	 * @return
 	 */
-	public void execute();
+	public Result execute();
 }

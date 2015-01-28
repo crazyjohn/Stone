@@ -12,7 +12,7 @@ public interface IActor {
 	 * 
 	 * @param call
 	 */
-	public void put(IActorCall call);
+	public <T> IActorFuture<T> put(IActorCall<T> call);
 
 	/**
 	 * 投递一个调用以及一个回调, 以及处理回调的ActorId;
@@ -21,7 +21,7 @@ public interface IActor {
 	 * @param callback
 	 * @param source
 	 */
-	public void put(IActorCall call, IActorCallback callback, IActorId source);
+	public void put(IActorCall<?> call, IActorCallback callback, IActorId source);
 
 	/**
 	 * the run method;

@@ -11,7 +11,7 @@ public interface IActorSystem {
 
 	public void dispatch(IActorId actorId, IActorCallback callback);
 
-	public void dispatch(IActorId actorId, IActorCall call);
+	public void dispatch(IActorId actorId, IActorCall<?> call);
 
 	public void start();
 

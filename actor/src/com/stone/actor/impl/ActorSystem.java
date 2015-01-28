@@ -38,7 +38,7 @@ public class ActorSystem implements IActorSystem, Runnable {
 	}
 
 	@Override
-	public void dispatch(IActorId actorId, IActorCall call) {
+	public void dispatch(IActorId actorId, IActorCall<?> call) {
 		IActor actor = this.actors.get(actorId);
 		if (actor == null) {
 			return;
