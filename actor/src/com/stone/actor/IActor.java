@@ -1,5 +1,9 @@
 package com.stone.actor;
 
+import com.stone.actor.call.IActorCall;
+import com.stone.actor.call.IActorCallback;
+import com.stone.actor.future.IActorFuture;
+
 /**
  * Actor接口;
  * 
@@ -12,7 +16,7 @@ public interface IActor {
 	 * 
 	 * @param call
 	 */
-	public <T> IActorFuture<T> put(IActorCall<T> call);
+	public <T> IActorFuture<T> call(IActorCall<T> call);
 
 	/**
 	 * 投递一个调用以及一个回调, 以及处理回调的ActorId;
