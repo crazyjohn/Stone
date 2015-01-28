@@ -1,5 +1,11 @@
 package com.stone.test.concurrent;
 
+/**
+ * 无效的同步;<br>
+ * 
+ * @author crazyjohn
+ *
+ */
 public class SynchronizedTest {
 	private StateLock lock = new StateLock();
 
