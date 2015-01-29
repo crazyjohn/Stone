@@ -20,7 +20,9 @@ public class PlayerSendEquipHandler {
 		if (!senderPlayer.getPlayerEquipModule().hasSuchEquip(equipId)) {
 			return;
 		}
-		// make actor call
+		// make actor call 有以下2种方法可以选择:
+		// 1. 使用直接给actor添加匿名调用的方式, 但是这样的代码负责度高，不易阅读
+		// 2. 使用actor暴露良好接口的方法，把具体实现包装在actor内部
 		final PlayerActor receiverPlayer = ActorSystem.getInstance().getPlayerActor(receiverPlayerId);
 		IActorFuture<Boolean> future = receiverPlayer.call(new IActorCall<Boolean>() {
 			@Override
@@ -29,6 +31,9 @@ public class PlayerSendEquipHandler {
 				return succeed;
 			}
 		});
+		// get result
+		// 1. 使用添加结果监听器的方法
+		// 2. 使用同步等待结果的方法
 		// add future listener
 		future.addListener(new IActorFutureListener<Boolean>() {
 			@Override
@@ -40,5 +45,6 @@ public class PlayerSendEquipHandler {
 				senderPlayer.sendMessage(resultMsg);
 			}
 		});
+
 	}
 }
