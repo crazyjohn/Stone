@@ -3,6 +3,7 @@ package com.stone.actor;
 import com.stone.actor.call.IActorCall;
 import com.stone.actor.call.IActorCallback;
 import com.stone.actor.future.IActorFuture;
+import com.stone.actor.id.IActorId;
 
 /**
  * Actor接口;

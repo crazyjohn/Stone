@@ -1,6 +1,6 @@
 package com.stone.actor.call;
 
-import com.stone.actor.IActorId;
+import com.stone.actor.id.IActorId;
 
 /**
  * Actor执行回调;

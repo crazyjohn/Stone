@@ -1,8 +1,8 @@
 package com.stone.actor.system;
 
-import com.stone.actor.IActorId;
 import com.stone.actor.call.IActorCall;
 import com.stone.actor.call.IActorCallback;
+import com.stone.actor.id.IActorId;
 import com.stone.actor.player.PlayerActor;
 
 /**

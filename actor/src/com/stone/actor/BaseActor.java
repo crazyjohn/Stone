@@ -13,6 +13,7 @@ import com.stone.actor.call.IActorCall;
 import com.stone.actor.call.IActorCallback;
 import com.stone.actor.future.ActorFuture;
 import com.stone.actor.future.IActorFuture;
+import com.stone.actor.id.IActorId;
 import com.stone.actor.system.IActorSystem;
 
 public abstract class BaseActor implements IActor {

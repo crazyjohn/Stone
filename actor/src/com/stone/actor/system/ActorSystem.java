@@ -4,12 +4,12 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.stone.actor.IActor;
-import com.stone.actor.IActorId;
 import com.stone.actor.call.IActorCall;
 import com.stone.actor.call.IActorCallback;
 import com.stone.actor.concurrent.ActorWokerThread;
 import com.stone.actor.concurrent.IActorRunnable;
 import com.stone.actor.concurrent.IActorWorkerThread;
+import com.stone.actor.id.IActorId;
 import com.stone.actor.player.PlayerActor;
 
 public class ActorSystem implements IActorSystem, Runnable {
