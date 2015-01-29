@@ -14,6 +14,7 @@ import com.stone.core.annotation.ThreadSafeUnit;
 public class ActorFuture<T> implements IActorFuture<T> {
 	protected volatile boolean isReady = false;
 	/** the execution result */
+	@GuardedByUnit(whoCareMe = "ReadWriteLock")
 	protected T result;
 	/** read write lock */
 	protected ReadWriteLock resultLock;
@@ -73,6 +74,8 @@ public class ActorFuture<T> implements IActorFuture<T> {
 	@Override
 	public void ready() {
 		this.isReady = true;
+		// notify all
+		this.notifyAll();
 	}
 
 	@Override
@@ -83,6 +86,22 @@ public class ActorFuture<T> implements IActorFuture<T> {
 	@Override
 	public synchronized void removeListener(IActorFutureListener<T> listener) {
 		listeners.remove(listener);
+	}
+
+	@Override
+	public synchronized T awaitResult() throws InterruptedException {
+		while (!isReady) {
+			this.wait();
+		}
+		return result;
+	}
+
+	@Override
+	public T awaitResult(long timeout) throws InterruptedException {
+		while (!isReady) {
+			this.wait(timeout);
+		}
+		return result;
 	}
 
 }
