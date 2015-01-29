@@ -10,9 +10,11 @@ import com.stone.actor.system.ActorSystem;
 
 public class PlayerSendEquipHandler {
 	public void execute(CGPlayerSendEquip msg) {
+		// get params
 		long senderPlayerId = msg.getSender();
 		final long receiverPlayerId = msg.getReceiver();
 		final long equipId = msg.getEquipId();
+		// get sender
 		final PlayerActor senderPlayer = ActorSystem.getInstance().getPlayerActor(senderPlayerId);
 		if (senderPlayer == null) {
 			return;
@@ -23,6 +25,7 @@ public class PlayerSendEquipHandler {
 		// make actor call 有以下2种方法可以选择:
 		// 1. 使用直接给actor添加匿名调用的方式, 但是这样的代码负责度高，不易阅读
 		// 2. 使用actor暴露良好接口的方法，把具体实现包装在actor内部
+		// get receiver
 		final PlayerActor receiverPlayer = ActorSystem.getInstance().getPlayerActor(receiverPlayerId);
 		IActorFuture<Boolean> future = receiverPlayer.call(new IActorCall<Boolean>() {
 			@Override

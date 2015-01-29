@@ -1,8 +1,8 @@
 package com.stone.actor.player.equip.msg;
 
-import com.stone.actor.message.IActorMessage;
+import com.stone.actor.message.BasePlayerActorMessage;
 
-public class GCPlayerSendEquipResult implements IActorMessage {
+public class GCPlayerSendEquipResult extends BasePlayerActorMessage {
 	private long equipId;
 	private long receiverId;
 	private boolean sendResult;

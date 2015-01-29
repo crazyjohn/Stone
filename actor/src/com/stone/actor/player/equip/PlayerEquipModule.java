@@ -50,4 +50,9 @@ public class PlayerEquipModule extends BasePlayerModule implements ILoadable<Pla
 		return false;
 	}
 
+	public PlayerEquip getEquipById(long equipId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
