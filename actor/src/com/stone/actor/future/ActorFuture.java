@@ -27,6 +27,10 @@ public class ActorFuture<T> implements IActorFuture<T> {
 
 	@Override
 	public T getResult() {
+		// just balking(balking pattern)
+		if (!this.isReady) {
+			return null;
+		}
 		Lock readLock = resultLock.readLock();
 		readLock.lock();
 		try {

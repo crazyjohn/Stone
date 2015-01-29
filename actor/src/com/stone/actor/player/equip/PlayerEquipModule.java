@@ -40,4 +40,14 @@ public class PlayerEquipModule extends BasePlayerModule implements ILoadable<Pla
 		return new ArrayList<PlayerEquipEntity>();
 	}
 
+	public boolean hasSuchEquip(long equipId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean addEquip(long equipId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

@@ -3,6 +3,7 @@ package com.stone.actor.system;
 import com.stone.actor.IActorId;
 import com.stone.actor.call.IActorCall;
 import com.stone.actor.call.IActorCallback;
+import com.stone.actor.player.PlayerActor;
 
 /**
  * Actor调度中心;<br>
@@ -20,5 +21,7 @@ public interface IActorSystem {
 	public void start();
 
 	public void stop();
+
+	public PlayerActor getPlayerActor(long playerId);
 
 }

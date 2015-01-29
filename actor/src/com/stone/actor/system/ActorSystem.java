@@ -10,6 +10,7 @@ import com.stone.actor.call.IActorCallback;
 import com.stone.actor.concurrent.ActorWokerThread;
 import com.stone.actor.concurrent.IActorRunnable;
 import com.stone.actor.concurrent.IActorWorkerThread;
+import com.stone.actor.player.PlayerActor;
 
 public class ActorSystem implements IActorSystem, Runnable {
 	/** hash index */
@@ -78,6 +79,17 @@ public class ActorSystem implements IActorSystem, Runnable {
 	@Override
 	public void stop() {
 		stop = true;
+	}
+
+	public static IActorSystem getInstance() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public PlayerActor getPlayerActor(long playerId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
