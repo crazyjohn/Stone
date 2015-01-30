@@ -6,25 +6,25 @@ import java.util.concurrent.ConcurrentHashMap;
 import com.stone.actor.IActor;
 import com.stone.actor.call.IActorCall;
 import com.stone.actor.call.IActorCallback;
-import com.stone.actor.concurrent.ActorWokerThread;
+import com.stone.actor.concurrent.ActorWokerMonster;
 import com.stone.actor.concurrent.IActorRunnable;
-import com.stone.actor.concurrent.IActorWorkerThread;
+import com.stone.actor.concurrent.IActorWorkerMonster;
 import com.stone.actor.id.IActorId;
 import com.stone.actor.player.PlayerActor;
 
 public class ActorSystem implements IActorSystem, Runnable {
 	/** hash index */
 	protected Map<IActorId, IActor> actors = new ConcurrentHashMap<IActorId, IActor>();
-	protected IActorWorkerThread[] workerThreads;
+	protected IActorWorkerMonster[] workerThreads;
 	protected volatile boolean stop = true;
 	private int workerNum;
 
 	public ActorSystem(int threadNum) {
 		// init worker thread
 		workerNum = threadNum;
-		workerThreads = new IActorWorkerThread[threadNum];
+		workerThreads = new IActorWorkerMonster[threadNum];
 		for (int i = 0; i < threadNum; i++) {
-			workerThreads[i] = new ActorWokerThread();
+			workerThreads[i] = new ActorWokerMonster();
 		}
 	}
 
@@ -50,7 +50,7 @@ public class ActorSystem implements IActorSystem, Runnable {
 	public void run() {
 		while (!stop) {
 			for (final Map.Entry<IActorId, IActor> eachActorEntry : this.actors.entrySet()) {
-				IActorWorkerThread workThread = getActorWorkerThread(eachActorEntry.getKey());
+				IActorWorkerMonster workThread = getActorWorkerThread(eachActorEntry.getKey());
 				if (workThread != null) {
 					workThread.submit(new IActorRunnable() {
 						@Override
@@ -66,7 +66,7 @@ public class ActorSystem implements IActorSystem, Runnable {
 		}
 	}
 
-	private IActorWorkerThread getActorWorkerThread(IActorId actorId) {
+	private IActorWorkerMonster getActorWorkerThread(IActorId actorId) {
 		int workerIndex = actorId.getWorkerThreadIndex(this.workerNum);
 		return this.workerThreads[workerIndex];
 	}

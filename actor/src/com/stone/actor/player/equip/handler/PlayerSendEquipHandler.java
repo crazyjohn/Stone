@@ -2,6 +2,7 @@ package com.stone.actor.player.equip.handler;
 
 import com.stone.actor.call.IActorCall;
 import com.stone.actor.future.IActorFuture;
+import com.stone.actor.id.IActorId;
 import com.stone.actor.listener.IActorFutureListener;
 import com.stone.actor.player.PlayerActor;
 import com.stone.actor.player.equip.msg.CGPlayerSendEquip;
@@ -46,6 +47,11 @@ public class PlayerSendEquipHandler {
 				resultMsg.setReceiverId(receiverPlayerId);
 				resultMsg.setSendResult(future.getResult());
 				senderPlayer.sendMessage(resultMsg);
+			}
+
+			@Override
+			public IActorId getTarget() {
+				return senderPlayer.getActorId();
 			}
 		});
 

@@ -8,7 +8,14 @@ import com.stone.actor.message.IActorMessage;
 import com.stone.actor.player.equip.PlayerEquip;
 import com.stone.actor.player.equip.PlayerEquipModule;
 
+/**
+ * 玩家活动对象;
+ * 
+ * @author crazyjohn
+ *
+ */
 public class PlayerActor extends BaseActor {
+	/** equip module */
 	private PlayerEquipModule equipModule;
 
 	public PlayerEquipModule getPlayerEquipModule() {

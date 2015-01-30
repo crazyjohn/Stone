@@ -8,11 +8,17 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import com.stone.actor.call.IActorCall;
 import com.stone.actor.listener.IActorFutureListener;
-import com.stone.actor.listener.ITargetableFutureListener;
 import com.stone.actor.system.IActorSystem;
 import com.stone.core.annotation.GuardedByUnit;
 import com.stone.core.annotation.ThreadSafeUnit;
 
+/**
+ * 基础的future实现;
+ * 
+ * @author crazyjohn
+ *
+ * @param <T>
+ */
 @ThreadSafeUnit
 public class ActorFuture<T> implements IActorFuture<T> {
 	protected volatile boolean isReady = false;
@@ -70,20 +76,15 @@ public class ActorFuture<T> implements IActorFuture<T> {
 	 * @param actorFuture
 	 */
 	private synchronized void notifyListeners(final IActorFuture<T> actorFuture) {
-		for (IActorFutureListener<T> eachListener : this.listeners) {
+		for (final IActorFutureListener<T> eachListener : this.listeners) {
 			// has target?
-			if (eachListener instanceof ITargetableFutureListener<?>) {
-				final ITargetableFutureListener<T> targetListener = (ITargetableFutureListener<T>) eachListener;
-				actorSystem.dispatch(targetListener.getTarget(), new IActorCall<T>() {
-					@Override
-					public T execute() {
-						targetListener.onComplete(actorFuture);
-						return null;
-					}
-				});
-				return;
-			}
-			eachListener.onComplete(actorFuture);
+			actorSystem.dispatch(eachListener.getTarget(), new IActorCall<T>() {
+				@Override
+				public T execute() {
+					eachListener.onComplete(actorFuture);
+					return null;
+				}
+			});
 		}
 	}
 

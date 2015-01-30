@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import com.stone.actor.future.IActorFuture;
 import com.stone.actor.id.IActorId;
-import com.stone.actor.listener.ITargetableFutureListener;
+import com.stone.actor.listener.IActorFutureListener;
 import com.stone.actor.player.PlayerActor;
 import com.stone.actor.player.equip.PlayerEquip;
 import com.stone.actor.player.equip.msg.CGSeeOtherPlayerEquip;
@@ -23,7 +23,7 @@ public class PlayerSeeOtherPlayerEquipHandler {
 		// get future
 		IActorFuture<PlayerEquip> future = otherPlayer.getPlayerEquip(equipId);
 		// add listener
-		future.addListener(new ITargetableFutureListener<PlayerEquip>() {
+		future.addListener(new IActorFutureListener<PlayerEquip>() {
 			@Override
 			public void onComplete(IActorFuture<PlayerEquip> future) {
 				PlayerEquip equip = future.getResult();

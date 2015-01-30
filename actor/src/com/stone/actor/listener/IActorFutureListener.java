@@ -1,6 +1,7 @@
 package com.stone.actor.listener;
 
 import com.stone.actor.future.IActorFuture;
+import com.stone.actor.id.IActorId;
 import com.stone.core.annotation.NotThreadSafeUnit;
 
 /**
@@ -20,5 +21,12 @@ public interface IActorFutureListener<T> {
 	 */
 	@NotThreadSafeUnit(desc = "do not operate the host context")
 	public void onComplete(IActorFuture<T> future);
+
+	/**
+	 * 获取活动对象id;
+	 * 
+	 * @return
+	 */
+	public IActorId getTarget();
 
 }
