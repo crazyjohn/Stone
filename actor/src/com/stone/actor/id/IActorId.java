@@ -8,6 +8,12 @@ package com.stone.actor.id;
  */
 public interface IActorId {
 
-	public int getWorkerThreadIndex(int workerNum);
+	/**
+	 * 获取工作者;
+	 * 
+	 * @param workerNum
+	 * @return
+	 */
+	public int getWorkerMonsterIndex(int workerNum);
 
 }

@@ -85,6 +85,7 @@ public abstract class BaseActor implements IActor {
 	 */
 	interface IActorQueueCall {
 
+		
 		/**
 		 * 获取调用;
 		 * 

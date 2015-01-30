@@ -11,16 +11,38 @@ import com.stone.actor.concurrent.IActorRunnable;
 import com.stone.actor.concurrent.IActorWorkerMonster;
 import com.stone.actor.id.IActorId;
 import com.stone.actor.player.PlayerActor;
+import com.stone.core.annotation.GuardedByUnit;
+import com.stone.core.annotation.ThreadSafeUnit;
 
+/**
+ * 基础的ActorSystem实现;
+ * 
+ * @author crazyjohn
+ *
+ */
+@ThreadSafeUnit
 public class ActorSystem implements IActorSystem, Runnable {
 	/** hash index */
 	protected Map<IActorId, IActor> actors = new ConcurrentHashMap<IActorId, IActor>();
 	protected IActorWorkerMonster[] workerThreads;
+	@GuardedByUnit(whoCareMe = "use volatile procted to mem sync")
 	protected volatile boolean stop = true;
 	private int workerNum;
+	private static IActorSystem instance = new ActorSystem();
 
-	public ActorSystem(int threadNum) {
-		// init worker thread
+	/**
+	 * private
+	 */
+	private ActorSystem() {
+
+	}
+
+	/**
+	 * 初始化ActorSystem;
+	 * 
+	 * @param threadNum
+	 */
+	public void initSystem(int threadNum) {// init worker thread
 		workerNum = threadNum;
 		workerThreads = new IActorWorkerMonster[threadNum];
 		for (int i = 0; i < threadNum; i++) {
@@ -50,7 +72,7 @@ public class ActorSystem implements IActorSystem, Runnable {
 	public void run() {
 		while (!stop) {
 			for (final Map.Entry<IActorId, IActor> eachActorEntry : this.actors.entrySet()) {
-				IActorWorkerMonster workThread = getActorWorkerThread(eachActorEntry.getKey());
+				IActorWorkerMonster workThread = getActorWorkerMonster(eachActorEntry.getKey());
 				if (workThread != null) {
 					workThread.submit(new IActorRunnable() {
 						@Override
@@ -66,9 +88,9 @@ public class ActorSystem implements IActorSystem, Runnable {
 		}
 	}
 
-	private IActorWorkerMonster getActorWorkerThread(IActorId actorId) {
-		int workerIndex = actorId.getWorkerThreadIndex(this.workerNum);
-		return this.workerThreads[workerIndex];
+	private IActorWorkerMonster getActorWorkerMonster(IActorId actorId) {
+		int workerIndex = actorId.getWorkerMonsterIndex(this.workerNum);
+		return workerThreads[workerIndex];
 	}
 
 	@Override
@@ -82,14 +104,12 @@ public class ActorSystem implements IActorSystem, Runnable {
 	}
 
 	public static IActorSystem getInstance() {
-		// TODO Auto-generated method stub
-		return null;
+		return instance;
 	}
 
 	@Override
 	public PlayerActor getPlayerActor(long playerId) {
-		// TODO Auto-generated method stub
-		return null;
+		return (PlayerActor) actors.get(playerId);
 	}
 
 }
