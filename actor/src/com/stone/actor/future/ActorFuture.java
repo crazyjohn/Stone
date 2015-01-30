@@ -69,7 +69,7 @@ public class ActorFuture<T> implements IActorFuture<T> {
 	 * 
 	 * @param actorFuture
 	 */
-	private synchronized void notifyListeners(final ActorFuture<T> actorFuture) {
+	private synchronized void notifyListeners(final IActorFuture<T> actorFuture) {
 		for (IActorFutureListener<T> eachListener : this.listeners) {
 			// has target?
 			if (eachListener instanceof ITargetableFutureListener<?>) {

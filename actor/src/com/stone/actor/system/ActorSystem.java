@@ -34,7 +34,7 @@ public class ActorSystem implements IActorSystem, Runnable {
 		if (actor == null) {
 			return;
 		}
-		actor.put(callback);
+		actor.put(callback, result);
 	}
 
 	@Override

@@ -14,9 +14,15 @@ import com.stone.actor.future.IActorFuture;
 import com.stone.actor.id.IActorId;
 import com.stone.actor.system.IActorSystem;
 
+/**
+ * 基础的Actor实现;
+ * 
+ * @author crazyjohn
+ *
+ */
 public abstract class BaseActor implements IActor {
+	/** blocking queue call */
 	protected BlockingQueue<IActorQueueCall> callQueue = new LinkedBlockingQueue<IActorQueueCall>();
-	protected BlockingQueue<IActorCallback<?>> callbackQueue = new LinkedBlockingQueue<IActorCallback<?>>();
 	private volatile boolean stop = true;
 	protected IActorSystem actorSystem;
 	private Logger logger = LoggerFactory.getLogger(BaseActor.class);
@@ -40,13 +46,14 @@ public abstract class BaseActor implements IActor {
 	@Override
 	public <T> IActorFuture<T> call(IActorCall<T> call) {
 		IActorFuture<T> future = new ActorFuture<T>();
-		callQueue.add(new QueueCall(call, future));
+		callQueue.add(new QueueCallWithFuture(call, future));
 		return future;
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	public void put(IActorCallback<?> callback) {
-		callbackQueue.add(callback);
+	public void put(IActorCallback<?> callback, Object result) {
+		callQueue.add(new QueueOnlyCallback(callback, result));
 	}
 
 	@Override
@@ -70,10 +77,24 @@ public abstract class BaseActor implements IActor {
 		}
 	}
 
+	/**
+	 * 队列调用接口;
+	 * 
+	 * @author crazyjohn
+	 *
+	 */
 	interface IActorQueueCall {
 
+		/**
+		 * 获取调用;
+		 * 
+		 * @return
+		 */
 		public IActorCall<?> getCall();
 
+		/**
+		 * 执行;
+		 */
 		public void execute();
 	}
 
@@ -91,6 +112,40 @@ public abstract class BaseActor implements IActor {
 
 	}
 
+	/**
+	 * 只有回调的调用;
+	 * 
+	 * @author crazyjohn
+	 *
+	 * @param <T>
+	 */
+	class QueueOnlyCallback<T> implements IActorQueueCall {
+		private IActorCallback<T> callback;
+		private T result;
+
+		public QueueOnlyCallback(IActorCallback<T> callback, T result) {
+			this.callback = callback;
+			this.result = result;
+		}
+
+		@Override
+		public IActorCall<?> getCall() {
+			throw new UnsupportedOperationException();
+		}
+
+		@Override
+		public void execute() {
+			this.callback.doCallback(result);
+		}
+
+	}
+
+	/**
+	 * 带回调的调用;
+	 * 
+	 * @author crazyjohn
+	 *
+	 */
 	class QueueCallWithCallback extends BaseQueueCall {
 		private IActorCallback<?> callback;
 		private IActorId target;
@@ -111,10 +166,16 @@ public abstract class BaseActor implements IActor {
 
 	}
 
-	class QueueCall extends BaseQueueCall {
+	/**
+	 * 带Future的队列调用;
+	 * 
+	 * @author crazyjohn
+	 *
+	 */
+	class QueueCallWithFuture extends BaseQueueCall {
 		private IActorFuture<?> future;
 
-		public QueueCall(IActorCall<?> call, IActorFuture<?> future) {
+		public QueueCallWithFuture(IActorCall<?> call, IActorFuture<?> future) {
 			super(call);
 			this.future = future;
 		}

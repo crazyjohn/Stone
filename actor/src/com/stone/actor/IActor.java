@@ -24,8 +24,11 @@ public interface IActor {
 	 * 投递回调;
 	 * 
 	 * @param callback
+	 *            回调对象;
+	 * @param result
+	 *            结果参数;
 	 */
-	public void put(IActorCallback<?> callback);
+	public void put(IActorCallback<?> callback, Object result);
 
 	/**
 	 * 投递一个调用以及一个回调, 以及处理回调的ActorId;
