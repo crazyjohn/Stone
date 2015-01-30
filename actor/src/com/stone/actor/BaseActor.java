@@ -1,9 +1,7 @@
 package com.stone.actor;
 
 import java.util.Iterator;
-import java.util.Map;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import org.slf4j.Logger;
@@ -17,9 +15,8 @@ import com.stone.actor.id.IActorId;
 import com.stone.actor.system.IActorSystem;
 
 public abstract class BaseActor implements IActor {
-	protected BlockingQueue<QueueCall> callQueue = new LinkedBlockingQueue<QueueCall>();
-	protected BlockingQueue<IActorCallback> callbackQueue = new LinkedBlockingQueue<IActorCallback>();
-	protected Map<IActorCall<?>, IActorCallback> registerCallbacks = new ConcurrentHashMap<IActorCall<?>, IActorCallback>();
+	protected BlockingQueue<IActorQueueCall> callQueue = new LinkedBlockingQueue<IActorQueueCall>();
+	protected BlockingQueue<IActorCallback<?>> callbackQueue = new LinkedBlockingQueue<IActorCallback<?>>();
 	private volatile boolean stop = true;
 	protected IActorSystem actorSystem;
 	private Logger logger = LoggerFactory.getLogger(BaseActor.class);
@@ -41,38 +38,30 @@ public abstract class BaseActor implements IActor {
 	}
 
 	@Override
-	public <T>IActorFuture<T> call(IActorCall<T> call) {
+	public <T> IActorFuture<T> call(IActorCall<T> call) {
 		IActorFuture<T> future = new ActorFuture<T>();
 		callQueue.add(new QueueCall(call, future));
 		return future;
 	}
 
 	@Override
-	public void put(IActorCallback callback) {
+	public void put(IActorCallback<?> callback) {
 		callbackQueue.add(callback);
 	}
 
 	@Override
-	public void put(IActorCall<?> call, IActorCallback callback, IActorId source) {
-		callback.setTarget(source);
-		registerCallbacks.put(call, callback);
+	public void put(IActorCall<?> call, IActorCallback<?> callback, IActorId source) {
+		this.callQueue.add(new QueueCallWithCallback(call, callback, source));
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public void run() {
 		while (!stop) {
 			try {
-				Iterator<QueueCall> iterator = this.callQueue.iterator();
+				Iterator<IActorQueueCall> iterator = this.callQueue.iterator();
 				while (iterator.hasNext()) {
-					QueueCall queueCall = iterator.next();
-					IActorCall<?> call = queueCall.getCall();
-					@SuppressWarnings("rawtypes")
-					IActorFuture future = queueCall.getFuture();
-					future.setResult(call.execute());
-					if (registerCallbacks.get(call) != null) {
-						actorSystem.dispatch(registerCallbacks.get(call).getTarget(), registerCallbacks.get(call));
-					}
+					IActorQueueCall queueCall = iterator.next();
+					queueCall.execute();
 					iterator.remove();
 				}
 			} catch (Exception e) {
@@ -81,22 +70,68 @@ public abstract class BaseActor implements IActor {
 		}
 	}
 
-	class QueueCall {
-		private IActorCall<?> call;
+	interface IActorQueueCall {
+
+		public IActorCall<?> getCall();
+
+		public void execute();
+	}
+
+	abstract class BaseQueueCall implements IActorQueueCall {
+		protected IActorCall<?> call;
+
+		public BaseQueueCall(IActorCall<?> call) {
+			this.call = call;
+		}
+
+		@Override
+		public IActorCall<?> getCall() {
+			return call;
+		}
+
+	}
+
+	class QueueCallWithCallback extends BaseQueueCall {
+		private IActorCallback<?> callback;
+		private IActorId target;
+
+		public QueueCallWithCallback(IActorCall<?> call, IActorCallback<?> callback, IActorId target) {
+			super(call);
+			this.callback = callback;
+			this.target = target;
+		}
+
+		@Override
+		public void execute() {
+			IActorCall<?> call = this.getCall();
+			Object result = call.execute();
+			IActorCallback<?> callback = this.callback;
+			actorSystem.dispatch(target, callback, result);
+		}
+
+	}
+
+	class QueueCall extends BaseQueueCall {
 		private IActorFuture<?> future;
 
 		public QueueCall(IActorCall<?> call, IActorFuture<?> future) {
-			this.call = call;
+			super(call);
 			this.future = future;
-		}
-
-		public IActorCall<?> getCall() {
-			return call;
 		}
 
 		public IActorFuture<?> getFuture() {
 			return future;
 		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void execute() {
+			IActorCall<?> call = this.getCall();
+			@SuppressWarnings("rawtypes")
+			IActorFuture future = this.getFuture();
+			future.setResult(call.execute());
+		}
+
 	}
 
 }

@@ -29,7 +29,7 @@ public class ActorSystem implements IActorSystem, Runnable {
 	}
 
 	@Override
-	public void dispatch(IActorId actorId, IActorCallback callback) {
+	public void dispatch(IActorId actorId, IActorCallback<?> callback, Object result) {
 		IActor actor = this.actors.get(actorId);
 		if (actor == null) {
 			return;

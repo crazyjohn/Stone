@@ -6,8 +6,10 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+import com.stone.actor.call.IActorCall;
 import com.stone.actor.listener.IActorFutureListener;
 import com.stone.actor.listener.ITargetableFutureListener;
+import com.stone.actor.system.IActorSystem;
 import com.stone.core.annotation.GuardedByUnit;
 import com.stone.core.annotation.ThreadSafeUnit;
 
@@ -22,6 +24,7 @@ public class ActorFuture<T> implements IActorFuture<T> {
 	/** listeners */
 	@GuardedByUnit(whoCareMe = "this")
 	protected List<IActorFutureListener<T>> listeners = new LinkedList<IActorFutureListener<T>>();
+	protected IActorSystem actorSystem;
 
 	public ActorFuture() {
 		resultLock = new ReentrantReadWriteLock();
@@ -66,10 +69,19 @@ public class ActorFuture<T> implements IActorFuture<T> {
 	 * 
 	 * @param actorFuture
 	 */
-	private synchronized void notifyListeners(ActorFuture<T> actorFuture) {
+	private synchronized void notifyListeners(final ActorFuture<T> actorFuture) {
 		for (IActorFutureListener<T> eachListener : this.listeners) {
+			// has target?
 			if (eachListener instanceof ITargetableFutureListener<?>) {
-
+				final ITargetableFutureListener<T> targetListener = (ITargetableFutureListener<T>) eachListener;
+				actorSystem.dispatch(targetListener.getTarget(), new IActorCall<T>() {
+					@Override
+					public T execute() {
+						targetListener.onComplete(actorFuture);
+						return null;
+					}
+				});
+				return;
 			}
 			eachListener.onComplete(actorFuture);
 		}

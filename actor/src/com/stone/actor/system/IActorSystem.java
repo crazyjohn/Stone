@@ -14,7 +14,7 @@ import com.stone.actor.player.PlayerActor;
  */
 public interface IActorSystem {
 
-	public void dispatch(IActorId actorId, IActorCallback callback);
+	public void dispatch(IActorId actorId, IActorCallback<?> callback, Object result);
 
 	public void dispatch(IActorId actorId, IActorCall<?> call);
 

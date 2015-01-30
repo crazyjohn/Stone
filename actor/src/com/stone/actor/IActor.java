@@ -13,11 +13,19 @@ import com.stone.actor.id.IActorId;
  */
 public interface IActor {
 	/**
-	 * 投递一个调用;
+	 * 投递一个调用给Actor;
 	 * 
 	 * @param call
+	 * @return
 	 */
 	public <T> IActorFuture<T> call(IActorCall<T> call);
+
+	/**
+	 * 投递回调;
+	 * 
+	 * @param callback
+	 */
+	public void put(IActorCallback<?> callback);
 
 	/**
 	 * 投递一个调用以及一个回调, 以及处理回调的ActorId;
@@ -26,7 +34,7 @@ public interface IActor {
 	 * @param callback
 	 * @param source
 	 */
-	public void put(IActorCall<?> call, IActorCallback callback, IActorId source);
+	public void put(IActorCall<?> call, IActorCallback<?> callback, IActorId source);
 
 	/**
 	 * the run method;
@@ -42,13 +50,6 @@ public interface IActor {
 	 * 停止actor;
 	 */
 	public void stop();
-
-	/**
-	 * 投递回调;
-	 * 
-	 * @param callback
-	 */
-	public void put(IActorCallback callback);
 
 	/**
 	 * 获取ActorId;

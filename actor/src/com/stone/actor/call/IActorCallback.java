@@ -1,26 +1,16 @@
 package com.stone.actor.call;
 
-import com.stone.actor.id.IActorId;
-
 /**
  * Actor执行回调;
  * 
  * @author crazyjohn
  *
  */
-public interface IActorCallback {
+public interface IActorCallback<Result> {
 
 	/**
 	 * do callback;
 	 */
-	public void doCallback();
+	public void doCallback(Result result);
 
-	/**
-	 * who execute me?
-	 * 
-	 * @param source
-	 */
-	public void setTarget(IActorId source);
-
-	public IActorId getTarget();
 }
