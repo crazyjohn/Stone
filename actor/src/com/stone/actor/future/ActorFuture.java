@@ -7,6 +7,7 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import com.stone.actor.listener.IActorFutureListener;
+import com.stone.actor.listener.ITargetableFutureListener;
 import com.stone.core.annotation.GuardedByUnit;
 import com.stone.core.annotation.ThreadSafeUnit;
 
@@ -67,6 +68,9 @@ public class ActorFuture<T> implements IActorFuture<T> {
 	 */
 	private synchronized void notifyListeners(ActorFuture<T> actorFuture) {
 		for (IActorFutureListener<T> eachListener : this.listeners) {
+			if (eachListener instanceof ITargetableFutureListener<?>) {
+
+			}
 			eachListener.onComplete(actorFuture);
 		}
 	}
