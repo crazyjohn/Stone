@@ -6,7 +6,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-import com.stone.actor.call.IActorCall;
+import com.stone.actor.call.IActorCallback;
 import com.stone.actor.listener.IActorFutureListener;
 import com.stone.actor.system.IActorSystem;
 import com.stone.core.annotation.GuardedByUnit;
@@ -78,13 +78,12 @@ public class ActorFuture<T> implements IActorFuture<T> {
 	private synchronized void notifyListeners(final IActorFuture<T> actorFuture) {
 		for (final IActorFutureListener<T> eachListener : this.listeners) {
 			// has target?
-			actorSystem.dispatch(eachListener.getTarget(), new IActorCall<T>() {
+			actorSystem.dispatch(eachListener.getTarget(), new IActorCallback<T>() {
 				@Override
-				public T execute() {
+				public void doCallback(T result) {
 					eachListener.onComplete(actorFuture);
-					return null;
 				}
-			});
+			}, actorFuture.getResult());
 		}
 	}
 

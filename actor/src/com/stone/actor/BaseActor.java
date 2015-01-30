@@ -161,6 +161,7 @@ public abstract class BaseActor implements IActor {
 			IActorCall<?> call = this.getCall();
 			Object result = call.execute();
 			IActorCallback<?> callback = this.callback;
+			// 回调投递给actorSystem
 			actorSystem.dispatch(target, callback, result);
 		}
 
