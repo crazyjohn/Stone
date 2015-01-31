@@ -14,4 +14,6 @@ public interface IActorWorkerMonster {
 
 	public void stopWorker();
 
+	public void setMonsterName(String monsterName);
+
 }

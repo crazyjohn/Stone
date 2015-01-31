@@ -34,12 +34,21 @@ public class ActorWokerMonster extends Thread implements IActorWorkerMonster {
 
 	@Override
 	public void startWorker() {
+		if (!stop) {
+			return;
+		}
 		stop = false;
+		this.start();
 	}
 
 	@Override
 	public void stopWorker() {
 		stop = true;
+	}
+
+	@Override
+	public void setMonsterName(String monsterName) {
+		this.setName(monsterName);
 	}
 
 }

@@ -52,4 +52,11 @@ public interface IActorSystem {
 	 */
 	public PlayerActor getPlayerActor(long playerId);
 
+	/**
+	 * 初始化ActorSystem;
+	 * 
+	 * @param threadNum
+	 */
+	public void initSystem(int threadNum);
+
 }

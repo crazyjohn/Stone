@@ -22,8 +22,11 @@ import com.stone.core.annotation.ThreadSafeUnit;
  */
 @ThreadSafeUnit
 public class ActorSystem implements IActorSystem, Runnable {
+	/** prefix */
+	private static final String MONSTER_PREFIX = "ActorWokerMonster-";
 	/** hash index */
 	protected Map<IActorId, IActor> actors = new ConcurrentHashMap<IActorId, IActor>();
+	/** work monsters */
 	protected IActorWorkerMonster[] workerThreads;
 	@GuardedByUnit(whoCareMe = "use volatile procted to mem sync")
 	protected volatile boolean stop = true;
@@ -42,11 +45,13 @@ public class ActorSystem implements IActorSystem, Runnable {
 	 * 
 	 * @param threadNum
 	 */
+	@Override
 	public void initSystem(int threadNum) {// init worker thread
 		workerNum = threadNum;
 		workerThreads = new IActorWorkerMonster[threadNum];
 		for (int i = 0; i < threadNum; i++) {
 			workerThreads[i] = new ActorWokerMonster();
+			workerThreads[i].setMonsterName(MONSTER_PREFIX + i);
 		}
 	}
 
@@ -96,6 +101,9 @@ public class ActorSystem implements IActorSystem, Runnable {
 	@Override
 	public void start() {
 		stop = false;
+		for (IActorWorkerMonster eachMonster : this.workerThreads) {
+			eachMonster.startWorker();
+		}
 	}
 
 	@Override
