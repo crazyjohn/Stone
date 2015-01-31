@@ -28,7 +28,7 @@ public class PlayerSendEquipHandler {
 		// 2. 使用actor暴露良好接口的方法，把具体实现包装在actor内部
 		// get receiver
 		final PlayerActor receiverPlayer = ActorSystem.getInstance().getPlayerActor(receiverPlayerId);
-		IActorFuture<Boolean> future = receiverPlayer.call(new IActorCall<Boolean>() {
+		IActorFuture<Boolean> future = receiverPlayer.put(new IActorCall<Boolean>() {
 			@Override
 			public Boolean execute() {
 				boolean succeed = receiverPlayer.getPlayerEquipModule().addEquip(equipId);

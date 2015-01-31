@@ -44,7 +44,7 @@ public abstract class BaseActor implements IActor {
 	}
 
 	@Override
-	public <T> IActorFuture<T> call(IActorCall<T> call) {
+	public <T> IActorFuture<T> put(IActorCall<T> call) {
 		IActorFuture<T> future = new ActorFuture<T>();
 		callQueue.add(new QueueCallWithFuture(call, future));
 		return future;

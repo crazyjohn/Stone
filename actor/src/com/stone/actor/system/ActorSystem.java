@@ -65,7 +65,7 @@ public class ActorSystem implements IActorSystem, Runnable {
 		if (actor == null) {
 			return;
 		}
-		actor.call(call);
+		actor.put(call);
 	}
 
 	@Override

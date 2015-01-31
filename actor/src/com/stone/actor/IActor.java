@@ -18,7 +18,7 @@ public interface IActor {
 	 * @param call
 	 * @return
 	 */
-	public <T> IActorFuture<T> call(IActorCall<T> call);
+	public <T> IActorFuture<T> put(IActorCall<T> call);
 
 	/**
 	 * 投递回调;

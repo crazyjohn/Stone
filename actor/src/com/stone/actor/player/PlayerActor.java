@@ -29,7 +29,7 @@ public class PlayerActor extends BaseActor {
 
 	public IActorFuture<PlayerEquip> getPlayerEquip(final long equipId) {
 		final IActorFuture<PlayerEquip> future = new ActorFuture<PlayerEquip>();
-		this.call(new IActorCall<PlayerEquip>() {
+		this.put(new IActorCall<PlayerEquip>() {
 			@Override
 			public PlayerEquip execute() {
 				PlayerEquip equip = equipModule.getEquipById(equipId);
