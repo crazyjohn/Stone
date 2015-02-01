@@ -1,5 +1,6 @@
 package com.stone.actor.system;
 
+import com.stone.actor.IActor;
 import com.stone.actor.call.IActorCall;
 import com.stone.actor.call.IActorCallback;
 import com.stone.actor.id.IActorId;
@@ -24,7 +25,8 @@ public interface IActorSystem {
 	 * @param result
 	 *            执行结果;
 	 */
-	public void dispatch(IActorId actorId, IActorCallback<?> callback, Object result);
+	public void dispatch(IActorId actorId, IActorCallback<?> callback,
+			Object result);
 
 	/**
 	 * 分发回调到指定的Actor;
@@ -58,5 +60,12 @@ public interface IActorSystem {
 	 * @param threadNum
 	 */
 	public void initSystem(int threadNum);
+
+	/**
+	 * regist an actor;
+	 * 
+	 * @param player
+	 */
+	public void registerActor(IActor actor);
 
 }

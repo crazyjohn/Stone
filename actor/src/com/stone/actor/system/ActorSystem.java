@@ -2,6 +2,8 @@ package com.stone.actor.system;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,9 +36,12 @@ public class ActorSystem implements IActorSystem, Runnable {
 	@GuardedByUnit(whoCareMe = "use volatile procted to mem sync")
 	protected volatile boolean stop = true;
 	private int workerNum;
+	@GuardedByUnit(whoCareMe = "use class lock")
 	private static IActorSystem instance = new ActorSystem();
 	/** log */
 	private Logger logger = LoggerFactory.getLogger(ActorSystem.class);
+	/** executor */
+	private Executor executor = Executors.newSingleThreadExecutor();
 
 	/**
 	 * private
@@ -63,7 +68,8 @@ public class ActorSystem implements IActorSystem, Runnable {
 	}
 
 	@Override
-	public void dispatch(IActorId actorId, IActorCallback<?> callback, Object result) {
+	public void dispatch(IActorId actorId, IActorCallback<?> callback,
+			Object result) {
 		IActor actor = this.actors.get(actorId);
 		if (actor == null) {
 			return;
@@ -83,8 +89,10 @@ public class ActorSystem implements IActorSystem, Runnable {
 	@Override
 	public void run() {
 		while (!stop) {
-			for (final Map.Entry<IActorId, IActor> eachActorEntry : this.actors.entrySet()) {
-				IActorWorkerMonster workThread = getActorWorkerMonster(eachActorEntry.getKey());
+			for (final Map.Entry<IActorId, IActor> eachActorEntry : this.actors
+					.entrySet()) {
+				IActorWorkerMonster workThread = getActorWorkerMonster(eachActorEntry
+						.getKey());
 				if (workThread != null) {
 					workThread.submit(new IActorRunnable() {
 						@Override
@@ -115,6 +123,8 @@ public class ActorSystem implements IActorSystem, Runnable {
 		for (IActorWorkerMonster eachMonster : this.workerThreads) {
 			eachMonster.startWorker();
 		}
+		// executor self
+		executor.execute(this);
 		logger.info("Start the ActorSystem finished.");
 	}
 
@@ -123,13 +133,18 @@ public class ActorSystem implements IActorSystem, Runnable {
 		stop = true;
 	}
 
-	public static IActorSystem getInstance() {
+	public static synchronized IActorSystem getInstance() {
 		return instance;
 	}
 
 	@Override
 	public PlayerActor getPlayerActor(long playerId) {
 		return (PlayerActor) actors.get(playerId);
+	}
+
+	@Override
+	public void registerActor(IActor actor) {
+		this.actors.put(actor.getActorId(), actor);
 	}
 
 }

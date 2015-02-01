@@ -4,6 +4,7 @@ import com.stone.actor.BaseActor;
 import com.stone.actor.call.IActorCall;
 import com.stone.actor.future.ActorFuture;
 import com.stone.actor.future.IActorFuture;
+import com.stone.actor.id.ActorType;
 import com.stone.actor.message.IActorMessage;
 import com.stone.actor.player.equip.PlayerEquip;
 import com.stone.actor.player.equip.PlayerEquipModule;
@@ -17,6 +18,11 @@ import com.stone.actor.player.equip.PlayerEquipModule;
 public class PlayerActor extends BaseActor {
 	/** equip module */
 	private PlayerEquipModule equipModule;
+	private long playerId;
+
+	public PlayerActor(long playerId) {
+		super(ActorType.PLAYER, playerId);
+	}
 
 	public PlayerEquipModule getPlayerEquipModule() {
 		return equipModule;
@@ -41,8 +47,7 @@ public class PlayerActor extends BaseActor {
 	}
 
 	public long getId() {
-		// TODO Auto-generated method stub
-		return 0l;
+		return playerId;
 	}
 
 }

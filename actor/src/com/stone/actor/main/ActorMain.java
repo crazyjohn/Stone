@@ -1,5 +1,8 @@
 package com.stone.actor.main;
 
+import com.stone.actor.factory.ActorFactory;
+import com.stone.actor.factory.IActorFactory;
+import com.stone.actor.player.PlayerActor;
 import com.stone.actor.system.ActorSystem;
 import com.stone.actor.system.IActorSystem;
 
@@ -7,7 +10,7 @@ import com.stone.actor.system.IActorSystem;
  * ActorMain
  * 
  * @author crazyjohn
- *
+ * 
  */
 public class ActorMain {
 
@@ -20,6 +23,10 @@ public class ActorMain {
 		actorSystem.initSystem(threadNum);
 		// start
 		actorSystem.start();
+		// create a player actor
+		IActorFactory factory = new ActorFactory();
+		PlayerActor player = factory.createPlayerActor(1L);
+		player.start();
 	}
 
 }

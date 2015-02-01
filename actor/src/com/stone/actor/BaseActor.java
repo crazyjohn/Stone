@@ -11,6 +11,8 @@ import com.stone.actor.call.IActorCall;
 import com.stone.actor.call.IActorCallback;
 import com.stone.actor.future.ActorFuture;
 import com.stone.actor.future.IActorFuture;
+import com.stone.actor.id.ActorId;
+import com.stone.actor.id.ActorType;
 import com.stone.actor.id.IActorId;
 import com.stone.actor.system.IActorSystem;
 
@@ -27,6 +29,10 @@ public abstract class BaseActor implements IActor {
 	protected IActorSystem actorSystem;
 	private Logger logger = LoggerFactory.getLogger(BaseActor.class);
 	protected IActorId actorId;
+	
+	public BaseActor(ActorType actorType, long id) {
+		this.actorId = new ActorId(actorType, id);
+	}
 
 	@Override
 	public void start() {
