@@ -58,5 +58,4 @@ test/.cache
 test/.cache
 *.cache
 bot/logs/
-actor/logs/error.log
-actor/logs/soul_ 20150201203253.log
+actor/logs/
