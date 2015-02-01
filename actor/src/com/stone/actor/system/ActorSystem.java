@@ -3,6 +3,9 @@ package com.stone.actor.system;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.stone.actor.IActor;
 import com.stone.actor.call.IActorCall;
 import com.stone.actor.call.IActorCallback;
@@ -32,6 +35,8 @@ public class ActorSystem implements IActorSystem, Runnable {
 	protected volatile boolean stop = true;
 	private int workerNum;
 	private static IActorSystem instance = new ActorSystem();
+	/** log */
+	private Logger logger = LoggerFactory.getLogger(ActorSystem.class);
 
 	/**
 	 * private
@@ -47,12 +52,14 @@ public class ActorSystem implements IActorSystem, Runnable {
 	 */
 	@Override
 	public void initSystem(int threadNum) {// init worker thread
+		logger.info("Begin to init the ActorSystem...");
 		workerNum = threadNum;
 		workerThreads = new IActorWorkerMonster[threadNum];
 		for (int i = 0; i < threadNum; i++) {
 			workerThreads[i] = new ActorWokerMonster();
 			workerThreads[i].setMonsterName(MONSTER_PREFIX + i);
 		}
+		logger.info("Init the ActorSystem finished.");
 	}
 
 	@Override
@@ -100,10 +107,15 @@ public class ActorSystem implements IActorSystem, Runnable {
 
 	@Override
 	public void start() {
+		if (!stop) {
+			return;
+		}
+		logger.info("Begin to start the ActorSystem...");
 		stop = false;
 		for (IActorWorkerMonster eachMonster : this.workerThreads) {
 			eachMonster.startWorker();
 		}
+		logger.info("Start the ActorSystem finished.");
 	}
 
 	@Override

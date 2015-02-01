@@ -3,6 +3,13 @@ package com.stone.actor.concurrent;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
+/**
+ * base worker monster;<br>
+ * FIXME: crazyjohn maybe i should use java concurrent lib?
+ * 
+ * @author crazyjohn
+ *
+ */
 public class ActorWokerMonster extends Thread implements IActorWorkerMonster {
 	protected BlockingQueue<IActorRunnable> runnableQueue = new LinkedBlockingQueue<IActorRunnable>();
 	protected volatile boolean stop = true;
