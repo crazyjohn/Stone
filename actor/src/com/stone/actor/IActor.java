@@ -37,7 +37,8 @@ public interface IActor {
 	 * @param callback
 	 * @param source
 	 */
-	public void put(IActorCall<?> call, IActorCallback<?> callback, IActorId source);
+	public void put(IActorCall<?> call, IActorCallback<?> callback,
+			IActorId source);
 
 	/**
 	 * the run method;
@@ -60,5 +61,12 @@ public interface IActor {
 	 * @return
 	 */
 	public IActorId getActorId();
+
+	/**
+	 * has any work to do?
+	 * 
+	 * @return
+	 */
+	public boolean hasAnyWorkToDo();
 
 }

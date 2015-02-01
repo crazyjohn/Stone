@@ -29,6 +29,7 @@ import com.stone.core.annotation.ThreadSafeUnit;
 public class ActorSystem implements IActorSystem, Runnable {
 	/** prefix */
 	private static final String MONSTER_PREFIX = "ActorWokerMonster-";
+	private static final long SLEEP_INTERVAL = 100L;
 	/** hash index */
 	protected Map<IActorId, IActor> actors = new ConcurrentHashMap<IActorId, IActor>();
 	/** work monsters */
@@ -89,20 +90,34 @@ public class ActorSystem implements IActorSystem, Runnable {
 	@Override
 	public void run() {
 		while (!stop) {
+			boolean haveARest = true;
 			for (final Map.Entry<IActorId, IActor> eachActorEntry : this.actors
 					.entrySet()) {
+				final IActor actor = eachActorEntry.getValue();
+				if (!actor.hasAnyWorkToDo()) {
+					continue;
+				}
+				haveARest = false;
 				IActorWorkerMonster workThread = getActorWorkerMonster(eachActorEntry
 						.getKey());
 				if (workThread != null) {
 					workThread.submit(new IActorRunnable() {
 						@Override
 						public void run() {
-							eachActorEntry.getValue().run();
+							actor.run();
 						}
 
 					});
 				} else {
 					// FIXME: crazyjohn log
+				}
+			}
+			if (haveARest) {
+				try {
+					Thread.sleep(SLEEP_INTERVAL);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 			}
 		}

@@ -29,9 +29,14 @@ public abstract class BaseActor implements IActor {
 	protected IActorSystem actorSystem;
 	private Logger logger = LoggerFactory.getLogger(BaseActor.class);
 	protected IActorId actorId;
-	
+
 	public BaseActor(ActorType actorType, long id) {
 		this.actorId = new ActorId(actorType, id);
+	}
+
+	@Override
+	public boolean hasAnyWorkToDo() {
+		return !callQueue.isEmpty();
 	}
 
 	@Override
@@ -63,7 +68,8 @@ public abstract class BaseActor implements IActor {
 	}
 
 	@Override
-	public void put(IActorCall<?> call, IActorCallback<?> callback, IActorId source) {
+	public void put(IActorCall<?> call, IActorCallback<?> callback,
+			IActorId source) {
 		this.callQueue.add(new QueueCallWithCallback(call, callback, source));
 	}
 
@@ -91,7 +97,6 @@ public abstract class BaseActor implements IActor {
 	 */
 	interface IActorQueueCall {
 
-		
 		/**
 		 * 获取调用;
 		 * 
@@ -157,7 +162,8 @@ public abstract class BaseActor implements IActor {
 		private IActorCallback<?> callback;
 		private IActorId target;
 
-		public QueueCallWithCallback(IActorCall<?> call, IActorCallback<?> callback, IActorId target) {
+		public QueueCallWithCallback(IActorCall<?> call,
+				IActorCallback<?> callback, IActorId target) {
 			super(call);
 			this.callback = callback;
 			this.target = target;
