@@ -7,6 +7,7 @@ import javax.script.ScriptException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.stone.actor.system.GameActorSystem;
 import com.stone.core.codec.GameCodecFactory;
 import com.stone.core.config.ConfigUtil;
 import com.stone.core.net.ServerProcess;
@@ -26,7 +27,7 @@ public class GameServer implements IService {
 	private GameServerConfig config;
 	private String configPath;
 	protected ServerProcess externalProcess;
-	protected GameDispatcher mainDispatcher;
+	protected GameActorSystem mainDispatcher;
 	protected IDispatcher dbDispatcher;
 
 	public GameServer(String configPath) {
@@ -37,13 +38,11 @@ public class GameServer implements IService {
 	public void init() throws ScriptException, IOException {
 		config = new GameServerConfig();
 		ConfigUtil.loadJsConfig(config, configPath);
-		mainDispatcher = new GameDispatcher(config.getGameProcessorCount());
+		mainDispatcher = GameActorSystem.getInstance();
+		mainDispatcher.initSystem(config.getGameProcessorCount());
 		dbDispatcher = new DBDispatcher(config.getDbProcessorCount());
-		mainDispatcher.setDbDispatcher(dbDispatcher);
 		// 对外服务
-		externalProcess = new ServerProcess(config.getBindIp(),
-				config.getPort(), new GameIoHandler(mainDispatcher),
-				new GameCodecFactory(new ProtobufMessageFactory()));
+		externalProcess = new ServerProcess(config.getBindIp(), config.getPort(), new GameIoHandler(mainDispatcher), new GameCodecFactory(new ProtobufMessageFactory()));
 
 	}
 

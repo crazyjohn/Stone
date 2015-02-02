@@ -7,7 +7,6 @@ import com.stone.actor.BaseActor;
 import com.stone.actor.call.IActorCall;
 import com.stone.actor.future.ActorFuture;
 import com.stone.actor.future.IActorFuture;
-import com.stone.actor.id.ActorType;
 import com.stone.actor.message.IActorMessage;
 import com.stone.actor.player.equip.PlayerEquip;
 import com.stone.actor.player.equip.PlayerEquipModule;
@@ -26,7 +25,6 @@ public class PlayerActor extends BaseActor {
 	private Logger logger = LoggerFactory.getLogger(PlayerActor.class);
 
 	public PlayerActor(long playerId) {
-		super(ActorType.PLAYER, playerId);
 		// init modules
 		initModules();
 	}

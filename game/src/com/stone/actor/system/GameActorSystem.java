@@ -9,6 +9,12 @@ import com.stone.core.session.ISession;
 import com.stone.game.msg.CGMessage;
 import com.stone.game.player.Player;
 
+/**
+ * game actor system;
+ * 
+ * @author crazyjohn
+ *
+ */
 public class GameActorSystem extends ActorSystem implements IMessageProcessor {
 	private static GameActorSystem instance = new GameActorSystem();
 	/** loggers */
@@ -20,10 +26,8 @@ public class GameActorSystem extends ActorSystem implements IMessageProcessor {
 
 	@Override
 	public void put(IMessage msg) {
-		// TODO Auto-generated method stub
 		// CG消息分发
 		if (msg instanceof CGMessage) {
-
 			Player player = ((CGMessage) msg).getPlayer();
 			if (player == null) {
 				ISession sessionInfo = ((CGMessage) msg).getSession();
@@ -31,12 +35,9 @@ public class GameActorSystem extends ActorSystem implements IMessageProcessor {
 				sessionInfo.close();
 				return;
 			}
-			IMessageProcessor processor = ((CGMessage) msg).getPlayer().getProcessor(this);
-			if (processor == null) {
-				logger.info(String.format("Processor null, playerId: %d", player.getPlayerId()));
-				return;
-			}
-			processor.put(msg);
+			// put to player actor
+			player.put(msg);
+
 		}
 	}
 

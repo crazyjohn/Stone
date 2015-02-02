@@ -11,10 +11,10 @@ import com.stone.actor.call.IActorCall;
 import com.stone.actor.call.IActorCallback;
 import com.stone.actor.future.ActorFuture;
 import com.stone.actor.future.IActorFuture;
-import com.stone.actor.id.ActorId;
-import com.stone.actor.id.ActorType;
 import com.stone.actor.id.IActorId;
 import com.stone.actor.system.IActorSystem;
+import com.stone.core.msg.IMessage;
+import com.stone.core.msg.MessageParseException;
 
 /**
  * 基础的Actor实现;
@@ -24,14 +24,15 @@ import com.stone.actor.system.IActorSystem;
  */
 public abstract class BaseActor implements IActor {
 	/** blocking queue call */
-	protected BlockingQueue<IActorQueueCall> callQueue = new LinkedBlockingQueue<IActorQueueCall>();
+	protected BlockingQueue<IActorQueueExecutable> callQueue = new LinkedBlockingQueue<IActorQueueExecutable>();
 	private volatile boolean stop = true;
 	protected IActorSystem actorSystem;
 	private Logger logger = LoggerFactory.getLogger(BaseActor.class);
 	protected IActorId actorId;
 
-	public BaseActor(ActorType actorType, long id) {
-		this.actorId = new ActorId(actorType, id);
+	@Override
+	public void setActorId(IActorId id) {
+		this.actorId = id;
 	}
 
 	@Override
@@ -68,18 +69,22 @@ public abstract class BaseActor implements IActor {
 	}
 
 	@Override
-	public void put(IActorCall<?> call, IActorCallback<?> callback,
-			IActorId source) {
+	public void put(IActorCall<?> call, IActorCallback<?> callback, IActorId source) {
 		this.callQueue.add(new QueueCallWithCallback(call, callback, source));
+	}
+
+	@Override
+	public void put(IMessage message) {
+		this.callQueue.add(new QueueNetMessage(message));
 	}
 
 	@Override
 	public void run() {
 		while (!stop) {
 			try {
-				Iterator<IActorQueueCall> iterator = this.callQueue.iterator();
+				Iterator<IActorQueueExecutable> iterator = this.callQueue.iterator();
 				while (iterator.hasNext()) {
-					IActorQueueCall queueCall = iterator.next();
+					IActorQueueExecutable queueCall = iterator.next();
 					queueCall.execute();
 					iterator.remove();
 				}
@@ -90,12 +95,25 @@ public abstract class BaseActor implements IActor {
 	}
 
 	/**
+	 * queue executable;
+	 * 
+	 * @author crazyjohn
+	 *
+	 */
+	interface IActorQueueExecutable {
+		/**
+		 * 执行;
+		 */
+		public void execute();
+	}
+
+	/**
 	 * 队列调用接口;
 	 * 
 	 * @author crazyjohn
 	 *
 	 */
-	interface IActorQueueCall {
+	interface IActorQueueCall extends IActorQueueExecutable {
 
 		/**
 		 * 获取调用;
@@ -104,10 +122,6 @@ public abstract class BaseActor implements IActor {
 		 */
 		public IActorCall<?> getCall();
 
-		/**
-		 * 执行;
-		 */
-		public void execute();
 	}
 
 	abstract class BaseQueueCall implements IActorQueueCall {
@@ -120,6 +134,31 @@ public abstract class BaseActor implements IActor {
 		@Override
 		public IActorCall<?> getCall() {
 			return call;
+		}
+
+	}
+
+	/**
+	 * queue net message;
+	 * 
+	 * @author crazyjohn
+	 *
+	 */
+	class QueueNetMessage implements IActorQueueExecutable {
+		private IMessage msg;
+
+		public QueueNetMessage(IMessage msg) {
+			this.msg = msg;
+		}
+
+		@Override
+		public void execute() {
+			try {
+				msg.execute();
+			} catch (MessageParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 	}
@@ -162,8 +201,7 @@ public abstract class BaseActor implements IActor {
 		private IActorCallback<?> callback;
 		private IActorId target;
 
-		public QueueCallWithCallback(IActorCall<?> call,
-				IActorCallback<?> callback, IActorId target) {
+		public QueueCallWithCallback(IActorCall<?> call, IActorCallback<?> callback, IActorId target) {
 			super(call);
 			this.callback = callback;
 			this.target = target;

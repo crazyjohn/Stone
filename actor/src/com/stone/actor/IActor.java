@@ -4,6 +4,7 @@ import com.stone.actor.call.IActorCall;
 import com.stone.actor.call.IActorCallback;
 import com.stone.actor.future.IActorFuture;
 import com.stone.actor.id.IActorId;
+import com.stone.core.msg.IMessage;
 
 /**
  * Actor接口;
@@ -37,8 +38,7 @@ public interface IActor {
 	 * @param callback
 	 * @param source
 	 */
-	public void put(IActorCall<?> call, IActorCallback<?> callback,
-			IActorId source);
+	public void put(IActorCall<?> call, IActorCallback<?> callback, IActorId source);
 
 	/**
 	 * the run method;
@@ -63,10 +63,24 @@ public interface IActor {
 	public IActorId getActorId();
 
 	/**
+	 * set actor id;
+	 * 
+	 * @param id
+	 */
+	public void setActorId(IActorId id);
+
+	/**
 	 * has any work to do?
 	 * 
 	 * @return
 	 */
 	public boolean hasAnyWorkToDo();
+
+	/**
+	 * put net message;
+	 * 
+	 * @param message
+	 */
+	public void put(IMessage message);
 
 }

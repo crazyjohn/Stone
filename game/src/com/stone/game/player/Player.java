@@ -2,6 +2,9 @@ package com.stone.game.player;
 
 import org.apache.mina.core.session.IoSession;
 
+import com.stone.actor.BaseActor;
+import com.stone.actor.id.ActorId;
+import com.stone.actor.id.ActorType;
 import com.stone.core.processor.IDispatchable;
 import com.stone.core.processor.IDispatcher;
 import com.stone.core.processor.IMessageProcessor;
@@ -11,10 +14,12 @@ import com.stone.game.human.Human;
 
 /**
  * 游戏玩家对象;
+ * 
  * @author crazyjohn
  *
  */
-public class Player implements IStateManager, IDispatchable {
+public class Player extends BaseActor implements IStateManager, IDispatchable {
+
 	/** 当前绑定的角色 */
 	private Human human;
 	/** 绑定的回话 */
@@ -76,5 +81,6 @@ public class Player implements IStateManager, IDispatchable {
 
 	public void setPlayerId(long playerId) {
 		this.playerId = playerId;
+		this.setActorId(new ActorId(ActorType.PLAYER, playerId));
 	}
 }
