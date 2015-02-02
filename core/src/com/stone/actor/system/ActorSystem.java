@@ -15,6 +15,7 @@ import com.stone.actor.call.IActorCallback;
 import com.stone.actor.concurrent.ActorWokerMonster;
 import com.stone.actor.concurrent.IActorRunnable;
 import com.stone.actor.concurrent.IActorWorkerMonster;
+import com.stone.actor.future.ActorFuture;
 import com.stone.actor.id.ActorId;
 import com.stone.actor.id.IActorId;
 import com.stone.core.annotation.GuardedByUnit;
@@ -173,6 +174,13 @@ public class ActorSystem implements IActorSystem, Runnable {
 			actor.run();
 		}
 
+	}
+
+	@Override
+	public <T> IActorSystemFuture<T> putSystemCall(IActorSystemCall<T> call) {
+		// TODO Auto-generated method stub
+		IActorSystemFuture<T> future = new ActorFuture<T>();
+		return future;
 	}
 
 }

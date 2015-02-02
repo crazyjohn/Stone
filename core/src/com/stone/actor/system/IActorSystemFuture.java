@@ -1,5 +1,7 @@
 package com.stone.actor.system;
 
-public interface IActorSystemFuture<T> {
+import com.stone.actor.future.IActorFuture;
+
+public interface IActorSystemFuture<T> extends IActorFuture<T>{
 
 }
