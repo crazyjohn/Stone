@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicLong;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,9 +15,11 @@ import com.stone.actor.call.IActorCallback;
 import com.stone.actor.concurrent.ActorWokerMonster;
 import com.stone.actor.concurrent.IActorRunnable;
 import com.stone.actor.concurrent.IActorWorkerMonster;
+import com.stone.actor.id.ActorId;
 import com.stone.actor.id.IActorId;
 import com.stone.core.annotation.GuardedByUnit;
 import com.stone.core.annotation.ThreadSafeUnit;
+import com.stone.core.concurrent.NamedThreadFactory;
 
 /**
  * base actor system;
@@ -41,7 +44,9 @@ public class ActorSystem implements IActorSystem, Runnable {
 	/** log */
 	private Logger logger = LoggerFactory.getLogger(ActorSystem.class);
 	/** executor */
-	private Executor executor = Executors.newSingleThreadExecutor();
+	private Executor executor = Executors.newSingleThreadExecutor(new NamedThreadFactory("ActorSystem"));
+	/** idGenarator */
+	private AtomicLong idCounter = new AtomicLong();
 
 	/**
 	 * private
@@ -73,7 +78,7 @@ public class ActorSystem implements IActorSystem, Runnable {
 		if (actor == null) {
 			return;
 		}
-		actor.put(callback, result);
+		actor.submit(callback, result);
 	}
 
 	@Override
@@ -82,7 +87,7 @@ public class ActorSystem implements IActorSystem, Runnable {
 		if (actor == null) {
 			return;
 		}
-		actor.put(call);
+		actor.submit(call);
 	}
 
 	@Override
@@ -157,6 +162,8 @@ public class ActorSystem implements IActorSystem, Runnable {
 
 	@Override
 	public void registerActor(IActor actor) {
+		// set actor id
+		actor.setActorId(new ActorId(actor.getActorId().getActorType(), this.idCounter.incrementAndGet()));
 		this.actors.put(actor.getActorId(), actor);
 	}
 

@@ -5,6 +5,7 @@ import org.apache.mina.core.session.IoSession;
 import com.stone.actor.BaseActor;
 import com.stone.actor.id.ActorId;
 import com.stone.actor.id.ActorType;
+import com.stone.actor.system.IActorSystem;
 import com.stone.core.processor.IDispatchable;
 import com.stone.core.processor.IDispatcher;
 import com.stone.core.processor.IMessageProcessor;
@@ -20,6 +21,7 @@ import com.stone.game.human.Human;
  */
 public class Player extends BaseActor implements IStateManager, IDispatchable {
 
+	private static final long PLAYER_DEFAULT_ID = 0l;
 	/** 当前绑定的角色 */
 	private Human human;
 	/** 绑定的回话 */
@@ -27,6 +29,15 @@ public class Player extends BaseActor implements IStateManager, IDispatchable {
 	/** 当前状态 */
 	private IState currentState;
 	private long playerId;
+	
+	public Player() {
+		this.actorId = new ActorId(ActorType.PLAYER, PLAYER_DEFAULT_ID);
+	}
+	
+	public void setActorSystem(IActorSystem actorSystem) {
+		this.actorSystem = actorSystem;
+	}
+	
 
 	public Human getHuman() {
 		return human;
@@ -81,6 +92,5 @@ public class Player extends BaseActor implements IStateManager, IDispatchable {
 
 	public void setPlayerId(long playerId) {
 		this.playerId = playerId;
-		this.setActorId(new ActorId(ActorType.PLAYER, playerId));
 	}
 }

@@ -4,6 +4,7 @@ import org.apache.mina.core.session.IoSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.stone.actor.system.IActorSystem;
 import com.stone.core.msg.ISessionMessage;
 import com.stone.core.net.AbstractIoHandler;
 import com.stone.core.processor.IMessageProcessor;
@@ -24,8 +25,7 @@ public class GameIoHandler extends AbstractIoHandler<GamePlayerSession> {
 	}
 
 	@Override
-	protected ISessionMessage<GamePlayerSession> createSessionOpenMessage(
-			GamePlayerSession sessionInfo) {
+	protected ISessionMessage<GamePlayerSession> createSessionOpenMessage(GamePlayerSession sessionInfo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -35,18 +35,22 @@ public class GameIoHandler extends AbstractIoHandler<GamePlayerSession> {
 		GamePlayerSession sessionInfo = new GamePlayerSession(session);
 		Player player = new Player();
 		sessionInfo.setPlayer(player);
+		// register to actor system
+		if (this.processor instanceof IActorSystem) {
+			IActorSystem actorSystem = (IActorSystem) this.processor;
+			actorSystem.registerActor(player);
+			player.setActorSystem(actorSystem);
+		}
 		return sessionInfo;
 	}
 
 	@Override
-	public void exceptionCaught(IoSession session, Throwable cause)
-			throws Exception {
+	public void exceptionCaught(IoSession session, Throwable cause) throws Exception {
 		logger.error(String.format("Exception caught, session: %s", session), cause);
 	}
 
 	@Override
-	protected ISessionMessage<GamePlayerSession> createSessionCloseMessage(
-			GamePlayerSession sessionInfo) {
+	protected ISessionMessage<GamePlayerSession> createSessionCloseMessage(GamePlayerSession sessionInfo) {
 		// TODO Auto-generated method stub
 		return null;
 	}

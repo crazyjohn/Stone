@@ -25,9 +25,8 @@ import com.stone.core.msg.MessageParseException;
 public abstract class BaseActor implements IActor {
 	/** blocking queue call */
 	protected BlockingQueue<IActorQueueExecutable> callQueue = new LinkedBlockingQueue<IActorQueueExecutable>();
-	private volatile boolean stop = true;
 	protected IActorSystem actorSystem;
-	private Logger logger = LoggerFactory.getLogger(BaseActor.class);
+	protected Logger logger = LoggerFactory.getLogger(BaseActor.class);
 	protected IActorId actorId;
 
 	@Override
@@ -41,22 +40,12 @@ public abstract class BaseActor implements IActor {
 	}
 
 	@Override
-	public void start() {
-		this.stop = false;
-	}
-
-	@Override
 	public IActorId getActorId() {
 		return actorId;
 	}
 
 	@Override
-	public void stop() {
-		this.stop = true;
-	}
-
-	@Override
-	public <T> IActorFuture<T> put(IActorCall<T> call) {
+	public <T> IActorFuture<T> submit(IActorCall<T> call) {
 		IActorFuture<T> future = new ActorFuture<T>();
 		callQueue.add(new QueueCallWithFuture(call, future));
 		return future;
@@ -64,33 +53,27 @@ public abstract class BaseActor implements IActor {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	public void put(IActorCallback<?> callback, Object result) {
+	public void submit(IActorCallback<?> callback, Object result) {
 		callQueue.add(new QueueOnlyCallback(callback, result));
 	}
 
 	@Override
-	public void put(IActorCall<?> call, IActorCallback<?> callback, IActorId source) {
+	public void submit(IActorCall<?> call, IActorCallback<?> callback, IActorId source) {
 		this.callQueue.add(new QueueCallWithCallback(call, callback, source));
 	}
 
 	@Override
-	public void put(IMessage message) {
+	public void submit(IMessage message) {
 		this.callQueue.add(new QueueNetMessage(message));
 	}
 
 	@Override
 	public void run() {
-		while (!stop) {
-			try {
-				Iterator<IActorQueueExecutable> iterator = this.callQueue.iterator();
-				while (iterator.hasNext()) {
-					IActorQueueExecutable queueCall = iterator.next();
-					queueCall.execute();
-					iterator.remove();
-				}
-			} catch (Exception e) {
-				logger.error("Execute call error", e);
-			}
+		Iterator<IActorQueueExecutable> iterator = this.callQueue.iterator();
+		while (iterator.hasNext()) {
+			IActorQueueExecutable queueCall = iterator.next();
+			queueCall.execute();
+			iterator.remove();
 		}
 	}
 

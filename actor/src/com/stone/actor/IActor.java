@@ -19,7 +19,7 @@ public interface IActor {
 	 * @param call
 	 * @return
 	 */
-	public <T> IActorFuture<T> put(IActorCall<T> call);
+	public <T> IActorFuture<T> submit(IActorCall<T> call);
 
 	/**
 	 * 投递回调;
@@ -29,7 +29,7 @@ public interface IActor {
 	 * @param result
 	 *            结果参数;
 	 */
-	public void put(IActorCallback<?> callback, Object result);
+	public void submit(IActorCallback<?> callback, Object result);
 
 	/**
 	 * 投递一个调用以及一个回调, 以及处理回调的ActorId;
@@ -38,22 +38,13 @@ public interface IActor {
 	 * @param callback
 	 * @param source
 	 */
-	public void put(IActorCall<?> call, IActorCallback<?> callback, IActorId source);
+	public void submit(IActorCall<?> call, IActorCallback<?> callback, IActorId source);
 
 	/**
 	 * the run method;
 	 */
 	public void run();
 
-	/**
-	 * 启动actor;
-	 */
-	public void start();
-
-	/**
-	 * 停止actor;
-	 */
-	public void stop();
 
 	/**
 	 * 获取ActorId;
@@ -77,10 +68,10 @@ public interface IActor {
 	public boolean hasAnyWorkToDo();
 
 	/**
-	 * put net message;
+	 * submit a net message;
 	 * 
 	 * @param message
 	 */
-	public void put(IMessage message);
+	public void submit(IMessage message);
 
 }
