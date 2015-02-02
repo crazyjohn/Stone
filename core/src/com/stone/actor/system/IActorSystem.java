@@ -65,5 +65,7 @@ public interface IActorSystem {
 	 * @param player
 	 */
 	public void registerActor(IActor actor);
+	
+	public <T>IActorSystemFuture<T> putSystemCall(IActorSystemCall<T> call);
 
 }
