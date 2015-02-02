@@ -46,7 +46,7 @@ public class ActorSystem implements IActorSystem, Runnable {
 	/**
 	 * private
 	 */
-	private ActorSystem() {
+	protected ActorSystem() {
 
 	}
 

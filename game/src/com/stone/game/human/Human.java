@@ -4,7 +4,6 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 import com.stone.core.lock.ILockable;
-import com.stone.game.human.skill.HumanSkillManager;
 
 /**
  * 游戏角色业务对象;
@@ -12,9 +11,8 @@ import com.stone.game.human.skill.HumanSkillManager;
  * @author crazyjohn
  *
  */
-public class Human implements ILockable{
+public class Human implements ILockable {
 	private Lock lock;
-	private HumanSkillManager skillManager;
 
 	public Human() {
 		// init
@@ -24,11 +22,6 @@ public class Human implements ILockable{
 
 	private void initManager() {
 		// init all managers
-		skillManager = new HumanSkillManager();
-	}
-
-	public HumanSkillManager getSkillManager() {
-		return skillManager;
 	}
 
 	@Override
@@ -41,7 +34,6 @@ public class Human implements ILockable{
 	public void unlock() {
 		lock.unlock();
 	}
-
 
 	public long getGuid() {
 		// TODO Auto-generated method stub
