@@ -15,7 +15,6 @@ import com.stone.actor.concurrent.ActorWokerMonster;
 import com.stone.actor.concurrent.IActorRunnable;
 import com.stone.actor.concurrent.IActorWorkerMonster;
 import com.stone.actor.id.IActorId;
-import com.stone.actor.player.PlayerActor;
 import com.stone.core.annotation.GuardedByUnit;
 import com.stone.core.annotation.ThreadSafeUnit;
 
@@ -152,9 +151,10 @@ public class ActorSystem implements IActorSystem, Runnable {
 		return instance;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public PlayerActor getPlayerActor(long playerId) {
-		return (PlayerActor) actors.get(playerId);
+	public <T extends IActor>T getPlayerActor(long playerId) {
+		return (T) actors.get(playerId);
 	}
 
 	@Override

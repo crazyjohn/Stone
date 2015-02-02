@@ -4,7 +4,6 @@ import com.stone.actor.IActor;
 import com.stone.actor.call.IActorCall;
 import com.stone.actor.call.IActorCallback;
 import com.stone.actor.id.IActorId;
-import com.stone.actor.player.PlayerActor;
 
 /**
  * Actor调度中心;<br>
@@ -52,7 +51,7 @@ public interface IActorSystem {
 	 * @param playerId
 	 * @return
 	 */
-	public PlayerActor getPlayerActor(long playerId);
+	public <T extends IActor>T getPlayerActor(long playerId);
 
 	/**
 	 * 初始化ActorSystem;
