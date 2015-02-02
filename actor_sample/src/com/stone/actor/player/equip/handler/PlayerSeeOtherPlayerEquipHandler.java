@@ -4,6 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.stone.actor.future.IActorFuture;
+import com.stone.actor.id.ActorId;
+import com.stone.actor.id.ActorType;
 import com.stone.actor.id.IActorId;
 import com.stone.actor.listener.IActorFutureListener;
 import com.stone.actor.player.PlayerActor;
@@ -19,7 +21,7 @@ public class PlayerSeeOtherPlayerEquipHandler {
 		long playerId = msg.getPlayerId();
 		long equipId = msg.getEquipId();
 		final PlayerActor player = msg.getPlayer();
-		PlayerActor otherPlayer = ActorSystem.getInstance().getPlayerActor(playerId);
+		PlayerActor otherPlayer = ActorSystem.getInstance().getActor(new ActorId(ActorType.PLAYER, playerId));
 		// get future
 		IActorFuture<PlayerEquip> future = otherPlayer.getPlayerEquip(equipId);
 		// add listener

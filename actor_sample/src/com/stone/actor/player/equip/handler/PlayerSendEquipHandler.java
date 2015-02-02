@@ -2,6 +2,8 @@ package com.stone.actor.player.equip.handler;
 
 import com.stone.actor.call.IActorCall;
 import com.stone.actor.future.IActorFuture;
+import com.stone.actor.id.ActorId;
+import com.stone.actor.id.ActorType;
 import com.stone.actor.id.IActorId;
 import com.stone.actor.listener.IActorFutureListener;
 import com.stone.actor.player.PlayerActor;
@@ -16,7 +18,7 @@ public class PlayerSendEquipHandler {
 		final long receiverPlayerId = msg.getReceiver();
 		final long equipId = msg.getEquipId();
 		// get sender
-		final PlayerActor senderPlayer = ActorSystem.getInstance().getPlayerActor(senderPlayerId);
+		final PlayerActor senderPlayer = ActorSystem.getInstance().getActor(new ActorId(ActorType.PLAYER, senderPlayerId));
 		if (senderPlayer == null) {
 			return;
 		}
@@ -27,7 +29,7 @@ public class PlayerSendEquipHandler {
 		// 1. 使用直接给actor添加匿名调用的方式, 但是这样的代码负责度高，不易阅读
 		// 2. 使用actor暴露良好接口的方法，把具体实现包装在actor内部
 		// get receiver
-		final PlayerActor receiverPlayer = ActorSystem.getInstance().getPlayerActor(receiverPlayerId);
+		final PlayerActor receiverPlayer = ActorSystem.getInstance().getActor(new ActorId(ActorType.PLAYER, receiverPlayerId));
 		IActorFuture<Boolean> future = receiverPlayer.put(new IActorCall<Boolean>() {
 			@Override
 			public Boolean execute() {

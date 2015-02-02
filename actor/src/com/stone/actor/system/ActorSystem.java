@@ -68,8 +68,7 @@ public class ActorSystem implements IActorSystem, Runnable {
 	}
 
 	@Override
-	public void dispatch(IActorId actorId, IActorCallback<?> callback,
-			Object result) {
+	public void dispatch(IActorId actorId, IActorCallback<?> callback, Object result) {
 		IActor actor = this.actors.get(actorId);
 		if (actor == null) {
 			return;
@@ -90,15 +89,13 @@ public class ActorSystem implements IActorSystem, Runnable {
 	public void run() {
 		while (!stop) {
 			boolean haveARest = true;
-			for (final Map.Entry<IActorId, IActor> eachActorEntry : this.actors
-					.entrySet()) {
+			for (final Map.Entry<IActorId, IActor> eachActorEntry : this.actors.entrySet()) {
 				final IActor actor = eachActorEntry.getValue();
 				if (!actor.hasAnyWorkToDo()) {
 					continue;
 				}
 				haveARest = false;
-				IActorWorkerMonster workThread = getActorWorkerMonster(eachActorEntry
-						.getKey());
+				IActorWorkerMonster workThread = getActorWorkerMonster(eachActorEntry.getKey());
 				if (workThread != null) {
 					workThread.submit(new IActorRunnable() {
 						@Override
@@ -153,8 +150,8 @@ public class ActorSystem implements IActorSystem, Runnable {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public <T extends IActor>T getPlayerActor(long playerId) {
-		return (T) actors.get(playerId);
+	public <T extends IActor> T getActor(IActorId actorId) {
+		return (T) actors.get(actorId);
 	}
 
 	@Override

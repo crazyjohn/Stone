@@ -24,8 +24,7 @@ public interface IActorSystem {
 	 * @param result
 	 *            执行结果;
 	 */
-	public void dispatch(IActorId actorId, IActorCallback<?> callback,
-			Object result);
+	public void dispatch(IActorId actorId, IActorCallback<?> callback, Object result);
 
 	/**
 	 * 分发回调到指定的Actor;
@@ -46,12 +45,12 @@ public interface IActorSystem {
 	public void stop();
 
 	/**
-	 * 获取玩家Actor;
+	 * get actor by actorId
 	 * 
-	 * @param playerId
+	 * @param actorId
 	 * @return
 	 */
-	public <T extends IActor>T getPlayerActor(long playerId);
+	public <T extends IActor> T getActor(IActorId actorId);
 
 	/**
 	 * 初始化ActorSystem;
