@@ -1,0 +1,5 @@
+[TODO]
+
+1. shutdown the actor system use the Two Step Termination
+
+2. sub actor system, for example game node and db node

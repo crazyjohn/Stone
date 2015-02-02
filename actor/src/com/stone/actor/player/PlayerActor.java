@@ -1,5 +1,8 @@
 package com.stone.actor.player;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.stone.actor.BaseActor;
 import com.stone.actor.call.IActorCall;
 import com.stone.actor.future.ActorFuture;
@@ -19,9 +22,18 @@ public class PlayerActor extends BaseActor {
 	/** equip module */
 	private PlayerEquipModule equipModule;
 	private long playerId;
+	/** logger */
+	private Logger logger = LoggerFactory.getLogger(PlayerActor.class);
 
 	public PlayerActor(long playerId) {
 		super(ActorType.PLAYER, playerId);
+		// init modules
+		initModules();
+	}
+
+	private void initModules() {
+		// equip
+		this.equipModule = new PlayerEquipModule(this);
 	}
 
 	public PlayerEquipModule getPlayerEquipModule() {

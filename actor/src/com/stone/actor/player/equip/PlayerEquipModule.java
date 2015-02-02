@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.stone.actor.data.ILoadable;
+import com.stone.actor.player.PlayerActor;
 import com.stone.actor.player.converter.IConverter;
 import com.stone.actor.player.entity.PlayerEquipEntity;
 import com.stone.actor.player.module.BasePlayerModule;
@@ -11,6 +12,10 @@ import com.stone.actor.player.module.BasePlayerModule;
 public class PlayerEquipModule extends BasePlayerModule implements ILoadable<PlayerEquipEntity> {
 	private List<PlayerEquip> equips = new ArrayList<PlayerEquip>();
 	private IConverter<PlayerEquipEntity, PlayerEquip> converter;
+
+	public PlayerEquipModule(PlayerActor player) {
+		super(player);
+	}
 
 	@Override
 	public void onPlayerLogin() {
