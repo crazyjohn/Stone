@@ -6,9 +6,6 @@ import com.stone.actor.BaseActor;
 import com.stone.actor.id.ActorId;
 import com.stone.actor.id.ActorType;
 import com.stone.actor.system.IActorSystem;
-import com.stone.core.processor.IDispatchable;
-import com.stone.core.processor.IDispatcher;
-import com.stone.core.processor.IMessageProcessor;
 import com.stone.core.state.IState;
 import com.stone.core.state.IStateManager;
 import com.stone.game.human.Human;
@@ -19,7 +16,7 @@ import com.stone.game.human.Human;
  * @author crazyjohn
  *
  */
-public class Player extends BaseActor implements IStateManager, IDispatchable {
+public class Player extends BaseActor implements IStateManager {
 
 	private static final long PLAYER_DEFAULT_ID = 0l;
 	/** 当前绑定的角色 */
@@ -29,15 +26,14 @@ public class Player extends BaseActor implements IStateManager, IDispatchable {
 	/** 当前状态 */
 	private IState currentState;
 	private long playerId;
-	
+
 	public Player() {
 		this.actorId = new ActorId(ActorType.PLAYER, PLAYER_DEFAULT_ID);
 	}
-	
+
 	public void setActorSystem(IActorSystem actorSystem) {
 		this.actorSystem = actorSystem;
 	}
-	
 
 	public Human getHuman() {
 		return human;
@@ -78,12 +74,6 @@ public class Player extends BaseActor implements IStateManager, IDispatchable {
 		}
 		setCurrentState(state);
 		return true;
-	}
-
-	@Override
-	public IMessageProcessor getProcessor(IDispatcher myDispatcher) {
-		long processorIndex = getPlayerId() % myDispatcher.getProcessorCount();
-		return myDispatcher.getProcessor((int) processorIndex);
 	}
 
 	public long getPlayerId() {

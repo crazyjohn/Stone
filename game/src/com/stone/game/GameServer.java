@@ -27,7 +27,7 @@ public class GameServer implements IService {
 	private GameServerConfig config;
 	private String configPath;
 	protected ServerProcess externalProcess;
-	protected GameActorSystem mainDispatcher;
+	protected GameActorSystem gameActorSystem;
 	protected IDispatcher dbDispatcher;
 
 	public GameServer(String configPath) {
@@ -38,18 +38,18 @@ public class GameServer implements IService {
 	public void init() throws ScriptException, IOException {
 		config = new GameServerConfig();
 		ConfigUtil.loadJsConfig(config, configPath);
-		mainDispatcher = GameActorSystem.getInstance();
-		mainDispatcher.initSystem(config.getGameProcessorCount());
+		gameActorSystem = GameActorSystem.getInstance();
+		gameActorSystem.initSystem(config.getGameProcessorCount());
 		dbDispatcher = new DBDispatcher(config.getDbProcessorCount());
 		// 对外服务
-		externalProcess = new ServerProcess(config.getBindIp(), config.getPort(), new GameIoHandler(mainDispatcher), new GameCodecFactory(new ProtobufMessageFactory()));
+		externalProcess = new ServerProcess(config.getBindIp(), config.getPort(), new GameIoHandler(gameActorSystem), new GameCodecFactory(new ProtobufMessageFactory()));
 
 	}
 
 	@Override
 	public void start() throws IOException {
 		logger.info("Begin to start main dispatcher...");
-		mainDispatcher.start();
+		gameActorSystem.start();
 		logger.info("Main dispatcher started.");
 		logger.info("Begin to start db dispatcher...");
 		dbDispatcher.start();
@@ -70,7 +70,7 @@ public class GameServer implements IService {
 	public void shutdown() {
 		externalProcess.shutdown();
 		dbDispatcher.stop();
-		mainDispatcher.stop();
+		gameActorSystem.stop();
 	}
 
 	public static void main(String[] args) {

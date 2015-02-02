@@ -72,8 +72,10 @@ public abstract class BaseActor implements IActor {
 		Iterator<IActorQueueExecutable> iterator = this.callQueue.iterator();
 		while (iterator.hasNext()) {
 			IActorQueueExecutable queueCall = iterator.next();
-			queueCall.execute();
+			// first remove
 			iterator.remove();
+			// then execute
+			queueCall.execute();
 		}
 	}
 

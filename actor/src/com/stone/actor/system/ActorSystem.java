@@ -102,13 +102,7 @@ public class ActorSystem implements IActorSystem, Runnable {
 				haveARest = false;
 				IActorWorkerMonster workThread = getActorWorkerMonster(eachActorEntry.getKey());
 				if (workThread != null) {
-					workThread.submit(new IActorRunnable() {
-						@Override
-						public void run() {
-							actor.run();
-						}
-
-					});
+					workThread.submit(new ActorRunnable(actor));
 				} else {
 					// FIXME: crazyjohn log
 				}
@@ -165,6 +159,20 @@ public class ActorSystem implements IActorSystem, Runnable {
 		// set actor id
 		actor.setActorId(new ActorId(actor.getActorId().getActorType(), this.idCounter.incrementAndGet()));
 		this.actors.put(actor.getActorId(), actor);
+	}
+
+	class ActorRunnable implements IActorRunnable {
+		private IActor actor;
+
+		public ActorRunnable(IActor actor) {
+			this.actor = actor;
+		}
+
+		@Override
+		public void run() {
+			actor.run();
+		}
+
 	}
 
 }

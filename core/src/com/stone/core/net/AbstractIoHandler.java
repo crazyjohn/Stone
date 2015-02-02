@@ -2,6 +2,8 @@ package com.stone.core.net;
 
 import org.apache.mina.core.service.IoHandlerAdapter;
 import org.apache.mina.core.session.IoSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.stone.core.msg.ISessionMessage;
 import com.stone.core.processor.IMessageProcessor;
@@ -13,18 +15,17 @@ import com.stone.core.session.ISession;
  * @author crazyjohn
  *
  */
-public abstract class AbstractIoHandler<S extends ISession> extends
-		IoHandlerAdapter {
+public abstract class AbstractIoHandler<S extends ISession> extends IoHandlerAdapter {
 	protected IMessageProcessor processor;
 	private static final String SESSION_INFO = "SESSION_INFO";
+	protected Logger logger = LoggerFactory.getLogger(AbstractIoHandler.class);
 
 	public AbstractIoHandler(IMessageProcessor processor) {
 		this.processor = processor;
 	}
 
 	@Override
-	public void messageReceived(IoSession session, Object message)
-			throws Exception {
+	public void messageReceived(IoSession session, Object message) throws Exception {
 		@SuppressWarnings("unchecked")
 		S sessionInfo = (S) session.getAttribute(SESSION_INFO);
 		if (sessionInfo == null) {
@@ -65,9 +66,9 @@ public abstract class AbstractIoHandler<S extends ISession> extends
 	}
 
 	@Override
-	public void exceptionCaught(IoSession session, Throwable cause)
-			throws Exception {
-		super.exceptionCaught(session, cause);
+	public void exceptionCaught(IoSession session, Throwable cause) throws Exception {
+		// close session
+		session.close(true);
 	}
 
 	/**
@@ -92,7 +93,6 @@ public abstract class AbstractIoHandler<S extends ISession> extends
 	 * @param sessionInfo
 	 * @return
 	 */
-	protected abstract ISessionMessage<S> createSessionCloseMessage(
-			S sessionInfo);
+	protected abstract ISessionMessage<S> createSessionCloseMessage(S sessionInfo);
 
 }
