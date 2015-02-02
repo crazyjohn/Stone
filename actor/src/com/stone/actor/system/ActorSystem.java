@@ -19,7 +19,7 @@ import com.stone.core.annotation.GuardedByUnit;
 import com.stone.core.annotation.ThreadSafeUnit;
 
 /**
- * 基础的ActorSystem实现;
+ * base actor system;
  * 
  * @author crazyjohn
  *
@@ -108,6 +108,7 @@ public class ActorSystem implements IActorSystem, Runnable {
 					// FIXME: crazyjohn log
 				}
 			}
+			// have a rest when i have no work to do
 			if (haveARest) {
 				try {
 					Thread.sleep(SLEEP_INTERVAL);
