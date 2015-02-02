@@ -14,7 +14,6 @@ import com.stone.core.processor.IDispatcher;
 import com.stone.core.service.IService;
 import com.stone.db.dispatch.DBDispatcher;
 import com.stone.game.msg.ProtobufMessageFactory;
-import com.stone.game.system.GameActorSystem;
 
 /**
  * 游戏服务器;

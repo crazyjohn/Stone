@@ -10,6 +10,12 @@ import com.stone.core.msg.handler.BaseProtobufMessageHandler;
 import com.stone.proto.Auths.Login;
 import com.stone.proto.MessageTypes.MessageType;
 
+/**
+ * player login handler;
+ * 
+ * @author crazyjohn
+ *
+ */
 @MessageHandler
 public class PlayerLoginHandler extends BaseProtobufMessageHandler {
 	private Logger logger = LoggerFactory.getLogger(PlayerLoginHandler.class);
@@ -22,8 +28,7 @@ public class PlayerLoginHandler extends BaseProtobufMessageHandler {
 	@Override
 	public void execute(IProtobufMessage msg) throws MessageParseException {
 		Login.Builder login = msg.parseBuilder(Login.newBuilder());
-		logger.info(String.format("Player login, userName: %s",
-				login.getUserName()));
+		logger.info(String.format("Player login, userName: %s", login.getUserName()));
 	}
 
 }
