@@ -28,10 +28,8 @@ public class DataService implements IDataService {
 	}
 
 	@Override
-	public <T> IActorSystemFuture<T> queryByNameAndParams(String queryName,
-			String[] params, Object[] values) {
-		return actorSystem.putSystemCall(new DBSystemQuery<T>(queryName, params,
-				values));
+	public <T> IActorSystemFuture<T> queryByNameAndParams(String queryName, String[] params, Object[] values) {
+		return actorSystem.putSystemCall(new DBSystemQuery<T>(queryName, params, values));
 	}
 
 }

@@ -18,6 +18,5 @@ public interface IDataService {
 
 	public void update(IEntity<?> entity);
 
-	public <T> IActorSystemFuture<T> queryByNameAndParams(String queryName,
-			String[] params, Object[] values);
+	public <T> IActorSystemFuture<T> queryByNameAndParams(String queryName, String[] params, Object[] values);
 }
