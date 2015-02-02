@@ -6,6 +6,5 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/core"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/db"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/proto"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/actor"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
