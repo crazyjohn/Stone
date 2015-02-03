@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.mop.webzt.db.model">
+	<!-- 根据用户名和密码查询账户信息 -->
+	<query name="queryAccountByNameAndPwd">
+	<![CDATA[
+		from AccountEntity where userName = :userName and password = :password
+	]]>
+	</query>
+	
+	<!-- 根据用户名查询账户信息 -->
+	<query name="queryAccountByName">
+	<![CDATA[
+		from AccountEntity where userName = :userName
+	]]>
+	</query>
+
+	<query name="queryUUID_HUMAN">
+	<![CDATA[
+	    select max(id) from HumanEntity where id >=:minId and id <= :maxId
+	]]>
+	</query>
+	<query name="queryUUID_ACCOUNT">
+	<![CDATA[
+	    select max(id) from AccountEntity where id >=:minId and id <= :maxId
+	]]>
+	</query>
+</hibernate-mapping>

@@ -4,6 +4,12 @@ import com.stone.actor.system.IActorSystemCall;
 import com.stone.core.db.service.IDBService;
 import com.stone.core.entity.IEntity;
 
+/**
+ * Insert call;
+ * 
+ * @author crazyjohn
+ *
+ */
 public class DBSystemInsertCall implements IActorSystemCall<IEntity<?>> {
 	private IEntity<?> entity;
 

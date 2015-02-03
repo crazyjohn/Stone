@@ -1,7 +1,11 @@
 package com.stone.db.entity;
 
-import com.stone.core.entity.IEntity;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
+import com.stone.core.entity.IEntity;
+@Entity
+@Table(name = "player")
 public class PlayerEntity implements IEntity<Long> {
 	private long id;
 	private String userName;

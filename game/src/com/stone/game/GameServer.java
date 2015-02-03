@@ -10,9 +10,8 @@ import org.slf4j.LoggerFactory;
 import com.stone.core.codec.GameCodecFactory;
 import com.stone.core.config.ConfigUtil;
 import com.stone.core.net.ServerProcess;
-import com.stone.core.processor.IDispatcher;
 import com.stone.core.service.IService;
-import com.stone.db.dispatch.DBDispatcher;
+import com.stone.db.DBActorSystem;
 import com.stone.game.msg.ProtobufMessageFactory;
 
 /**
@@ -23,12 +22,23 @@ import com.stone.game.msg.ProtobufMessageFactory;
  */
 public class GameServer implements IService {
 	private static Logger logger = LoggerFactory.getLogger(GameServer.class);
+	/** server config */
 	private GameServerConfig config;
+	/** config path */
 	private String configPath;
+	/** server io process */
 	protected ServerProcess externalProcess;
+	/** game actor system */
 	protected GameActorSystem gameActorSystem;
-	protected IDispatcher dbDispatcher;
+	/** db actor system */
+	protected DBActorSystem dbActorSystem;
 
+	/**
+	 * new game server instance;
+	 * 
+	 * @param configPath
+	 *            the config file path;
+	 */
 	public GameServer(String configPath) {
 		this.configPath = configPath;
 	}
@@ -39,7 +49,10 @@ public class GameServer implements IService {
 		ConfigUtil.loadJsConfig(config, configPath);
 		gameActorSystem = GameActorSystem.getInstance();
 		gameActorSystem.initSystem(config.getGameProcessorCount());
-		dbDispatcher = new DBDispatcher(config.getDbProcessorCount());
+		dbActorSystem = DBActorSystem.getInstance();
+		// init db system
+		dbActorSystem.initSystem(config.getDbProcessorCount());
+		dbActorSystem.initDBService(config.getDbServiceType(), config.getDbConfigName(), config.getDataServiceProperties());
 		// 对外服务
 		externalProcess = new ServerProcess(config.getBindIp(), config.getPort(), new GameIoHandler(gameActorSystem), new GameCodecFactory(new ProtobufMessageFactory()));
 
@@ -51,7 +64,7 @@ public class GameServer implements IService {
 		gameActorSystem.start();
 		logger.info("Main dispatcher started.");
 		logger.info("Begin to start db dispatcher...");
-		dbDispatcher.start();
+		dbActorSystem.start();
 		logger.info("DB dispatcher started.");
 		logger.info("Begin to start Server Process...");
 		externalProcess.start();
@@ -68,7 +81,7 @@ public class GameServer implements IService {
 	@Override
 	public void shutdown() {
 		externalProcess.shutdown();
-		dbDispatcher.stop();
+		dbActorSystem.stop();
 		gameActorSystem.stop();
 	}
 

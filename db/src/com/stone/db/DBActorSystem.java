@@ -1,15 +1,27 @@
 package com.stone.db;
 
 import java.util.Iterator;
+import java.util.Properties;
 
 import com.stone.actor.future.IActorFuture;
 import com.stone.actor.system.ActorSystem;
 import com.stone.actor.system.IActorSystemCall;
 import com.stone.core.db.service.IDBService;
+import com.stone.db.service.DBConfiguration;
+import com.stone.db.service.DBServiceFactory;
 
 public class DBActorSystem extends ActorSystem {
 	/** dbService */
 	private IDBService dbService;
+	private static DBActorSystem instance = new DBActorSystem();
+
+	public synchronized static DBActorSystem getInstance() {
+		return instance;
+	}
+
+	public void initDBService(String dbServiceType, String dbConfigName, Properties props) {
+		dbService = DBServiceFactory.createDBService(new DBConfiguration(dbServiceType, dbConfigName, props));
+	}
 
 	@Override
 	protected boolean handleSystemCall() {
