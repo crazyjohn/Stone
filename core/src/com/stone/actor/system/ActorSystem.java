@@ -99,24 +99,12 @@ public class ActorSystem implements IActorSystem, Runnable {
 	@Override
 	public void run() {
 		while (!stop) {
-			boolean haveARest = true;
-			for (final Map.Entry<IActorId, IActor> eachActorEntry : this.actors.entrySet()) {
-				final IActor actor = eachActorEntry.getValue();
-				if (!actor.hasAnyWorkToDo()) {
-					continue;
-				}
-				haveARest = false;
-				// get work thread
-				IActorWorkerMonster workThread = getActorWorkerMonster(eachActorEntry.getKey());
-				if (workThread != null) {
-					workThread.submit(new ActorRunnable(actor));
-				} else {
-					// log
-					logger.warn(String.format("Can not find WorkerMonster for this actor: %s", eachActorEntry.getKey()));
-				}
-			}
+			// handle system call
+			boolean noSystemCall = handleSystemCall();
+			// handle actor run
+			boolean noActorRun = handleActorRun();
 			// have a rest when i have no work to do
-			if (haveARest) {
+			if (noSystemCall && noActorRun) {
 				try {
 					Thread.sleep(SLEEP_INTERVAL);
 				} catch (InterruptedException e) {
@@ -125,6 +113,41 @@ public class ActorSystem implements IActorSystem, Runnable {
 				}
 			}
 		}
+	}
+
+	/**
+	 * handle actor run;
+	 * 
+	 * @return
+	 */
+	private boolean handleActorRun() {
+		boolean noActorRun = true;
+		for (final Map.Entry<IActorId, IActor> eachActorEntry : this.actors.entrySet()) {
+			final IActor actor = eachActorEntry.getValue();
+			if (!actor.hasAnyWorkToDo()) {
+				continue;
+			}
+			noActorRun = false;
+			// get work thread
+			IActorWorkerMonster workThread = getActorWorkerMonster(eachActorEntry.getKey());
+			if (workThread != null) {
+				workThread.submit(new ActorRunnable(actor));
+			} else {
+				// log
+				logger.warn(String.format("Can not find WorkerMonster for this actor: %s", eachActorEntry.getKey()));
+			}
+		}
+		return noActorRun;
+
+	}
+
+	/**
+	 * 处理系统调用, 子ActorSystem自己去实现自己的处理逻辑;
+	 * 
+	 * @return
+	 */
+	protected boolean handleSystemCall() {
+		return true;
 	}
 
 	/**
