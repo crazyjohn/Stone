@@ -1,35 +1,39 @@
 package com.stone.game.data;
 
+import com.stone.actor.future.IDelteFuture;
+import com.stone.actor.future.IInsertFuture;
+import com.stone.actor.future.IQueryFuture;
+import com.stone.actor.future.IUpdateFuture;
 import com.stone.actor.system.IActorSystem;
-import com.stone.actor.system.IActorSystemFuture;
 import com.stone.core.data.IDataService;
 import com.stone.core.entity.IEntity;
-import com.stone.db.actor.DBSystemDelete;
-import com.stone.db.actor.DBSystemInsert;
-import com.stone.db.actor.DBSystemQuery;
-import com.stone.db.actor.DBSystemUpdate;
 
 public class DataService implements IDataService {
-	private IActorSystem actorSystem;
+	protected IActorSystem actorSystem;
 
 	@Override
-	public <T> void insert(IEntity<?> entity) {
-		actorSystem.putSystemCall(new DBSystemInsert(entity));
+	public <T> IInsertFuture<T> insert(IEntity<?> entity) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public void delete(IEntity<?> entity) {
-		actorSystem.putSystemCall(new DBSystemDelete(entity));
+	public <T> IDelteFuture<T> delete(IEntity<?> entity) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public void update(IEntity<?> entity) {
-		actorSystem.putSystemCall(new DBSystemUpdate(entity));
+	public <T> IUpdateFuture<T> update(IEntity<?> entity) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public <T> IActorSystemFuture<T> queryByNameAndParams(String queryName, String[] params, Object[] values) {
-		return actorSystem.putSystemCall(new DBSystemQuery<T>(queryName, params, values));
+	public <T> IQueryFuture<T> queryByNameAndParams(String queryName, String[] params, Object[] values) {
+		// TODO Auto-generated method stub
+		return null;
 	}
+
 
 }

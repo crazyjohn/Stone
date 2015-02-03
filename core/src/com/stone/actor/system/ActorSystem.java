@@ -101,6 +101,7 @@ public class ActorSystem implements IActorSystem, Runnable {
 					continue;
 				}
 				haveARest = false;
+				// get work thread
 				IActorWorkerMonster workThread = getActorWorkerMonster(eachActorEntry.getKey());
 				if (workThread != null) {
 					workThread.submit(new ActorRunnable(actor));

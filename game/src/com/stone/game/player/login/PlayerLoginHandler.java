@@ -4,9 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.stone.actor.future.IActorFuture;
+import com.stone.actor.future.IQueryFuture;
 import com.stone.actor.id.IActorId;
 import com.stone.actor.listener.IActorFutureListener;
-import com.stone.actor.system.IActorSystemFuture;
 import com.stone.core.annotation.MessageHandler;
 import com.stone.core.data.IDataService;
 import com.stone.core.msg.MessageParseException;
@@ -39,7 +39,7 @@ public class PlayerLoginHandler extends BaseProtobufMessageHandler {
 		Login.Builder login = msg.parseBuilder(Login.newBuilder());
 		logger.info(String.format("Player login, userName: %s", login.getUserName()));
 		final Player player = msg.getPlayer();
-		IActorSystemFuture<PlayerEntity> future = dataService.queryByNameAndParams(DBQueryConstants.QUERY_PLAYER_BY_NAME_AND_PASSWORD, new String[] { "userName", "password" },
+		IQueryFuture<PlayerEntity> future = dataService.queryByNameAndParams(DBQueryConstants.QUERY_PLAYER_BY_NAME_AND_PASSWORD, new String[] { "userName", "password" },
 				new Object[] { login.getUserName(), login.getPassword() });
 		future.addListener(new IActorFutureListener<PlayerEntity>() {
 
