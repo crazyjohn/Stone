@@ -29,9 +29,13 @@ public class HibernateDBService implements IDBService {
 	/** template */
 	private IHibernateTemplate template = new HibernateTransactionTemplate();
 
+	@SuppressWarnings("deprecation")
 	public HibernateDBService(URL hibernateCfgUrl, Properties properties) {
 		Configuration config = new Configuration().configure(hibernateCfgUrl);
-		sessionFactory = config.buildSessionFactory(ServiceRegistryBuilder.buildServiceRegistry());
+		// add properties
+		config.addProperties(properties);
+		// FIXME: crazyjohn use serviceRegistry
+		sessionFactory = config.buildSessionFactory();
 	}
 
 	@Override
@@ -112,7 +116,7 @@ public class HibernateDBService implements IDBService {
 	@Override
 	public void heartBeat() {
 		// TODO: crazyjohn slove mysql connection 8 hours problems
-		
+
 	}
 
 	/**
