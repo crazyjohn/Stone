@@ -52,7 +52,7 @@ public interface IDBService {
 	 * @param start
 	 * @return
 	 */
-	public List<Object> queryByNameAndParams(String queryName, String[] params, Object[] values, int maxResult, int start);
+	public <T>List<T> queryByNameAndParams(String queryName, String[] params, Object[] values, int maxResult, int start);
 
 	/**
 	 * 心跳接口;

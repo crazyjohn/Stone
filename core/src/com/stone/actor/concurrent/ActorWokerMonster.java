@@ -35,6 +35,7 @@ public class ActorWokerMonster extends Thread implements IActorWorkerMonster {
 				e.printStackTrace();
 			} catch (Exception e) {
 				// FIXME: crazyjohn log
+				e.printStackTrace();
 			}
 		}
 	}

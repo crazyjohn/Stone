@@ -22,4 +22,12 @@ class ClientIoHandler extends IoHandlerAdapter {
     bot ! message
   }
 
+  override def sessionClosed(session: IoSession) {
+    logger.info("Session closed: " + session)
+  }
+
+  override def exceptionCaught(session: IoSession, cause: Throwable) {
+
+  }
+
 }

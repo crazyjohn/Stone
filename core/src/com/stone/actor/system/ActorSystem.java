@@ -34,7 +34,7 @@ import com.stone.core.concurrent.NamedThreadFactory;
 @ThreadSafeUnit
 public class ActorSystem implements IActorSystem, Runnable {
 	/** prefix */
-	private static final String MONSTER_PREFIX = "ActorWokerMonster-";
+	protected String systemPrefix = "ActorWokerMonster-";
 	private static final long SLEEP_INTERVAL = 100L;
 	/** hash index */
 	protected Map<IActorId, IActor> actors = new ConcurrentHashMap<IActorId, IActor>();
@@ -73,7 +73,7 @@ public class ActorSystem implements IActorSystem, Runnable {
 		workerThreads = new IActorWorkerMonster[threadNum];
 		for (int i = 0; i < threadNum; i++) {
 			workerThreads[i] = new ActorWokerMonster();
-			workerThreads[i].setMonsterName(MONSTER_PREFIX + i);
+			workerThreads[i].setMonsterName(systemPrefix + i);
 		}
 		logger.info("Init the ActorSystem finished.");
 	}

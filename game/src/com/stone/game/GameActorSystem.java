@@ -27,6 +27,12 @@ public class GameActorSystem extends ActorSystem implements IMessageProcessor {
 	/** playerActors */
 	private Map<Long, Player> players = new ConcurrentHashMap<Long, Player>();
 
+	@Override
+	public void initSystem(int threadNum) {
+		systemPrefix = "GameActorSystem-";
+		super.initSystem(threadNum);
+	}
+
 	public static synchronized GameActorSystem getInstance() {
 		return instance;
 	}

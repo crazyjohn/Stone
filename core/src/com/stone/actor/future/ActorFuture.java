@@ -88,9 +88,10 @@ public class ActorFuture<T> implements IActorFuture<T> {
 	}
 
 	@Override
-	public void ready() {
+	public synchronized void ready() {
 		this.isReady = true;
-		// notify all
+		// notify all, i you want do this, make sure you got the wait object's
+		// lock
 		this.notifyAll();
 	}
 

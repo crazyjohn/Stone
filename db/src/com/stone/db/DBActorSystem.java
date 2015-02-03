@@ -18,6 +18,11 @@ public class DBActorSystem extends ActorSystem {
 	public synchronized static DBActorSystem getInstance() {
 		return instance;
 	}
+	@Override
+	public void initSystem(int threadNum) {
+		systemPrefix = "DBActorSystem-";
+		super.initSystem(threadNum);
+	}
 
 	public void initDBService(String dbServiceType, String dbConfigName, Properties props) {
 		dbService = DBServiceFactory.createDBService(new DBConfiguration(dbServiceType, dbConfigName, props));

@@ -1,5 +1,7 @@
 package com.stone.db.actor;
 
+import java.util.List;
+
 import com.stone.actor.system.IActorSystemCall;
 import com.stone.core.db.service.IDBService;
 
@@ -10,7 +12,7 @@ import com.stone.core.db.service.IDBService;
  *
  * @param <T>
  */
-public class DBSystemQueryCall<T> implements IActorSystemCall<T> {
+public class DBSystemQueryCall<T> implements IActorSystemCall<List<T>> {
 	private String queryName;
 	private String[] params;
 	private Object[] values;
@@ -34,9 +36,9 @@ public class DBSystemQueryCall<T> implements IActorSystemCall<T> {
 	}
 
 	@Override
-	public T execute(IDBService dbService) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<T> execute(IDBService dbService) {
+		List<T> result = dbService.queryByNameAndParams(queryName, params, values, 1, 0);
+		return result;
 	}
 
 }
