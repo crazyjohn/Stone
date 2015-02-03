@@ -34,7 +34,7 @@ public class HibernateDBService implements IDBService {
 		Configuration config = new Configuration().configure(hibernateCfgUrl);
 		// add properties
 		config.addProperties(properties);
-		// FIXME: crazyjohn use serviceRegistry
+		// FIXME: crazyjohn build sessionFactory use serviceRegistry(ServiceRegistryBuilder.buildServiceRegistry())
 		sessionFactory = config.buildSessionFactory();
 	}
 
@@ -116,7 +116,7 @@ public class HibernateDBService implements IDBService {
 	@Override
 	public void heartBeat() {
 		// TODO: crazyjohn slove mysql connection 8 hours problems
-
+		
 	}
 
 	/**
