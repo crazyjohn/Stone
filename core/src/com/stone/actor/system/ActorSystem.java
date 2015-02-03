@@ -51,7 +51,7 @@ public class ActorSystem implements IActorSystem, Runnable {
 	private Executor executor = Executors.newSingleThreadExecutor(new NamedThreadFactory("ActorSystem"));
 	/** idGenarator */
 	private AtomicLong idCounter = new AtomicLong();
-	/** sytem call */
+	/** system call */
 	private BlockingQueue<QueuedSytemCall<?>> systemCalls = new LinkedBlockingQueue<QueuedSytemCall<?>>();
 
 	/**
@@ -212,7 +212,7 @@ public class ActorSystem implements IActorSystem, Runnable {
 	 *
 	 * @param <T>
 	 */
-	class QueuedSytemCall<T> {
+	protected class QueuedSytemCall<T> {
 		private IActorSystemCall<T> systemCall;
 		private IActorFuture<T> future;
 
