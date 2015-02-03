@@ -52,7 +52,7 @@ public class ActorSystem implements IActorSystem, Runnable {
 	/** idGenarator */
 	private AtomicLong idCounter = new AtomicLong();
 	/** system call */
-	private BlockingQueue<QueuedSytemCall<?>> systemCalls = new LinkedBlockingQueue<QueuedSytemCall<?>>();
+	protected BlockingQueue<QueuedSytemCall<?>> systemCalls = new LinkedBlockingQueue<QueuedSytemCall<?>>();
 
 	/**
 	 * private
@@ -200,9 +200,21 @@ public class ActorSystem implements IActorSystem, Runnable {
 
 	@Override
 	public <T> IActorFuture<T> putSystemCall(IActorSystemCall<T> call) {
-		IActorFuture<T> sytemFuture = new ActorFuture<T>();
-		systemCalls.add(new QueuedSytemCall<>(call, sytemFuture));
-		return sytemFuture;
+		IActorFuture<T> systemFuture = new ActorFuture<T>();
+		systemCalls.add(newQueuedSystemCall(call, systemFuture));
+		return systemFuture;
+	}
+
+	/**
+	 * 创建新的系统调用;<br>
+	 * 子类可以覆盖实现自己的逻辑;
+	 * 
+	 * @param call
+	 * @param systemFuture
+	 * @return
+	 */
+	protected <T> QueuedSytemCall<T> newQueuedSystemCall(IActorSystemCall<T> call, IActorFuture<T> systemFuture) {
+		return new QueuedSytemCall<>(call, systemFuture);
 	}
 
 	/**
@@ -227,6 +239,10 @@ public class ActorSystem implements IActorSystem, Runnable {
 		public QueuedSytemCall(IActorSystemCall<T> systemCall, IActorFuture<T> future) {
 			this.systemCall = systemCall;
 			this.future = future;
+		}
+
+		public void execute() {
+			// do nothing
 		}
 	}
 
