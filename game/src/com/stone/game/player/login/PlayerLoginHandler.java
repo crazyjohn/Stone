@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import com.stone.actor.future.IActorFuture;
 import com.stone.actor.id.IActorId;
 import com.stone.actor.listener.IActorFutureListener;
+import com.stone.actor.system.IActorSystem;
 import com.stone.core.annotation.MessageHandler;
 import com.stone.core.data.IDataService;
 import com.stone.core.msg.MessageParseException;
@@ -38,8 +39,7 @@ public class PlayerLoginHandler extends BaseProtobufMessageHandler {
 	public void execute(ProtobufMessage msg) throws MessageParseException {
 		final Login.Builder login = msg.parseBuilder(Login.newBuilder());
 		final Player player = msg.getPlayer();
-		IActorFuture<PlayerEntity> future = dataService.queryByNameAndParams(player, DBQueryConstants.QUERY_PLAYER_BY_NAME_AND_PASSWORD, new String[] { "userName", "password" },
-				new Object[] { login.getUserName(), login.getPassword() });
+		IActorFuture<PlayerEntity> future = dataService.queryByNameAndParams(player, DBQueryConstants.QUERY_PLAYER_BY_NAME_AND_PASSWORD, new String[] { "userName", "password" }, new Object[] { login.getUserName(), login.getPassword() });
 		future.addListener(new IActorFutureListener<PlayerEntity>() {
 
 			@Override
@@ -50,6 +50,11 @@ public class PlayerLoginHandler extends BaseProtobufMessageHandler {
 			@Override
 			public IActorId getTarget() {
 				return player.getActorId();
+			}
+
+			@Override
+			public IActorSystem getTargetSystem() {
+				return player.getHostSystem();
 			}
 		});
 		logger.info("PlayerLoginHandler execute end.");

@@ -78,7 +78,7 @@ public class ActorFuture<T> implements IActorFuture<T> {
 	private synchronized void notifyListeners(final IActorFuture<T> actorFuture) {
 		for (final IActorFutureListener<T> eachListener : this.listeners) {
 			// has target?
-			actorSystem.dispatch(eachListener.getTarget(), new IActorCallback<T>() {
+			eachListener.getTargetSystem().dispatch(eachListener.getTarget(), new IActorCallback<T>() {
 				@Override
 				public void doCallback(T result) {
 					eachListener.onComplete(actorFuture);

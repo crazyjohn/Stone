@@ -215,7 +215,7 @@ public class ActorSystem implements IActorSystem, Runnable {
 	 * @return
 	 */
 	protected <T> QueuedSytemCall<T> newQueuedSystemCall(IActorSystemCall<T> call, IActorFuture<T> systemFuture) {
-		return new QueuedSytemCall<>(call, systemFuture);
+		return new QueuedSytemCall<T>(call, systemFuture);
 	}
 
 	/**

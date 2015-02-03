@@ -2,6 +2,7 @@ package com.stone.actor.listener;
 
 import com.stone.actor.future.IActorFuture;
 import com.stone.actor.id.IActorId;
+import com.stone.actor.system.IActorSystem;
 import com.stone.core.annotation.NotThreadSafeUnit;
 
 /**
@@ -28,5 +29,12 @@ public interface IActorFutureListener<T> {
 	 * @return
 	 */
 	public IActorId getTarget();
+
+	/**
+	 * 获取目标ActorSystem;
+	 * 
+	 * @return
+	 */
+	public IActorSystem getTargetSystem();
 
 }
