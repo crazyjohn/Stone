@@ -1,5 +1,6 @@
 package com.stone.core.data;
 
+import com.stone.actor.IActor;
 import com.stone.actor.future.IActorFuture;
 import com.stone.core.entity.IEntity;
 
@@ -12,11 +13,11 @@ import com.stone.core.entity.IEntity;
  */
 public interface IDataService {
 
-	public <T> IActorFuture<T> insert(IEntity<?> entity);
+	public <T> IActorFuture<T> insert(IActor caller, IEntity<?> entity);
 
-	public <T> IActorFuture<T> delete(IEntity<?> entity);
+	public <T> IActorFuture<T> delete(IActor caller, IEntity<?> entity);
 
-	public <T> IActorFuture<T> update(IEntity<?> entity);
+	public <T> IActorFuture<T> update(IActor caller, IEntity<?> entity);
 
-	public <T> IActorFuture<T> queryByNameAndParams(String queryName, String[] params, Object[] values);
+	public <T> IActorFuture<T> queryByNameAndParams(IActor caller, String queryName, String[] params, Object[] values);
 }

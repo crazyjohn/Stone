@@ -36,15 +36,16 @@ public class GameIoHandler extends AbstractIoHandler<GamePlayerSession> {
 		if (this.processor instanceof IActorSystem) {
 			IActorSystem actorSystem = (IActorSystem) this.processor;
 			actorSystem.registerActor(player);
-			player.setActorSystem(actorSystem);
 		}
 		return sessionInfo;
 	}
 
-//	@Override
-//	public void exceptionCaught(IoSession session, Throwable cause) throws Exception {
-//		logger.error(String.format("Exception caught, session: %s", session), cause);
-//	}
+	// @Override
+	// public void exceptionCaught(IoSession session, Throwable cause) throws
+	// Exception {
+	// logger.error(String.format("Exception caught, session: %s", session),
+	// cause);
+	// }
 
 	@Override
 	protected ISessionMessage<GamePlayerSession> createSessionCloseMessage(GamePlayerSession sessionInfo) {

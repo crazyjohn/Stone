@@ -1,5 +1,6 @@
 package com.stone.game.data;
 
+import com.stone.actor.IActor;
 import com.stone.actor.future.IActorFuture;
 import com.stone.actor.system.IActorSystem;
 import com.stone.core.data.IDataService;
@@ -15,26 +16,26 @@ public class DataService implements IDataService {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public <T> IActorFuture<T> insert(IEntity<?> entity) {
-		return  (IActorFuture<T>) dbActorSystem.putSystemCall(new DBSystemInsertCall(entity));
+	public <T> IActorFuture<T> insert(IActor caller, IEntity<?> entity) {
+		return (IActorFuture<T>) dbActorSystem.putSystemCall(new DBSystemInsertCall(caller.getHostSystem(), caller.getActorId(), entity));
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public <T> IActorFuture<T> delete(IEntity<?> entity) {
-		return (IActorFuture<T>) dbActorSystem.putSystemCall(new DBSystemDeleteCall(entity));
+	public <T> IActorFuture<T> delete(IActor caller, IEntity<?> entity) {
+		return (IActorFuture<T>) dbActorSystem.putSystemCall(new DBSystemDeleteCall(caller.getHostSystem(), caller.getActorId(), entity));
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public <T> IActorFuture<T> update(IEntity<?> entity) {
-		return (IActorFuture<T>) dbActorSystem.putSystemCall(new DBSystemUpdateCall(entity));
+	public <T> IActorFuture<T> update(IActor caller, IEntity<?> entity) {
+		return (IActorFuture<T>) dbActorSystem.putSystemCall(new DBSystemUpdateCall(caller.getHostSystem(), caller.getActorId(), entity));
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public <T> IActorFuture<T> queryByNameAndParams(String queryName, String[] params, Object[] values) {
-		return (IActorFuture<T>) dbActorSystem.putSystemCall(new DBSystemQueryCall<T>(queryName, params, values));
+	public <T> IActorFuture<T> queryByNameAndParams(IActor caller, String queryName, String[] params, Object[] values) {
+		return (IActorFuture<T>) dbActorSystem.putSystemCall(new DBSystemQueryCall<T>(caller.getHostSystem(), caller.getActorId(), queryName, params, values));
 	}
 
 }

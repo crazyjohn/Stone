@@ -79,6 +79,16 @@ public abstract class BaseActor implements IActor {
 		}
 	}
 
+	@Override
+	public IActorSystem getHostSystem() {
+		return actorSystem;
+	}
+
+	@Override
+	public void setHostSystem(IActorSystem actorSystem) {
+		this.actorSystem = actorSystem;
+	}
+
 	/**
 	 * queue executable;
 	 * 

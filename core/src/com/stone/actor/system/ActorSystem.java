@@ -196,6 +196,7 @@ public class ActorSystem implements IActorSystem, Runnable {
 		// set actor id
 		actor.setActorId(new ActorId(actor.getActorId().getActorType(), this.idCounter.incrementAndGet()));
 		this.actors.put(actor.getActorId(), actor);
+		actor.setHostSystem(this);
 	}
 
 	@Override

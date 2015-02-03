@@ -4,6 +4,7 @@ import com.stone.actor.call.IActorCall;
 import com.stone.actor.call.IActorCallback;
 import com.stone.actor.future.IActorFuture;
 import com.stone.actor.id.IActorId;
+import com.stone.actor.system.IActorSystem;
 import com.stone.core.msg.IMessage;
 
 /**
@@ -73,5 +74,9 @@ public interface IActor {
 	 * @param message
 	 */
 	public void submit(IMessage message);
+	
+	public IActorSystem getHostSystem();
+
+	public void setHostSystem(IActorSystem actorSystem);
 
 }

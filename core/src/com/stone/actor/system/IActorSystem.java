@@ -68,8 +68,9 @@ public interface IActorSystem {
 	public void registerActor(IActor actor);
 
 	/**
-	 * 投递ActorSystem系统之间的调用;<br>
-	 * 一般发生在A系统中某个活动对象向B系统发出调用;
+	 * 投递ActorSystem系统之间的调用;
+	 * <p>
+	 * 一般发生在A系统中某个活动对象(Actor)向B系统发出调用;
 	 * 
 	 * @param call
 	 * @return
