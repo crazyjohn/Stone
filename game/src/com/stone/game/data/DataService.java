@@ -7,32 +7,35 @@ import com.stone.actor.future.IUpdateFuture;
 import com.stone.actor.system.IActorSystem;
 import com.stone.core.data.IDataService;
 import com.stone.core.entity.IEntity;
+import com.stone.db.actor.DBSystemDeleteCall;
+import com.stone.db.actor.DBSystemInsertCall;
+import com.stone.db.actor.DBSystemQueryCall;
+import com.stone.db.actor.DBSystemUpdateCall;
 
 public class DataService implements IDataService {
-	protected IActorSystem actorSystem;
+	protected IActorSystem dbActorSystem;
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T> IInsertFuture<T> insert(IEntity<?> entity) {
-		// TODO Auto-generated method stub
-		return null;
+		return (IInsertFuture<T>) dbActorSystem.putSystemCall(new DBSystemInsertCall(entity));
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T> IDelteFuture<T> delete(IEntity<?> entity) {
-		// TODO Auto-generated method stub
-		return null;
+		return (IDelteFuture<T>) dbActorSystem.putSystemCall(new DBSystemDeleteCall(entity));
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T> IUpdateFuture<T> update(IEntity<?> entity) {
-		// TODO Auto-generated method stub
-		return null;
+		return (IUpdateFuture<T>) dbActorSystem.putSystemCall(new DBSystemUpdateCall(entity));
 	}
 
 	@Override
 	public <T> IQueryFuture<T> queryByNameAndParams(String queryName, String[] params, Object[] values) {
-		// TODO Auto-generated method stub
-		return null;
+		return (IQueryFuture<T>) dbActorSystem.putSystemCall(new DBSystemQueryCall<T>(queryName, params, values));
 	}
 
 

@@ -3,6 +3,7 @@ package com.stone.actor.system;
 import com.stone.actor.IActor;
 import com.stone.actor.call.IActorCall;
 import com.stone.actor.call.IActorCallback;
+import com.stone.actor.future.IActorFuture;
 import com.stone.actor.id.IActorId;
 
 /**
@@ -65,7 +66,14 @@ public interface IActorSystem {
 	 * @param player
 	 */
 	public void registerActor(IActor actor);
-	
-	public <T>IActorSystemFuture<T> putSystemCall(IActorSystemCall<T> call);
+
+	/**
+	 * 投递ActorSystem系统之间的调用;<br>
+	 * 一般发生在A系统中某个活动对象向B系统发出调用;
+	 * 
+	 * @param call
+	 * @return
+	 */
+	public <T> IActorFuture<T> putSystemCall(IActorSystemCall<T> call);
 
 }

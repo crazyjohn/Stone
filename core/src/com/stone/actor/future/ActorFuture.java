@@ -9,7 +9,6 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 import com.stone.actor.call.IActorCallback;
 import com.stone.actor.listener.IActorFutureListener;
 import com.stone.actor.system.IActorSystem;
-import com.stone.actor.system.IActorSystemFuture;
 import com.stone.core.annotation.GuardedByUnit;
 import com.stone.core.annotation.ThreadSafeUnit;
 
@@ -21,7 +20,7 @@ import com.stone.core.annotation.ThreadSafeUnit;
  * @param <T>
  */
 @ThreadSafeUnit
-public class ActorFuture<T> implements IActorSystemFuture<T> {
+public class ActorFuture<T> implements IActorFuture<T> {
 	protected volatile boolean isReady = false;
 	/** the execution result */
 	@GuardedByUnit(whoCareMe = "ReadWriteLock")

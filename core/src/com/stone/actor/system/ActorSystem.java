@@ -1,9 +1,11 @@
 package com.stone.actor.system;
 
 import java.util.Map;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.slf4j.Logger;
@@ -16,6 +18,7 @@ import com.stone.actor.concurrent.ActorWokerMonster;
 import com.stone.actor.concurrent.IActorRunnable;
 import com.stone.actor.concurrent.IActorWorkerMonster;
 import com.stone.actor.future.ActorFuture;
+import com.stone.actor.future.IActorFuture;
 import com.stone.actor.id.ActorId;
 import com.stone.actor.id.IActorId;
 import com.stone.core.annotation.GuardedByUnit;
@@ -48,6 +51,8 @@ public class ActorSystem implements IActorSystem, Runnable {
 	private Executor executor = Executors.newSingleThreadExecutor(new NamedThreadFactory("ActorSystem"));
 	/** idGenarator */
 	private AtomicLong idCounter = new AtomicLong();
+	/** sytem call */
+	private BlockingQueue<QueuedSytemCall<?>> systemCalls = new LinkedBlockingQueue<QueuedSytemCall<?>>();
 
 	/**
 	 * private
@@ -106,7 +111,8 @@ public class ActorSystem implements IActorSystem, Runnable {
 				if (workThread != null) {
 					workThread.submit(new ActorRunnable(actor));
 				} else {
-					// FIXME: crazyjohn log
+					// log
+					logger.warn(String.format("Can not find WorkerMonster for this actor: %s", eachActorEntry.getKey()));
 				}
 			}
 			// have a rest when i have no work to do
@@ -121,6 +127,12 @@ public class ActorSystem implements IActorSystem, Runnable {
 		}
 	}
 
+	/**
+	 * get the WorkerMonster;
+	 * 
+	 * @param actorId
+	 * @return
+	 */
 	private IActorWorkerMonster getActorWorkerMonster(IActorId actorId) {
 		int workerIndex = actorId.getWorkerMonsterIndex(this.workerNum);
 		return workerThreads[workerIndex];
@@ -163,6 +175,44 @@ public class ActorSystem implements IActorSystem, Runnable {
 		this.actors.put(actor.getActorId(), actor);
 	}
 
+	@Override
+	public <T> IActorFuture<T> putSystemCall(IActorSystemCall<T> call) {
+		IActorFuture<T> sytemFuture = new ActorFuture<T>();
+		systemCalls.add(new QueuedSytemCall<>(call, sytemFuture));
+		return sytemFuture;
+	}
+
+	/**
+	 * the actor system call;
+	 * 
+	 * @author crazyjohn
+	 *
+	 * @param <T>
+	 */
+	class QueuedSytemCall<T> {
+		private IActorSystemCall<T> systemCall;
+		private IActorFuture<T> future;
+
+		public IActorSystemCall<T> getSystemCall() {
+			return systemCall;
+		}
+
+		public IActorFuture<T> getFuture() {
+			return future;
+		}
+
+		public QueuedSytemCall(IActorSystemCall<T> systemCall, IActorFuture<T> future) {
+			this.systemCall = systemCall;
+			this.future = future;
+		}
+	}
+
+	/**
+	 * actor runnable;
+	 * 
+	 * @author crazyjohn
+	 *
+	 */
 	class ActorRunnable implements IActorRunnable {
 		private IActor actor;
 
@@ -175,13 +225,6 @@ public class ActorSystem implements IActorSystem, Runnable {
 			actor.run();
 		}
 
-	}
-
-	@Override
-	public <T> IActorSystemFuture<T> putSystemCall(IActorSystemCall<T> call) {
-		// TODO Auto-generated method stub
-		IActorSystemFuture<T> future = new ActorFuture<T>();
-		return future;
 	}
 
 }
