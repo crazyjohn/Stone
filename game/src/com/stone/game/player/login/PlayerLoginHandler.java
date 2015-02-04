@@ -40,6 +40,7 @@ public class PlayerLoginHandler extends BaseProtobufMessageHandler {
 	public void execute(ProtobufMessage msg) throws MessageParseException {
 		final Login.Builder login = msg.parseBuilder(Login.newBuilder());
 		final Player player = msg.getPlayer();
+		// call data rpc service;
 		IActorFuture<List<PlayerEntity>> future = dataService.queryByNameAndParams(player, DBQueryConstants.QUERY_PLAYER_BY_NAME_AND_PASSWORD, new String[] { "userName", "password" }, new Object[] {
 				login.getUserName(), login.getPassword() });
 		// add future listener

@@ -10,6 +10,12 @@ import com.stone.core.db.service.IDBService;
 import com.stone.db.service.DBConfiguration;
 import com.stone.db.service.DBServiceFactory;
 
+/**
+ * the db actor system;
+ * 
+ * @author crazyjohn
+ *
+ */
 public class DBActorSystem extends ActorSystem {
 	/** dbService */
 	private IDBService dbService;
@@ -18,6 +24,7 @@ public class DBActorSystem extends ActorSystem {
 	public synchronized static DBActorSystem getInstance() {
 		return instance;
 	}
+
 	@Override
 	public void initSystem(int threadNum) {
 		systemPrefix = "DBActorSystem-";
