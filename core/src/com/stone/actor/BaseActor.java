@@ -25,8 +25,11 @@ import com.stone.core.msg.MessageParseException;
 public abstract class BaseActor implements IActor {
 	/** blocking queue call */
 	protected BlockingQueue<IActorQueueExecutable> callQueue = new LinkedBlockingQueue<IActorQueueExecutable>();
+	/** host system */
 	protected IActorSystem actorSystem;
+	/** logger */
 	protected Logger logger = LoggerFactory.getLogger(BaseActor.class);
+	/** actor id */
 	protected IActorId actorId;
 
 	@Override

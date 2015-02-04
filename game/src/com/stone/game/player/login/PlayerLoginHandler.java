@@ -5,10 +5,9 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.stone.actor.IActor;
 import com.stone.actor.future.IActorFuture;
-import com.stone.actor.id.IActorId;
 import com.stone.actor.listener.IActorFutureListener;
-import com.stone.actor.system.IActorSystem;
 import com.stone.core.annotation.MessageHandler;
 import com.stone.core.data.IDataService;
 import com.stone.core.msg.MessageParseException;
@@ -43,35 +42,25 @@ public class PlayerLoginHandler extends BaseProtobufMessageHandler {
 		final Player player = msg.getPlayer();
 		IActorFuture<List<PlayerEntity>> future = dataService.queryByNameAndParams(player, DBQueryConstants.QUERY_PLAYER_BY_NAME_AND_PASSWORD, new String[] { "userName", "password" }, new Object[] {
 				login.getUserName(), login.getPassword() });
-		// await
-		try {
-			future.awaitResult();
-			future.addListener(new IActorFutureListener<List<PlayerEntity>>() {
+		// add future listener
+		future.addListener(new IActorFutureListener<List<PlayerEntity>>() {
 
-				@Override
-				public void onComplete(IActorFuture<List<PlayerEntity>> future) {
-					if (future.getResult().size() > 0) {
-						logger.info(String.format("Player login succeed, userName: %s", future.getResult().get(0).getUserName()));
-					} else {
-						logger.info(String.format("Player login failed, userName: %s", login.getUserName()));
-					}
-
+			@Override
+			public void onComplete(IActorFuture<List<PlayerEntity>> future) {
+				if (future.getResult().size() > 0) {
+					logger.info(String.format("Player login succeed, userName: %s", future.getResult().get(0).getUserName()));
+				} else {
+					logger.info(String.format("Player login failed, userName: %s", login.getUserName()));
 				}
 
-				@Override
-				public IActorId getTarget() {
-					return player.getActorId();
-				}
+			}
 
-				@Override
-				public IActorSystem getTargetSystem() {
-					return player.getHostSystem();
-				}
-			});
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			@Override
+			public IActor getTarget() {
+				return player;
+			}
+
+		});
 
 		logger.info("PlayerLoginHandler execute end.");
 	}

@@ -1,8 +1,7 @@
 package com.stone.actor.listener;
 
+import com.stone.actor.IActor;
 import com.stone.actor.future.IActorFuture;
-import com.stone.actor.id.IActorId;
-import com.stone.actor.system.IActorSystem;
 import com.stone.core.annotation.NotThreadSafeUnit;
 
 /**
@@ -24,17 +23,10 @@ public interface IActorFutureListener<T> {
 	public void onComplete(IActorFuture<T> future);
 
 	/**
-	 * 获取活动对象id;
+	 * 获取活动对象;
 	 * 
 	 * @return
 	 */
-	public IActorId getTarget();
-
-	/**
-	 * 获取目标ActorSystem;
-	 * 
-	 * @return
-	 */
-	public IActorSystem getTargetSystem();
+	public IActor getTarget();
 
 }

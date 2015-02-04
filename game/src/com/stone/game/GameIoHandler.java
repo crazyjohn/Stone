@@ -22,12 +22,6 @@ public class GameIoHandler extends AbstractIoHandler<GamePlayerSession> {
 	}
 
 	@Override
-	protected ISessionMessage<GamePlayerSession> createSessionOpenMessage(GamePlayerSession sessionInfo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	protected GamePlayerSession createSessionInfo(IoSession session) {
 		GamePlayerSession sessionInfo = new GamePlayerSession(session);
 		Player player = new Player();
@@ -49,6 +43,12 @@ public class GameIoHandler extends AbstractIoHandler<GamePlayerSession> {
 
 	@Override
 	protected ISessionMessage<GamePlayerSession> createSessionCloseMessage(GamePlayerSession sessionInfo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected ISessionMessage<GamePlayerSession> createSessionOpenMessage(GamePlayerSession sessionInfo) {
 		// TODO Auto-generated method stub
 		return null;
 	}

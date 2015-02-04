@@ -1,8 +1,17 @@
 package com.stone.actor.id;
 
+import com.stone.core.annotation.ImmutableUnit;
+
+/**
+ * Actor id;
+ * 
+ * @author crazyjohn
+ *
+ */
+@ImmutableUnit
 public class ActorId implements IActorId {
-	private ActorType actorType;
-	private long id;
+	private final ActorType actorType;
+	private final long id;
 
 	public ActorId(ActorType actorType, long id) {
 		this.actorType = actorType;
