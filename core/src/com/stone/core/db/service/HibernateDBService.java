@@ -86,6 +86,7 @@ public class HibernateDBService implements IDBService {
 	@Override
 	public List<Object> queryByNameAndParams(final String queryName, final String[] params, final Object[] values, final int maxResults, final int firstResult) {
 		List<Object> result = this.template.doCallback(new IHibernateOperationCallback<List<Object>>() {
+			@SuppressWarnings("unchecked")
 			@Override
 			public List<Object> doCallback(Session session) {
 				// get named query
@@ -107,7 +108,7 @@ public class HibernateDBService implements IDBService {
 						query.setParameter(params[i], values[i]);
 					}
 				}
-				return null;
+				return query.list();
 			}
 		});
 		return result;

@@ -1,5 +1,7 @@
 package com.stone.game.player.login;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,24 +41,38 @@ public class PlayerLoginHandler extends BaseProtobufMessageHandler {
 	public void execute(ProtobufMessage msg) throws MessageParseException {
 		final Login.Builder login = msg.parseBuilder(Login.newBuilder());
 		final Player player = msg.getPlayer();
-		IActorFuture<PlayerEntity> future = dataService.queryByNameAndParams(player, DBQueryConstants.QUERY_PLAYER_BY_NAME_AND_PASSWORD, new String[] { "userName", "password" }, new Object[] { login.getUserName(), login.getPassword() });
-		future.addListener(new IActorFutureListener<PlayerEntity>() {
+		IActorFuture<List<PlayerEntity>> future = dataService.queryByNameAndParams(player, DBQueryConstants.QUERY_PLAYER_BY_NAME_AND_PASSWORD, new String[] { "userName", "password" }, new Object[] {
+				login.getUserName(), login.getPassword() });
+		// await
+		try {
+			future.awaitResult();
+			future.addListener(new IActorFutureListener<List<PlayerEntity>>() {
 
-			@Override
-			public void onComplete(IActorFuture<PlayerEntity> future) {
-				logger.info(String.format("Player login, userName: %s", login.getUserName()));
-			}
+				@Override
+				public void onComplete(IActorFuture<List<PlayerEntity>> future) {
+					if (future.getResult().size() > 0) {
+						logger.info(String.format("Player login succeed, userName: %s", future.getResult().get(0).getUserName()));
+					} else {
+						logger.info(String.format("Player login failed, userName: %s", login.getUserName()));
+					}
 
-			@Override
-			public IActorId getTarget() {
-				return player.getActorId();
-			}
+				}
 
-			@Override
-			public IActorSystem getTargetSystem() {
-				return player.getHostSystem();
-			}
-		});
+				@Override
+				public IActorId getTarget() {
+					return player.getActorId();
+				}
+
+				@Override
+				public IActorSystem getTargetSystem() {
+					return player.getHostSystem();
+				}
+			});
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		logger.info("PlayerLoginHandler execute end.");
 	}
 

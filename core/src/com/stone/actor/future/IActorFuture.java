@@ -36,6 +36,8 @@ public interface IActorFuture<T> {
 	 * @throws InterruptedException
 	 */
 	public T awaitResult(long timeout) throws InterruptedException;
+	
+	//public T awaitResultUnInterruptible();
 
 	/**
 	 * 设置结果;

@@ -75,7 +75,7 @@ public class ActorFuture<T> implements IActorFuture<T> {
 	 * 
 	 * @param actorFuture
 	 */
-	private synchronized void notifyListeners(final IActorFuture<T> actorFuture) {
+	private void notifyListeners(final IActorFuture<T> actorFuture) {
 		for (final IActorFutureListener<T> eachListener : this.listeners) {
 			// has target?
 			eachListener.getTargetSystem().dispatch(eachListener.getTarget(), new IActorCallback<T>() {
@@ -85,6 +85,8 @@ public class ActorFuture<T> implements IActorFuture<T> {
 				}
 			}, actorFuture.getResult());
 		}
+		// clear
+		this.listeners.clear();
 	}
 
 	@Override
@@ -98,6 +100,10 @@ public class ActorFuture<T> implements IActorFuture<T> {
 	@Override
 	public synchronized void addListener(IActorFutureListener<T> listener) {
 		listeners.add(listener);
+		// if ready, do notify now
+		if (this.isReady) {
+			notifyListeners(this);
+		}
 	}
 
 	@Override

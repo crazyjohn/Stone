@@ -32,7 +32,7 @@ import com.stone.core.concurrent.NamedThreadFactory;
  *
  */
 @ThreadSafeUnit
-public class ActorSystem implements IActorSystem, Runnable {
+public abstract class ActorSystem implements IActorSystem, Runnable {
 	/** prefix */
 	protected String systemPrefix = "ActorWokerMonster-";
 	private static final long SLEEP_INTERVAL = 100L;
@@ -44,11 +44,10 @@ public class ActorSystem implements IActorSystem, Runnable {
 	protected volatile boolean stop = true;
 	private int workerNum;
 	@GuardedByUnit(whoCareMe = "use class lock")
-	private static IActorSystem instance = new ActorSystem();
 	/** log */
 	private Logger logger = LoggerFactory.getLogger(ActorSystem.class);
 	/** executor */
-	private Executor executor = Executors.newSingleThreadExecutor(new NamedThreadFactory("ActorSystem"));
+	private Executor executor;
 	/** idGenarator */
 	private AtomicLong idCounter = new AtomicLong();
 	/** system call */
@@ -71,6 +70,8 @@ public class ActorSystem implements IActorSystem, Runnable {
 		logger.info("Begin to init the ActorSystem...");
 		workerNum = threadNum;
 		workerThreads = new IActorWorkerMonster[threadNum];
+		// executor
+		executor = Executors.newSingleThreadExecutor(new NamedThreadFactory(systemPrefix + "main"));
 		for (int i = 0; i < threadNum; i++) {
 			workerThreads[i] = new ActorWokerMonster();
 			workerThreads[i].setMonsterName(systemPrefix + i);
@@ -179,10 +180,6 @@ public class ActorSystem implements IActorSystem, Runnable {
 	@Override
 	public void stop() {
 		stop = true;
-	}
-
-	public static synchronized IActorSystem getInstance() {
-		return instance;
 	}
 
 	@SuppressWarnings("unchecked")
