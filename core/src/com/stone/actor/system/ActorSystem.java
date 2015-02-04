@@ -259,7 +259,7 @@ public abstract class ActorSystem implements IActorSystem, Runnable {
 
 		@Override
 		public void run() {
-			actor.run();
+			actor.react();
 		}
 
 	}

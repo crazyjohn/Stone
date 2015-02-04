@@ -8,14 +8,17 @@ import com.stone.actor.system.IActorSystem;
 import com.stone.core.msg.IMessage;
 
 /**
- * Actor接口;
+ * Actor;
+ * <p>
+ * you know, no thread and lock and other fucking concurrent things, just actor
+ * model;
  * 
  * @author crazyjohn
  *
  */
 public interface IActor {
 	/**
-	 * 投递一个调用给Actor;
+	 * sumit a simple call to actor;
 	 * 
 	 * @param call
 	 * @return
@@ -23,32 +26,27 @@ public interface IActor {
 	public <T> IActorFuture<T> submit(IActorCall<T> call);
 
 	/**
-	 * 投递回调;
+	 * submit a net message;
+	 * 
+	 * @param message
+	 */
+	public void submit(IMessage message);
+
+	/**
+	 * submit a simple callback and result to actor;
 	 * 
 	 * @param callback
-	 *            回调对象;
 	 * @param result
-	 *            结果参数;
 	 */
 	public void submit(IActorCallback<?> callback, Object result);
 
 	/**
-	 * 投递一个调用以及一个回调, 以及处理回调的ActorId;
-	 * 
-	 * @param call
-	 * @param callback
-	 * @param source
+	 * the actor's main loop;
 	 */
-	public void submit(IActorCall<?> call, IActorCallback<?> callback, IActorId source);
+	public void react();
 
 	/**
-	 * the run method;
-	 */
-	public void run();
-
-
-	/**
-	 * 获取ActorId;
+	 * get my actorId;
 	 * 
 	 * @return
 	 */
@@ -69,14 +67,17 @@ public interface IActor {
 	public boolean hasAnyWorkToDo();
 
 	/**
-	 * submit a net message;
+	 * get host actor system;
 	 * 
-	 * @param message
+	 * @return
 	 */
-	public void submit(IMessage message);
-	
 	public IActorSystem getHostSystem();
 
+	/**
+	 * set host actor system;
+	 * 
+	 * @param actorSystem
+	 */
 	public void setHostSystem(IActorSystem actorSystem);
 
 }

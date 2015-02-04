@@ -60,8 +60,14 @@ public abstract class BaseActor implements IActor {
 		callQueue.add(new QueueOnlyCallback(callback, result));
 	}
 
-	@Override
-	public void submit(IActorCall<?> call, IActorCallback<?> callback, IActorId source) {
+	/**
+	 * 投递一个调用以及一个执行回调, 以及执行回调的Actor;
+	 * 
+	 * @param call
+	 * @param callback
+	 * @param source
+	 */
+	protected void submit(IActorCall<?> call, IActorCallback<?> callback, IActorId source) {
 		this.callQueue.add(new QueueCallWithCallback(call, callback, source));
 	}
 
@@ -71,7 +77,7 @@ public abstract class BaseActor implements IActor {
 	}
 
 	@Override
-	public void run() {
+	public void react() {
 		Iterator<IActorQueueExecutable> iterator = this.callQueue.iterator();
 		while (iterator.hasNext()) {
 			IActorQueueExecutable queueCall = iterator.next();
