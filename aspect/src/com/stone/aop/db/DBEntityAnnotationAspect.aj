@@ -30,16 +30,14 @@ public aspect DBEntityAnnotationAspect {
 		}
 		Method[] methods = entityClass.getMethods();
 		for (Method eachMethod : methods) {
-			NotifyUpdate annotation = eachMethod
-					.getAnnotation(NotifyUpdate.class);
+			NotifyUpdate annotation = eachMethod.getAnnotation(NotifyUpdate.class);
 			if (annotation != null) {
 				if (thisJoinPoint.getTarget() instanceof IEntity<?>) {
-					@SuppressWarnings("rawtypes")
-					IEntity entity = (IEntity) thisJoinPoint.getTarget();
-					MockDBService.getInstance().update(entity);
+					// @SuppressWarnings("rawtypes")
+					// IEntity entity = (IEntity) thisJoinPoint.getTarget();
+					// MockDBService.getInstance().update(entity);
 				}
 			}
 		}
 	}
-
 }

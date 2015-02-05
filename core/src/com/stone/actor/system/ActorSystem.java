@@ -73,10 +73,19 @@ public abstract class ActorSystem implements IActorSystem, Runnable {
 		// executor
 		executor = Executors.newSingleThreadExecutor(new NamedThreadFactory(systemPrefix + "main"));
 		for (int i = 0; i < threadNum; i++) {
-			workerThreads[i] = new ActorWokerMonster();
+			workerThreads[i] = createWorkerMonster();
 			workerThreads[i].setMonsterName(systemPrefix + i);
 		}
 		logger.info("Init the ActorSystem finished.");
+	}
+
+	/**
+	 * Create a worker monster;
+	 * 
+	 * @return
+	 */
+	protected IActorWorkerMonster createWorkerMonster() {
+		return new ActorWokerMonster();
 	}
 
 	@Override
@@ -109,7 +118,7 @@ public abstract class ActorSystem implements IActorSystem, Runnable {
 				try {
 					Thread.sleep(SLEEP_INTERVAL);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
+					// TODO crazyjohn handle interrupt?
 					e.printStackTrace();
 				}
 			}
