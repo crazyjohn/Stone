@@ -96,7 +96,7 @@ public abstract class ActorSystem implements IActorSystem, Runnable {
 		if (actor == null) {
 			return;
 		}
-		actor.submit(callback, result);
+		actor.tell(callback, result);
 	}
 
 	@Override
@@ -105,7 +105,7 @@ public abstract class ActorSystem implements IActorSystem, Runnable {
 		if (actor == null) {
 			return;
 		}
-		actor.submit(call);
+		actor.ask(call);
 	}
 
 	@Override

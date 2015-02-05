@@ -48,7 +48,7 @@ public abstract class BaseActor implements IActor {
 	}
 
 	@Override
-	public <T> IActorFuture<T> submit(IActorCall<T> call) {
+	public <T> IActorFuture<T> ask(IActorCall<T> call) {
 		IActorFuture<T> future = new ActorFuture<T>();
 		callQueue.add(new QueueCallWithFuture(call, future));
 		return future;
@@ -56,7 +56,7 @@ public abstract class BaseActor implements IActor {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	public void submit(IActorCallback<?> callback, Object result) {
+	public void tell(IActorCallback<?> callback, Object result) {
 		callQueue.add(new QueueOnlyCallback(callback, result));
 	}
 
@@ -72,7 +72,7 @@ public abstract class BaseActor implements IActor {
 	}
 
 	@Override
-	public void submit(IMessage message) {
+	public void tell(IMessage message) {
 		this.callQueue.add(new QueueNetMessage(message));
 	}
 

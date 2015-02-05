@@ -18,19 +18,23 @@ import com.stone.core.msg.IMessage;
  */
 public interface IActor {
 	/**
-	 * sumit a simple call to actor;
+	 * Use the ask way, you will get a future return;
+	 * <p>
+	 * Just follow the AKKA way;
 	 * 
 	 * @param call
 	 * @return
 	 */
-	public <T> IActorFuture<T> submit(IActorCall<T> call);
+	public <T> IActorFuture<T> ask(IActorCall<T> call);
 
 	/**
 	 * submit a net message;
+	 * <p>
+	 * In this way, you will get nothing return. Just follow the AKKA way;
 	 * 
 	 * @param message
 	 */
-	public void submit(IMessage message);
+	public void tell(IMessage message);
 
 	/**
 	 * submit a simple callback and result to actor;
@@ -38,7 +42,7 @@ public interface IActor {
 	 * @param callback
 	 * @param result
 	 */
-	public void submit(IActorCallback<?> callback, Object result);
+	public void tell(IActorCallback<?> callback, Object result);
 
 	/**
 	 * the actor's main loop;

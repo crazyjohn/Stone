@@ -68,7 +68,7 @@ public class GameActorSystem extends ActorSystem implements IMessageProcessor {
 				return;
 			}
 			// put to player actor
-			player.submit(msg);
+			player.tell(msg);
 
 		}
 	}
