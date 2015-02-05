@@ -60,6 +60,7 @@ public class ActorWokerMonster extends Thread implements IActorWorkerMonster {
 			return;
 		}
 		stop = false;
+		// start the thread
 		this.start();
 	}
 

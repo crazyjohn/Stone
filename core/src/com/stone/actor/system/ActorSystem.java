@@ -3,7 +3,7 @@ package com.stone.actor.system;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicLong;
@@ -39,7 +39,7 @@ public abstract class ActorSystem implements IActorSystem, Runnable {
 	/** hash index */
 	protected Map<IActorId, IActor> actors = new ConcurrentHashMap<IActorId, IActor>();
 	/** work monsters */
-	protected IActorWorkerMonster[] workerThreads;
+	protected IActorWorkerMonster[] workerMonsters;
 	@GuardedByUnit(whoCareMe = "use volatile procted to mem sync")
 	protected volatile boolean stop = true;
 	private int workerNum;
@@ -47,7 +47,7 @@ public abstract class ActorSystem implements IActorSystem, Runnable {
 	/** log */
 	private Logger logger = LoggerFactory.getLogger(ActorSystem.class);
 	/** executor */
-	private Executor executor;
+	private ExecutorService executor;
 	/** idGenarator */
 	private AtomicLong idCounter = new AtomicLong();
 	/** system call */
@@ -69,18 +69,20 @@ public abstract class ActorSystem implements IActorSystem, Runnable {
 	public void initSystem(int threadNum) {// init worker thread
 		logger.info("Begin to init the ActorSystem...");
 		workerNum = threadNum;
-		workerThreads = new IActorWorkerMonster[threadNum];
+		workerMonsters = new IActorWorkerMonster[threadNum];
 		// executor
 		executor = Executors.newSingleThreadExecutor(new NamedThreadFactory(systemPrefix + "main"));
 		for (int i = 0; i < threadNum; i++) {
-			workerThreads[i] = createWorkerMonster();
-			workerThreads[i].setMonsterName(systemPrefix + i);
+			workerMonsters[i] = createWorkerMonster();
+			workerMonsters[i].setMonsterName(systemPrefix + i);
 		}
 		logger.info("Init the ActorSystem finished.");
 	}
 
 	/**
 	 * Create a worker monster;
+	 * <p>
+	 * It works just like a WorkerMonster factory;
 	 * 
 	 * @return
 	 */
@@ -118,8 +120,9 @@ public abstract class ActorSystem implements IActorSystem, Runnable {
 				try {
 					Thread.sleep(SLEEP_INTERVAL);
 				} catch (InterruptedException e) {
-					// TODO crazyjohn handle interrupt?
-					e.printStackTrace();
+					// handle interrupt?
+					logger.error("Received interrupt command", e);
+					break;
 				}
 			}
 		}
@@ -168,7 +171,7 @@ public abstract class ActorSystem implements IActorSystem, Runnable {
 	 */
 	private IActorWorkerMonster getActorWorkerMonster(IActorId actorId) {
 		int workerIndex = actorId.getWorkerMonsterIndex(this.workerNum);
-		return workerThreads[workerIndex];
+		return workerMonsters[workerIndex];
 	}
 
 	@Override
@@ -178,7 +181,7 @@ public abstract class ActorSystem implements IActorSystem, Runnable {
 		}
 		logger.info("Begin to start the ActorSystem...");
 		stop = false;
-		for (IActorWorkerMonster eachMonster : this.workerThreads) {
+		for (IActorWorkerMonster eachMonster : this.workerMonsters) {
 			eachMonster.startWorker();
 		}
 		// executor self
@@ -188,7 +191,14 @@ public abstract class ActorSystem implements IActorSystem, Runnable {
 
 	@Override
 	public void stop() {
+		// set flag
 		stop = true;
+		// stop main executorService
+		this.executor.shutdown();
+		// stop the monsters
+		for (IActorWorkerMonster eachMonster : this.workerMonsters) {
+			eachMonster.stopWorker();
+		}
 	}
 
 	@SuppressWarnings("unchecked")

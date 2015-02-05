@@ -62,6 +62,20 @@ public class PlayerLoginHandler extends BaseProtobufMessageHandler {
 			}
 
 		});
+		// oh baby, a better way, sync easy to understand, but use DSL to change it real works use async way
+		// IActorFuture<List<PlayerEntity>> betterFuture =
+		// dataService.queryByNameAndParams(player,
+		// DBQueryConstants.QUERY_PLAYER_BY_NAME_AND_PASSWORD, new String[] {
+		// "userName", "password" }, new Object[] {
+		// login.getUserName(), login.getPassword() });
+		// betterFuture.awaitResult();
+		// if (betterFuture.getResult().size() > 0) {
+		// logger.info(String.format("Player login succeed, userName: %s",
+		// future.getResult().get(0).getUserName()));
+		// } else {
+		// logger.info(String.format("Player login failed, userName: %s",
+		// login.getUserName()));
+		// }
 
 		logger.info("PlayerLoginHandler execute end.");
 	}

@@ -7,7 +7,7 @@ import com.stone.core.util.ModifiedSet;
 import com.stone.db.cache.HumanCache;
 import com.stone.db.entity.HumanEntity;
 
-public class HumanAgent extends BaseEntityAgent<HumanEntity> implements ICacheEntityAgent<HumanEntity, Long, HumanCache> {
+public class HumanAgent extends BaseEntityAgent implements ICacheEntityAgent<HumanEntity, Long, HumanCache> {
 	private ModifiedSet<HumanEntity> modifySet;
 	private LRUHashMap<Long, HumanCache> humanCaches;
 

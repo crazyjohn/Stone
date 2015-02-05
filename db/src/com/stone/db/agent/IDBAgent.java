@@ -16,4 +16,8 @@ public interface IDBAgent {
 	public void update(IEntity<?> entity);
 
 	public IEntity<?> get(long id, Class<?> entityClass);
+
+	public IEntityAgent getEntityAgent(Class<?> entityClass);
+
+	public void resigterEntityAgent(Class<?> entityClass, IEntityAgent agent);
 }

@@ -5,7 +5,7 @@ import java.io.Serializable;
 import com.stone.core.db.service.IDBService;
 import com.stone.core.entity.IEntity;
 
-public abstract class BaseEntityAgent<E extends IEntity<?>> implements IEntityAgent<E> {
+public abstract class BaseEntityAgent implements IEntityAgent {
 	/** bind classes */
 	protected Class<?>[] bindClasses;
 	/** dbService */
@@ -17,17 +17,17 @@ public abstract class BaseEntityAgent<E extends IEntity<?>> implements IEntityAg
 	}
 
 	@Override
-	public Serializable insert(E entity) {
+	public Serializable insert(IEntity<?> entity) {
 		return dbService.insert(entity);
 	}
 
 	@Override
-	public void delete(E entity) {
+	public void delete(IEntity<?> entity) {
 		dbService.delete(entity);
 	}
 
 	@Override
-	public void update(E entity) {
+	public void update(IEntity<?> entity) {
 		dbService.update(entity);
 	}
 
