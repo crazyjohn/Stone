@@ -8,6 +8,8 @@ import java.util.Map;
 
 import com.stone.core.annotation.IAnnotationFilter;
 import com.stone.core.entity.IEntity;
+import com.stone.core.orm.annotation.AutoCreateHumanEntityHolder;
+import com.stone.core.orm.annotation.EntityScanner;
 
 /**
  * 根据Entity上的<tt>AutoCreateHumanEntityHolder</tt>注释自动创建EntityHolder实例的类。
@@ -26,7 +28,7 @@ public class HumanEntityHolderCreater {
 		}
 	};
 
-	private Map<Class<? extends IEntity>, Class<IEntityHolder<? extends IEntity>>> entityHolderClassMap = new HashMap<Class<? extends IEntity>, Class<IEntityHolder<? extends IEntity>>>();
+	private Map<Class<? extends IEntity<?>>, Class<IEntityHolder<? extends IEntity<?>>>> entityHolderClassMap = new HashMap<Class<? extends IEntity<?>>, Class<IEntityHolder<? extends IEntity<?>>>>();
 
 	private static Object initLock = new Object();
 
@@ -52,18 +54,14 @@ public class HumanEntityHolderCreater {
 	 * 
 	 * @return
 	 */
-	public static Map<Class<? extends IEntity>, IEntityHolder<? extends IEntity>> getHumanEntityHolder() {
+	public static Map<Class<? extends IEntity<?>>, IEntityHolder<? extends IEntity<?>>> getHumanEntityHolder() {
 		initDefaultIfCreaterIsNull();
-		Map<Class<? extends IEntity>, IEntityHolder<? extends IEntity>> map = new HashMap<Class<? extends IEntity>, IEntityHolder<? extends IEntity>>();
-		for (Class<? extends IEntity> key : creater.entityHolderClassMap
-				.keySet()) {
+		Map<Class<? extends IEntity<?>>, IEntityHolder<? extends IEntity<?>>> map = new HashMap<Class<? extends IEntity<?>>, IEntityHolder<? extends IEntity<?>>>();
+		for (Class<? extends IEntity<?>> key : creater.entityHolderClassMap.keySet()) {
 			try {
-				map.put(key, creater.entityHolderClassMap.get(key)
-						.newInstance());
+				map.put(key, creater.entityHolderClassMap.get(key).newInstance());
 			} catch (Exception e) {
-				throw new RuntimeException("Entity Holder:"
-						+ creater.entityHolderClassMap.get(key).getName()
-						+ " can not be created!");
+				throw new RuntimeException("Entity Holder:" + creater.entityHolderClassMap.get(key).getName() + " can not be created!");
 			}
 		}
 		return map;
@@ -79,8 +77,7 @@ public class HumanEntityHolderCreater {
 	 * @return
 	 */
 	public static Class<?>[] getAllHumanSubEntityClasses() {
-		List<Class<?>> classList = new ArrayList<Class<?>>(
-				creater.entityHolderClassMap.keySet());
+		List<Class<?>> classList = new ArrayList<Class<?>>(creater.entityHolderClassMap.keySet());
 		return classList.toArray(new Class[0]);
 	}
 
@@ -103,29 +100,21 @@ public class HumanEntityHolderCreater {
 	 */
 	@SuppressWarnings("unchecked")
 	private HumanEntityHolderCreater(EntityScanner scanner) {
-		List<Class<? extends IEntity>> list = scanner
-				.getEntityListByAnnotationFilter(filter);
-		for (Class<? extends IEntity> entityClass : list) {
-			AutoCreateHumanEntityHolder annotation = entityClass
-					.getAnnotation(AutoCreateHumanEntityHolder.class);
-			Class<IEntityHolder<? extends IEntity>> holderClass = null;
+		List<Class<? extends IEntity<?>>> list = scanner.getEntityListByAnnotationFilter(filter);
+		for (Class<? extends IEntity<?>> entityClass : list) {
+			AutoCreateHumanEntityHolder annotation = entityClass.getAnnotation(AutoCreateHumanEntityHolder.class);
+			Class<IEntityHolder<? extends IEntity<?>>> holderClass = null;
 			try {
-				holderClass = (Class<IEntityHolder<? extends IEntity>>) Class
-						.forName(annotation.EntityHolderClass());
+				holderClass = (Class<IEntityHolder<? extends IEntity<?>>>) Class.forName(annotation.EntityHolderClass());
 			} catch (ClassNotFoundException e) {
 				try {
-					holderClass = (Class<IEntityHolder<? extends IEntity>>) Class
-							.forName("com.hifun.soul.gamedb.cache.holder."
-									+ annotation.EntityHolderClass());
+					holderClass = (Class<IEntityHolder<? extends IEntity<?>>>) Class.forName("com.hifun.soul.gamedb.cache.holder." + annotation.EntityHolderClass());
 				} catch (ClassNotFoundException e1) {
-					throw new NoClassDefFoundError("Entity Holder:"
-							+ annotation.EntityHolderClass() + " not found!");
+					throw new NoClassDefFoundError("Entity Holder:" + annotation.EntityHolderClass() + " not found!");
 				}
 			}
 			if (!IEntityHolder.class.isAssignableFrom(holderClass)) {
-				throw new ClassCastException("The Entity Holder:"
-						+ annotation.EntityHolderClass()
-						+ " is not implemetation of IEntityHolder!");
+				throw new ClassCastException("The Entity Holder:" + annotation.EntityHolderClass() + " is not implemetation of IEntityHolder!");
 			}
 			entityHolderClassMap.put(entityClass, holderClass);
 		}
@@ -137,15 +126,13 @@ public class HumanEntityHolderCreater {
 	 * @throws RuntimeException
 	 */
 	private void checkEntityHolders() {
-		Collection<Class<IEntityHolder<? extends IEntity>>> entityHolderClasses = entityHolderClassMap
-				.values();
-		for (Class<IEntityHolder<? extends IEntity>> entityHolderClass : entityHolderClasses) {
+		Collection<Class<IEntityHolder<? extends IEntity<?>>>> entityHolderClasses = entityHolderClassMap.values();
+		for (Class<IEntityHolder<? extends IEntity<?>>> entityHolderClass : entityHolderClasses) {
 			try {
 				if (entityHolderClass.getConstructor().isAccessible())
 					throw new Exception();
 			} catch (Exception e) {
-				throw new RuntimeException("Entity Holder Check Failed! "
-						+ entityHolderClass.getName() + " can not be created!");
+				throw new RuntimeException("Entity Holder Check Failed! " + entityHolderClass.getName() + " can not be created!");
 			}
 		}
 	}

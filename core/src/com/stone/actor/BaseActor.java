@@ -77,7 +77,7 @@ public abstract class BaseActor implements IActor {
 	}
 
 	@Override
-	public void react() {
+	public void act() {
 		Iterator<IActorQueueExecutable> iterator = this.callQueue.iterator();
 		while (iterator.hasNext()) {
 			IActorQueueExecutable queueCall = iterator.next();

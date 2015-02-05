@@ -59,7 +59,7 @@ public class EntityScanner {
 	private final static Logger logger = Loggers.ENTITY_LOGGER;
 
 	/** 默认的Entity包 */
-	private final static String defaultEntityPackage = "com.hifun.soul.gamedb.entity";
+	private final static String defaultEntityPackage = "com.stone.db.entity";
 
 	/** 管理Scanner实例的map */
 	private static Map<String, EntityScanner> scannerMap = new HashMap<String, EntityScanner>();

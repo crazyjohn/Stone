@@ -43,7 +43,7 @@ public interface IActor {
 	/**
 	 * the actor's main loop;
 	 */
-	public void react();
+	public void act();
 
 	/**
 	 * get my actorId;
