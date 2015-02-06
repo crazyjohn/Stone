@@ -2,8 +2,11 @@ package com.stone.actor.future;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import com.stone.actor.call.IActorCallback;
@@ -31,6 +34,9 @@ public class ActorFuture<T> implements IActorFuture<T> {
 	@GuardedByUnit(whoCareMe = "this")
 	protected List<IActorFutureListener<T>> listeners = new LinkedList<IActorFutureListener<T>>();
 	protected IActorSystem actorSystem;
+	/** await condition */
+	private Lock awaitLock = new ReentrantLock();
+	private Condition awaitCondition = awaitLock.newCondition();
 
 	public ActorFuture() {
 		resultLock = new ReentrantReadWriteLock();
@@ -90,11 +96,16 @@ public class ActorFuture<T> implements IActorFuture<T> {
 	}
 
 	@Override
-	public synchronized void ready() {
+	public void ready() {
 		this.isReady = true;
 		// notify all, i you want do this, make sure you got the wait object's
 		// lock
-		this.notifyAll();
+		awaitLock.lock();
+		try {
+			awaitCondition.signalAll();
+		} finally {
+			awaitLock.unlock();
+		}
 	}
 
 	@Override
@@ -112,19 +123,30 @@ public class ActorFuture<T> implements IActorFuture<T> {
 	}
 
 	@Override
-	public synchronized T awaitResult() throws InterruptedException {
-		while (!isReady) {
-			this.wait();
+	public T awaitResult() throws InterruptedException {
+		awaitLock.lock();
+		try {
+			while (!isReady) {
+				awaitCondition.await();
+			}
+			return result;
+		} finally {
+			awaitLock.unlock();
 		}
-		return result;
+
 	}
 
 	@Override
 	public T awaitResult(long timeout) throws InterruptedException {
-		while (!isReady) {
-			this.wait(timeout);
+		awaitLock.lock();
+		try {
+			while (!isReady) {
+				awaitCondition.await(timeout, TimeUnit.MICROSECONDS);
+			}
+			return result;
+		} finally {
+			awaitLock.unlock();
 		}
-		return result;
 	}
 
 }
