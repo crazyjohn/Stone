@@ -28,6 +28,13 @@ public interface IActor {
 	public <T> IActorFuture<T> ask(IActorCall<T> call);
 
 	/**
+	 * Use tell way to submit a call;
+	 * 
+	 * @param call
+	 */
+	public <T> void tell(IActorCall<T> call);
+
+	/**
 	 * submit a net message;
 	 * <p>
 	 * In this way, you will get nothing return. Just follow the AKKA way;

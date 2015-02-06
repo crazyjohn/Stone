@@ -60,6 +60,11 @@ public abstract class BaseActor implements IActor {
 		callQueue.add(new QueueOnlyCallback(callback, result));
 	}
 
+	@Override
+	public <T> void tell(IActorCall<T> call) {
+		callQueue.add(new QueueOnlyCall(call));
+	}
+
 	/**
 	 * 投递一个调用以及一个执行回调, 以及执行回调的Actor;
 	 * 
@@ -190,6 +195,19 @@ public abstract class BaseActor implements IActor {
 		@Override
 		public void execute() {
 			this.callback.doCallback(result);
+		}
+
+	}
+
+	class QueueOnlyCall extends BaseQueueCall {
+
+		public QueueOnlyCall(IActorCall<?> call) {
+			super(call);
+		}
+
+		@Override
+		public void execute() {
+			this.call.execute();
 		}
 
 	}
