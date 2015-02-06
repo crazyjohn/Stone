@@ -30,5 +30,6 @@
 	<classpathentry exported="true" kind="lib" path="lib/mchange-commons-java-0.2.3.4.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/javassist-3.18.1-GA.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/antlr-2.7.7.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/akka-actor_2.10-2.2.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

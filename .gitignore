@@ -59,3 +59,4 @@ test/.cache
 *.cache
 bot/logs/
 actor/logs/
+db/bin/
