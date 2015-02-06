@@ -160,8 +160,7 @@ public abstract class BaseActor implements IActor {
 			try {
 				msg.execute();
 			} catch (MessageParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.error("Execute message error", e);
 			}
 		}
 
