@@ -73,8 +73,7 @@ public abstract class ActorSystem implements IActorSystem, Runnable {
 		// executor
 		executor = Executors.newSingleThreadExecutor(new NamedThreadFactory(systemPrefix + "main"));
 		for (int i = 0; i < threadNum; i++) {
-			workerMonsters[i] = createWorkerMonster();
-			workerMonsters[i].setMonsterName(systemPrefix + i);
+			workerMonsters[i] = createWorkerMonster(systemPrefix + i);
 		}
 		logger.info("Init the ActorSystem finished.");
 	}
@@ -86,8 +85,8 @@ public abstract class ActorSystem implements IActorSystem, Runnable {
 	 * 
 	 * @return
 	 */
-	protected IActorWorkerMonster createWorkerMonster() {
-		return new ActorWokerMonster();
+	protected IActorWorkerMonster createWorkerMonster(String monsterName) {
+		return new ActorWokerMonster(monsterName);
 	}
 
 	@Override

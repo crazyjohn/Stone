@@ -25,11 +25,4 @@ public interface IActorWorkerMonster {
 	 */
 	public void stopWorker();
 
-	/**
-	 * set a good monster name, then you can use for debug;
-	 * 
-	 * @param monsterName
-	 */
-	public void setMonsterName(String monsterName);
-
 }

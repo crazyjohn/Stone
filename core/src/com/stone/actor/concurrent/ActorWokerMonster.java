@@ -1,10 +1,14 @@
 package com.stone.actor.concurrent;
 
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.stone.core.concurrent.NamedThreadFactory;
 
 /**
  * base worker monster;<br>
@@ -13,11 +17,17 @@ import org.slf4j.LoggerFactory;
  * @author crazyjohn
  *
  */
-public class ActorWokerMonster extends Thread implements IActorWorkerMonster {
+public class ActorWokerMonster implements IActorWorkerMonster, Runnable {
 	protected BlockingQueue<IActorRunnable> runnableQueue = new LinkedBlockingQueue<IActorRunnable>();
 	protected volatile boolean stop = true;
+	/** executor service */
+	private ExecutorService executor;
 	/** logger */
 	private Logger logger = LoggerFactory.getLogger(ActorWokerMonster.class);
+
+	public ActorWokerMonster(String monsterName) {
+		executor = Executors.newSingleThreadExecutor(new NamedThreadFactory(monsterName));
+	}
 
 	@Override
 	public void submit(IActorRunnable iActorRunnable) {
@@ -61,19 +71,13 @@ public class ActorWokerMonster extends Thread implements IActorWorkerMonster {
 		}
 		stop = false;
 		// start the thread
-		this.start();
+		this.executor.submit(this);
 	}
 
 	@Override
 	public void stopWorker() {
 		stop = true;
 		// send interrupt command
-		this.interrupt();
+		this.executor.shutdown();
 	}
-
-	@Override
-	public void setMonsterName(String monsterName) {
-		this.setName(monsterName);
-	}
-
 }
