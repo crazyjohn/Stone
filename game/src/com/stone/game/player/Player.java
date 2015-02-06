@@ -19,14 +19,16 @@ import com.stone.game.human.Human;
 public class Player extends BaseActor implements IStateManager {
 
 	private static final long PLAYER_DEFAULT_ID = 0l;
-	/** 当前绑定的角色 */
+	/** binded human */
 	private Human human;
-	/** 绑定的回话 */
+	/** binded io session */
 	private IoSession session;
-	/** 当前状态 */
+	/** current state */
 	private IState currentState;
 	@GuardedByUnit(whoCareMe = "by volatile")
 	private volatile long playerId;
+
+	/** item module */
 
 	public Player() {
 		this.actorId = new ActorId(ActorType.PLAYER, PLAYER_DEFAULT_ID);
@@ -80,4 +82,5 @@ public class Player extends BaseActor implements IStateManager {
 	public void setPlayerId(long playerId) {
 		this.playerId = playerId;
 	}
+
 }

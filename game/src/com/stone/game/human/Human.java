@@ -1,9 +1,7 @@
 package com.stone.game.human;
 
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
-import com.stone.core.lock.ILockable;
+import com.stone.game.player.Player;
+import com.stone.game.player.module.item.HumanItemModule;
 
 /**
  * 游戏角色业务对象;
@@ -11,33 +9,33 @@ import com.stone.core.lock.ILockable;
  * @author crazyjohn
  *
  */
-public class Human implements ILockable {
-	private Lock lock;
+public class Human {
+	/** item module */
+	protected HumanItemModule itemModule;
+	/** human guid */
+	private long guid;
+	private Player player;
 
 	public Human() {
 		// init
 		initManager();
-		lock = new ReentrantLock();
 	}
 
 	private void initManager() {
-		// init all managers
-	}
-
-	@Override
-	public ILockable lock() {
-		lock.lock();
-		return this;
-	}
-
-	@Override
-	public void unlock() {
-		lock.unlock();
+		// init item module
+		itemModule = new HumanItemModule(this);
 	}
 
 	public long getGuid() {
-		// TODO Auto-generated method stub
-		return 0;
+		return guid;
+	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
 	}
 
 }

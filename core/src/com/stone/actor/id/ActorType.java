@@ -7,7 +7,7 @@ package com.stone.actor.id;
  *
  */
 public enum ActorType {
-	PLAYER(1), MANAGER(2);
+	PLAYER(1), MANAGER(2), MOCK(3);
 	private int type;
 
 	ActorType(int type) {
