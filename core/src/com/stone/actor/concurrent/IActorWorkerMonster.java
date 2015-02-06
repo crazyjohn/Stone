@@ -18,11 +18,11 @@ public interface IActorWorkerMonster {
 	/**
 	 * start the monter;
 	 */
-	public void startWorker();
+	public void start();
 
 	/**
 	 * stop the monster;
 	 */
-	public void stopWorker();
+	public void shutdown();
 
 }

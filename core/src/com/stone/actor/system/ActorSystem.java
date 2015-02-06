@@ -181,7 +181,7 @@ public abstract class ActorSystem implements IActorSystem, Runnable {
 		logger.info("Begin to start the ActorSystem...");
 		stop = false;
 		for (IActorWorkerMonster eachMonster : this.workerMonsters) {
-			eachMonster.startWorker();
+			eachMonster.start();
 		}
 		// executor self
 		executor.execute(this);
@@ -196,7 +196,7 @@ public abstract class ActorSystem implements IActorSystem, Runnable {
 		this.executor.shutdown();
 		// stop the monsters
 		for (IActorWorkerMonster eachMonster : this.workerMonsters) {
-			eachMonster.stopWorker();
+			eachMonster.shutdown();
 		}
 	}
 

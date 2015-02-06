@@ -65,7 +65,7 @@ public class ActorWokerMonster implements IActorWorkerMonster, Runnable {
 	}
 
 	@Override
-	public void startWorker() {
+	public void start() {
 		if (!stop) {
 			return;
 		}
@@ -75,7 +75,7 @@ public class ActorWokerMonster implements IActorWorkerMonster, Runnable {
 	}
 
 	@Override
-	public void stopWorker() {
+	public void shutdown() {
 		stop = true;
 		// send interrupt command
 		this.executor.shutdown();
