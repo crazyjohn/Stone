@@ -16,7 +16,7 @@ import com.stone.core.annotation.GuardedByUnit;
 import com.stone.core.annotation.ThreadSafeUnit;
 
 /**
- * 基础的future实现;
+ * Future future everywhere;
  * 
  * @author crazyjohn
  *
