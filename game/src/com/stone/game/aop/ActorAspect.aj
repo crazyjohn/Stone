@@ -16,12 +16,12 @@ public aspect ActorAspect {
 	 * value;
 	 */
 	public pointcut interceptAskWay():execution(IActorFuture *(..))
-						&& @annotation(com.stone.actor.annotation.ActorMethod);
+						&& @annotation(com.stone.actor.annotation.AskMethod);
 
 	/**
 	 * Intercept the actor method(fire and forget way);
 	 */
-	public pointcut interceptTellWay():execution(void *(..)) && @annotation(com.stone.actor.annotation.ActorMethod);
+	public pointcut interceptTellWay():execution(void *(..)) && @annotation(com.stone.actor.annotation.TellMethod);
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	IActorFuture around():interceptAskWay() {

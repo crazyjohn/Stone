@@ -4,7 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.stone.actor.BaseActor;
-import com.stone.actor.annotation.ActorMethod;
+import com.stone.actor.annotation.AskMethod;
+import com.stone.actor.annotation.TellMethod;
 import com.stone.actor.future.IActorFuture;
 import com.stone.actor.id.ActorId;
 import com.stone.actor.id.ActorType;
@@ -27,12 +28,12 @@ public class MockActor extends BaseActor {
 	}
 
 	@SuppressWarnings("rawtypes")
-	@ActorMethod
+	@AskMethod
 	public IActorFuture testActorMethod(int param1, String param2) {
 		return null;
 	}
 
-	@ActorMethod
+	@TellMethod
 	public void testActorTell() {
 		logger.info("Call MockActor testActorTell");
 	}
