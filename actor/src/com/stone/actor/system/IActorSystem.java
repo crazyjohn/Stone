@@ -7,8 +7,11 @@ import com.stone.actor.future.IActorFuture;
 import com.stone.actor.id.IActorId;
 
 /**
- * Actor调度中心;<br>
- * 活动对象调度中心, 这里封装具体的线程逻辑, 线程对actor层是透明的;
+ * Actor System;
+ * <p>
+ * The actor schedule and manage center, the actor thread and lock logic be
+ * hided in there, the actor layer or the app layer did not know the thread
+ * shit;
  * 
  * @author crazyjohn
  *
@@ -16,19 +19,16 @@ import com.stone.actor.id.IActorId;
 public interface IActorSystem {
 
 	/**
-	 * 分发调用到指定的Actor;
+	 * Dispatch an actor callback and result to an actor;
 	 * 
 	 * @param actorId
-	 *            活动对象Id;
 	 * @param callback
-	 *            回调对象;
 	 * @param result
-	 *            执行结果;
 	 */
 	public void dispatch(IActorId actorId, IActorCallback<?> callback, Object result);
 
 	/**
-	 * 分发回调到指定的Actor;
+	 * Dispatch an actor call to an actor;
 	 * 
 	 * @param actorId
 	 * @param call
@@ -36,12 +36,12 @@ public interface IActorSystem {
 	public void dispatch(IActorId actorId, IActorCall<?> call);
 
 	/**
-	 * 启动Actor系统;
+	 * Start the actor system;
 	 */
 	public void start();
 
 	/**
-	 * 停止Actor系统;
+	 * Stop the actor system;
 	 */
 	public void stop();
 
@@ -54,11 +54,11 @@ public interface IActorSystem {
 	public <T extends IActor> T getActor(IActorId actorId);
 
 	/**
-	 * 初始化ActorSystem;
+	 * Init the actor system;
 	 * 
-	 * @param threadNum
+	 * @param workerNum
 	 */
-	public void initSystem(int threadNum);
+	public void initSystem(int workerNum);
 
 	/**
 	 * regist an actor;
@@ -68,9 +68,7 @@ public interface IActorSystem {
 	public void registerActor(IActor actor);
 
 	/**
-	 * 投递ActorSystem系统之间的调用;
-	 * <p>
-	 * 一般发生在A系统中某个活动对象(Actor)向B系统发出调用;
+	 * Put an actory system call between two actor system;
 	 * 
 	 * @param call
 	 * @return
