@@ -67,5 +67,5 @@ public interface IDBService {
 	 * @param values
 	 * @return
 	 */
-	public List<Object> queryByNameAndParams(String queryName, String[] params, Object[] values);
+	public <T> List<T> queryByNameAndParams(String queryName, String[] params, Object[] values);
 }

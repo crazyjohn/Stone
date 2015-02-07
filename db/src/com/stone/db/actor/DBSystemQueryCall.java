@@ -40,7 +40,7 @@ public class DBSystemQueryCall<T> extends AbstractActorSystemCall<List<T>> {
 
 	@Override
 	public List<T> execute(IDBService dbService) {
-		List<T> result = dbService.queryByNameAndParams(queryName, params, values, 1, 0);
+		List<T> result = dbService.queryByNameAndParams(queryName, params, values);
 		return result;
 	}
 

@@ -85,16 +85,16 @@ public class HibernateDBService implements IDBService {
 	}
 
 	@Override
-	public List<Object> queryByNameAndParams(String queryName, String[] params, Object[] values) {
+	public <T> List<T> queryByNameAndParams(String queryName, String[] params, Object[] values) {
 		return this.queryByNameAndParams(queryName, params, values, -1, -1);
 	}
 
 	@Override
-	public List<Object> queryByNameAndParams(final String queryName, final String[] params, final Object[] values, final int maxResults, final int firstResult) {
-		List<Object> result = this.template.doCallback(new IHibernateOperationCallback<List<Object>>() {
+	public <T> List<T> queryByNameAndParams(final String queryName, final String[] params, final Object[] values, final int maxResults, final int firstResult) {
+		List<T> result = this.template.doCallback(new IHibernateOperationCallback<List<T>>() {
 			@SuppressWarnings("unchecked")
 			@Override
-			public List<Object> doCallback(Session session) {
+			public List<T> doCallback(Session session) {
 				// get named query
 				Query query = session.getNamedQuery(queryName);
 				if (query == null) {
