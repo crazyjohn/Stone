@@ -14,8 +14,13 @@ import com.stone.db.entity.HumanEntity;
  *
  */
 public class HumanAgent extends BaseEntityAgent implements ICacheEntityAgent<HumanEntity, Long, HumanCache> {
-	private ModifiedSet<HumanEntity> modifySet;
+	private ModifiedSet<HumanEntity> modifySet = new ModifiedSet<>();
 	private LRUHashMap<Long, HumanCache> humanCaches;
+
+	public HumanAgent(int maxCacheSize) {
+		// FIXME: crazyjohn evictPolicy do not use default?
+		humanCaches = new LRUHashMap<Long, HumanCache>(maxCacheSize, null);
+	}
 
 	@Override
 	public List<HumanEntity> getModifiedEntities(int size) {

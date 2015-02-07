@@ -2,6 +2,7 @@ package com.stone.core.db.service;
 
 import java.io.Serializable;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Properties;
@@ -99,6 +100,7 @@ public class HibernateDBService implements IDBService {
 				Query query = session.getNamedQuery(queryName);
 				if (query == null) {
 					logger.error(String.format("Can't find such query: %s", queryName));
+					return new ArrayList<T>();
 				}
 				if (maxResults > -1) {
 					query.setMaxResults(maxResults);
