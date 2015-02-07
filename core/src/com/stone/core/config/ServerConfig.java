@@ -9,6 +9,8 @@ package com.stone.core.config;
 public class ServerConfig implements IConfig {
 	private String bindIp;
 	private int port;
+	/** is debug */
+	private boolean isDebug;
 
 	public String getBindIp() {
 		return bindIp;
@@ -36,6 +38,14 @@ public class ServerConfig implements IConfig {
 	public void validate() {
 		// TODO Auto-generated method stub
 
+	}
+
+	public boolean getIsDebug() {
+		return isDebug;
+	}
+
+	public void setIsDebug(boolean isDebug) {
+		this.isDebug = isDebug;
 	}
 
 }

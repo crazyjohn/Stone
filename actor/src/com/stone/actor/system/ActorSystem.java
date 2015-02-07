@@ -120,7 +120,7 @@ public abstract class ActorSystem implements IActorSystem, Runnable {
 					Thread.sleep(SLEEP_INTERVAL);
 				} catch (InterruptedException e) {
 					// handle interrupt?
-					logger.error("Received interrupt command", e);
+					logger.info("Received interrupt command");
 					break;
 				}
 			}
@@ -193,7 +193,7 @@ public abstract class ActorSystem implements IActorSystem, Runnable {
 		// set flag
 		stop = true;
 		// stop main executorService
-		this.executor.shutdown();
+		this.executor.shutdownNow();
 		// stop the monsters
 		for (IActorWorkerMonster eachMonster : this.workerMonsters) {
 			eachMonster.shutdown();

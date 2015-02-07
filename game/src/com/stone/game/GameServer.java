@@ -11,6 +11,7 @@ import com.stone.core.codec.GameCodecFactory;
 import com.stone.core.config.ConfigUtil;
 import com.stone.core.net.ServerProcess;
 import com.stone.core.service.IService;
+import com.stone.core.util.OSUtil;
 import com.stone.db.DBActorSystem;
 import com.stone.game.msg.ProtobufMessageFactory;
 
@@ -76,6 +77,32 @@ public class GameServer implements IService {
 				shutdown();
 			}
 		}));
+		// safe debug shutdown
+		if (this.config.getIsDebug()) {
+			addSafeDebugWorkFollow();
+		}
+	}
+
+	/**
+	 * Add safe debug work follow;
+	 */
+	private void addSafeDebugWorkFollow() {
+		if (OSUtil.isWindowsOS()) {
+			Thread winDeamon = new Thread() {
+				@Override
+				public void run() {
+					try {
+						System.in.read();
+						shutdown();
+					} catch (IOException e) {
+						logger.error("Wait shutdown error", e);
+					}
+				}
+			};
+			winDeamon.setDaemon(true);
+			winDeamon.setName("WindowDebugGuarder");
+			winDeamon.start();
+		}
 	}
 
 	@Override

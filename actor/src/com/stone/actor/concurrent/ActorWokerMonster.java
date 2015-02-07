@@ -44,7 +44,7 @@ public class ActorWokerMonster implements IActorWorkerMonster, Runnable {
 				runnable.run();
 			} catch (InterruptedException e) {
 				// handle interrupt
-				logger.error("Received interrupt command, try to break the main loop", e);
+				logger.info("Received interrupt command, try to break the main loop");
 				handleLeftQueue();
 				break;
 			} catch (Exception e) {
@@ -76,6 +76,6 @@ public class ActorWokerMonster implements IActorWorkerMonster, Runnable {
 	public void shutdown() {
 		stop = true;
 		// send interrupt command
-		this.executor.shutdown();
+		this.executor.shutdownNow();
 	}
 }
