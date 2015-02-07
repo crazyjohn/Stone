@@ -108,9 +108,11 @@ public class GameServer implements IService {
 
 	@Override
 	public void shutdown() {
+		logger.info("Begin to shutdown Game Server...");
 		externalProcess.shutdown();
 		dbActorSystem.stop();
 		gameActorSystem.stop();
+		logger.info("Game Server shutdown command already send to all server component.");
 	}
 
 	public static void main(String[] args) {
