@@ -87,6 +87,7 @@ public class GameServer implements IService {
 	 * Add safe debug work follow;
 	 */
 	private void addSafeDebugWorkFollow() {
+		// if windows, add daemon thread wait to safe shutdown
 		if (OSUtil.isWindowsOS()) {
 			Thread winDeamon = new Thread() {
 				@Override
