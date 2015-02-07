@@ -6,6 +6,8 @@ import com.stone.actor.system.IActorSystem;
 import com.stone.core.msg.ISessionMessage;
 import com.stone.core.net.AbstractIoHandler;
 import com.stone.core.processor.IMessageProcessor;
+import com.stone.game.msg.GameSessionCloseMessage;
+import com.stone.game.msg.GameSessionOpenMessage;
 import com.stone.game.player.Player;
 import com.stone.game.session.GamePlayerSession;
 
@@ -43,14 +45,12 @@ public class GameIoHandler extends AbstractIoHandler<GamePlayerSession> {
 
 	@Override
 	protected ISessionMessage<GamePlayerSession> createSessionCloseMessage(GamePlayerSession sessionInfo) {
-		// TODO Auto-generated method stub
-		return null;
+		return new GameSessionCloseMessage(sessionInfo);
 	}
 
 	@Override
 	protected ISessionMessage<GamePlayerSession> createSessionOpenMessage(GamePlayerSession sessionInfo) {
-		// TODO Auto-generated method stub
-		return null;
+		return new GameSessionOpenMessage(sessionInfo);
 	}
 
 }

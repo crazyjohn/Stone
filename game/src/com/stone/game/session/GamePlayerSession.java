@@ -27,5 +27,10 @@ public class GamePlayerSession extends BaseSession implements IPlayerSession {
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
+	
+	@Override
+	public String toString() {
+		return session.toString();
+	}
 
 }
