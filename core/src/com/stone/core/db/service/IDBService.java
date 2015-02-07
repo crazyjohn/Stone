@@ -3,6 +3,7 @@ package com.stone.core.db.service;
 import java.io.Serializable;
 import java.util.List;
 
+import com.stone.actor.data.IActorDBService;
 import com.stone.core.entity.IEntity;
 
 /**
@@ -11,7 +12,7 @@ import com.stone.core.entity.IEntity;
  * @author crazyjohn
  *
  */
-public interface IDBService {
+public interface IDBService extends IActorDBService{
 	/**
 	 * 更新实体接口;
 	 * 

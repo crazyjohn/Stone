@@ -5,7 +5,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import com.stone.core.concurrent.NamedThreadFactory;
+import com.stone.actor.concurrent.NamedThreadFactory;
 import com.stone.core.log.ILogger;
 import com.stone.core.log.SimpleLoggers;
 import com.stone.core.msg.IMessage;

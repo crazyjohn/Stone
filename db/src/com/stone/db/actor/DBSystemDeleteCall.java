@@ -1,9 +1,9 @@
 package com.stone.db.actor;
 
+import com.stone.actor.data.IActorDBService;
 import com.stone.actor.id.IActorId;
 import com.stone.actor.system.AbstractActorSystemCall;
 import com.stone.actor.system.IActorSystem;
-import com.stone.core.db.service.IDBService;
 import com.stone.core.entity.IEntity;
 
 /**
@@ -21,7 +21,7 @@ public class DBSystemDeleteCall extends AbstractActorSystemCall<IEntity<?>> {
 	}
 
 	@Override
-	public IEntity<?> execute(IDBService dbService) {
+	public IEntity<?> execute(IActorDBService dbService) {
 		// TODO Auto-generated method stub
 		return null;
 	}

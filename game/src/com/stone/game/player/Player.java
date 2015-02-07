@@ -3,9 +3,9 @@ package com.stone.game.player;
 import org.apache.mina.core.session.IoSession;
 
 import com.stone.actor.BaseActor;
+import com.stone.actor.annotation.GuardedByUnit;
 import com.stone.actor.id.ActorId;
 import com.stone.actor.id.ActorType;
-import com.stone.core.annotation.GuardedByUnit;
 import com.stone.core.state.IState;
 import com.stone.core.state.IStateManager;
 import com.stone.game.human.Human;

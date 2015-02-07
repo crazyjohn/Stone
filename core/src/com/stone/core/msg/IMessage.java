@@ -2,6 +2,7 @@ package com.stone.core.msg;
 
 import org.apache.mina.core.buffer.IoBuffer;
 
+import com.stone.actor.call.IActorNetCall;
 import com.stone.core.constants.CommonErrorLogInfo;
 
 /**
@@ -9,7 +10,7 @@ import com.stone.core.constants.CommonErrorLogInfo;
  * 
  * @author crazyjohn;
  */
-public interface IMessage {
+public interface IMessage extends IActorNetCall {
 	/** 最大消息长度为64K，可能超过这个长度的信息，需要自己打包分多次发送* */
 	public static final int MAX_MESSAGE_LENGTH = 65535;
 
@@ -161,10 +162,8 @@ public interface IMessage {
 
 		private static int seekLength(IoBuffer buf, boolean peek) {
 			int _len = seekIntFromUnsignedShort(buf, peek);
-			if (_len >= 0
-					&& (_len < MIN_MESSAGE_LENGTH || _len > MAX_MESSAGE_LENGTH)) {
-				throw new IllegalStateException(
-						CommonErrorLogInfo.PACKET_BAD_HEADER_LEN);
+			if (_len >= 0 && (_len < MIN_MESSAGE_LENGTH || _len > MAX_MESSAGE_LENGTH)) {
+				throw new IllegalStateException(CommonErrorLogInfo.PACKET_BAD_HEADER_LEN);
 			}
 			return _len;
 		}
@@ -182,8 +181,7 @@ public interface IMessage {
 					buf.position(_op);
 				}
 				if (_value < 0) {
-					throw new IllegalStateException(
-							CommonErrorLogInfo.PACKET_BAD_HEADER_LEN);
+					throw new IllegalStateException(CommonErrorLogInfo.PACKET_BAD_HEADER_LEN);
 				}
 				return _value;
 			} else {
@@ -206,8 +204,7 @@ public interface IMessage {
 					buf.position(_op);
 				}
 				if (_value > MAX_MESSAGE_LENGTH) {
-					throw new IllegalStateException(
-							CommonErrorLogInfo.PACKET_BAD_HEADER_LEN);
+					throw new IllegalStateException(CommonErrorLogInfo.PACKET_BAD_HEADER_LEN);
 				}
 				return _value;
 			} else {
