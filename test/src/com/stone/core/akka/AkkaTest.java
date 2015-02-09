@@ -1,8 +1,10 @@
 package com.stone.core.akka;
 
+import scala.concurrent.Future;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
+import static akka.pattern.Patterns.ask;
 //import static akka.pattern.Patterns.ask;
 //import scala.concurrent.Future;
 
@@ -13,7 +15,7 @@ public class AkkaTest {
 		ActorRef actor = system.actorOf(Props.create(LoggerActor.class));
 		actor.tell("tell you something.", ActorRef.noSender());
 		// ask pattern
-		// Future<?> result = ask(actor,"", 1000);
+		Future<?> result = ask(actor,"", 1000);
 	}
 
 }

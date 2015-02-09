@@ -29,7 +29,8 @@ public class MockActor extends BaseActor {
 
 	@SuppressWarnings("rawtypes")
 	@AskMethod
-	public IActorFuture testActorMethod(int param1, String param2) {
+	public IActorFuture testActorMethod(int num, String desc) {
+		//String result = desc + ": " + num;
 		return null;
 	}
 

@@ -30,7 +30,9 @@ public aspect ActorAspect {
 		return actor.ask(new IActorCall() {
 			@Override
 			public Object execute() {
-				return null;
+				// get execute result
+				Object result = proceed();
+				return result;
 			}
 
 		});
