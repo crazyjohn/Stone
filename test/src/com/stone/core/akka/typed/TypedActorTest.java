@@ -22,12 +22,12 @@ public class TypedActorTest {
 			}
 		}));
 
-		// msg sent
+		// 1. fire and forget
 		player.levelUpDontCare(10);
-		// request and reply, wait
+		// 2. request and blocking wait request
 		Option<Integer> waitDamage = player.beatNow(100);
 		System.out.println(waitDamage.get());
-		// request with future
+		// 3. request and future listener
 		Future<Integer> futureDamage = player.beatFuture(100);
 		futureDamage.onSuccess(new OnSuccess<Integer>() {
 
