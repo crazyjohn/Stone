@@ -7,9 +7,10 @@ import java.lang.reflect.Proxy;
 public class BattleServiceProxy implements InvocationHandler {
 	private Object target;
 
-	public Object bind(Object target) {
+	@SuppressWarnings("unchecked")
+	public <T>T createProxyService(Object target) {
 		this.target = target;
-		return Proxy.newProxyInstance(target.getClass().getClassLoader(), target.getClass().getInterfaces(), this);
+		return (T) Proxy.newProxyInstance(target.getClass().getClassLoader(), target.getClass().getInterfaces(), this);
 	}
 
 	@Override
