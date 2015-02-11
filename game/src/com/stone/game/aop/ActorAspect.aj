@@ -1,5 +1,8 @@
 package com.stone.game.aop;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.stone.actor.IActor;
 import com.stone.actor.call.IActorCall;
 import com.stone.actor.future.IActorFuture;
@@ -11,6 +14,8 @@ import com.stone.actor.future.IActorFuture;
  *
  */
 public aspect ActorAspect {
+	/** logger */
+	private Logger logger = LoggerFactory.getLogger("Powerful Actor Aspect");
 	/**
 	 * Intercept the actor method, in this situation, customer wait a return
 	 * value;
@@ -42,9 +47,11 @@ public aspect ActorAspect {
 	void around():interceptTellWay() {
 		// cast to actor
 		IActor actor = (IActor) thisJoinPoint.getTarget();
+		logger.info(String.format("[Caller Thread - %s], [Call Method - %s]", Thread.currentThread().getName(), thisJoinPoint.getSignature()));
 		actor.tell(new IActorCall() {
 			@Override
 			public Object execute() {
+				logger.info(String.format("[Execute Thread - %s], [Execute Method - %s]", Thread.currentThread().getName(), thisJoinPoint.getSignature()));
 				proceed();
 				return null;
 			}
