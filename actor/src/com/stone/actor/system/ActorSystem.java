@@ -209,7 +209,7 @@ public abstract class ActorSystem implements IActorSystem, Runnable {
 	@Override
 	public void registerActor(IActor actor) {
 		// set actor id
-		actor.setActorId(new ActorId(actor.getActorId().getActorType(), this.idCounter.incrementAndGet()));
+		actor.setActorId(new ActorId(actor.getActorType(), this.idCounter.incrementAndGet()));
 		this.actors.put(actor.getActorId(), actor);
 		actor.setHostSystem(this);
 	}

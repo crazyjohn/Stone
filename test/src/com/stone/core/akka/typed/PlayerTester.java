@@ -19,7 +19,7 @@ public class PlayerTester implements IPlayer {
 
 	@Override
 	public void levelUpDontCare(int level) {
-		level += level;
+		this.level += level;
 	}
 
 	@Override

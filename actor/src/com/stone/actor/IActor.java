@@ -4,6 +4,7 @@ import com.stone.actor.call.IActorCall;
 import com.stone.actor.call.IActorCallback;
 import com.stone.actor.call.IActorNetCall;
 import com.stone.actor.future.IActorFuture;
+import com.stone.actor.id.ActorType;
 import com.stone.actor.id.IActorId;
 import com.stone.actor.system.IActorSystem;
 
@@ -90,5 +91,19 @@ public interface IActor {
 	 * @param actorSystem
 	 */
 	public void setHostSystem(IActorSystem actorSystem);
+
+	/**
+	 * Get the actor's type;
+	 * 
+	 * @return
+	 */
+	public ActorType getActorType();
+
+	/**
+	 * Set the actor's type;
+	 * 
+	 * @param actorType
+	 */
+	public void setActorType(ActorType actorType);
 
 }

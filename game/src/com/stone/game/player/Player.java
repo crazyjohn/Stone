@@ -4,7 +4,6 @@ import org.apache.mina.core.session.IoSession;
 
 import com.stone.actor.BaseActor;
 import com.stone.actor.annotation.GuardedByUnit;
-import com.stone.actor.id.ActorId;
 import com.stone.actor.id.ActorType;
 import com.stone.core.state.IState;
 import com.stone.core.state.IStateManager;
@@ -18,7 +17,6 @@ import com.stone.game.human.Human;
  */
 public class Player extends BaseActor implements IStateManager {
 
-	private static final long PLAYER_DEFAULT_ID = 0l;
 	/** binded human */
 	private Human human;
 	/** binded io session */
@@ -31,7 +29,7 @@ public class Player extends BaseActor implements IStateManager {
 	/** item module */
 
 	public Player() {
-		this.actorId = new ActorId(ActorType.PLAYER, PLAYER_DEFAULT_ID);
+		this.actorType = ActorType.PLAYER;
 	}
 
 	public Human getHuman() {
