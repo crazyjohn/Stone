@@ -21,28 +21,132 @@ public final class MessageTypes {
      * <code>CG_PLAYER_LOGIN = 1001;</code>
      *
      * <pre>
-     * 请求登陆
+     * request login
      * </pre>
      */
     CG_PLAYER_LOGIN(0, 1001),
     /**
      * <code>GC_PLAYER_LOGIN_RESULT = 1002;</code>
+     *
+     * <pre>
+     * login result
+     * </pre>
      */
     GC_PLAYER_LOGIN_RESULT(1, 1002),
+    /**
+     * <code>CG_GET_ROLE_LIST = 1003;</code>
+     *
+     * <pre>
+     * get role list
+     * </pre>
+     */
+    CG_GET_ROLE_LIST(2, 1003),
+    /**
+     * <code>GC_GET_ROLE_LIST = 1004;</code>
+     *
+     * <pre>
+     * return role list
+     * </pre>
+     */
+    GC_GET_ROLE_LIST(3, 1004),
+    /**
+     * <code>CG_SELECT_ROLE = 1005;</code>
+     *
+     * <pre>
+     * select role
+     * </pre>
+     */
+    CG_SELECT_ROLE(4, 1005),
+    /**
+     * <code>GC_ROLE_INFO = 1006;</code>
+     *
+     * <pre>
+     * role info
+     * </pre>
+     */
+    GC_ROLE_INFO(5, 1006),
+    /**
+     * <code>CG_CREATE_ROLE = 1007;</code>
+     *
+     * <pre>
+     * create role
+     * </pre>
+     */
+    CG_CREATE_ROLE(6, 1007),
+    /**
+     * <code>GC_CREATE_ROLE_RESULT = 1008;</code>
+     *
+     * <pre>
+     * create role result
+     * </pre>
+     */
+    GC_CREATE_ROLE_RESULT(7, 1008),
     ;
 
     /**
      * <code>CG_PLAYER_LOGIN = 1001;</code>
      *
      * <pre>
-     * 请求登陆
+     * request login
      * </pre>
      */
     public static final int CG_PLAYER_LOGIN_VALUE = 1001;
     /**
      * <code>GC_PLAYER_LOGIN_RESULT = 1002;</code>
+     *
+     * <pre>
+     * login result
+     * </pre>
      */
     public static final int GC_PLAYER_LOGIN_RESULT_VALUE = 1002;
+    /**
+     * <code>CG_GET_ROLE_LIST = 1003;</code>
+     *
+     * <pre>
+     * get role list
+     * </pre>
+     */
+    public static final int CG_GET_ROLE_LIST_VALUE = 1003;
+    /**
+     * <code>GC_GET_ROLE_LIST = 1004;</code>
+     *
+     * <pre>
+     * return role list
+     * </pre>
+     */
+    public static final int GC_GET_ROLE_LIST_VALUE = 1004;
+    /**
+     * <code>CG_SELECT_ROLE = 1005;</code>
+     *
+     * <pre>
+     * select role
+     * </pre>
+     */
+    public static final int CG_SELECT_ROLE_VALUE = 1005;
+    /**
+     * <code>GC_ROLE_INFO = 1006;</code>
+     *
+     * <pre>
+     * role info
+     * </pre>
+     */
+    public static final int GC_ROLE_INFO_VALUE = 1006;
+    /**
+     * <code>CG_CREATE_ROLE = 1007;</code>
+     *
+     * <pre>
+     * create role
+     * </pre>
+     */
+    public static final int CG_CREATE_ROLE_VALUE = 1007;
+    /**
+     * <code>GC_CREATE_ROLE_RESULT = 1008;</code>
+     *
+     * <pre>
+     * create role result
+     * </pre>
+     */
+    public static final int GC_CREATE_ROLE_RESULT_VALUE = 1008;
 
 
     public final int getNumber() { return value; }
@@ -51,6 +155,12 @@ public final class MessageTypes {
       switch (value) {
         case 1001: return CG_PLAYER_LOGIN;
         case 1002: return GC_PLAYER_LOGIN_RESULT;
+        case 1003: return CG_GET_ROLE_LIST;
+        case 1004: return GC_GET_ROLE_LIST;
+        case 1005: return CG_SELECT_ROLE;
+        case 1006: return GC_ROLE_INFO;
+        case 1007: return CG_CREATE_ROLE;
+        case 1008: return GC_CREATE_ROLE_RESULT;
         default: return null;
       }
     }
@@ -111,9 +221,13 @@ public final class MessageTypes {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\021MessageType.proto*@\n\013MessageType\022\024\n\017CG" +
-      "_PLAYER_LOGIN\020\351\007\022\033\n\026GC_PLAYER_LOGIN_RESU" +
-      "LT\020\352\007B\037\n\017com.stone.protoB\014MessageTypes"
+      "\n\021MessageType.proto*\307\001\n\013MessageType\022\024\n\017C" +
+      "G_PLAYER_LOGIN\020\351\007\022\033\n\026GC_PLAYER_LOGIN_RES" +
+      "ULT\020\352\007\022\025\n\020CG_GET_ROLE_LIST\020\353\007\022\025\n\020GC_GET_" +
+      "ROLE_LIST\020\354\007\022\023\n\016CG_SELECT_ROLE\020\355\007\022\021\n\014GC_" +
+      "ROLE_INFO\020\356\007\022\023\n\016CG_CREATE_ROLE\020\357\007\022\032\n\025GC_" +
+      "CREATE_ROLE_RESULT\020\360\007B\037\n\017com.stone.proto" +
+      "B\014MessageTypes"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

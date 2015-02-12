@@ -14,7 +14,6 @@ import com.stone.core.msg.MessageParseException;
 import com.stone.db.entity.PlayerEntity;
 import com.stone.db.query.DBQueryConstants;
 import com.stone.game.data.DataService;
-import com.stone.game.mock.MockActor;
 import com.stone.game.msg.ProtobufMessage;
 import com.stone.game.msg.handler.BaseProtobufMessageHandler;
 import com.stone.game.player.Player;
@@ -63,11 +62,6 @@ public class PlayerLoginHandler extends BaseProtobufMessageHandler {
 			}
 
 		});
-		// test mock actor
-		MockActor mockActor = MockActor.createMockActor();
-		mockActor.testActorTell();
-		
-		logger.info("PlayerLoginHandler execute end.");
 	}
 
 }

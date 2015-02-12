@@ -3,7 +3,20 @@ option java_outer_classname = "MessageTypes";
 
 // 消息类型;
 enum MessageType {
-	// 请求登陆
+	// request login
 	CG_PLAYER_LOGIN = 1001;
+	// login result
 	GC_PLAYER_LOGIN_RESULT = 1002;
+	// get role list
+	CG_GET_ROLE_LIST = 1003;
+	// return role list
+	GC_GET_ROLE_LIST = 1004;
+	// select role
+	CG_SELECT_ROLE = 1005;
+	// role info
+	GC_ROLE_INFO = 1006;
+	// create role
+	CG_CREATE_ROLE = 1007;
+	// create role result
+	GC_CREATE_ROLE_RESULT = 1008;
 }

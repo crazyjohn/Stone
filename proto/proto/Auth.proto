@@ -1,7 +1,35 @@
 option java_package = "com.stone.proto";
 option java_outer_classname = "Auths";
 
+// login message
 message Login {
 	required string userName = 1;
 	required string password = 2;
+}
+
+// role
+message Role {
+	required int64 roleId = 1;
+	required string name = 2;
+}
+
+// role list
+message GetRoleList {
+	repeated Role roleList = 1;
+}
+
+// create role
+message CreateRole {
+	required int32 templateId = 1;
+	required string name = 2;
+}
+// role info
+message RoleInfo {
+	required int64 roleId = 1;
+	required string name = 2;
+	required int32 level = 3;
+}
+// select role
+message SelectRole {
+	required int32 index = 1;
 }
