@@ -11,9 +11,9 @@ public class MasterActor extends UntypedActor {
 	ActorRef aggregateActor;
 
 	public MasterActor() {
-		this.mapActor = this.getContext().actorOf(new Props(MapActor.class).withRouter(new RoundRobinRouter(5)), "map");
-		this.reduceActor = this.getContext().actorOf(new Props(ReduceActor.class).withRouter(new RoundRobinRouter(5)), "reduce");
-		this.aggregateActor = this.getContext().actorOf(new Props(AggregateActor.class).withRouter(new RoundRobinRouter(5)), "aggregate");
+		this.mapActor = this.getContext().actorOf(Props.create(MapActor.class).withRouter(new RoundRobinRouter(5)), "map");
+		this.reduceActor = this.getContext().actorOf(Props.create(ReduceActor.class).withRouter(new RoundRobinRouter(5)), "reduce");
+		this.aggregateActor = this.getContext().actorOf(Props.create(AggregateActor.class).withRouter(new RoundRobinRouter(5)), "aggregate");
 	}
 
 	@Override

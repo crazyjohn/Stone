@@ -13,7 +13,7 @@ public class MapReduceApp {
 	public static void main(String[] args) throws Exception {
 		Timeout timeout = new Timeout(60 * 1000);
 		ActorSystem system = ActorSystem.create("MapReduceApp");
-		ActorRef master = system.actorOf(new Props(MasterActor.class), "master");
+		ActorRef master = system.actorOf(Props.create(MasterActor.class));
 		master.tell("the quick brown fox tried to jump over the lazy dog and fell on the dog", null);
 		master.tell("dog is man's best friend", null);
 		master.tell("dog and fox belong to the same family", null);
