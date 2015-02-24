@@ -3,7 +3,8 @@ package com.stone.core.akka.compute;
 import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
-import akka.routing.RoundRobinRouter;
+// Util now, i don't know what the router use for??
+//import akka.routing.RoundRobinRouter;
 
 public class MasterActor extends UntypedActor {
 	ActorRef mapActor;
@@ -11,9 +12,9 @@ public class MasterActor extends UntypedActor {
 	ActorRef aggregateActor;
 
 	public MasterActor() {
-		this.mapActor = this.getContext().actorOf(Props.create(MapActor.class).withRouter(new RoundRobinRouter(5)), "map");
-		this.reduceActor = this.getContext().actorOf(Props.create(ReduceActor.class).withRouter(new RoundRobinRouter(5)), "reduce");
-		this.aggregateActor = this.getContext().actorOf(Props.create(AggregateActor.class).withRouter(new RoundRobinRouter(5)), "aggregate");
+		this.mapActor = this.getContext().actorOf(Props.create(MapActor.class), "map");
+		this.reduceActor = this.getContext().actorOf(Props.create(ReduceActor.class), "reduce");
+		this.aggregateActor = this.getContext().actorOf(Props.create(AggregateActor.class), "aggregate");
 	}
 
 	@Override

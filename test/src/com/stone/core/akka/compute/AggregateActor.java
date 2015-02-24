@@ -7,6 +7,10 @@ import akka.actor.UntypedActor;
 
 public class AggregateActor extends UntypedActor {
 	private Map<String, Integer> finalReduceMap = new HashMap<String, Integer>();
+	
+	public AggregateActor() {
+		System.out.println("Create AggregateActor");
+	}
 
 	@Override
 	public void onReceive(Object message) throws Exception {
