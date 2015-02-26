@@ -4,7 +4,7 @@ import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
 // Util now, i don't know what the router use for??
-//import akka.routing.RoundRobinRouter;
+import akka.routing.RoundRobinRouter;
 
 public class MasterActor extends UntypedActor {
 	ActorRef mapActor;
@@ -12,8 +12,9 @@ public class MasterActor extends UntypedActor {
 	ActorRef aggregateActor;
 
 	public MasterActor() {
-		this.mapActor = this.getContext().actorOf(Props.create(MapActor.class), "map");
-		this.reduceActor = this.getContext().actorOf(Props.create(ReduceActor.class), "reduce");
+		// map and reduce use withRouter because they have no states, but aggregate has state;
+		this.mapActor = this.getContext().actorOf(Props.create(MapActor.class).withRouter(new RoundRobinRouter(5)), "map");
+		this.reduceActor = this.getContext().actorOf(Props.create(ReduceActor.class).withRouter(new RoundRobinRouter(5)), "reduce");
 		this.aggregateActor = this.getContext().actorOf(Props.create(AggregateActor.class), "aggregate");
 	}
 
