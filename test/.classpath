@@ -14,5 +14,13 @@
 	<classpathentry kind="lib" path="lib/minlog-1.2.jar"/>
 	<classpathentry kind="lib" path="lib/objenesis-1.2.jar"/>
 	<classpathentry kind="lib" path="lib/reflectasm-1.09-shaded.jar"/>
+	<classpathentry kind="lib" path="lib/akka-agent_2.10-2.2.4.jar"/>
+	<classpathentry kind="lib" path="lib/akka-camel_2.10-2.2.4.jar"/>
+	<classpathentry kind="lib" path="lib/akka-cluster_2.10-2.2.4.jar"/>
+	<classpathentry kind="lib" path="lib/akka-contrib_2.10-2.2.4.jar"/>
+	<classpathentry kind="lib" path="lib/akka-testkit_2.10-2.2.4.jar"/>
+	<classpathentry kind="lib" path="lib/akka-remote_2.10-2.2.4.jar"/>
+	<classpathentry kind="lib" path="lib/akka-transactor_2.10-2.2.4.jar"/>
+	<classpathentry kind="lib" path="lib/camel-core-2.10.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
