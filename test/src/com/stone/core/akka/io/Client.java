@@ -30,12 +30,12 @@ public class Client extends UntypedActor {
 		if (msg instanceof CommandFailed) {
 			// when failed
 			listener.tell("failed", getSelf());
-			getContext().stop(getSelf());
+			this.getContext().stop(getSelf());
 		} else if (msg instanceof Connect) {
 			// when connected
 			listener.tell(msg, getSelf());
 			getSender().tell(TcpMessage.register(getSelf()), getSelf());
-			getContext().become(connected(getSender()));
+			this.getContext().become(connected(getSender()));
 		}
 	}
 

@@ -1,0 +1,28 @@
+##################################################
+#侠客属性文字
+HP=生命
+AD=外功
+AD_DEF=外防
+AP_DEF=内防
+CRITICAL=暴击
+RESILIENCE=韧性
+HIT_RATING=命中
+DODGE=闪避
+BLOCK=格挡
+PENETRATE=穿刺
+##################################################
+#游戏中提示
+WEIHU=游戏维护！
+XIUGAIMIMA = 修改成功！
+ZHMMCW = 账户或密码错误！
+CSCW=参数异常！
+DLCG=登录成功！
+WJCJSB=玩家创建失败！
+WJCJCG=玩家创建成功！
+WJDLCG=玩家登录成功！
+ZCCG=注册成功！
+ZHCF=注册失败：帐号重复！
+MMCW=密码错误！
+##################################################Reason
+GMCOSTMONEY=GM扣钱
+GMADDEXP=GM加经验
