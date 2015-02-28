@@ -10,11 +10,11 @@ public class GameApp {
 		ActorSystem system = ActorSystem.create("GameSystem");
 		// create gamePlayer one
 		GamePlayer realPlayerOne = new GamePlayer("crazyjohn");
-		ActorRef playerOne = system.actorOf(GamePlayerActor.props(realPlayerOne));
+		ActorRef playerOne = system.actorOf(GamePlayerActor.props(realPlayerOne), "playerOne");
 		playerOne.tell(new GameMessage(), ActorRef.noSender());
 		// say hi
 		GamePlayer bot = new GamePlayer("bot");
-		ActorRef botActor = system.actorOf(GamePlayerActor.props(bot));
+		ActorRef botActor = system.actorOf(GamePlayerActor.props(bot), "botActor");
 		SayHi hi = new SayHi(botActor);
 		playerOne.tell(hi, ActorRef.noSender());
 		Thread.sleep(5 * 1000);

@@ -4,6 +4,8 @@ import com.stone.game.msg.ProtobufMessage;
 
 import akka.actor.Props;
 import akka.actor.UntypedActor;
+import akka.event.Logging;
+import akka.event.LoggingAdapter;
 
 /**
  * The player actor;
@@ -13,6 +15,7 @@ import akka.actor.UntypedActor;
  */
 public class GamePlayerActor extends UntypedActor {
 	private final GamePlayer player;
+	LoggingAdapter logger = Logging.getLogger(this.getContext().system(), this);
 
 	public GamePlayerActor(GamePlayer player) {
 		this.player = player;
@@ -28,8 +31,9 @@ public class GamePlayerActor extends UntypedActor {
 		} else if (message instanceof SayHi) {
 			SayHi hi = (SayHi) message;
 			hi.getTarget().tell("Hi", getSelf());
+			logger.info("Say hi to: {}", hi.getTarget());
 		} else if (message instanceof String) {
-			System.out.println(message);
+			logger.info("Received String message: {}", message);
 		}
 
 	}
