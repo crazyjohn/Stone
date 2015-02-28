@@ -1,8 +1,5 @@
 package com.stone.game;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,8 +21,6 @@ public class GameActorSystem extends ActorSystem implements IMessageProcessor {
 	private static GameActorSystem instance = new GameActorSystem();
 	/** loggers */
 	private Logger logger = LoggerFactory.getLogger(GameActorSystem.class);
-	/** playerActors */
-	private Map<Long, Player> players = new ConcurrentHashMap<Long, Player>();
 
 	@Override
 	public void initSystem(int threadNum) {
@@ -35,25 +30,6 @@ public class GameActorSystem extends ActorSystem implements IMessageProcessor {
 
 	public static synchronized GameActorSystem getInstance() {
 		return instance;
-	}
-
-	/**
-	 * add player when player auth ok;
-	 * 
-	 * @param player
-	 */
-	public void addPlayer(Player player) {
-		players.put(player.getPlayerId(), player);
-	}
-
-	/**
-	 * get player;
-	 * 
-	 * @param playerId
-	 * @return
-	 */
-	public Player getPlayer(long playerId) {
-		return players.get(playerId);
 	}
 
 	@Override
