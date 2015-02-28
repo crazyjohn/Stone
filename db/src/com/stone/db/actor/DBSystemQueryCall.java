@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.stone.actor.data.IActorDBService;
-import com.stone.actor.id.IActorId;
 import com.stone.actor.system.AbstractActorSystemCall;
 import com.stone.actor.system.IActorSystem;
 import com.stone.core.db.service.IDBService;
@@ -21,7 +20,7 @@ public class DBSystemQueryCall<T> extends AbstractActorSystemCall<List<T>> {
 	private String[] params;
 	private Object[] values;
 
-	public DBSystemQueryCall(IActorSystem callerSystem, IActorId callerActorId, String queryName, String[] params, Object[] values) {
+	public DBSystemQueryCall(IActorSystem callerSystem, long callerActorId, String queryName, String[] params, Object[] values) {
 		super(callerSystem, callerActorId);
 		this.queryName = queryName;
 		this.params = params;

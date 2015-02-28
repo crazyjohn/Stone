@@ -12,8 +12,6 @@ import com.stone.actor.call.IActorCallback;
 import com.stone.actor.call.IActorNetCall;
 import com.stone.actor.future.ActorFuture;
 import com.stone.actor.future.IActorFuture;
-import com.stone.actor.id.ActorType;
-import com.stone.actor.id.IActorId;
 import com.stone.actor.system.IActorSystem;
 
 /**
@@ -30,12 +28,10 @@ public abstract class BaseActor implements IActor {
 	/** logger */
 	protected Logger logger = LoggerFactory.getLogger(BaseActor.class);
 	/** actor id */
-	protected IActorId actorId;
-	/** actorType */
-	protected ActorType actorType;
+	protected long actorId;
 
 	@Override
-	public void setActorId(IActorId id) {
+	public void setActorId(long id) {
 		this.actorId = id;
 	}
 
@@ -45,7 +41,7 @@ public abstract class BaseActor implements IActor {
 	}
 
 	@Override
-	public IActorId getActorId() {
+	public long getActorId() {
 		return actorId;
 	}
 
@@ -74,7 +70,7 @@ public abstract class BaseActor implements IActor {
 	 * @param callback
 	 * @param source
 	 */
-	protected void submit(IActorCall<?> call, IActorCallback<?> callback, IActorId source) {
+	protected void submit(IActorCall<?> call, IActorCallback<?> callback, long source) {
 		this.callQueue.add(new QueueCallWithCallback(call, callback, source));
 	}
 
@@ -222,9 +218,9 @@ public abstract class BaseActor implements IActor {
 	 */
 	class QueueCallWithCallback extends BaseQueueCall {
 		private IActorCallback<?> callback;
-		private IActorId target;
+		private long target;
 
-		public QueueCallWithCallback(IActorCall<?> call, IActorCallback<?> callback, IActorId target) {
+		public QueueCallWithCallback(IActorCall<?> call, IActorCallback<?> callback, long target) {
 			super(call);
 			this.callback = callback;
 			this.target = target;
@@ -268,15 +264,5 @@ public abstract class BaseActor implements IActor {
 			future.setResult(call.execute());
 		}
 
-	}
-
-	@Override
-	public ActorType getActorType() {
-		return actorType;
-	}
-
-	@Override
-	public void setActorType(ActorType actorType) {
-		this.actorType = actorType;
 	}
 }

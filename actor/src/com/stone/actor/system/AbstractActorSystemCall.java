@@ -1,12 +1,11 @@
 package com.stone.actor.system;
 
-import com.stone.actor.id.IActorId;
 
 public abstract class AbstractActorSystemCall<T> implements IActorSystemCall<T> {
 	protected IActorSystem callerSystem;
-	protected IActorId callerActorId;
+	protected long callerActorId;
 
-	protected AbstractActorSystemCall(IActorSystem callerSystem, IActorId callerActorId) {
+	protected AbstractActorSystemCall(IActorSystem callerSystem, long callerActorId) {
 		this.callerActorId = callerActorId;
 		this.callerSystem = callerSystem;
 	}
@@ -17,7 +16,7 @@ public abstract class AbstractActorSystemCall<T> implements IActorSystemCall<T> 
 	}
 
 	@Override
-	public IActorId getCallerActorId() {
+	public long getCallerActorId() {
 		return callerActorId;
 	}
 

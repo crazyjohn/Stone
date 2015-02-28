@@ -4,7 +4,6 @@ import com.stone.actor.IActor;
 import com.stone.actor.call.IActorCall;
 import com.stone.actor.call.IActorCallback;
 import com.stone.actor.future.IActorFuture;
-import com.stone.actor.id.IActorId;
 
 /**
  * Actor System;
@@ -25,7 +24,7 @@ public interface IActorSystem {
 	 * @param callback
 	 * @param result
 	 */
-	public void dispatch(IActorId actorId, IActorCallback<?> callback, Object result);
+	public void dispatch(long actorId, IActorCallback<?> callback, Object result);
 
 	/**
 	 * Dispatch an actor call to an actor;
@@ -33,7 +32,7 @@ public interface IActorSystem {
 	 * @param actorId
 	 * @param call
 	 */
-	public void dispatch(IActorId actorId, IActorCall<?> call);
+	public void dispatch(long actorId, IActorCall<?> call);
 
 	/**
 	 * Start the actor system;
@@ -51,7 +50,7 @@ public interface IActorSystem {
 	 * @param actorId
 	 * @return
 	 */
-	public <T extends IActor> T getActor(IActorId actorId);
+	public <T extends IActor> T getActor(long actorId);
 
 	/**
 	 * Init the actor system;

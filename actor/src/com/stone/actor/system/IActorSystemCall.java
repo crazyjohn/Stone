@@ -1,7 +1,6 @@
 package com.stone.actor.system;
 
 import com.stone.actor.data.IActorDBService;
-import com.stone.actor.id.IActorId;
 
 /**
  * The actor system call;
@@ -16,6 +15,6 @@ public interface IActorSystemCall<T> {
 
 	public IActorSystem getCallerSystem();
 
-	public IActorId getCallerActorId();
+	public long getCallerActorId();
 
 }

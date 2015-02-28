@@ -22,8 +22,6 @@ import com.stone.actor.concurrent.IActorWorkerMonster;
 import com.stone.actor.concurrent.NamedThreadFactory;
 import com.stone.actor.future.ActorFuture;
 import com.stone.actor.future.IActorFuture;
-import com.stone.actor.id.ActorId;
-import com.stone.actor.id.IActorId;
 
 /**
  * base actor system;
@@ -37,7 +35,7 @@ public abstract class ActorSystem implements IActorSystem, Runnable {
 	protected String systemPrefix = "ActorWokerMonster-";
 	private static final long SLEEP_INTERVAL = 100L;
 	/** hash index */
-	protected Map<IActorId, IActor> actors = new ConcurrentHashMap<IActorId, IActor>();
+	protected Map<Long, IActor> actors = new ConcurrentHashMap<Long, IActor>();
 	/** work monsters */
 	protected IActorWorkerMonster[] workerMonsters;
 	@GuardedByUnit(whoCareMe = "use volatile procted to mem sync")
@@ -90,7 +88,7 @@ public abstract class ActorSystem implements IActorSystem, Runnable {
 	}
 
 	@Override
-	public void dispatch(IActorId actorId, IActorCallback<?> callback, Object result) {
+	public void dispatch(long actorId, IActorCallback<?> callback, Object result) {
 		IActor actor = this.actors.get(actorId);
 		if (actor == null) {
 			return;
@@ -99,7 +97,7 @@ public abstract class ActorSystem implements IActorSystem, Runnable {
 	}
 
 	@Override
-	public void dispatch(IActorId actorId, IActorCall<?> call) {
+	public void dispatch(long actorId, IActorCall<?> call) {
 		IActor actor = this.actors.get(actorId);
 		if (actor == null) {
 			return;
@@ -134,7 +132,7 @@ public abstract class ActorSystem implements IActorSystem, Runnable {
 	 */
 	private boolean handleActorRun() {
 		boolean noActorRun = true;
-		for (final Map.Entry<IActorId, IActor> eachActorEntry : this.actors.entrySet()) {
+		for (final Map.Entry<Long, IActor> eachActorEntry : this.actors.entrySet()) {
 			final IActor actor = eachActorEntry.getValue();
 			if (!actor.hasAnyWorkToDo()) {
 				continue;
@@ -168,8 +166,8 @@ public abstract class ActorSystem implements IActorSystem, Runnable {
 	 * @param actorId
 	 * @return
 	 */
-	private IActorWorkerMonster getActorWorkerMonster(IActorId actorId) {
-		int workerIndex = actorId.getWorkerMonsterIndex(this.workerNum);
+	private IActorWorkerMonster getActorWorkerMonster(long actorId) {
+		int workerIndex = (int) (actorId % (this.workerNum));
 		return workerMonsters[workerIndex];
 	}
 
@@ -202,14 +200,14 @@ public abstract class ActorSystem implements IActorSystem, Runnable {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public <T extends IActor> T getActor(IActorId actorId) {
+	public <T extends IActor> T getActor(long actorId) {
 		return (T) actors.get(actorId);
 	}
 
 	@Override
 	public void registerActor(IActor actor) {
 		// set actor id
-		actor.setActorId(new ActorId(actor.getActorType(), this.idCounter.incrementAndGet()));
+		actor.setActorId(this.idCounter.incrementAndGet());
 		this.actors.put(actor.getActorId(), actor);
 		actor.setHostSystem(this);
 	}

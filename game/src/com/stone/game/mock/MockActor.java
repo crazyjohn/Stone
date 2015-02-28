@@ -7,7 +7,6 @@ import com.stone.actor.BaseActor;
 import com.stone.actor.annotation.AskMethod;
 import com.stone.actor.annotation.TellMethod;
 import com.stone.actor.future.IActorFuture;
-import com.stone.actor.id.ActorType;
 import com.stone.game.GameActorSystem;
 
 /**
@@ -21,7 +20,6 @@ public class MockActor extends BaseActor {
 
 	public static MockActor createMockActor() {
 		MockActor actor = new MockActor();
-		actor.setActorType(ActorType.MOCK);
 		GameActorSystem.getInstance().registerActor(actor);
 		return actor;
 	}
