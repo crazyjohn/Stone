@@ -28,7 +28,6 @@ public class GamePlayerActor extends UntypedActor {
 		} else if (message instanceof SayHi) {
 			SayHi hi = (SayHi) message;
 			hi.getTarget().tell("Hi", getSelf());
-			;
 		} else if (message instanceof String) {
 			System.out.println(message);
 		}
