@@ -2,13 +2,15 @@ package com.stone.game;
 
 import org.apache.mina.core.session.IoSession;
 
-import com.stone.actor.system.IActorSystem;
+import akka.actor.ActorRef;
+import akka.actor.ActorSystem;
+
 import com.stone.core.msg.ISessionMessage;
 import com.stone.core.net.AbstractIoHandler;
 import com.stone.core.processor.IMessageProcessor;
 import com.stone.game.msg.GameSessionCloseMessage;
 import com.stone.game.msg.GameSessionOpenMessage;
-import com.stone.game.player.Player;
+import com.stone.game.player.PlayerActor;
 import com.stone.game.session.GamePlayerSession;
 
 /**
@@ -18,21 +20,16 @@ import com.stone.game.session.GamePlayerSession;
  *
  */
 public class GameIoHandler extends AbstractIoHandler<GamePlayerSession> {
-
-	public GameIoHandler(IMessageProcessor processor) {
+	protected final ActorSystem system;
+	public GameIoHandler(IMessageProcessor processor, ActorSystem system) {
 		super(processor);
+		this.system = system;
 	}
 
 	@Override
 	protected GamePlayerSession createSessionInfo(IoSession session) {
-		GamePlayerSession sessionInfo = new GamePlayerSession(session);
-		Player player = new Player();
-		sessionInfo.setPlayer(player);
-		// register to actor system
-		if (this.processor instanceof IActorSystem) {
-			IActorSystem actorSystem = (IActorSystem) this.processor;
-			actorSystem.registerActor(player);
-		}
+		ActorRef playerActor = system.actorOf(PlayerActor.props());
+		GamePlayerSession sessionInfo = new GamePlayerSession(session, playerActor);
 		return sessionInfo;
 	}
 

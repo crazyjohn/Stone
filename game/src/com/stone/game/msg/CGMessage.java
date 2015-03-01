@@ -13,6 +13,11 @@ import com.stone.game.session.GamePlayerSession;
  */
 public interface CGMessage extends ISessionMessage<GamePlayerSession> {
 
+	/**
+	 * Get the player actor;
+	 * 
+	 * @return
+	 */
 	public ActorRef getPlayerActor();
-	
+
 }

@@ -30,7 +30,7 @@ public class GameServer implements IService {
 	/** server io process */
 	protected ServerProcess externalProcess;
 	/** game actor system */
-	protected GameActorSystem gameActorSystem;
+	protected GameMessageRouter gameMessageRouter;
 	/** db actor system */
 	protected DBActorSystem dbActorSystem;
 
@@ -48,21 +48,21 @@ public class GameServer implements IService {
 	public void init() throws ScriptException, IOException {
 		config = new GameServerConfig();
 		ConfigUtil.loadJsConfig(config, configPath);
-		gameActorSystem = GameActorSystem.getInstance();
-		gameActorSystem.initSystem(config.getGameProcessorCount());
+		gameMessageRouter = new GameMessageRouter();
+		gameMessageRouter.initSystem();
 		dbActorSystem = DBActorSystem.getInstance();
 		// init db system
 		dbActorSystem.initSystem(config.getDbProcessorCount());
 		dbActorSystem.initDBService(config.getDbServiceType(), config.getDbConfigName(), config.getDataServiceProperties());
 		// 对外服务
-		externalProcess = new ServerProcess(config.getBindIp(), config.getPort(), new GameIoHandler(gameActorSystem), new GameCodecFactory(new ProtobufMessageFactory()));
+		externalProcess = new ServerProcess(config.getBindIp(), config.getPort(), new GameIoHandler(gameMessageRouter, gameMessageRouter.system()), new GameCodecFactory(new ProtobufMessageFactory()));
 
 	}
 
 	@Override
 	public void start() throws IOException {
 		logger.info("Begin to start main dispatcher...");
-		gameActorSystem.start();
+		gameMessageRouter.start();
 		logger.info("Main dispatcher started.");
 		logger.info("Begin to start db dispatcher...");
 		dbActorSystem.start();
@@ -111,7 +111,7 @@ public class GameServer implements IService {
 		logger.info("Begin to shutdown Game Server...");
 		externalProcess.shutdown();
 		dbActorSystem.stop();
-		gameActorSystem.stop();
+		gameMessageRouter.stop();
 		logger.info("Game Server shutdown command already send to all server component.");
 	}
 
