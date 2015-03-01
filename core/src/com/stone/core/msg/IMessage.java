@@ -2,7 +2,6 @@ package com.stone.core.msg;
 
 import org.apache.mina.core.buffer.IoBuffer;
 
-import com.stone.actor.call.IActorNetCall;
 import com.stone.core.constants.CommonErrorLogInfo;
 
 /**
@@ -10,7 +9,7 @@ import com.stone.core.constants.CommonErrorLogInfo;
  * 
  * @author crazyjohn;
  */
-public interface IMessage extends IActorNetCall {
+public interface IMessage{
 	/** 最大消息长度为64K，可能超过这个长度的信息，需要自己打包分多次发送* */
 	public static final int MAX_MESSAGE_LENGTH = 65535;
 

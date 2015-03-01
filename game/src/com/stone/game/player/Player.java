@@ -2,8 +2,6 @@ package com.stone.game.player;
 
 import org.apache.mina.core.session.IoSession;
 
-import com.stone.actor.BaseActor;
-import com.stone.actor.annotation.GuardedByUnit;
 import com.stone.core.state.IState;
 import com.stone.core.state.IStateManager;
 import com.stone.game.human.Human;
@@ -14,7 +12,7 @@ import com.stone.game.human.Human;
  * @author crazyjohn
  *
  */
-public class Player extends BaseActor implements IStateManager {
+public class Player implements IStateManager {
 
 	/** binded human */
 	private Human human;
@@ -22,7 +20,6 @@ public class Player extends BaseActor implements IStateManager {
 	private IoSession session;
 	/** current state */
 	private IState currentState;
-	@GuardedByUnit(whoCareMe = "by volatile")
 	private volatile long playerId;
 
 	/** item module */

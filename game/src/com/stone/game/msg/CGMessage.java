@@ -1,7 +1,8 @@
 package com.stone.game.msg;
 
+import akka.actor.ActorRef;
+
 import com.stone.core.msg.ISessionMessage;
-import com.stone.game.player.Player;
 import com.stone.game.session.GamePlayerSession;
 
 /**
@@ -11,5 +12,7 @@ import com.stone.game.session.GamePlayerSession;
  *
  */
 public interface CGMessage extends ISessionMessage<GamePlayerSession> {
-	public Player getPlayer();
+
+	public ActorRef getPlayerActor();
+	
 }

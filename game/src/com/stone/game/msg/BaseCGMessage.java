@@ -24,7 +24,7 @@ public abstract class BaseCGMessage extends BaseMessage implements CGMessage {
 	}
 
 	@Override
-	public Player getPlayer() {
+	public Player getPlayerActor() {
 		return session.getPlayer();
 	}
 
