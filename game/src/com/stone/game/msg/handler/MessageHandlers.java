@@ -6,7 +6,6 @@ import java.util.Map;
 import com.stone.core.msg.IProtobufMessage;
 import com.stone.core.msg.MessageParseException;
 import com.stone.core.msg.handler.IMessageHandlerWithType;
-import com.stone.game.player.login.PlayerLoginHandler;
 import com.stone.proto.MessageTypes.MessageType;
 
 /**
@@ -19,7 +18,7 @@ public class MessageHandlers {
 	private static Map<MessageType, IMessageHandlerWithType<?>> handlers = new HashMap<MessageType, IMessageHandlerWithType<?>>();
 
 	static {
-		handlers.put(MessageType.CG_PLAYER_LOGIN, new PlayerLoginHandler());
+		//handlers.put(MessageType.CG_PLAYER_LOGIN, new PlayerLoginHandler());
 	}
 
 	@SuppressWarnings("unchecked")
