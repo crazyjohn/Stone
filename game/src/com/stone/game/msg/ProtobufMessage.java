@@ -5,7 +5,7 @@ import com.google.protobuf.Message.Builder;
 import com.stone.core.msg.IMessage;
 import com.stone.core.msg.IProtobufMessage;
 import com.stone.core.msg.MessageParseException;
-import com.stone.game.msg.handler.MessageHandlers;
+import com.stone.game.msg.handler.MessageHandlerRegistry;
 
 /**
  * 基础的protobuf消息;
@@ -23,7 +23,7 @@ public class ProtobufMessage extends BaseCGMessage implements IProtobufMessage {
 
 	@Override
 	public void execute() throws MessageParseException {
-		MessageHandlers.handle(this);
+		MessageHandlerRegistry.handle(this);
 	}
 
 	@Override
