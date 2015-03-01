@@ -55,6 +55,13 @@ public interface IActor {
 	 */
 	public void act();
 
+//	/**
+//	 * You need to handle the received message in this method;
+//	 * 
+//	 * @param message
+//	 */
+//	public void onReceive(Object message);
+
 	/**
 	 * get my actorId;
 	 * 
@@ -89,6 +96,5 @@ public interface IActor {
 	 * @param actorSystem
 	 */
 	public void setHostSystem(IActorSystem actorSystem);
-
 
 }
