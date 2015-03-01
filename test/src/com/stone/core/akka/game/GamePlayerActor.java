@@ -1,11 +1,11 @@
 package com.stone.core.akka.game;
 
-import com.stone.game.msg.ProtobufMessage;
-
 import akka.actor.Props;
 import akka.actor.UntypedActor;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
+
+import com.stone.game.msg.ProtobufMessage;
 
 /**
  * The player actor;

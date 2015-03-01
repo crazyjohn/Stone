@@ -1,9 +1,9 @@
 package com.stone.game.player;
 
-import com.stone.game.msg.ProtobufMessage;
-
 import akka.actor.Props;
 import akka.actor.UntypedActor;
+
+import com.stone.game.msg.ProtobufMessage;
 
 /**
  * The palyer actor;
@@ -21,7 +21,8 @@ public class PlayerActor extends UntypedActor {
 	@Override
 	public void onReceive(Object msg) throws Exception {
 		if (msg instanceof ProtobufMessage) {
-
+			ProtobufMessage netMessage = (ProtobufMessage) msg;
+			netMessage.execute();
 		} else {
 			unhandled(msg);
 		}

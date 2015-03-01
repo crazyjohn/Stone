@@ -1,7 +1,8 @@
 package com.stone.game.msg;
 
+import akka.actor.ActorRef;
+
 import com.stone.core.msg.BaseMessage;
-import com.stone.game.player.Player;
 import com.stone.game.session.GamePlayerSession;
 
 /**
@@ -24,7 +25,7 @@ public abstract class BaseCGMessage extends BaseMessage implements CGMessage {
 	}
 
 	@Override
-	public Player getPlayerActor() {
+	public ActorRef getPlayerActor() {
 		return session.getPlayerActor();
 	}
 
