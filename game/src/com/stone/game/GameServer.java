@@ -12,6 +12,7 @@ import com.stone.core.config.ConfigUtil;
 import com.stone.core.net.ServerProcess;
 import com.stone.core.service.IService;
 import com.stone.core.util.OSUtil;
+import com.stone.db.DBActorSystem;
 import com.stone.game.msg.ProtobufMessageFactory;
 
 /**
@@ -30,6 +31,8 @@ public class GameServer implements IService {
 	protected ServerProcess externalProcess;
 	/** game actor system */
 	protected GameActorSystem gameActorSystem;
+	/** db actor system */
+	protected DBActorSystem dbActorSystem;
 
 	/**
 	 * new game server instance;
@@ -47,18 +50,21 @@ public class GameServer implements IService {
 		ConfigUtil.loadJsConfig(config, configPath);
 		gameActorSystem = new GameActorSystem();
 		gameActorSystem.initSystem();
-		// 对外服务
+		// db actor system
+		dbActorSystem = new DBActorSystem();
+		// external service
 		externalProcess = new ServerProcess(config.getBindIp(), config.getPort(), new GameIoHandler(gameActorSystem, gameActorSystem.system()), new GameCodecFactory(new ProtobufMessageFactory()));
 
 	}
 
 	@Override
 	public void start() throws IOException {
-		logger.info("Begin to start main dispatcher...");
+		logger.info("Begin to start the GameActorSystem...");
 		gameActorSystem.start();
-		logger.info("Main dispatcher started.");
-		logger.info("Begin to start db dispatcher...");
-		logger.info("DB dispatcher started.");
+		logger.info("GameActorSystem started.");
+		logger.info("Begin to start DBActorSystem...");
+		dbActorSystem.start();
+		logger.info("DBActorSystem started.");
 		logger.info("Begin to start Server Process...");
 		externalProcess.start();
 		logger.info("Server Process started.");
@@ -103,6 +109,7 @@ public class GameServer implements IService {
 		logger.info("Begin to shutdown Game Server...");
 		externalProcess.shutdown();
 		gameActorSystem.stop();
+		dbActorSystem.stop();
 		logger.info("Game Server shutdown command already send to all server component.");
 	}
 
