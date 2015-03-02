@@ -32,12 +32,9 @@ public class GameActorSystem implements ISystem {
 	 * 
 	 * @return
 	 */
+	@Override
 	public ActorSystem getSystem() {
 		return system;
-	}
-	
-	public ActorRef getGameMaster() {
-		return gameMaster;
 	}
 
 	@Override
@@ -49,6 +46,11 @@ public class GameActorSystem implements ISystem {
 	@Override
 	public void shutdown() {
 		this.system.shutdown();
+	}
+
+	@Override
+	public ActorRef getMasterActor() {
+		return gameMaster;
 	}
 
 }

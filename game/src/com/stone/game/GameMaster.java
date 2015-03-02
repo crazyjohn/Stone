@@ -9,10 +9,19 @@ import com.stone.game.msg.CGMessage;
 import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
+import akka.routing.RoundRobinRouter;
 
+/**
+ * The master actor;
+ * 
+ * @author crazyjohn
+ *
+ */
 public class GameMaster extends UntypedActor {
 	/** loggers */
 	private Logger logger = LoggerFactory.getLogger(GameMaster.class);
+	/** default login router count */
+	private static final int DEFAULT_ROUTER_COUNT = 10;
 
 	@Override
 	public void onReceive(Object msg) throws Exception {
@@ -34,7 +43,7 @@ public class GameMaster extends UntypedActor {
 	}
 
 	public static Props props() {
-		return Props.create(GameMaster.class);
+		return Props.create(GameMaster.class).withRouter(new RoundRobinRouter(DEFAULT_ROUTER_COUNT));
 	}
 
 }

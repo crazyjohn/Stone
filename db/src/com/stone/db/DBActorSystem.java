@@ -6,8 +6,6 @@ import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 
 import com.stone.core.db.service.IDBService;
-import com.stone.core.msg.IMessage;
-import com.stone.core.processor.IMessageProcessor;
 import com.stone.core.system.ISystem;
 import com.stone.db.service.DBConfiguration;
 import com.stone.db.service.DBServiceFactory;
@@ -18,7 +16,7 @@ import com.stone.db.service.DBServiceFactory;
  * @author crazyjohn
  *
  */
-public class DBActorSystem implements ISystem, IMessageProcessor {
+public class DBActorSystem implements ISystem {
 	/** actor system */
 	private final ActorSystem system;
 	/** db master */
@@ -36,6 +34,7 @@ public class DBActorSystem implements ISystem, IMessageProcessor {
 		dbMaster = system.actorOf(DBMaster.props(dbService));
 	}
 
+	@Override
 	public ActorSystem getSystem() {
 		return system;
 	}
@@ -52,16 +51,7 @@ public class DBActorSystem implements ISystem, IMessageProcessor {
 	}
 
 	@Override
-	public void stop() {
-		this.shutdown();
-	}
-
-	@Override
-	public void put(IMessage msg) {
-		throw new UnsupportedOperationException();
-	}
-
-	public ActorRef dbMaster() {
+	public ActorRef getMasterActor() {
 		return dbMaster;
 	}
 

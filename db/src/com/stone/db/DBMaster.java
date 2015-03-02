@@ -9,17 +9,23 @@ import akka.actor.Props;
 import akka.actor.UntypedActor;
 import akka.routing.RoundRobinRouter;
 
+/**
+ * The db master actor;
+ * 
+ * @author crazyjohn
+ *
+ */
 public class DBMaster extends UntypedActor {
 	/** login actor */
 	private ActorRef loginActor;
 	/** default login router count */
-	private int defaultRouterCount = 10;
+	private static final int DEFAULT_ROUTER_COUNT = 10;
 	/** dbService */
 	protected final IDBService dbService;
 
 	public DBMaster(IDBService dbService) {
 		this.dbService = dbService;
-		loginActor = this.getContext().actorOf(Props.create(DBLoginActor.class, dbService).withRouter(new RoundRobinRouter(defaultRouterCount)));
+		loginActor = this.getContext().actorOf(Props.create(DBLoginActor.class, dbService).withRouter(new RoundRobinRouter(DEFAULT_ROUTER_COUNT)));
 	}
 
 	@Override
