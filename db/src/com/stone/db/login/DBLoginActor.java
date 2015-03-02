@@ -19,8 +19,8 @@ public class DBLoginActor extends UntypedActor {
 
 	@Override
 	public void onReceive(Object msg) throws Exception {
-		if (msg instanceof Login) {
-			Login login = (Login) msg;
+		if (msg instanceof Login.Builder) {
+			Login.Builder login = (Login.Builder) msg;
 			List<PlayerEntity> entities = dbService.queryByNameAndParams(DBQueryConstants.QUERY_PLAYER_BY_NAME_AND_PASSWORD, new String[] { "userName", "password" },
 					new Object[] { login.getUserName(), login.getPassword() });
 			getSender().tell(new SystemLoginResult(entities), getSelf());

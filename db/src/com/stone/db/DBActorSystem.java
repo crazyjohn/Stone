@@ -22,17 +22,17 @@ public class DBActorSystem implements ISystem, IMessageProcessor {
 	/** actor system */
 	private final ActorSystem system;
 	/** db master */
-	private final ActorRef dbMaster;
+	private ActorRef dbMaster;
 	private IDBService dbService;
 
 	public DBActorSystem() {
 		system = ActorSystem.create("DBActorSystem");
-		// dbMaster
-		dbMaster = system.actorOf(DBMaster.props(dbService));
 	}
 
 	public void initDBService(String dbServiceType, String dbConfigName, Properties props) {
 		dbService = DBServiceFactory.createDBService(new DBConfiguration(dbServiceType, dbConfigName, props));
+		// dbMaster
+		dbMaster = system.actorOf(DBMaster.props(dbService));
 	}
 
 	public ActorSystem system() {

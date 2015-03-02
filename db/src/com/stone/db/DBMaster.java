@@ -23,7 +23,7 @@ public class DBMaster extends UntypedActor {
 
 	@Override
 	public void onReceive(Object msg) throws Exception {
-		if (msg instanceof Login) {
+		if (msg instanceof Login.Builder) {
 			loginActor.forward(msg, getContext());
 		}
 	}
