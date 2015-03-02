@@ -11,7 +11,7 @@ public class PlayerCreateRoleHandler implements IMessageHandlerWithType<Protobuf
 	@Override
 	public void execute(ProtobufMessage msg, Player player) throws MessageParseException {
 		// TODO create a role
-
+		
 	}
 
 	@Override
