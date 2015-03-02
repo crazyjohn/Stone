@@ -8,8 +8,8 @@ import com.stone.game.msg.ProtobufMessage
 import com.stone.proto.Auths.LoginResult
 
 object BotLoginHandler {
-  
-  Handlers.registHandler(MessageType.GC_PLAYER_LOGIN_RESULT_VALUE, (msg:IMessage, bot:CrazyBot)=>{
+
+  Handlers.registHandler(MessageType.GC_PLAYER_LOGIN_RESULT_VALUE, (msg: IMessage, bot: CrazyBot) => {
     val protobufMessage = msg.asInstanceOf[ProtobufMessage]
     val login = protobufMessage.parseBuilder(LoginResult.newBuilder());
     if (login.getSucceed) {
