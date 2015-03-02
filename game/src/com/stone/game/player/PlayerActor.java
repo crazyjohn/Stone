@@ -7,6 +7,7 @@ import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
 
+import com.stone.db.entity.PlayerEntity;
 import com.stone.db.msg.system.SystemLoginResult;
 import com.stone.game.msg.GameSessionCloseMessage;
 import com.stone.game.msg.GameSessionOpenMessage;
@@ -23,6 +24,7 @@ public class PlayerActor extends UntypedActor {
 	protected final Player player;
 	/** db master */
 	protected ActorRef dbMaster;
+	/** logger */
 	private Logger logger = LoggerFactory.getLogger(PlayerActor.class);
 
 	public PlayerActor(Player player) {
@@ -37,9 +39,7 @@ public class PlayerActor extends UntypedActor {
 			netMessage.execute();
 		} else if (msg instanceof SystemLoginResult) {
 			SystemLoginResult loginResult = (SystemLoginResult) msg;
-			if (loginResult.getPlayerEntities().size() > 0) {
-				logger.info(String.format("Player login, userName: %s", loginResult.getPlayerEntities().get(0).getUserName()));
-			}
+			handleLoginResult(loginResult);
 		} else if (msg instanceof GameSessionOpenMessage) {
 			// open session
 			GameSessionOpenMessage sessionOpen = (GameSessionOpenMessage) msg;
@@ -49,12 +49,34 @@ public class PlayerActor extends UntypedActor {
 			GameSessionCloseMessage sessionClose = (GameSessionCloseMessage) msg;
 			sessionClose.execute();
 		} else {
+			// unhandle msg
 			unhandled(msg);
 		}
 	}
 
+	/**
+	 * Handle the login result;
+	 * 
+	 * @param loginResult
+	 */
+	private void handleLoginResult(SystemLoginResult loginResult) {
+		if (loginResult.getPlayerEntities().size() > 0) {
+			PlayerEntity playerEntity = loginResult.getPlayerEntities().get(0);
+			player.setPlayerId(playerEntity.getId());
+			// change state
+			// if (player.canTransferStateTo(PlayerState.AUTHORIZED)) {
+			// player.transferStateTo(PlayerState.AUTHORIZED);
+			// }
+			logger.info(String.format("Player login, userName: %s", playerEntity.getUserName()));
+		}
+	}
+
 	public static Props props() {
-		return Props.create(PlayerActor.class, new Player());
+		Player player = new Player();
+		// if (player.canTransferStateTo(PlayerState.CONNECTED)) {
+		// player.transferStateTo(PlayerState.CONNECTED);
+		// }
+		return Props.create(PlayerActor.class, player);
 	}
 
 }

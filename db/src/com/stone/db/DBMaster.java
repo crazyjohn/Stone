@@ -12,13 +12,14 @@ import akka.routing.RoundRobinRouter;
 public class DBMaster extends UntypedActor {
 	/** login actor */
 	private ActorRef loginActor;
-	private int defaultRouterCounter = 10;
+	/** default login router count */
+	private int defaultRouterCount = 10;
 	/** dbService */
 	protected final IDBService dbService;
 
 	public DBMaster(IDBService dbService) {
 		this.dbService = dbService;
-		loginActor = this.getContext().actorOf(Props.create(DBLoginActor.class, dbService).withRouter(new RoundRobinRouter(defaultRouterCounter)));
+		loginActor = this.getContext().actorOf(Props.create(DBLoginActor.class, dbService).withRouter(new RoundRobinRouter(defaultRouterCount)));
 	}
 
 	@Override

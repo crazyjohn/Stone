@@ -7,7 +7,6 @@ import akka.actor.ActorSystem;
 
 import com.stone.core.msg.ISessionMessage;
 import com.stone.core.net.AbstractIoHandler;
-import com.stone.core.processor.IMessageProcessor;
 import com.stone.game.msg.GameSessionCloseMessage;
 import com.stone.game.msg.GameSessionOpenMessage;
 import com.stone.game.player.PlayerActor;
@@ -21,7 +20,7 @@ import com.stone.game.session.GamePlayerSession;
  */
 public class GameIoHandler extends AbstractIoHandler<GamePlayerSession> {
 	protected final ActorSystem system;
-	public GameIoHandler(IMessageProcessor processor, ActorSystem system) {
+	public GameIoHandler(ActorRef processor, ActorSystem system) {
 		super(processor);
 		this.system = system;
 	}

@@ -5,8 +5,9 @@ import org.apache.mina.core.session.IoSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import akka.actor.ActorRef;
+
 import com.stone.core.msg.ISessionMessage;
-import com.stone.core.processor.IMessageProcessor;
 import com.stone.core.session.ISession;
 
 /**
@@ -16,11 +17,11 @@ import com.stone.core.session.ISession;
  *
  */
 public abstract class AbstractIoHandler<S extends ISession> extends IoHandlerAdapter {
-	protected IMessageProcessor processor;
+	protected ActorRef processor;
 	private static final String SESSION_INFO = "SESSION_INFO";
 	protected Logger logger = LoggerFactory.getLogger(AbstractIoHandler.class);
 
-	public AbstractIoHandler(IMessageProcessor processor) {
+	public AbstractIoHandler(ActorRef processor) {
 		this.processor = processor;
 	}
 
@@ -36,7 +37,7 @@ public abstract class AbstractIoHandler<S extends ISession> extends IoHandlerAda
 			@SuppressWarnings("unchecked")
 			ISessionMessage<S> msg = (ISessionMessage<S>) message;
 			msg.setSession(sessionInfo);
-			processor.put(msg);
+			processor.tell(msg, ActorRef.noSender());
 		}
 	}
 
@@ -51,7 +52,7 @@ public abstract class AbstractIoHandler<S extends ISession> extends IoHandlerAda
 		if (sessionCloseMessage == null) {
 			return;
 		}
-		this.processor.put(sessionCloseMessage);
+		this.processor.tell(sessionCloseMessage, ActorRef.noSender());
 	}
 
 	@Override
@@ -62,7 +63,7 @@ public abstract class AbstractIoHandler<S extends ISession> extends IoHandlerAda
 		if (sessionOpenMessage == null) {
 			return;
 		}
-		this.processor.put(sessionOpenMessage);
+		this.processor.tell(sessionOpenMessage, ActorRef.noSender());
 	}
 
 	@Override

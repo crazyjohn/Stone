@@ -5,6 +5,7 @@ import org.apache.mina.core.session.IoSession;
 import com.stone.core.state.IState;
 import com.stone.core.state.IStateManager;
 import com.stone.game.human.Human;
+import com.stone.game.player.state.PlayerState;
 
 /**
  * 游戏玩家对象;
@@ -19,8 +20,8 @@ public class Player implements IStateManager {
 	/** binded io session */
 	private IoSession session;
 	/** current state */
-	private IState currentState;
-	private volatile long playerId;
+	private IState currentState = PlayerState.NONE;
+	private long playerId;
 
 	/** item module */
 

@@ -56,7 +56,7 @@ public class GameServer implements IService {
 		// msg handler register
 		MessageHandlerRegistry.init(dbActorSystem.dbMaster());
 		// external service
-		externalProcess = new ServerProcess(config.getBindIp(), config.getPort(), new GameIoHandler(gameActorSystem, gameActorSystem.getSystem()), new GameCodecFactory(new ProtobufMessageFactory()));
+		externalProcess = new ServerProcess(config.getBindIp(), config.getPort(), new GameIoHandler(gameActorSystem.getGameMaster(), gameActorSystem.getSystem()), new GameCodecFactory(new ProtobufMessageFactory()));
 
 	}
 
@@ -111,7 +111,7 @@ public class GameServer implements IService {
 	public void shutdown() {
 		logger.info("Begin to shutdown Game Server...");
 		externalProcess.shutdown();
-		gameActorSystem.stop();
+		gameActorSystem.shutdown();
 		dbActorSystem.stop();
 		logger.info("Game Server shutdown command already send to all server component.");
 	}
