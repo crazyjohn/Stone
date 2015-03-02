@@ -7,7 +7,9 @@ import akka.actor.ActorRef;
 
 import com.stone.core.msg.IProtobufMessage;
 import com.stone.core.msg.MessageParseException;
-import com.stone.core.msg.handler.IMessageHandlerWithType;
+import com.stone.game.handler.IMessageHandlerWithType;
+import com.stone.game.player.Player;
+import com.stone.game.player.login.PlayerGetRoleListHandler;
 import com.stone.game.player.login.PlayerLoginHandler;
 import com.stone.proto.MessageTypes.MessageType;
 
@@ -24,17 +26,18 @@ public class MessageHandlerRegistry {
 		MessageHandlerRegistry.dbMaster = dbMaster;
 		// register handler
 		handlers.put(MessageType.CG_PLAYER_LOGIN, new PlayerLoginHandler(dbMaster));
+		handlers.put(MessageType.CG_GET_ROLE_LIST, new PlayerGetRoleListHandler());
 	}
 
 	@SuppressWarnings("unchecked")
-	public static void handle(IProtobufMessage protobufMessage) throws MessageParseException {
+	public static void handle(IProtobufMessage protobufMessage, Player player) throws MessageParseException {
 		@SuppressWarnings("rawtypes")
 		IMessageHandlerWithType handler = handlers.get(MessageType.valueOf(protobufMessage.getType()));
 		if (handler == null) {
 			// TODO: prompt
 			return;
 		}
-		handler.execute(protobufMessage);
+		handler.execute(protobufMessage, player);
 	}
 
 }

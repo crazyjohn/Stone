@@ -13,6 +13,7 @@ import com.stone.db.msg.system.SystemLoginResult;
 import com.stone.game.msg.GameSessionCloseMessage;
 import com.stone.game.msg.GameSessionOpenMessage;
 import com.stone.game.msg.ProtobufMessage;
+import com.stone.game.msg.handler.MessageHandlerRegistry;
 import com.stone.proto.Auths.LoginResult;
 import com.stone.proto.MessageTypes.MessageType;
 
@@ -39,7 +40,7 @@ public class PlayerActor extends UntypedActor {
 		if (msg instanceof ProtobufMessage) {
 			// net message use self execute
 			ProtobufMessage netMessage = (ProtobufMessage) msg;
-			netMessage.execute();
+			MessageHandlerRegistry.handle(netMessage, player);
 		} else if (msg instanceof SystemLoginResult) {
 			SystemLoginResult loginResult = (SystemLoginResult) msg;
 			handleLoginResult(loginResult);

@@ -73,6 +73,11 @@ class CrazyBot extends Actor {
     session.write(msg)
   }
   
+  def sendMessage(messageType: Short) {
+    val msg = new ProtobufMessage(messageType)
+    session.write(msg)
+  }
+  
   def doLogin() {
     sendMessage(MessageType.CG_PLAYER_LOGIN_VALUE, Login.newBuilder().setUserName("bot").setPassword("bot"))
   }

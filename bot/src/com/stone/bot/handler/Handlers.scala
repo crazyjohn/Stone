@@ -9,6 +9,7 @@ import com.stone.core.msg.IProtobufMessage
  */
 object Handlers {
   private val handlers = new HashMap[Short, (IProtobufMessage, CrazyBot) => Unit]()
+  // login handler
   BotLoginHandler
   
 

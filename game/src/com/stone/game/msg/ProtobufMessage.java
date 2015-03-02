@@ -5,7 +5,6 @@ import com.google.protobuf.Message.Builder;
 import com.stone.core.msg.IMessage;
 import com.stone.core.msg.IProtobufMessage;
 import com.stone.core.msg.MessageParseException;
-import com.stone.game.msg.handler.MessageHandlerRegistry;
 
 /**
  * Protobuf message;
@@ -26,7 +25,7 @@ public class ProtobufMessage extends BaseCGMessage implements IProtobufMessage {
 
 	@Override
 	public void execute() throws MessageParseException {
-		MessageHandlerRegistry.handle(this);
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
@@ -34,6 +33,9 @@ public class ProtobufMessage extends BaseCGMessage implements IProtobufMessage {
 		int bodyLength = this.messageLength - IMessage.HEADER_SIZE;
 		byte[] bodys = new byte[bodyLength];
 		this.buf.get(bodys);
+		if (builder == null) {
+			return true;
+		}
 		try {
 			this.builder = builder.mergeFrom(bodys);
 		} catch (InvalidProtocolBufferException e) {
@@ -44,6 +46,9 @@ public class ProtobufMessage extends BaseCGMessage implements IProtobufMessage {
 
 	@Override
 	protected boolean writeBody() {
+		if (builder == null) {
+			return true;
+		}
 		this.buf.put(builder.build().toByteArray());
 		return true;
 	}

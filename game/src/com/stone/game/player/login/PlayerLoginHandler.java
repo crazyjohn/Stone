@@ -6,8 +6,9 @@ import org.slf4j.LoggerFactory;
 import akka.actor.ActorRef;
 
 import com.stone.core.msg.MessageParseException;
-import com.stone.core.msg.handler.IMessageHandlerWithType;
+import com.stone.game.handler.IMessageHandlerWithType;
 import com.stone.game.msg.ProtobufMessage;
+import com.stone.game.player.Player;
 import com.stone.proto.Auths.Login;
 import com.stone.proto.MessageTypes.MessageType;
 
@@ -20,7 +21,7 @@ public class PlayerLoginHandler implements IMessageHandlerWithType<ProtobufMessa
 	}
 
 	@Override
-	public void execute(ProtobufMessage msg) throws MessageParseException {
+	public void execute(ProtobufMessage msg, Player player) throws MessageParseException {
 		// get actor ref
 		ActorRef playerActor = msg.getPlayerActor();
 		final Login.Builder login = msg.parseBuilder(Login.newBuilder());
