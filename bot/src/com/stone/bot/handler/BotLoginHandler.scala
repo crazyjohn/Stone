@@ -6,6 +6,7 @@ import com.stone.proto.MessageTypes.MessageType
 import com.stone.game.msg.ProtobufMessage
 import com.stone.proto.Auths.LoginResult
 import com.stone.proto.Auths.GetRoleList
+import com.stone.proto.Auths.CreateRole
 
 object BotLoginHandler {
 
@@ -27,6 +28,8 @@ object BotLoginHandler {
     if (roleList.getRoleListCount > 0) {
       val role = roleList.getRoleList(0)
       println(String.format("Get role, name: %s", role.getName))
+    } else {
+      bot.sendMessage(MessageType.CG_CREATE_ROLE_VALUE, CreateRole.newBuilder().setTemplateId(1).setName("crazyjohn"))
     }
   })
 }

@@ -9,6 +9,7 @@ import com.stone.core.msg.IProtobufMessage;
 import com.stone.core.msg.MessageParseException;
 import com.stone.game.handler.IMessageHandlerWithType;
 import com.stone.game.player.Player;
+import com.stone.game.player.login.PlayerCreateRoleHandler;
 import com.stone.game.player.login.PlayerGetRoleListHandler;
 import com.stone.game.player.login.PlayerLoginHandler;
 import com.stone.proto.MessageTypes.MessageType;
@@ -27,6 +28,7 @@ public class MessageHandlerRegistry {
 		// register handler
 		handlers.put(MessageType.CG_PLAYER_LOGIN, new PlayerLoginHandler(dbMaster));
 		handlers.put(MessageType.CG_GET_ROLE_LIST, new PlayerGetRoleListHandler());
+		handlers.put(MessageType.CG_CREATE_ROLE, new PlayerCreateRoleHandler());
 	}
 
 	@SuppressWarnings("unchecked")
