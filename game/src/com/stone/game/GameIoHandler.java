@@ -28,7 +28,7 @@ public class GameIoHandler extends AbstractIoHandler<GamePlayerSession> {
 
 	@Override
 	protected GamePlayerSession createSessionInfo(IoSession session) {
-		ActorRef playerActor = system.actorOf(PlayerActor.props());
+		ActorRef playerActor = system.actorOf(PlayerActor.props(session));
 		GamePlayerSession sessionInfo = new GamePlayerSession(session, playerActor);
 		return sessionInfo;
 	}

@@ -1,5 +1,6 @@
 package com.stone.game.player;
 
+import org.apache.mina.core.session.IoSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -75,8 +76,9 @@ public class PlayerActor extends UntypedActor {
 		}
 	}
 
-	public static Props props() {
+	public static Props props(IoSession session) {
 		Player player = new Player();
+		player.setSession(session);
 		// if (player.canTransferStateTo(PlayerState.CONNECTED)) {
 		// player.transferStateTo(PlayerState.CONNECTED);
 		// }
