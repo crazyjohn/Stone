@@ -8,17 +8,20 @@ import com.stone.core.msg.MessageParseException;
 import com.stone.game.msg.handler.MessageHandlerRegistry;
 
 /**
- * 基础的protobuf消息;
+ * Protobuf message;
  * 
  * @author crazyjohn
  *
- * @param <B>
  */
 public class ProtobufMessage extends BaseCGMessage implements IProtobufMessage {
 	protected Builder builder;
 
 	public ProtobufMessage(short messageType) {
 		this.type = messageType;
+	}
+
+	public ProtobufMessage(int messageType) {
+		this.type = (short) messageType;
 	}
 
 	@Override
@@ -52,8 +55,7 @@ public class ProtobufMessage extends BaseCGMessage implements IProtobufMessage {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public <B extends Builder> B parseBuilder(B newBuilder)
-			throws MessageParseException {
+	public <B extends Builder> B parseBuilder(B newBuilder) throws MessageParseException {
 		this.builder = newBuilder;
 		this.read();
 		return (B) builder;

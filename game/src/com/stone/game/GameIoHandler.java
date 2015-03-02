@@ -13,13 +13,14 @@ import com.stone.game.player.PlayerActor;
 import com.stone.game.session.GamePlayerSession;
 
 /**
- * 游戏世界IO处理器;
+ * Game io handler;
  * 
  * @author crazyjohn
  *
  */
 public class GameIoHandler extends AbstractIoHandler<GamePlayerSession> {
 	protected final ActorSystem system;
+
 	public GameIoHandler(ActorRef processor, ActorSystem system) {
 		super(processor);
 		this.system = system;

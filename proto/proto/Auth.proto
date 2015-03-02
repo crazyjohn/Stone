@@ -7,6 +7,12 @@ message Login {
 	required string password = 2;
 }
 
+// login result
+message LoginResult {
+	required bool succeed = 1;
+	optional int32 errorCode = 2;
+}
+
 // role
 message Role {
 	required int64 roleId = 1;

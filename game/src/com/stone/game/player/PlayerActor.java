@@ -12,6 +12,8 @@ import com.stone.db.msg.system.SystemLoginResult;
 import com.stone.game.msg.GameSessionCloseMessage;
 import com.stone.game.msg.GameSessionOpenMessage;
 import com.stone.game.msg.ProtobufMessage;
+import com.stone.proto.Auths.LoginResult;
+import com.stone.proto.MessageTypes.MessageType;
 
 /**
  * The palyer actor;
@@ -68,6 +70,8 @@ public class PlayerActor extends UntypedActor {
 			// player.transferStateTo(PlayerState.AUTHORIZED);
 			// }
 			logger.info(String.format("Player login, userName: %s", playerEntity.getUserName()));
+			// send login result
+			player.sendMessage(MessageType.GC_PLAYER_LOGIN_RESULT_VALUE, LoginResult.newBuilder().setSucceed(true));
 		}
 	}
 

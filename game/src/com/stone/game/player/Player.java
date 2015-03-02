@@ -5,10 +5,12 @@ import org.apache.mina.core.session.IoSession;
 import com.stone.core.state.IState;
 import com.stone.core.state.IStateManager;
 import com.stone.game.human.Human;
+import com.stone.game.msg.ProtobufMessage;
 import com.stone.game.player.state.PlayerState;
+import com.google.protobuf.Message.Builder;
 
 /**
- * 游戏玩家对象;
+ * Game player object;
  * 
  * @author crazyjohn
  *
@@ -26,6 +28,7 @@ public class Player implements IStateManager {
 	/** item module */
 
 	public Player() {
+
 	}
 
 	public Human getHuman() {
@@ -75,6 +78,18 @@ public class Player implements IStateManager {
 
 	public void setPlayerId(long playerId) {
 		this.playerId = playerId;
+	}
+
+	/**
+	 * Send message;
+	 * 
+	 * @param messageType
+	 * @param builder
+	 */
+	public void sendMessage(int messageType, Builder builder) {
+		ProtobufMessage message = new ProtobufMessage(messageType);
+		message.setBuilder(builder);
+		this.session.write(message);
 	}
 
 }
