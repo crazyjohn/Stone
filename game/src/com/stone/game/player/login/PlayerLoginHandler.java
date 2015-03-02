@@ -12,15 +12,19 @@ import com.stone.proto.Auths.Login;
 import com.stone.proto.MessageTypes.MessageType;
 
 public class PlayerLoginHandler implements IMessageHandlerWithType<ProtobufMessage> {
-	private Logger logger = LoggerFactory.getLogger(PlayerLoginHandler.class);
+	protected Logger logger = LoggerFactory.getLogger(PlayerLoginHandler.class);
+	private final ActorRef dbMaster;
+
+	public PlayerLoginHandler(ActorRef dbMaster) {
+		this.dbMaster = dbMaster;
+	}
 
 	@Override
 	public void execute(ProtobufMessage msg) throws MessageParseException {
 		// get actor ref
 		ActorRef playerActor = msg.getPlayerActor();
 		final Login.Builder login = msg.parseBuilder(Login.newBuilder());
-		playerActor.tell(login, ActorRef.noSender());
-		logger.info(String.format("Player login, userName: %s", login.getUserName()));
+		dbMaster.tell(login, playerActor);
 	}
 
 	@Override

@@ -14,6 +14,7 @@ import com.stone.core.service.IService;
 import com.stone.core.util.OSUtil;
 import com.stone.db.DBActorSystem;
 import com.stone.game.msg.ProtobufMessageFactory;
+import com.stone.game.msg.handler.MessageHandlerRegistry;
 
 /**
  * 游戏服务器;
@@ -52,6 +53,9 @@ public class GameServer implements IService {
 		gameActorSystem.initSystem();
 		// db actor system
 		dbActorSystem = new DBActorSystem();
+		dbActorSystem.initDBService(config.getDbServiceType(), config.getDbConfigName(), config.getDataServiceProperties());
+		// msg handler register
+		MessageHandlerRegistry.init(dbActorSystem.dbMaster());
 		// external service
 		externalProcess = new ServerProcess(config.getBindIp(), config.getPort(), new GameIoHandler(gameActorSystem, gameActorSystem.system()), new GameCodecFactory(new ProtobufMessageFactory()));
 

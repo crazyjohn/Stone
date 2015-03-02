@@ -3,6 +3,8 @@ package com.stone.game.msg.handler;
 import java.util.HashMap;
 import java.util.Map;
 
+import akka.actor.ActorRef;
+
 import com.stone.core.msg.IProtobufMessage;
 import com.stone.core.msg.MessageParseException;
 import com.stone.core.msg.handler.IMessageHandlerWithType;
@@ -16,9 +18,12 @@ import com.stone.proto.MessageTypes.MessageType;
  */
 public class MessageHandlerRegistry {
 	private static Map<MessageType, IMessageHandlerWithType<?>> handlers = new HashMap<MessageType, IMessageHandlerWithType<?>>();
+	protected static ActorRef dbMaster;
 
-	static {
-		handlers.put(MessageType.CG_PLAYER_LOGIN, new PlayerLoginHandler());
+	public static void init(ActorRef dbMaster) {
+		MessageHandlerRegistry.dbMaster = dbMaster;
+		// register handler
+		handlers.put(MessageType.CG_PLAYER_LOGIN, new PlayerLoginHandler(dbMaster));
 	}
 
 	@SuppressWarnings("unchecked")
