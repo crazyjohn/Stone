@@ -50,14 +50,13 @@ public class GameServer implements IService {
 		config = new GameServerConfig();
 		ConfigUtil.loadJsConfig(config, configPath);
 		gameActorSystem = new GameActorSystem();
-		gameActorSystem.initSystem();
 		// db actor system
 		dbActorSystem = new DBActorSystem();
 		dbActorSystem.initDBService(config.getDbServiceType(), config.getDbConfigName(), config.getDataServiceProperties());
 		// msg handler register
 		MessageHandlerRegistry.init(dbActorSystem.dbMaster());
 		// external service
-		externalProcess = new ServerProcess(config.getBindIp(), config.getPort(), new GameIoHandler(gameActorSystem, gameActorSystem.system()), new GameCodecFactory(new ProtobufMessageFactory()));
+		externalProcess = new ServerProcess(config.getBindIp(), config.getPort(), new GameIoHandler(gameActorSystem, gameActorSystem.getSystem()), new GameCodecFactory(new ProtobufMessageFactory()));
 
 	}
 

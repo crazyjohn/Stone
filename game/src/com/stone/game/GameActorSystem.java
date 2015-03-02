@@ -23,11 +23,16 @@ public class GameActorSystem implements IMessageProcessor {
 	/** ActorSystem */
 	private ActorSystem system;
 
-	public void initSystem() {
+	public GameActorSystem() {
 		system = ActorSystem.create("GameActorSystem");
 	}
 
-	public ActorSystem system() {
+	/**
+	 * Get the actor system;
+	 * 
+	 * @return
+	 */
+	public ActorSystem getSystem() {
 		return system;
 	}
 

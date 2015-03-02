@@ -23,6 +23,7 @@ public class DBActorSystem implements ISystem, IMessageProcessor {
 	private final ActorSystem system;
 	/** db master */
 	private ActorRef dbMaster;
+	/** dbService */
 	private IDBService dbService;
 
 	public DBActorSystem() {
@@ -35,7 +36,7 @@ public class DBActorSystem implements ISystem, IMessageProcessor {
 		dbMaster = system.actorOf(DBMaster.props(dbService));
 	}
 
-	public ActorSystem system() {
+	public ActorSystem getSystem() {
 		return system;
 	}
 
@@ -57,8 +58,7 @@ public class DBActorSystem implements ISystem, IMessageProcessor {
 
 	@Override
 	public void put(IMessage msg) {
-		// TODO Auto-generated method stub
-
+		throw new UnsupportedOperationException();
 	}
 
 	public ActorRef dbMaster() {

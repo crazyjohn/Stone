@@ -8,6 +8,8 @@ import akka.actor.Props;
 import akka.actor.UntypedActor;
 
 import com.stone.db.msg.system.SystemLoginResult;
+import com.stone.game.msg.GameSessionCloseMessage;
+import com.stone.game.msg.GameSessionOpenMessage;
 import com.stone.game.msg.ProtobufMessage;
 
 /**
@@ -19,6 +21,7 @@ import com.stone.game.msg.ProtobufMessage;
 public class PlayerActor extends UntypedActor {
 	/** real player */
 	protected final Player player;
+	/** db master */
 	protected ActorRef dbMaster;
 	private Logger logger = LoggerFactory.getLogger(PlayerActor.class);
 
@@ -37,6 +40,14 @@ public class PlayerActor extends UntypedActor {
 			if (loginResult.getPlayerEntities().size() > 0) {
 				logger.info(String.format("Player login, userName: %s", loginResult.getPlayerEntities().get(0).getUserName()));
 			}
+		} else if (msg instanceof GameSessionOpenMessage) {
+			// open session
+			GameSessionOpenMessage sessionOpen = (GameSessionOpenMessage) msg;
+			sessionOpen.execute();
+		} else if (msg instanceof GameSessionCloseMessage) {
+			// close session
+			GameSessionCloseMessage sessionClose = (GameSessionCloseMessage) msg;
+			sessionClose.execute();
 		} else {
 			unhandled(msg);
 		}
