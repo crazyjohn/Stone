@@ -19,7 +19,9 @@ import com.stone.game.session.GamePlayerSession;
  *
  */
 public class GameIoHandler extends AbstractIoHandler<GamePlayerSession> {
+	/** the game actor system */
 	protected final ActorSystem gameSystem;
+	/** the db master */
 	protected final ActorRef dbMaster;
 
 	public GameIoHandler(ActorRef processor, ActorSystem system, ActorRef dbMaster) {
