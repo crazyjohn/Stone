@@ -5,6 +5,7 @@ import org.apache.mina.core.session.IoSession;
 import akka.actor.ActorRef;
 
 import com.google.protobuf.Message.Builder;
+import com.stone.core.msg.MessageParseException;
 import com.stone.core.state.IState;
 import com.stone.core.state.IStateManager;
 import com.stone.game.human.Human;
@@ -97,13 +98,17 @@ public class Player implements IStateManager {
 		this.session.write(message);
 	}
 
-	public void onMessage(Object message, ActorRef playerActor) {
-		loginModule.onMessage(message, playerActor);
+	public void onInternalMessage(Object message, ActorRef playerActor) {
+		loginModule.onInternalMessage(message, playerActor);
 		if (human == null) {
 			return;
 		}
 		// call human
 		this.human.onMessage(message, playerActor);
+	}
+
+	public void onNetMessage(ProtobufMessage msg, ActorRef playerActor, ActorRef dbMaster) throws MessageParseException {
+		loginModule.onNetMessage(msg, playerActor, dbMaster);
 	}
 
 }

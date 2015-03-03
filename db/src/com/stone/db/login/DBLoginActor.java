@@ -6,7 +6,7 @@ import akka.actor.UntypedActor;
 
 import com.stone.core.db.service.IDBService;
 import com.stone.db.entity.PlayerEntity;
-import com.stone.db.msg.internal.InternalLoginResult;
+import com.stone.db.msg.internal.player.InternalLoginResult;
 import com.stone.db.query.DBQueryConstants;
 import com.stone.proto.Auths.Login;
 

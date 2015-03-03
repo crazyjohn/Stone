@@ -5,12 +5,18 @@ import org.slf4j.LoggerFactory;
 
 import akka.actor.ActorRef;
 
+import com.stone.core.msg.MessageParseException;
 import com.stone.db.entity.HumanEntity;
 import com.stone.db.entity.PlayerEntity;
-import com.stone.db.msg.internal.InternalGetRoleListResult;
-import com.stone.db.msg.internal.InternalLoginResult;
+import com.stone.db.msg.internal.InternalCreateRole;
+import com.stone.db.msg.internal.InternalGetRoleList;
+import com.stone.db.msg.internal.player.InternalGetRoleListResult;
+import com.stone.db.msg.internal.player.InternalLoginResult;
+import com.stone.game.msg.ProtobufMessage;
 import com.stone.game.player.BasePlayerModule;
 import com.stone.game.player.Player;
+import com.stone.proto.Auths.CreateRole;
+import com.stone.proto.Auths.Login;
 import com.stone.proto.Auths.LoginResult;
 import com.stone.proto.Auths.Role;
 import com.stone.proto.Auths.RoleList;
@@ -25,7 +31,7 @@ public class PlayerLoginModule extends BasePlayerModule {
 	}
 
 	@Override
-	public void onMessage(Object msg, ActorRef playerActor) {
+	public void onInternalMessage(Object msg, ActorRef playerActor) {
 		if (msg instanceof InternalLoginResult) {
 			InternalLoginResult loginResult = (InternalLoginResult) msg;
 			handleLoginResult(loginResult, player);
@@ -75,6 +81,22 @@ public class PlayerLoginModule extends BasePlayerModule {
 	public Player getPlayer() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void onNetMessage(ProtobufMessage msg, ActorRef playerActor, ActorRef dbMaster) throws MessageParseException {
+		if (msg.getType() == MessageType.CG_PLAYER_LOGIN_VALUE) {
+			final Login.Builder login = msg.parseBuilder(Login.newBuilder());
+			dbMaster.tell(login, playerActor);
+		} else if (msg.getType() == MessageType.CG_GET_ROLE_LIST_VALUE) {
+			// get role list
+			InternalGetRoleList getRoleList = new InternalGetRoleList(player.getPlayerId());
+			dbMaster.tell(getRoleList, playerActor);
+		} else if (msg.getType() == MessageType.CG_CREATE_ROLE_VALUE) {
+			// create role list
+			CreateRole.Builder createRole = msg.parseBuilder(CreateRole.newBuilder());
+			dbMaster.tell(new InternalCreateRole(player.getPlayerId(), createRole), playerActor);
+		}
 	}
 
 }

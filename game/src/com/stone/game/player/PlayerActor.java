@@ -12,7 +12,6 @@ import com.stone.db.annotation.PlayerInternalMessage;
 import com.stone.game.msg.GameSessionCloseMessage;
 import com.stone.game.msg.GameSessionOpenMessage;
 import com.stone.game.msg.ProtobufMessage;
-import com.stone.game.msg.handler.MessageHandlerRegistry;
 
 /**
  * The palyer actor;
@@ -24,12 +23,13 @@ public class PlayerActor extends UntypedActor {
 	/** real player */
 	protected final Player player;
 	/** db master */
-	protected ActorRef dbMaster;
+	protected final ActorRef dbMaster;
 	/** logger */
 	protected Logger logger = LoggerFactory.getLogger(PlayerActor.class);
 
-	public PlayerActor(Player player) {
+	public PlayerActor(Player player, ActorRef dbMaster) {
 		this.player = player;
+		this.dbMaster = dbMaster;
 	}
 
 	@Override
@@ -37,10 +37,10 @@ public class PlayerActor extends UntypedActor {
 		if (msg instanceof ProtobufMessage) {
 			// net message use self execute
 			ProtobufMessage netMessage = (ProtobufMessage) msg;
-			MessageHandlerRegistry.handle(netMessage, player);
+			player.onNetMessage(netMessage, getSelf(), dbMaster);
 		} else if (msg.getClass().getAnnotation(PlayerInternalMessage.class) != null) {
 			// handle player internal message
-			player.onMessage(msg, getSelf());
+			player.onInternalMessage(msg, getSelf());
 		} else if (msg instanceof GameSessionOpenMessage) {
 			// open session
 			GameSessionOpenMessage sessionOpen = (GameSessionOpenMessage) msg;
@@ -55,15 +55,13 @@ public class PlayerActor extends UntypedActor {
 		}
 	}
 
-	
-
-	public static Props props(IoSession session) {
+	public static Props props(IoSession session, ActorRef dbMaster) {
 		Player player = new Player();
 		player.setSession(session);
 		// if (player.canTransferStateTo(PlayerState.CONNECTED)) {
 		// player.transferStateTo(PlayerState.CONNECTED);
 		// }
-		return Props.create(PlayerActor.class, player);
+		return Props.create(PlayerActor.class, player, dbMaster);
 	}
 
 }

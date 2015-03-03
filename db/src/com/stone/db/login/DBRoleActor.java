@@ -8,7 +8,7 @@ import com.stone.core.db.service.IDBService;
 import com.stone.db.entity.HumanEntity;
 import com.stone.db.msg.internal.InternalCreateRole;
 import com.stone.db.msg.internal.InternalGetRoleList;
-import com.stone.db.msg.internal.InternalGetRoleListResult;
+import com.stone.db.msg.internal.player.InternalGetRoleListResult;
 import com.stone.db.query.DBQueryConstants;
 
 /**
