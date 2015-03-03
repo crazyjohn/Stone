@@ -7,9 +7,10 @@ import akka.routing.RoundRobinRouter;
 
 import com.stone.core.db.service.IDBService;
 import com.stone.db.login.DBLoginActor;
-import com.stone.proto.Auths.Login;
-import com.stone.proto.Auths.CreateRole;
 import com.stone.db.login.DBRoleActor;
+import com.stone.db.msg.internal.InternalGetRoleList;
+import com.stone.proto.Auths.CreateRole;
+import com.stone.proto.Auths.Login;
 /**
  * The db master actor;
  * 
@@ -39,6 +40,8 @@ public class DBMaster extends UntypedActor {
 		if (msg instanceof Login.Builder) {
 			loginActor.forward(msg, getContext());
 		} else if (msg instanceof CreateRole.Builder) {
+			roleActor.forward(msg, getContext());
+		} else if (msg instanceof InternalGetRoleList) {
 			roleActor.forward(msg, getContext());
 		}
 	}

@@ -20,7 +20,7 @@ message Role {
 }
 
 // role list
-message GetRoleList {
+message RoleList {
 	repeated Role roleList = 1;
 }
 

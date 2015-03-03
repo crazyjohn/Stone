@@ -27,7 +27,7 @@ public class MessageHandlerRegistry {
 		MessageHandlerRegistry.dbMaster = dbMaster;
 		// register handler
 		handlers.put(MessageType.CG_PLAYER_LOGIN, new PlayerLoginHandler(dbMaster));
-		handlers.put(MessageType.CG_GET_ROLE_LIST, new PlayerGetRoleListHandler());
+		handlers.put(MessageType.CG_GET_ROLE_LIST, new PlayerGetRoleListHandler(dbMaster));
 		handlers.put(MessageType.CG_CREATE_ROLE, new PlayerCreateRoleHandler());
 	}
 

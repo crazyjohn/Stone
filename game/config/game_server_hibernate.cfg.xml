@@ -18,6 +18,7 @@
 		<property name="hibernate.connection.characterEncoding">UTF-8</property>
 		<property name="hibernate.show_sql">false</property>		
 		<mapping class="com.stone.db.entity.PlayerEntity" />
+		<mapping class="com.stone.db.entity.HumanEntity" />
 		<mapping resource="game_server_hibernate_query.xml"/>
 	</session-factory>
 </hibernate-configuration>

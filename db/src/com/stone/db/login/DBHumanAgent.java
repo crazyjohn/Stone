@@ -5,7 +5,7 @@ import akka.actor.UntypedActor;
 public class DBHumanAgent extends UntypedActor {
 
 	@Override
-	public void onReceive(Object arg0) throws Exception {
+	public void onReceive(Object msg) throws Exception {
 		// TODO Auto-generated method stub
 
 	}

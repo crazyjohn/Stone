@@ -1,5 +1,10 @@
 package com.stone.db.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import com.stone.core.entity.IEntity;
 
 /**
@@ -8,15 +13,52 @@ import com.stone.core.entity.IEntity;
  * @author crazyjohn
  *
  */
+@Entity
+@Table(name = "human")
 public class HumanEntity implements IEntity<Long> {
+	@Id
+	@Column(name = "guid")
 	private long guid;
+	@Column(name = "playerId")
+	private long playerId;
+	@Column(name = "name")
+	private String name;
+	@Column(name = "level")
+	private int level;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public long getPlayerId() {
+		return playerId;
+	}
+
+	public void setPlayerId(long playerId) {
+		this.playerId = playerId;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
 	@Override
 	public Long getId() {
 		return guid;
 	}
+
 	public long getGuid() {
 		return guid;
 	}
+
 	public void setGuid(long guid) {
 		this.guid = guid;
 	}

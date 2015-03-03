@@ -6,7 +6,7 @@ import akka.actor.UntypedActor;
 
 import com.stone.core.db.service.IDBService;
 import com.stone.db.entity.PlayerEntity;
-import com.stone.db.msg.system.SystemLoginResult;
+import com.stone.db.msg.internal.InternalLoginResult;
 import com.stone.db.query.DBQueryConstants;
 import com.stone.proto.Auths.Login;
 
@@ -23,7 +23,7 @@ public class DBLoginActor extends UntypedActor {
 			Login.Builder login = (Login.Builder) msg;
 			List<PlayerEntity> entities = dbService.queryByNameAndParams(DBQueryConstants.QUERY_PLAYER_BY_NAME_AND_PASSWORD, new String[] { "userName", "password" },
 					new Object[] { login.getUserName(), login.getPassword() });
-			getSender().tell(new SystemLoginResult(entities), getSelf());
+			getSender().tell(new InternalLoginResult(entities), getSelf());
 		}
 	}
 

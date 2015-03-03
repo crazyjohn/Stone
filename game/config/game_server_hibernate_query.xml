@@ -7,4 +7,11 @@
 		from PlayerEntity where userName = :userName and password = :password
 	]]>
 	</query>
+	
+	<!-- 根据用户id查询所有角色 -->
+	<query name="queryRoleByPlayerId">
+	<![CDATA[
+		from HumanEntity where playerId = :playerId
+	]]>
+	</query>
 </hibernate-mapping>

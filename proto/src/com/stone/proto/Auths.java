@@ -1734,8 +1734,8 @@ public final class Auths {
     // @@protoc_insertion_point(class_scope:Role)
   }
 
-  public interface GetRoleListOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:GetRoleList)
+  public interface RoleListOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:RoleList)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -1763,29 +1763,29 @@ public final class Auths {
         int index);
   }
   /**
-   * Protobuf type {@code GetRoleList}
+   * Protobuf type {@code RoleList}
    *
    * <pre>
    * role list
    * </pre>
    */
-  public static final class GetRoleList extends
+  public static final class RoleList extends
       com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:GetRoleList)
-      GetRoleListOrBuilder {
-    // Use GetRoleList.newBuilder() to construct.
-    private GetRoleList(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      // @@protoc_insertion_point(message_implements:RoleList)
+      RoleListOrBuilder {
+    // Use RoleList.newBuilder() to construct.
+    private RoleList(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
       this.unknownFields = builder.getUnknownFields();
     }
-    private GetRoleList(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+    private RoleList(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
 
-    private static final GetRoleList defaultInstance;
-    public static GetRoleList getDefaultInstance() {
+    private static final RoleList defaultInstance;
+    public static RoleList getDefaultInstance() {
       return defaultInstance;
     }
 
-    public GetRoleList getDefaultInstanceForType() {
+    public RoleList getDefaultInstanceForType() {
       return defaultInstance;
     }
 
@@ -1795,7 +1795,7 @@ public final class Auths {
         getUnknownFields() {
       return this.unknownFields;
     }
-    private GetRoleList(
+    private RoleList(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -1843,28 +1843,28 @@ public final class Auths {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.stone.proto.Auths.internal_static_GetRoleList_descriptor;
+      return com.stone.proto.Auths.internal_static_RoleList_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.stone.proto.Auths.internal_static_GetRoleList_fieldAccessorTable
+      return com.stone.proto.Auths.internal_static_RoleList_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.stone.proto.Auths.GetRoleList.class, com.stone.proto.Auths.GetRoleList.Builder.class);
+              com.stone.proto.Auths.RoleList.class, com.stone.proto.Auths.RoleList.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<GetRoleList> PARSER =
-        new com.google.protobuf.AbstractParser<GetRoleList>() {
-      public GetRoleList parsePartialFrom(
+    public static com.google.protobuf.Parser<RoleList> PARSER =
+        new com.google.protobuf.AbstractParser<RoleList>() {
+      public RoleList parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new GetRoleList(input, extensionRegistry);
+        return new RoleList(input, extensionRegistry);
       }
     };
 
     @java.lang.Override
-    public com.google.protobuf.Parser<GetRoleList> getParserForType() {
+    public com.google.protobuf.Parser<RoleList> getParserForType() {
       return PARSER;
     }
 
@@ -1953,53 +1953,53 @@ public final class Auths {
       return super.writeReplace();
     }
 
-    public static com.stone.proto.Auths.GetRoleList parseFrom(
+    public static com.stone.proto.Auths.RoleList parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.stone.proto.Auths.GetRoleList parseFrom(
+    public static com.stone.proto.Auths.RoleList parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.stone.proto.Auths.GetRoleList parseFrom(byte[] data)
+    public static com.stone.proto.Auths.RoleList parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.stone.proto.Auths.GetRoleList parseFrom(
+    public static com.stone.proto.Auths.RoleList parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.stone.proto.Auths.GetRoleList parseFrom(java.io.InputStream input)
+    public static com.stone.proto.Auths.RoleList parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return PARSER.parseFrom(input);
     }
-    public static com.stone.proto.Auths.GetRoleList parseFrom(
+    public static com.stone.proto.Auths.RoleList parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return PARSER.parseFrom(input, extensionRegistry);
     }
-    public static com.stone.proto.Auths.GetRoleList parseDelimitedFrom(java.io.InputStream input)
+    public static com.stone.proto.Auths.RoleList parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return PARSER.parseDelimitedFrom(input);
     }
-    public static com.stone.proto.Auths.GetRoleList parseDelimitedFrom(
+    public static com.stone.proto.Auths.RoleList parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return PARSER.parseDelimitedFrom(input, extensionRegistry);
     }
-    public static com.stone.proto.Auths.GetRoleList parseFrom(
+    public static com.stone.proto.Auths.RoleList parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return PARSER.parseFrom(input);
     }
-    public static com.stone.proto.Auths.GetRoleList parseFrom(
+    public static com.stone.proto.Auths.RoleList parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -2008,7 +2008,7 @@ public final class Auths {
 
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.stone.proto.Auths.GetRoleList prototype) {
+    public static Builder newBuilder(com.stone.proto.Auths.RoleList prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
@@ -2020,7 +2020,7 @@ public final class Auths {
       return builder;
     }
     /**
-     * Protobuf type {@code GetRoleList}
+     * Protobuf type {@code RoleList}
      *
      * <pre>
      * role list
@@ -2028,21 +2028,21 @@ public final class Auths {
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:GetRoleList)
-        com.stone.proto.Auths.GetRoleListOrBuilder {
+        // @@protoc_insertion_point(builder_implements:RoleList)
+        com.stone.proto.Auths.RoleListOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.stone.proto.Auths.internal_static_GetRoleList_descriptor;
+        return com.stone.proto.Auths.internal_static_RoleList_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.stone.proto.Auths.internal_static_GetRoleList_fieldAccessorTable
+        return com.stone.proto.Auths.internal_static_RoleList_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                com.stone.proto.Auths.GetRoleList.class, com.stone.proto.Auths.GetRoleList.Builder.class);
+                com.stone.proto.Auths.RoleList.class, com.stone.proto.Auths.RoleList.Builder.class);
       }
 
-      // Construct using com.stone.proto.Auths.GetRoleList.newBuilder()
+      // Construct using com.stone.proto.Auths.RoleList.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -2078,23 +2078,23 @@ public final class Auths {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.stone.proto.Auths.internal_static_GetRoleList_descriptor;
+        return com.stone.proto.Auths.internal_static_RoleList_descriptor;
       }
 
-      public com.stone.proto.Auths.GetRoleList getDefaultInstanceForType() {
-        return com.stone.proto.Auths.GetRoleList.getDefaultInstance();
+      public com.stone.proto.Auths.RoleList getDefaultInstanceForType() {
+        return com.stone.proto.Auths.RoleList.getDefaultInstance();
       }
 
-      public com.stone.proto.Auths.GetRoleList build() {
-        com.stone.proto.Auths.GetRoleList result = buildPartial();
+      public com.stone.proto.Auths.RoleList build() {
+        com.stone.proto.Auths.RoleList result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public com.stone.proto.Auths.GetRoleList buildPartial() {
-        com.stone.proto.Auths.GetRoleList result = new com.stone.proto.Auths.GetRoleList(this);
+      public com.stone.proto.Auths.RoleList buildPartial() {
+        com.stone.proto.Auths.RoleList result = new com.stone.proto.Auths.RoleList(this);
         int from_bitField0_ = bitField0_;
         if (roleListBuilder_ == null) {
           if (((bitField0_ & 0x00000001) == 0x00000001)) {
@@ -2110,16 +2110,16 @@ public final class Auths {
       }
 
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.stone.proto.Auths.GetRoleList) {
-          return mergeFrom((com.stone.proto.Auths.GetRoleList)other);
+        if (other instanceof com.stone.proto.Auths.RoleList) {
+          return mergeFrom((com.stone.proto.Auths.RoleList)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(com.stone.proto.Auths.GetRoleList other) {
-        if (other == com.stone.proto.Auths.GetRoleList.getDefaultInstance()) return this;
+      public Builder mergeFrom(com.stone.proto.Auths.RoleList other) {
+        if (other == com.stone.proto.Auths.RoleList.getDefaultInstance()) return this;
         if (roleListBuilder_ == null) {
           if (!other.roleList_.isEmpty()) {
             if (roleList_.isEmpty()) {
@@ -2164,11 +2164,11 @@ public final class Auths {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.stone.proto.Auths.GetRoleList parsedMessage = null;
+        com.stone.proto.Auths.RoleList parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.stone.proto.Auths.GetRoleList) e.getUnfinishedMessage();
+          parsedMessage = (com.stone.proto.Auths.RoleList) e.getUnfinishedMessage();
           throw e;
         } finally {
           if (parsedMessage != null) {
@@ -2419,15 +2419,15 @@ public final class Auths {
         return roleListBuilder_;
       }
 
-      // @@protoc_insertion_point(builder_scope:GetRoleList)
+      // @@protoc_insertion_point(builder_scope:RoleList)
     }
 
     static {
-      defaultInstance = new GetRoleList(true);
+      defaultInstance = new RoleList(true);
       defaultInstance.initFields();
     }
 
-    // @@protoc_insertion_point(class_scope:GetRoleList)
+    // @@protoc_insertion_point(class_scope:RoleList)
   }
 
   public interface CreateRoleOrBuilder extends
@@ -4101,10 +4101,10 @@ public final class Auths {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_Role_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_GetRoleList_descriptor;
+    internal_static_RoleList_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_GetRoleList_fieldAccessorTable;
+      internal_static_RoleList_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_CreateRole_descriptor;
   private static
@@ -4132,12 +4132,12 @@ public final class Auths {
       "\n\nAuth.proto\"+\n\005Login\022\020\n\010userName\030\001 \002(\t\022" +
       "\020\n\010password\030\002 \002(\t\"1\n\013LoginResult\022\017\n\007succ" +
       "eed\030\001 \002(\010\022\021\n\terrorCode\030\002 \001(\005\"$\n\004Role\022\016\n\006" +
-      "roleId\030\001 \002(\003\022\014\n\004name\030\002 \002(\t\"&\n\013GetRoleLis" +
-      "t\022\027\n\010roleList\030\001 \003(\0132\005.Role\".\n\nCreateRole" +
-      "\022\022\n\ntemplateId\030\001 \002(\005\022\014\n\004name\030\002 \002(\t\"7\n\010Ro" +
-      "leInfo\022\016\n\006roleId\030\001 \002(\003\022\014\n\004name\030\002 \002(\t\022\r\n\005" +
-      "level\030\003 \002(\005\"\033\n\nSelectRole\022\r\n\005index\030\001 \002(\005" +
-      "B\030\n\017com.stone.protoB\005Auths"
+      "roleId\030\001 \002(\003\022\014\n\004name\030\002 \002(\t\"#\n\010RoleList\022\027" +
+      "\n\010roleList\030\001 \003(\0132\005.Role\".\n\nCreateRole\022\022\n" +
+      "\ntemplateId\030\001 \002(\005\022\014\n\004name\030\002 \002(\t\"7\n\010RoleI" +
+      "nfo\022\016\n\006roleId\030\001 \002(\003\022\014\n\004name\030\002 \002(\t\022\r\n\005lev" +
+      "el\030\003 \002(\005\"\033\n\nSelectRole\022\r\n\005index\030\001 \002(\005B\030\n" +
+      "\017com.stone.protoB\005Auths"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -4169,11 +4169,11 @@ public final class Auths {
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Role_descriptor,
         new java.lang.String[] { "RoleId", "Name", });
-    internal_static_GetRoleList_descriptor =
+    internal_static_RoleList_descriptor =
       getDescriptor().getMessageTypes().get(3);
-    internal_static_GetRoleList_fieldAccessorTable = new
+    internal_static_RoleList_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_GetRoleList_descriptor,
+        internal_static_RoleList_descriptor,
         new java.lang.String[] { "RoleList", });
     internal_static_CreateRole_descriptor =
       getDescriptor().getMessageTypes().get(4);

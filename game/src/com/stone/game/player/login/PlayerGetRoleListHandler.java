@@ -1,22 +1,26 @@
 package com.stone.game.player.login;
 
+import akka.actor.ActorRef;
+
 import com.stone.core.msg.MessageParseException;
+import com.stone.db.msg.internal.InternalGetRoleList;
 import com.stone.game.handler.IMessageHandlerWithType;
 import com.stone.game.msg.ProtobufMessage;
 import com.stone.game.player.Player;
-import com.stone.proto.Auths.GetRoleList;
-import com.stone.proto.Auths.Role;
 import com.stone.proto.MessageTypes.MessageType;
 
 public class PlayerGetRoleListHandler implements IMessageHandlerWithType<ProtobufMessage> {
+	private final ActorRef dbMaster;
+
+	public PlayerGetRoleListHandler(ActorRef dbMaster) {
+		this.dbMaster = dbMaster;
+	}
 
 	@Override
 	public void execute(ProtobufMessage msg, Player player) throws MessageParseException {
 		// get role list
-		GetRoleList.Builder roleList = GetRoleList.newBuilder();
-		Role.Builder role = Role.newBuilder().setRoleId(888L).setName("crazyjohn");
-		roleList.addRoleList(role);
-		player.sendMessage(MessageType.GC_GET_ROLE_LIST_VALUE, roleList);
+		InternalGetRoleList getRoleList = new InternalGetRoleList(player.getPlayerId());
+		dbMaster.tell(getRoleList, msg.getPlayerActor());
 	}
 
 	@Override
