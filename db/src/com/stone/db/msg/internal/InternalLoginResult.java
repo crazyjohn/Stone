@@ -2,8 +2,10 @@ package com.stone.db.msg.internal;
 
 import java.util.List;
 
+import com.stone.db.annotation.PlayerInternalMessage;
 import com.stone.db.entity.PlayerEntity;
 
+@PlayerInternalMessage
 public class InternalLoginResult {
 	private final List<PlayerEntity> playerEntities;
 

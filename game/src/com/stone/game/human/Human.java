@@ -1,7 +1,8 @@
 package com.stone.game.human;
 
+import akka.actor.ActorRef;
+
 import com.stone.game.player.Player;
-import com.stone.game.player.module.item.HumanItemModule;
 
 /**
  * 游戏角色业务对象;
@@ -10,20 +11,18 @@ import com.stone.game.player.module.item.HumanItemModule;
  *
  */
 public class Human {
-	/** item module */
-	protected HumanItemModule itemModule;
 	/** human guid */
 	private long guid;
+	/** player */
 	private Player player;
 
 	public Human() {
 		// init
-		initManager();
+		initModule();
 	}
 
-	private void initManager() {
+	private void initModule() {
 		// init item module
-		itemModule = new HumanItemModule(this);
 	}
 
 	public long getGuid() {
@@ -36,6 +35,15 @@ public class Human {
 
 	public void setPlayer(Player player) {
 		this.player = player;
+	}
+
+	/**
+	 * Fire message;
+	 * 
+	 * @param message
+	 * @param playerActor
+	 */
+	public void onMessage(Object message, ActorRef playerActor) {
 	}
 
 }

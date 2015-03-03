@@ -2,12 +2,15 @@ package com.stone.game.player;
 
 import org.apache.mina.core.session.IoSession;
 
+import akka.actor.ActorRef;
+
+import com.google.protobuf.Message.Builder;
 import com.stone.core.state.IState;
 import com.stone.core.state.IStateManager;
 import com.stone.game.human.Human;
 import com.stone.game.msg.ProtobufMessage;
+import com.stone.game.player.module.PlayerLoginModule;
 import com.stone.game.player.state.PlayerState;
-import com.google.protobuf.Message.Builder;
 
 /**
  * Game player object;
@@ -26,9 +29,11 @@ public class Player implements IStateManager {
 	private long playerId;
 
 	/** item module */
+	private IPlayerModule loginModule;
 
 	public Player() {
-
+		// loginModule
+		loginModule = new PlayerLoginModule(this);
 	}
 
 	public Human getHuman() {
@@ -90,6 +95,15 @@ public class Player implements IStateManager {
 		ProtobufMessage message = new ProtobufMessage(messageType);
 		message.setBuilder(builder);
 		this.session.write(message);
+	}
+
+	public void onMessage(Object message, ActorRef playerActor) {
+		loginModule.onMessage(message, playerActor);
+		if (human == null) {
+			return;
+		}
+		// call human
+		this.human.onMessage(message, playerActor);
 	}
 
 }

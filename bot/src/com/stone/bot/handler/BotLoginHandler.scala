@@ -7,7 +7,12 @@ import com.stone.game.msg.ProtobufMessage
 import com.stone.proto.Auths.LoginResult
 import com.stone.proto.Auths.RoleList
 import com.stone.proto.Auths.CreateRole
-
+import com.stone.proto.Auths.SelectRole
+/**
+ * Bot login message handler;
+ *
+ * @author crazyjohn;
+ */
 object BotLoginHandler {
 
   /**
@@ -20,7 +25,7 @@ object BotLoginHandler {
       bot.sendMessage(MessageType.CG_GET_ROLE_LIST_VALUE)
     }
   })
-  
+
   /**
    * Handle role list;
    */
@@ -30,6 +35,8 @@ object BotLoginHandler {
     if (roleList.getRoleListCount > 0) {
       val role = roleList.getRoleList(0)
       println(String.format("Get role, name: %s", role.getName))
+      // get role where index = 0
+      bot.sendMessage(MessageType.CG_SELECT_ROLE_VALUE, SelectRole.newBuilder().setIndex(0))
     } else {
       bot.sendMessage(MessageType.CG_CREATE_ROLE_VALUE, CreateRole.newBuilder().setTemplateId(1).setName("crazyjohn"))
     }
