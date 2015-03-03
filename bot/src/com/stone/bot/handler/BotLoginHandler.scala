@@ -11,7 +11,7 @@ import com.stone.proto.Auths.CreateRole
 object BotLoginHandler {
 
   /**
-   *  handle login result;
+   *  Handle login result;
    */
   Handlers.registHandler(MessageType.GC_PLAYER_LOGIN_RESULT_VALUE, (msg: IMessage, bot: CrazyBot) => {
     val protobufMessage = msg.asInstanceOf[ProtobufMessage]
@@ -21,7 +21,9 @@ object BotLoginHandler {
     }
   })
   
-  
+  /**
+   * Handle role list;
+   */
   Handlers.registHandler(MessageType.GC_GET_ROLE_LIST_VALUE, (msg: IMessage, bot: CrazyBot) => {
     val protobufMessage = msg.asInstanceOf[ProtobufMessage]
     val roleList = protobufMessage.parseBuilder(RoleList.newBuilder());

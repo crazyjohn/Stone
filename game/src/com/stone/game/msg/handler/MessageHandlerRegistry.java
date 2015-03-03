@@ -28,7 +28,7 @@ public class MessageHandlerRegistry {
 		// register handler
 		handlers.put(MessageType.CG_PLAYER_LOGIN, new PlayerLoginHandler(dbMaster));
 		handlers.put(MessageType.CG_GET_ROLE_LIST, new PlayerGetRoleListHandler(dbMaster));
-		handlers.put(MessageType.CG_CREATE_ROLE, new PlayerCreateRoleHandler());
+		handlers.put(MessageType.CG_CREATE_ROLE, new PlayerCreateRoleHandler(dbMaster));
 	}
 
 	@SuppressWarnings("unchecked")
