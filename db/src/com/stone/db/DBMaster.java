@@ -1,17 +1,23 @@
 package com.stone.db;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
 import akka.routing.RoundRobinRouter;
 
 import com.stone.core.db.service.IDBService;
+import com.stone.db.actor.DBEntityActor;
 import com.stone.db.login.DBLoginActor;
 import com.stone.db.login.DBRoleActor;
+import com.stone.db.msg.internal.IDBOperationWithEntity;
 import com.stone.db.msg.internal.InternalCreateRole;
 import com.stone.db.msg.internal.InternalGetRoleList;
 import com.stone.proto.Auths.CreateRole;
 import com.stone.proto.Auths.Login;
+
 /**
  * The db master actor;
  * 
@@ -27,6 +33,8 @@ public class DBMaster extends UntypedActor {
 	private static final int DEFAULT_ROUTER_COUNT = 10;
 	/** dbService */
 	protected final IDBService dbService;
+	/** entity actor */
+	protected final Map<Class<?>, ActorRef> entityActors = new HashMap<Class<?>, ActorRef>();
 
 	public DBMaster(IDBService dbService) {
 		this.dbService = dbService;
@@ -46,6 +54,16 @@ public class DBMaster extends UntypedActor {
 			roleActor.forward(msg, getContext());
 		} else if (msg instanceof InternalCreateRole) {
 			roleActor.forward(msg, getContext());
+		} else if (msg instanceof IDBOperationWithEntity) {
+			IDBOperationWithEntity dbMessage = (IDBOperationWithEntity) msg;
+			ActorRef entityActor = this.entityActors.get(dbMessage.getClass());
+			if (entityActor == null) {
+				// create actor
+				entityActor = this.getContext().actorOf(DBEntityActor.props(dbMessage.getClass(), dbService));
+				this.entityActors.put(dbMessage.getClass(), entityActor);
+			}
+			// forward message
+			entityActor.forward(msg, getContext());
 		}
 	}
 
