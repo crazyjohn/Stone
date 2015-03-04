@@ -107,8 +107,8 @@ public class Player implements IStateManager {
 		this.human.onMessage(message, playerActor);
 	}
 
-	public void onNetMessage(ProtobufMessage msg, ActorRef playerActor, ActorRef dbMaster) throws MessageParseException {
-		loginModule.onNetMessage(msg, playerActor, dbMaster);
+	public void onExternalMessage(ProtobufMessage msg, ActorRef playerActor, ActorRef dbMaster) throws MessageParseException {
+		loginModule.onExternalMessage(msg, playerActor, dbMaster);
 	}
 
 }

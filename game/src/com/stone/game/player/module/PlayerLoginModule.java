@@ -34,7 +34,7 @@ public class PlayerLoginModule extends BasePlayerModule {
 	public void onInternalMessage(Object msg, ActorRef playerActor) {
 		if (msg instanceof InternalLoginResult) {
 			InternalLoginResult loginResult = (InternalLoginResult) msg;
-			handleLoginResult(loginResult, player);
+			handleLoginResult(loginResult, player, playerActor);
 		} else if (msg instanceof InternalGetRoleListResult) {
 			InternalGetRoleListResult roleList = (InternalGetRoleListResult) msg;
 			handleRoleListResult(roleList, player);
@@ -63,7 +63,7 @@ public class PlayerLoginModule extends BasePlayerModule {
 	 * 
 	 * @param loginResult
 	 */
-	private void handleLoginResult(InternalLoginResult loginResult, Player player) {
+	private void handleLoginResult(InternalLoginResult loginResult, Player player, ActorRef playerActor) {
 		if (loginResult.getPlayerEntities().size() > 0) {
 			PlayerEntity playerEntity = loginResult.getPlayerEntities().get(0);
 			player.setPlayerId(playerEntity.getId());
@@ -74,6 +74,7 @@ public class PlayerLoginModule extends BasePlayerModule {
 			logger.info(String.format("Player login, userName: %s", playerEntity.getUserName()));
 			// send login result
 			player.sendMessage(MessageType.GC_PLAYER_LOGIN_RESULT_VALUE, LoginResult.newBuilder().setSucceed(true));
+
 		}
 	}
 
@@ -84,7 +85,7 @@ public class PlayerLoginModule extends BasePlayerModule {
 	}
 
 	@Override
-	public void onNetMessage(ProtobufMessage msg, ActorRef playerActor, ActorRef dbMaster) throws MessageParseException {
+	public void onExternalMessage(ProtobufMessage msg, ActorRef playerActor, ActorRef dbMaster) throws MessageParseException {
 		if (msg.getType() == MessageType.CG_PLAYER_LOGIN_VALUE) {
 			final Login.Builder login = msg.parseBuilder(Login.newBuilder());
 			dbMaster.tell(login, playerActor);

@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
+import akka.japi.Procedure;
 
 import com.stone.db.annotation.PlayerInternalMessage;
 import com.stone.game.msg.GameSessionCloseMessage;
@@ -34,26 +35,51 @@ public class PlayerActor extends UntypedActor {
 
 	@Override
 	public void onReceive(Object msg) throws Exception {
-		if (msg instanceof ProtobufMessage) {
-			// net message use self execute
-			ProtobufMessage netMessage = (ProtobufMessage) msg;
-			player.onNetMessage(netMessage, getSelf(), dbMaster);
-		} else if (msg.getClass().getAnnotation(PlayerInternalMessage.class) != null) {
-			// handle player internal message
-			player.onInternalMessage(msg, getSelf());
-		} else if (msg instanceof GameSessionOpenMessage) {
+		if (msg instanceof GameSessionOpenMessage) {
 			// open session
 			GameSessionOpenMessage sessionOpen = (GameSessionOpenMessage) msg;
 			sessionOpen.execute();
-		} else if (msg instanceof GameSessionCloseMessage) {
-			// close session
-			GameSessionCloseMessage sessionClose = (GameSessionCloseMessage) msg;
-			sessionClose.execute();
+			// change state
+			getContext().become(CONNECTED);
 		} else {
 			// unhandle msg
 			unhandled(msg);
 		}
 	}
+
+	/**
+	 * Connected state;
+	 */
+	private Procedure<Object> CONNECTED = new Procedure<Object>() {
+
+		@Override
+		public void apply(Object msg) throws Exception {
+			if (msg instanceof ProtobufMessage) {
+				// net message use self execute
+				ProtobufMessage netMessage = (ProtobufMessage) msg;
+				player.onExternalMessage(netMessage, getSelf(), dbMaster);
+			} else if (msg.getClass().getAnnotation(PlayerInternalMessage.class) != null) {
+				// handle player internal message
+				player.onInternalMessage(msg, getSelf());
+			} else if (msg instanceof GameSessionCloseMessage) {
+				// close session
+				GameSessionCloseMessage sessionClose = (GameSessionCloseMessage) msg;
+				sessionClose.execute();
+				getContext().become(DISCONNECTED);
+			}
+		}
+	};
+
+	/**
+	 * Disconnected state;
+	 */
+	private Procedure<Object> DISCONNECTED = new Procedure<Object>() {
+
+		@Override
+		public void apply(Object msg) throws Exception {
+			logger.warn("PlayerActor in disconnected state now, do not handle any type of message!");
+		}
+	};
 
 	public static Props props(IoSession session, ActorRef dbMaster) {
 		Player player = new Player();
