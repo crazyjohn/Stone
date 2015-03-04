@@ -9,6 +9,8 @@ CREATE TABLE `player` (
   `password` varchar(45) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- insert a bot
+INSERT INTO player VALUES(888, "bot", "bot")
 
 DROP TABLE IF EXISTS `human`;
 CREATE TABLE `human` (
