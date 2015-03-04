@@ -56,15 +56,24 @@ public class DBMaster extends UntypedActor {
 			roleActor.forward(msg, getContext());
 		} else if (msg instanceof IDBOperationWithEntity) {
 			IDBOperationWithEntity dbMessage = (IDBOperationWithEntity) msg;
-			ActorRef entityActor = this.entityActors.get(dbMessage.getClass());
-			if (entityActor == null) {
-				// create actor
-				entityActor = this.getContext().actorOf(DBEntityActor.props(dbMessage.getClass(), dbService));
-				this.entityActors.put(dbMessage.getClass(), entityActor);
-			}
-			// forward message
-			entityActor.forward(msg, getContext());
+			handleDBOperation(dbMessage);
 		}
+	}
+
+	/**
+	 * Handle the db operation;
+	 * 
+	 * @param msg
+	 */
+	private void handleDBOperation(IDBOperationWithEntity msg) {
+		ActorRef entityActor = this.entityActors.get(msg.getClass());
+		if (entityActor == null) {
+			// create actor
+			entityActor = this.getContext().actorOf(DBEntityActor.props(msg.getClass(), dbService));
+			this.entityActors.put(msg.getClass(), entityActor);
+		}
+		// forward message
+		entityActor.forward(msg, getContext());
 	}
 
 	public static Props props(IDBService dbService) {
