@@ -1,15 +1,14 @@
 package com.stone.core.akka.compute;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import scala.actors.threadpool.Arrays;
 import akka.actor.UntypedActor;
 
 public class MapActor extends UntypedActor {
 
-	@SuppressWarnings("unchecked")
 	private List<String> STOP_WORDS_LIST = Arrays.asList(new String[]{
 			"a", "an", "and"
 	});
