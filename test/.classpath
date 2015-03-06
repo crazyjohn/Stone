@@ -1,26 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.scala-ide.sdt.launching.SCALA_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/core"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/db"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/game"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/proto"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="lib/akka-actor_2.10-2.2.4.jar" sourcepath="lib-src/akka-actor_2.10-2.2.4-sources.jar"/>
-	<classpathentry kind="lib" path="lib/config-1.0.2.jar"/>
 	<classpathentry kind="lib" path="lib/hessian-4.0.37.jar"/>
 	<classpathentry kind="lib" path="lib/minlog-1.2.jar"/>
 	<classpathentry kind="lib" path="lib/objenesis-1.2.jar"/>
 	<classpathentry kind="lib" path="lib/reflectasm-1.09-shaded.jar"/>
-	<classpathentry kind="lib" path="lib/akka-agent_2.10-2.2.4.jar"/>
-	<classpathentry kind="lib" path="lib/akka-camel_2.10-2.2.4.jar"/>
-	<classpathentry kind="lib" path="lib/akka-cluster_2.10-2.2.4.jar"/>
-	<classpathentry kind="lib" path="lib/akka-contrib_2.10-2.2.4.jar"/>
-	<classpathentry kind="lib" path="lib/akka-testkit_2.10-2.2.4.jar"/>
-	<classpathentry kind="lib" path="lib/akka-remote_2.10-2.2.4.jar"/>
-	<classpathentry kind="lib" path="lib/akka-transactor_2.10-2.2.4.jar"/>
-	<classpathentry kind="lib" path="lib/camel-core-2.10.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
