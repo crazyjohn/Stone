@@ -30,19 +30,36 @@
 	<classpathentry exported="true" kind="lib" path="lib/log4j-1.2.17.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/slf4j-api-1.7.7.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/slf4j-log4j12-1.7.6.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/akka-actor_2.10-2.2.4.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/akka-agent_2.10-2.2.4.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/akka-camel_2.10-2.2.4.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/akka-cluster_2.10-2.2.4.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/akka-contrib_2.10-2.2.4.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/akka-remote_2.10-2.2.4.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/akka-transactor_2.10-2.2.4.jar"/>
 	<classpathentry kind="lib" path="lib/aspectjrt.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/camel-core-2.10.3.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/config-1.0.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/scala-library.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/scala-reflect-2.10.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/scala-stm_2.10-0.7.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/akka-actor_2.11-2.3.9.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/akka-agent_2.11-2.3.9.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/akka-camel_2.11-2.3.9.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/akka-cluster_2.11-2.3.9.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/akka-contrib_2.11-2.3.9.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/akka-dataflow_2.11-2.3.9.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/akka-durable-mailboxes-2.3.9.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/akka-file-mailbox_2.11-2.3.9.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/akka-kernel_2.11-2.3.9.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/akka-mailboxes-common_2.11-2.3.9.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/akka-multi-node-testkit_2.11-2.3.9.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/akka-persistence-experimental_2.11-2.3.9.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/akka-persistence-tck-experimental_2.11-2.3.9.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/akka-remote_2.11-2.3.9.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/akka-slf4j_2.11-2.3.9.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/akka-testkit_2.11-2.3.9.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/akka-transactor_2.11-2.3.9.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/akka-zeromq_2.11-2.3.9.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/config-1.2.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/guava-12.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/hamcrest-core-1.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/hawtjni-runtime-1.8.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/scala-continuations-library_2.11-1.0.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/zeromq-scala-binding_2.11-0.0.7-spark.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/scala-library-2.11.5.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/scala-reflect-2.11.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/scala-stm_2.11-0.7.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/scalabuff-runtime_2.10-1.2.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/scalatest_2.11-2.1.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
