@@ -32,10 +32,10 @@
 	<classpathentry exported="true" kind="lib" path="lib/slf4j-log4j12-1.7.6.jar"/>
 	<classpathentry kind="lib" path="lib/aspectjrt.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/camel-core-2.10.3.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/akka-actor_2.11-2.3.9.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/akka-actor_2.11-2.3.9.jar" sourcepath="lib-src/akka-actor_2.11-2.3.9-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/akka-agent_2.11-2.3.9.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/akka-camel_2.11-2.3.9.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/akka-cluster_2.11-2.3.9.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/akka-cluster_2.11-2.3.9.jar" sourcepath="lib-src/akka-cluster_2.11-2.3.9-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/akka-contrib_2.11-2.3.9.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/akka-dataflow_2.11-2.3.9.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/akka-durable-mailboxes-2.3.9.jar"/>
@@ -45,7 +45,7 @@
 	<classpathentry exported="true" kind="lib" path="lib/akka-multi-node-testkit_2.11-2.3.9.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/akka-persistence-experimental_2.11-2.3.9.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/akka-persistence-tck-experimental_2.11-2.3.9.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/akka-remote_2.11-2.3.9.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/akka-remote_2.11-2.3.9.jar" sourcepath="lib-src/akka-remote_2.11-2.3.9-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/akka-slf4j_2.11-2.3.9.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/akka-testkit_2.11-2.3.9.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/akka-transactor_2.11-2.3.9.jar"/>
