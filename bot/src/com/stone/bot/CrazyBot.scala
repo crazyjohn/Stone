@@ -23,6 +23,8 @@ import org.apache.mina.core.future.ConnectFuture
 class CrazyBot(userName: String, password: String) extends Actor {
   private val tasks = new MutableList[BotTask]
   private var session: IoSession = null
+  val name: String = userName
+  val pwd: String = password
 
   def setSession(session: IoSession) {
     this.session = session

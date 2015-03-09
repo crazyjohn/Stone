@@ -37,7 +37,7 @@ public class DBRoleActor extends UntypedActor {
 			// do create role things
 			InternalCreateRole createRole = (InternalCreateRole) msg;
 			HumanEntity humanEntity = new HumanEntity();
-			humanEntity.setGuid(1);
+			//humanEntity.setGuid(1);
 			humanEntity.setLevel(1);
 			humanEntity.setName(createRole.getBuilder().getName());
 			humanEntity.setPlayerId(createRole.getPlayerId());

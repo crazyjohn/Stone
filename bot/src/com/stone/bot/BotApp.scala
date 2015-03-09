@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory
  */
 object BotApp extends App {
   private val logger = LoggerFactory.getLogger("ClientIoHandler")
-  val bot = new CrazyBot("bot", "bot")
+  val bot = new CrazyBot("bot1", "bot1")
   val connectFuture = bot.connect("0.0.0.0", 8081)
   connectFuture.awaitUninterruptibly();
   bot.start()

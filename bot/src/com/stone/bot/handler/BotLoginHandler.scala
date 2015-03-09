@@ -38,7 +38,7 @@ object BotLoginHandler {
       // get role where index = 0
       bot.sendMessage(MessageType.CG_SELECT_ROLE_VALUE, SelectRole.newBuilder().setIndex(0))
     } else {
-      bot.sendMessage(MessageType.CG_CREATE_ROLE_VALUE, CreateRole.newBuilder().setTemplateId(1).setName("crazyjohn"))
+      bot.sendMessage(MessageType.CG_CREATE_ROLE_VALUE, CreateRole.newBuilder().setTemplateId(1).setName(bot.name + "_" + "role"))
     }
   })
 }
