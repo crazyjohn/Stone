@@ -31,7 +31,7 @@ public class DBMaster extends UntypedActor {
 	private Router loginRouter;
 	/** role actor */
 	private ActorRef roleActor;
-	/** default login router count */
+	/** default login routees count */
 	private static final int DEFAULT_ROUTEES_COUNT = 10;
 	/** dbService */
 	protected final IDBService dbService;
@@ -44,19 +44,23 @@ public class DBMaster extends UntypedActor {
 		loginRouter = RouterFactory.createRouteeActor(this.getContext(), new RoundRobinRoutingLogic(), DBLoginActor.class, DEFAULT_ROUTEES_COUNT, dbService);
 		// role actor
 		roleActor = this.getContext().actorOf(Props.create(DBRoleActor.class, dbService));
+		this.getContext().watch(roleActor);
 	}
 
 	@Override
 	public void onReceive(Object msg) throws Exception {
 		if (msg instanceof Login.Builder) {
+			// router login request
 			loginRouter.route(msg, getSender());
 		} else if (msg instanceof CreateRole.Builder) {
+			// forward create role request
 			roleActor.forward(msg, getContext());
 		} else if (msg instanceof InternalGetRoleList) {
 			roleActor.forward(msg, getContext());
 		} else if (msg instanceof InternalCreateRole) {
 			roleActor.forward(msg, getContext());
 		} else if (msg instanceof IDBOperationWithEntity) {
+			// handle db entity operation
 			IDBOperationWithEntity dbMessage = (IDBOperationWithEntity) msg;
 			handleDBOperation(dbMessage);
 		}
@@ -72,6 +76,8 @@ public class DBMaster extends UntypedActor {
 		if (entityActor == null) {
 			// create actor
 			entityActor = this.getContext().actorOf(DBEntityActor.props(msg.getClass(), dbService));
+			// watch this
+			this.getContext().watch(entityActor);
 			this.entityActors.put(msg.getClass(), entityActor);
 		}
 		// forward message

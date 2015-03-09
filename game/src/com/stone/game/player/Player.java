@@ -98,6 +98,12 @@ public class Player implements IStateManager {
 		this.session.write(message);
 	}
 
+	/**
+	 * Handle the system internal message;
+	 * 
+	 * @param message
+	 * @param playerActor
+	 */
 	public void onInternalMessage(Object message, ActorRef playerActor) {
 		loginModule.onInternalMessage(message, playerActor);
 		if (human == null) {
@@ -107,6 +113,14 @@ public class Player implements IStateManager {
 		this.human.onMessage(message, playerActor);
 	}
 
+	/**
+	 * Handle the net external messsage;
+	 * 
+	 * @param msg
+	 * @param playerActor
+	 * @param dbMaster
+	 * @throws MessageParseException
+	 */
 	public void onExternalMessage(ProtobufMessage msg, ActorRef playerActor, ActorRef dbMaster) throws MessageParseException {
 		loginModule.onExternalMessage(msg, playerActor, dbMaster);
 	}

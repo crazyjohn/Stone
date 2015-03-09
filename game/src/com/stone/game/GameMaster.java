@@ -23,7 +23,7 @@ public class GameMaster extends UntypedActor {
 	private Logger logger = LoggerFactory.getLogger(GameMaster.class);
 	/** dbMaster */
 	private final ActorRef dbMaster;
-	
+
 	public GameMaster(ActorRef dbMaster) {
 		this.dbMaster = dbMaster;
 	}
@@ -35,14 +35,15 @@ public class GameMaster extends UntypedActor {
 			GameSessionOpenMessage sessionOpenMsg = (GameSessionOpenMessage) msg;
 			if (sessionOpenMsg.getSession().getPlayerActor() == null) {
 				ActorRef playerActor = getContext().actorOf(PlayerActor.props(sessionOpenMsg.getSession().getSession(), dbMaster));
+				// watch this player actor
+				getContext().watch(playerActor);
 				sessionOpenMsg.getSession().setPlayerActor(playerActor);
 				playerActor.forward(msg, getContext());
 			} else {
 				// invalid, close session
 				sessionOpenMsg.getSession().close();
 			}
-		}
-		if (msg instanceof CGMessage) {
+		} else if (msg instanceof CGMessage) {
 			ActorRef playerActor = ((CGMessage) msg).getPlayerActor();
 			if (playerActor == null) {
 				ISession sessionInfo = ((CGMessage) msg).getSession();

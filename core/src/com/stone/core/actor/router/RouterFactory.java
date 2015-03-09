@@ -11,6 +11,12 @@ import akka.routing.Routee;
 import akka.routing.Router;
 import akka.routing.RoutingLogic;
 
+/**
+ * Router factory;
+ * 
+ * @author crazyjohn
+ *
+ */
 public class RouterFactory {
 
 	public static Router createRouteeActor(UntypedActorContext context, RoutingLogic routingLogic, Class<?> actorClass, int defaultRouteeCount, Object... params) {
