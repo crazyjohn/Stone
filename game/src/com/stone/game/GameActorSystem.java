@@ -21,10 +21,10 @@ public class GameActorSystem implements ISystem {
 	private ActorSystem system;
 	/** game master */
 	private ActorRef gameMaster;
-
-	public GameActorSystem() {
+	
+	public GameActorSystem(ActorRef dbMaster) {
 		system = ActorSystem.create("GameActorSystem");
-		gameMaster = system.actorOf(GameMaster.props());
+		gameMaster = system.actorOf(GameMaster.props(dbMaster));
 	}
 
 	/**

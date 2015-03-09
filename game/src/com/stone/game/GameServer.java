@@ -48,14 +48,14 @@ public class GameServer implements IService {
 	public void init() throws ScriptException, IOException {
 		config = new GameServerConfig();
 		ConfigUtil.loadJsConfig(config, configPath);
-		gameActorSystem = new GameActorSystem();
 		// db actor system
 		dbActorSystem = new DBActorSystem();
 		dbActorSystem.initDBService(config.getDbServiceType(), config.getDbConfigName(), config.getDataServiceProperties());
+		gameActorSystem = new GameActorSystem(dbActorSystem.getMasterActor());
 
 		// external service
-		externalProcess = new ServerProcess(config.getBindIp(), config.getPort(), new GameIoHandler(gameActorSystem.getMasterActor(), gameActorSystem.getSystem(), dbActorSystem.getMasterActor()),
-				new GameCodecFactory(new ProtobufMessageFactory()));
+		externalProcess = new ServerProcess(config.getBindIp(), config.getPort(), new GameIoHandler(gameActorSystem.getMasterActor(), dbActorSystem.getMasterActor()), new GameCodecFactory(
+				new ProtobufMessageFactory()));
 
 	}
 

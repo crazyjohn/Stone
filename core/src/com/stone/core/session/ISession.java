@@ -1,5 +1,7 @@
 package com.stone.core.session;
 
+import org.apache.mina.core.session.IoSession;
+
 import com.stone.core.msg.IMessage;
 
 /**
@@ -27,4 +29,6 @@ public interface ISession {
 	 * @param message
 	 */
 	public void writeMessage(IMessage message);
+	
+	public IoSession getSession();
 }

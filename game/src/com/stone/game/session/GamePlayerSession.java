@@ -13,10 +13,13 @@ import com.stone.core.session.BaseSession;
  *
  */
 public class GamePlayerSession extends BaseSession implements IPlayerSession {
-	protected final ActorRef playerActor;
+	protected ActorRef playerActor;
 
-	public GamePlayerSession(IoSession session, ActorRef playerActor) {
+	public GamePlayerSession(IoSession session) {
 		super(session);
+	}
+	
+	public void setPlayerActor(ActorRef playerActor) {
 		this.playerActor = playerActor;
 	}
 

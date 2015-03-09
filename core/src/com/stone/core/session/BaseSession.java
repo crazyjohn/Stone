@@ -13,7 +13,7 @@ import com.stone.core.msg.IMessage;
 public abstract class BaseSession implements ISession {
 	/** 绑定的回话 */
 	protected IoSession session;
-	
+
 	public BaseSession(IoSession session) {
 		this.session = session;
 	}
@@ -33,6 +33,11 @@ public abstract class BaseSession implements ISession {
 		if (session != null) {
 			session.write(message);
 		}
+	}
+
+	@Override
+	public IoSession getSession() {
+		return session;
 	}
 
 }

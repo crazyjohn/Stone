@@ -84,9 +84,6 @@ public class PlayerActor extends UntypedActor {
 	public static Props props(IoSession session, ActorRef dbMaster) {
 		Player player = new Player();
 		player.setSession(session);
-		// if (player.canTransferStateTo(PlayerState.CONNECTED)) {
-		// player.transferStateTo(PlayerState.CONNECTED);
-		// }
 		return Props.create(PlayerActor.class, player, dbMaster);
 	}
 

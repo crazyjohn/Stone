@@ -17,12 +17,13 @@ import com.stone.core.session.ISession;
  *
  */
 public abstract class AbstractIoHandler<S extends ISession> extends IoHandlerAdapter {
-	protected ActorRef processor;
+	/** game master */
+	protected ActorRef gameMaster;
 	private static final String SESSION_INFO = "SESSION_INFO";
 	protected Logger logger = LoggerFactory.getLogger(AbstractIoHandler.class);
 
 	public AbstractIoHandler(ActorRef processor) {
-		this.processor = processor;
+		this.gameMaster = processor;
 	}
 
 	@Override
@@ -37,7 +38,7 @@ public abstract class AbstractIoHandler<S extends ISession> extends IoHandlerAda
 			@SuppressWarnings("unchecked")
 			ISessionMessage<S> msg = (ISessionMessage<S>) message;
 			msg.setSession(sessionInfo);
-			processor.tell(msg, ActorRef.noSender());
+			gameMaster.tell(msg, ActorRef.noSender());
 		}
 	}
 
@@ -52,7 +53,7 @@ public abstract class AbstractIoHandler<S extends ISession> extends IoHandlerAda
 		if (sessionCloseMessage == null) {
 			return;
 		}
-		this.processor.tell(sessionCloseMessage, ActorRef.noSender());
+		this.gameMaster.tell(sessionCloseMessage, ActorRef.noSender());
 	}
 
 	@Override
@@ -63,7 +64,7 @@ public abstract class AbstractIoHandler<S extends ISession> extends IoHandlerAda
 		if (sessionOpenMessage == null) {
 			return;
 		}
-		this.processor.tell(sessionOpenMessage, ActorRef.noSender());
+		this.gameMaster.tell(sessionOpenMessage, ActorRef.noSender());
 	}
 
 	@Override
