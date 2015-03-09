@@ -6,8 +6,10 @@ import java.util.Map;
 import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
-import akka.routing.RoundRobinRouter;
+import akka.routing.RoundRobinRoutingLogic;
+import akka.routing.Router;
 
+import com.stone.core.actor.router.RouterFactory;
 import com.stone.core.db.service.IDBService;
 import com.stone.db.actor.DBEntityActor;
 import com.stone.db.login.DBLoginActor;
@@ -26,11 +28,11 @@ import com.stone.proto.Auths.Login;
  */
 public class DBMaster extends UntypedActor {
 	/** login actor */
-	private ActorRef loginActor;
+	private Router loginRouter;
 	/** role actor */
 	private ActorRef roleActor;
 	/** default login router count */
-	private static final int DEFAULT_ROUTER_COUNT = 10;
+	private static final int DEFAULT_ROUTEES_COUNT = 10;
 	/** dbService */
 	protected final IDBService dbService;
 	/** entity actor */
@@ -39,7 +41,7 @@ public class DBMaster extends UntypedActor {
 	public DBMaster(IDBService dbService) {
 		this.dbService = dbService;
 		// login actor use router
-		loginActor = this.getContext().actorOf(Props.create(DBLoginActor.class, dbService).withRouter(new RoundRobinRouter(DEFAULT_ROUTER_COUNT)));
+		loginRouter = RouterFactory.createRouteeActor(this.getContext(), new RoundRobinRoutingLogic(), DBLoginActor.class, DEFAULT_ROUTEES_COUNT, dbService);
 		// role actor
 		roleActor = this.getContext().actorOf(Props.create(DBRoleActor.class, dbService));
 	}
@@ -47,7 +49,7 @@ public class DBMaster extends UntypedActor {
 	@Override
 	public void onReceive(Object msg) throws Exception {
 		if (msg instanceof Login.Builder) {
-			loginActor.forward(msg, getContext());
+			loginRouter.route(msg, getSender());
 		} else if (msg instanceof CreateRole.Builder) {
 			roleActor.forward(msg, getContext());
 		} else if (msg instanceof InternalGetRoleList) {
