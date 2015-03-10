@@ -12,10 +12,10 @@ import akka.routing.Router;
 import com.stone.core.actor.router.RouterFactory;
 import com.stone.core.db.service.IDBService;
 import com.stone.db.actor.DBEntityActor;
+import com.stone.db.entity.HumanEntity;
 import com.stone.db.login.DBHumanActor;
 import com.stone.db.login.DBLoginActor;
 import com.stone.db.login.DBRoleActor;
-import com.stone.db.msg.internal.DBGetMessage;
 import com.stone.db.msg.internal.IDBMessage;
 import com.stone.db.msg.internal.InternalCreateRole;
 import com.stone.db.msg.internal.InternalGetRoleList;
@@ -56,6 +56,8 @@ public class DBMaster extends UntypedActor {
 		 */
 		, dbService), "humanActor");
 		this.getContext().watch(humanActor);
+		// register
+		this.entityActors.put(HumanEntity.class, humanActor);
 	}
 
 	@Override
@@ -70,8 +72,6 @@ public class DBMaster extends UntypedActor {
 			roleActor.forward(msg, getContext());
 		} else if (msg instanceof InternalCreateRole) {
 			roleActor.forward(msg, getContext());
-		} else if (msg instanceof DBGetMessage) {
-			humanActor.forward(msg, getContext());
 		} else if (msg instanceof IDBMessage) {
 			// handle db entity operation
 			IDBMessage dbMessage = (IDBMessage) msg;
@@ -85,7 +85,7 @@ public class DBMaster extends UntypedActor {
 	 * @param msg
 	 */
 	private void handleDBOperation(IDBMessage msg) {
-		ActorRef entityActor = this.entityActors.get(msg.getClass());
+		ActorRef entityActor = this.entityActors.get(msg.getEntityClass());
 		if (entityActor == null) {
 			// create actor
 			entityActor = this.getContext().actorOf(DBEntityActor.props(msg.getClass(), dbService));
