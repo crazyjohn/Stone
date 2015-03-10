@@ -2,7 +2,7 @@ package com.stone.db.msg.internal;
 
 import com.stone.core.entity.IEntity;
 
-public class DBInsertMessage implements IDBOperationWithEntity {
+public class DBInsertMessage implements IDBMessage {
 	private final IEntity<?> entity;
 
 	public DBInsertMessage(IEntity<?> entity) {

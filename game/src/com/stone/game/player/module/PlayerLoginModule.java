@@ -10,6 +10,7 @@ import com.stone.db.entity.HumanEntity;
 import com.stone.db.entity.PlayerEntity;
 import com.stone.db.msg.internal.InternalCreateRole;
 import com.stone.db.msg.internal.InternalGetRoleList;
+import com.stone.db.msg.internal.InternalSelectRole;
 import com.stone.db.msg.internal.player.InternalGetRoleListResult;
 import com.stone.db.msg.internal.player.InternalLoginResult;
 import com.stone.game.msg.ProtobufMessage;
@@ -20,6 +21,7 @@ import com.stone.proto.Auths.Login;
 import com.stone.proto.Auths.LoginResult;
 import com.stone.proto.Auths.Role;
 import com.stone.proto.Auths.RoleList;
+import com.stone.proto.Auths.SelectRole;
 import com.stone.proto.MessageTypes.MessageType;
 
 /**
@@ -102,6 +104,10 @@ public class PlayerLoginModule extends BasePlayerModule {
 			// create role list
 			CreateRole.Builder createRole = msg.parseBuilder(CreateRole.newBuilder());
 			dbMaster.tell(new InternalCreateRole(player.getPlayerId(), createRole), playerActor);
+		} else if (msg.getType() == MessageType.CG_SELECT_ROLE_VALUE) {
+			// select role
+			SelectRole.Builder selectRole = msg.parseBuilder(SelectRole.newBuilder());
+			dbMaster.tell(new InternalSelectRole(player.getPlayerId(), selectRole), playerActor);
 		}
 	}
 

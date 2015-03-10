@@ -37,5 +37,5 @@ message RoleInfo {
 }
 // select role
 message SelectRole {
-	required int32 index = 1;
+	required int64 roleId = 1;
 }

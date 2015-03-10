@@ -3677,13 +3677,13 @@ public final class Auths {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required int32 index = 1;</code>
+     * <code>required int64 roleId = 1;</code>
      */
-    boolean hasIndex();
+    boolean hasRoleId();
     /**
-     * <code>required int32 index = 1;</code>
+     * <code>required int64 roleId = 1;</code>
      */
-    int getIndex();
+    long getRoleId();
   }
   /**
    * Protobuf type {@code SelectRole}
@@ -3743,7 +3743,7 @@ public final class Auths {
             }
             case 8: {
               bitField0_ |= 0x00000001;
-              index_ = input.readInt32();
+              roleId_ = input.readInt64();
               break;
             }
           }
@@ -3786,23 +3786,23 @@ public final class Auths {
     }
 
     private int bitField0_;
-    public static final int INDEX_FIELD_NUMBER = 1;
-    private int index_;
+    public static final int ROLEID_FIELD_NUMBER = 1;
+    private long roleId_;
     /**
-     * <code>required int32 index = 1;</code>
+     * <code>required int64 roleId = 1;</code>
      */
-    public boolean hasIndex() {
+    public boolean hasRoleId() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required int32 index = 1;</code>
+     * <code>required int64 roleId = 1;</code>
      */
-    public int getIndex() {
-      return index_;
+    public long getRoleId() {
+      return roleId_;
     }
 
     private void initFields() {
-      index_ = 0;
+      roleId_ = 0L;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -3810,7 +3810,7 @@ public final class Auths {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasIndex()) {
+      if (!hasRoleId()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -3822,7 +3822,7 @@ public final class Auths {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeInt32(1, index_);
+        output.writeInt64(1, roleId_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -3835,7 +3835,7 @@ public final class Auths {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(1, index_);
+          .computeInt64Size(1, roleId_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -3958,7 +3958,7 @@ public final class Auths {
 
       public Builder clear() {
         super.clear();
-        index_ = 0;
+        roleId_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000001);
         return this;
       }
@@ -3991,7 +3991,7 @@ public final class Auths {
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
           to_bitField0_ |= 0x00000001;
         }
-        result.index_ = index_;
+        result.roleId_ = roleId_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -4008,15 +4008,15 @@ public final class Auths {
 
       public Builder mergeFrom(com.stone.proto.Auths.SelectRole other) {
         if (other == com.stone.proto.Auths.SelectRole.getDefaultInstance()) return this;
-        if (other.hasIndex()) {
-          setIndex(other.getIndex());
+        if (other.hasRoleId()) {
+          setRoleId(other.getRoleId());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
 
       public final boolean isInitialized() {
-        if (!hasIndex()) {
+        if (!hasRoleId()) {
           
           return false;
         }
@@ -4042,34 +4042,34 @@ public final class Auths {
       }
       private int bitField0_;
 
-      private int index_ ;
+      private long roleId_ ;
       /**
-       * <code>required int32 index = 1;</code>
+       * <code>required int64 roleId = 1;</code>
        */
-      public boolean hasIndex() {
+      public boolean hasRoleId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required int32 index = 1;</code>
+       * <code>required int64 roleId = 1;</code>
        */
-      public int getIndex() {
-        return index_;
+      public long getRoleId() {
+        return roleId_;
       }
       /**
-       * <code>required int32 index = 1;</code>
+       * <code>required int64 roleId = 1;</code>
        */
-      public Builder setIndex(int value) {
+      public Builder setRoleId(long value) {
         bitField0_ |= 0x00000001;
-        index_ = value;
+        roleId_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required int32 index = 1;</code>
+       * <code>required int64 roleId = 1;</code>
        */
-      public Builder clearIndex() {
+      public Builder clearRoleId() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        index_ = 0;
+        roleId_ = 0L;
         onChanged();
         return this;
       }
@@ -4136,8 +4136,8 @@ public final class Auths {
       "\n\010roleList\030\001 \003(\0132\005.Role\".\n\nCreateRole\022\022\n" +
       "\ntemplateId\030\001 \002(\005\022\014\n\004name\030\002 \002(\t\"7\n\010RoleI" +
       "nfo\022\016\n\006roleId\030\001 \002(\003\022\014\n\004name\030\002 \002(\t\022\r\n\005lev" +
-      "el\030\003 \002(\005\"\033\n\nSelectRole\022\r\n\005index\030\001 \002(\005B\030\n" +
-      "\017com.stone.protoB\005Auths"
+      "el\030\003 \002(\005\"\034\n\nSelectRole\022\016\n\006roleId\030\001 \002(\003B\030" +
+      "\n\017com.stone.protoB\005Auths"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -4192,7 +4192,7 @@ public final class Auths {
     internal_static_SelectRole_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_SelectRole_descriptor,
-        new java.lang.String[] { "Index", });
+        new java.lang.String[] { "RoleId", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

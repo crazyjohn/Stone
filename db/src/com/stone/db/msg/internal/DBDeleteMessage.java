@@ -2,7 +2,7 @@ package com.stone.db.msg.internal;
 
 import com.stone.core.entity.IEntity;
 
-public class DBDeleteMessage implements IDBOperationWithEntity {
+public class DBDeleteMessage implements IDBMessage {
 
 	private final IEntity<?> entity;
 

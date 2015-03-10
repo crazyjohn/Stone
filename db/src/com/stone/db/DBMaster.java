@@ -14,7 +14,7 @@ import com.stone.core.db.service.IDBService;
 import com.stone.db.actor.DBEntityActor;
 import com.stone.db.login.DBLoginActor;
 import com.stone.db.login.DBRoleActor;
-import com.stone.db.msg.internal.IDBOperationWithEntity;
+import com.stone.db.msg.internal.IDBMessage;
 import com.stone.db.msg.internal.InternalCreateRole;
 import com.stone.db.msg.internal.InternalGetRoleList;
 import com.stone.proto.Auths.CreateRole;
@@ -59,9 +59,9 @@ public class DBMaster extends UntypedActor {
 			roleActor.forward(msg, getContext());
 		} else if (msg instanceof InternalCreateRole) {
 			roleActor.forward(msg, getContext());
-		} else if (msg instanceof IDBOperationWithEntity) {
+		} else if (msg instanceof IDBMessage) {
 			// handle db entity operation
-			IDBOperationWithEntity dbMessage = (IDBOperationWithEntity) msg;
+			IDBMessage dbMessage = (IDBMessage) msg;
 			handleDBOperation(dbMessage);
 		}
 	}
@@ -71,7 +71,7 @@ public class DBMaster extends UntypedActor {
 	 * 
 	 * @param msg
 	 */
-	private void handleDBOperation(IDBOperationWithEntity msg) {
+	private void handleDBOperation(IDBMessage msg) {
 		ActorRef entityActor = this.entityActors.get(msg.getClass());
 		if (entityActor == null) {
 			// create actor

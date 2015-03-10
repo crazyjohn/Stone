@@ -36,7 +36,7 @@ object BotLoginHandler {
       val role = roleList.getRoleList(0)
       println(String.format("Get role, name: %s", role.getName))
       // get role where index = 0
-      bot.sendMessage(MessageType.CG_SELECT_ROLE_VALUE, SelectRole.newBuilder().setIndex(0))
+      bot.sendMessage(MessageType.CG_SELECT_ROLE_VALUE, SelectRole.newBuilder().setRoleId(role.getRoleId))
     } else {
       bot.sendMessage(MessageType.CG_CREATE_ROLE_VALUE, CreateRole.newBuilder().setTemplateId(1).setName(bot.name + "_" + "role"))
     }

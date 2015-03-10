@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory
  */
 object BotApp extends App {
   private val logger = LoggerFactory.getLogger("ClientIoHandler")
-  val begin = 1
+  val begin = 0
   val end = 5
   // create robot
   for (i <- begin to end) {
