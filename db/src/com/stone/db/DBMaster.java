@@ -54,7 +54,7 @@ public class DBMaster extends UntypedActor {
 		 * config
 		 * this
 		 */
-		, dbService));
+		, dbService), "humanActor");
 		this.getContext().watch(humanActor);
 	}
 

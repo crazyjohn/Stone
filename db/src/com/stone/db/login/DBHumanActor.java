@@ -10,6 +10,12 @@ import com.stone.db.entity.HumanEntity;
 import com.stone.db.msg.internal.DBGetMessage;
 import com.stone.db.msg.internal.player.InternalSelectRoleResult;
 
+/**
+ * The db human actor;
+ * 
+ * @author crazyjohn
+ *
+ */
 public class DBHumanActor extends UntypedActor {
 	/** human cache */
 	private final LRUHashMap<Long, HumanEntity> cache;
@@ -33,11 +39,13 @@ public class DBHumanActor extends UntypedActor {
 					return;
 				}
 				humanEntity = (HumanEntity) entity;
+				// put to cache
+				cache.put(humanEntity.getId(), humanEntity);
 				getSender().tell(new InternalSelectRoleResult(humanEntity), getSelf());
 			}
 		}
 	}
-	
+
 	public static Props props(int cacheSize, IDBService dbService) {
 		return Props.create(DBHumanActor.class, cacheSize, dbService);
 	}
