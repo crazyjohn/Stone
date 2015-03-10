@@ -2,6 +2,7 @@ package com.stone.game.human;
 
 import akka.actor.ActorRef;
 
+import com.stone.db.entity.HumanEntity;
 import com.stone.game.msg.ProtobufMessage;
 import com.stone.game.player.Player;
 
@@ -14,6 +15,8 @@ import com.stone.game.player.Player;
 public class Human {
 	/** human guid */
 	private long guid;
+	private String name;
+
 	/** player */
 	private Player player;
 
@@ -59,4 +62,21 @@ public class Human {
 
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * Init from human entity;
+	 * 
+	 * @param humanEntity
+	 */
+	public void onLoad(HumanEntity humanEntity) {
+		this.name = humanEntity.getName();
+		this.guid = humanEntity.getGuid();
+	}
 }

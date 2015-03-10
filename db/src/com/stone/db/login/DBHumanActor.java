@@ -4,18 +4,20 @@ import akka.actor.Props;
 import akka.actor.UntypedActor;
 
 import com.stone.core.db.service.IDBService;
+import com.stone.core.entity.IEntity;
 import com.stone.core.util.LRUHashMap;
-import com.stone.db.cache.HumanCache;
+import com.stone.db.entity.HumanEntity;
 import com.stone.db.msg.internal.DBGetMessage;
+import com.stone.db.msg.internal.player.InternalSelectRoleResult;
 
 public class DBHumanActor extends UntypedActor {
 	/** human cache */
-	private final LRUHashMap<Long, HumanCache> cache;
+	private final LRUHashMap<Long, HumanEntity> cache;
 	/** dbService */
 	protected final IDBService dbService;
 
 	public DBHumanActor(int cacheSize, IDBService dbService) {
-		cache = new LRUHashMap<Long, HumanCache>(cacheSize, null);
+		cache = new LRUHashMap<Long, HumanEntity>(cacheSize, null);
 		this.dbService = dbService;
 	}
 
@@ -23,9 +25,15 @@ public class DBHumanActor extends UntypedActor {
 	public void onReceive(Object msg) throws Exception {
 		if (msg instanceof DBGetMessage) {
 			DBGetMessage getMsg = (DBGetMessage) msg;
-			HumanCache humanCache = this.cache.get(getMsg.getId());
-			if (humanCache == null) {
-				// FIXME: crazyjohn load from db
+			HumanEntity humanEntity = this.cache.get(getMsg.getId());
+			if (humanEntity == null) {
+				// load from db
+				IEntity<?> entity = this.dbService.get(HumanEntity.class, getMsg.getId());
+				if (entity == null) {
+					return;
+				}
+				humanEntity = (HumanEntity) entity;
+				getSender().tell(new InternalSelectRoleResult(humanEntity), getSelf());
 			}
 		}
 	}

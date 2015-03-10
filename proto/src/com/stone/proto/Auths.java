@@ -4085,6 +4085,538 @@ public final class Auths {
     // @@protoc_insertion_point(class_scope:SelectRole)
   }
 
+  public interface EnterSceneOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:EnterScene)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required .Human human = 1;</code>
+     */
+    boolean hasHuman();
+    /**
+     * <code>required .Human human = 1;</code>
+     */
+    com.stone.proto.Humans.Human getHuman();
+    /**
+     * <code>required .Human human = 1;</code>
+     */
+    com.stone.proto.Humans.HumanOrBuilder getHumanOrBuilder();
+  }
+  /**
+   * Protobuf type {@code EnterScene}
+   *
+   * <pre>
+   * enter scene
+   * </pre>
+   */
+  public static final class EnterScene extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:EnterScene)
+      EnterSceneOrBuilder {
+    // Use EnterScene.newBuilder() to construct.
+    private EnterScene(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private EnterScene(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final EnterScene defaultInstance;
+    public static EnterScene getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public EnterScene getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private EnterScene(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              com.stone.proto.Humans.Human.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000001) == 0x00000001)) {
+                subBuilder = human_.toBuilder();
+              }
+              human_ = input.readMessage(com.stone.proto.Humans.Human.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(human_);
+                human_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000001;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.stone.proto.Auths.internal_static_EnterScene_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.stone.proto.Auths.internal_static_EnterScene_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.stone.proto.Auths.EnterScene.class, com.stone.proto.Auths.EnterScene.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<EnterScene> PARSER =
+        new com.google.protobuf.AbstractParser<EnterScene>() {
+      public EnterScene parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new EnterScene(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<EnterScene> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    public static final int HUMAN_FIELD_NUMBER = 1;
+    private com.stone.proto.Humans.Human human_;
+    /**
+     * <code>required .Human human = 1;</code>
+     */
+    public boolean hasHuman() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required .Human human = 1;</code>
+     */
+    public com.stone.proto.Humans.Human getHuman() {
+      return human_;
+    }
+    /**
+     * <code>required .Human human = 1;</code>
+     */
+    public com.stone.proto.Humans.HumanOrBuilder getHumanOrBuilder() {
+      return human_;
+    }
+
+    private void initFields() {
+      human_ = com.stone.proto.Humans.Human.getDefaultInstance();
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasHuman()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!getHuman().isInitialized()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeMessage(1, human_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, human_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static com.stone.proto.Auths.EnterScene parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.stone.proto.Auths.EnterScene parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.stone.proto.Auths.EnterScene parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.stone.proto.Auths.EnterScene parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.stone.proto.Auths.EnterScene parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.stone.proto.Auths.EnterScene parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.stone.proto.Auths.EnterScene parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.stone.proto.Auths.EnterScene parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.stone.proto.Auths.EnterScene parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.stone.proto.Auths.EnterScene parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.stone.proto.Auths.EnterScene prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code EnterScene}
+     *
+     * <pre>
+     * enter scene
+     * </pre>
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:EnterScene)
+        com.stone.proto.Auths.EnterSceneOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.stone.proto.Auths.internal_static_EnterScene_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.stone.proto.Auths.internal_static_EnterScene_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.stone.proto.Auths.EnterScene.class, com.stone.proto.Auths.EnterScene.Builder.class);
+      }
+
+      // Construct using com.stone.proto.Auths.EnterScene.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getHumanFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        if (humanBuilder_ == null) {
+          human_ = com.stone.proto.Humans.Human.getDefaultInstance();
+        } else {
+          humanBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.stone.proto.Auths.internal_static_EnterScene_descriptor;
+      }
+
+      public com.stone.proto.Auths.EnterScene getDefaultInstanceForType() {
+        return com.stone.proto.Auths.EnterScene.getDefaultInstance();
+      }
+
+      public com.stone.proto.Auths.EnterScene build() {
+        com.stone.proto.Auths.EnterScene result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.stone.proto.Auths.EnterScene buildPartial() {
+        com.stone.proto.Auths.EnterScene result = new com.stone.proto.Auths.EnterScene(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        if (humanBuilder_ == null) {
+          result.human_ = human_;
+        } else {
+          result.human_ = humanBuilder_.build();
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.stone.proto.Auths.EnterScene) {
+          return mergeFrom((com.stone.proto.Auths.EnterScene)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.stone.proto.Auths.EnterScene other) {
+        if (other == com.stone.proto.Auths.EnterScene.getDefaultInstance()) return this;
+        if (other.hasHuman()) {
+          mergeHuman(other.getHuman());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasHuman()) {
+          
+          return false;
+        }
+        if (!getHuman().isInitialized()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.stone.proto.Auths.EnterScene parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.stone.proto.Auths.EnterScene) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private com.stone.proto.Humans.Human human_ = com.stone.proto.Humans.Human.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.stone.proto.Humans.Human, com.stone.proto.Humans.Human.Builder, com.stone.proto.Humans.HumanOrBuilder> humanBuilder_;
+      /**
+       * <code>required .Human human = 1;</code>
+       */
+      public boolean hasHuman() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required .Human human = 1;</code>
+       */
+      public com.stone.proto.Humans.Human getHuman() {
+        if (humanBuilder_ == null) {
+          return human_;
+        } else {
+          return humanBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>required .Human human = 1;</code>
+       */
+      public Builder setHuman(com.stone.proto.Humans.Human value) {
+        if (humanBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          human_ = value;
+          onChanged();
+        } else {
+          humanBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>required .Human human = 1;</code>
+       */
+      public Builder setHuman(
+          com.stone.proto.Humans.Human.Builder builderForValue) {
+        if (humanBuilder_ == null) {
+          human_ = builderForValue.build();
+          onChanged();
+        } else {
+          humanBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>required .Human human = 1;</code>
+       */
+      public Builder mergeHuman(com.stone.proto.Humans.Human value) {
+        if (humanBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001) &&
+              human_ != com.stone.proto.Humans.Human.getDefaultInstance()) {
+            human_ =
+              com.stone.proto.Humans.Human.newBuilder(human_).mergeFrom(value).buildPartial();
+          } else {
+            human_ = value;
+          }
+          onChanged();
+        } else {
+          humanBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>required .Human human = 1;</code>
+       */
+      public Builder clearHuman() {
+        if (humanBuilder_ == null) {
+          human_ = com.stone.proto.Humans.Human.getDefaultInstance();
+          onChanged();
+        } else {
+          humanBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+      /**
+       * <code>required .Human human = 1;</code>
+       */
+      public com.stone.proto.Humans.Human.Builder getHumanBuilder() {
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return getHumanFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>required .Human human = 1;</code>
+       */
+      public com.stone.proto.Humans.HumanOrBuilder getHumanOrBuilder() {
+        if (humanBuilder_ != null) {
+          return humanBuilder_.getMessageOrBuilder();
+        } else {
+          return human_;
+        }
+      }
+      /**
+       * <code>required .Human human = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.stone.proto.Humans.Human, com.stone.proto.Humans.Human.Builder, com.stone.proto.Humans.HumanOrBuilder> 
+          getHumanFieldBuilder() {
+        if (humanBuilder_ == null) {
+          humanBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.stone.proto.Humans.Human, com.stone.proto.Humans.Human.Builder, com.stone.proto.Humans.HumanOrBuilder>(
+                  getHuman(),
+                  getParentForChildren(),
+                  isClean());
+          human_ = null;
+        }
+        return humanBuilder_;
+      }
+
+      // @@protoc_insertion_point(builder_scope:EnterScene)
+    }
+
+    static {
+      defaultInstance = new EnterScene(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:EnterScene)
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_Login_descriptor;
   private static
@@ -4120,6 +4652,11 @@ public final class Auths {
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_SelectRole_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_EnterScene_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_EnterScene_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -4129,15 +4666,16 @@ public final class Auths {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\nAuth.proto\"+\n\005Login\022\020\n\010userName\030\001 \002(\t\022" +
-      "\020\n\010password\030\002 \002(\t\"1\n\013LoginResult\022\017\n\007succ" +
-      "eed\030\001 \002(\010\022\021\n\terrorCode\030\002 \001(\005\"$\n\004Role\022\016\n\006" +
-      "roleId\030\001 \002(\003\022\014\n\004name\030\002 \002(\t\"#\n\010RoleList\022\027" +
-      "\n\010roleList\030\001 \003(\0132\005.Role\".\n\nCreateRole\022\022\n" +
-      "\ntemplateId\030\001 \002(\005\022\014\n\004name\030\002 \002(\t\"7\n\010RoleI" +
-      "nfo\022\016\n\006roleId\030\001 \002(\003\022\014\n\004name\030\002 \002(\t\022\r\n\005lev" +
-      "el\030\003 \002(\005\"\034\n\nSelectRole\022\016\n\006roleId\030\001 \002(\003B\030" +
-      "\n\017com.stone.protoB\005Auths"
+      "\n\nAuth.proto\032\013Human.proto\"+\n\005Login\022\020\n\010us" +
+      "erName\030\001 \002(\t\022\020\n\010password\030\002 \002(\t\"1\n\013LoginR" +
+      "esult\022\017\n\007succeed\030\001 \002(\010\022\021\n\terrorCode\030\002 \001(" +
+      "\005\"$\n\004Role\022\016\n\006roleId\030\001 \002(\003\022\014\n\004name\030\002 \002(\t\"" +
+      "#\n\010RoleList\022\027\n\010roleList\030\001 \003(\0132\005.Role\".\n\n" +
+      "CreateRole\022\022\n\ntemplateId\030\001 \002(\005\022\014\n\004name\030\002" +
+      " \002(\t\"7\n\010RoleInfo\022\016\n\006roleId\030\001 \002(\003\022\014\n\004name" +
+      "\030\002 \002(\t\022\r\n\005level\030\003 \002(\005\"\034\n\nSelectRole\022\016\n\006r" +
+      "oleId\030\001 \002(\003\"#\n\nEnterScene\022\025\n\005human\030\001 \002(\013" +
+      "2\006.HumanB\030\n\017com.stone.protoB\005Auths"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -4150,6 +4688,7 @@ public final class Auths {
     com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
+          com.stone.proto.Humans.getDescriptor(),
         }, assigner);
     internal_static_Login_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -4193,6 +4732,13 @@ public final class Auths {
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_SelectRole_descriptor,
         new java.lang.String[] { "RoleId", });
+    internal_static_EnterScene_descriptor =
+      getDescriptor().getMessageTypes().get(7);
+    internal_static_EnterScene_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_EnterScene_descriptor,
+        new java.lang.String[] { "Human", });
+    com.stone.proto.Humans.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

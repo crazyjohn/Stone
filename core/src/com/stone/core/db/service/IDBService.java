@@ -11,13 +11,22 @@ import com.stone.core.entity.IEntity;
  * @author crazyjohn
  *
  */
-public interface IDBService{
+public interface IDBService {
 	/**
 	 * 更新实体接口;
 	 * 
 	 * @param entity
 	 */
 	public void update(IEntity<?> entity);
+
+	/**
+	 * Get the entity;
+	 * 
+	 * @param entityClass
+	 * @param id
+	 * @return
+	 */
+	public IEntity<?> get(Class<?> entityClass, Serializable id);
 
 	/**
 	 * 插入实体接口;

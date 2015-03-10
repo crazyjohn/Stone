@@ -8,20 +8,23 @@ import akka.actor.ActorRef;
 import com.stone.core.msg.MessageParseException;
 import com.stone.db.entity.HumanEntity;
 import com.stone.db.entity.PlayerEntity;
+import com.stone.db.msg.internal.DBGetMessage;
 import com.stone.db.msg.internal.InternalCreateRole;
 import com.stone.db.msg.internal.InternalGetRoleList;
-import com.stone.db.msg.internal.InternalSelectRole;
 import com.stone.db.msg.internal.player.InternalGetRoleListResult;
 import com.stone.db.msg.internal.player.InternalLoginResult;
+import com.stone.db.msg.internal.player.InternalSelectRoleResult;
 import com.stone.game.msg.ProtobufMessage;
 import com.stone.game.player.BasePlayerModule;
 import com.stone.game.player.Player;
 import com.stone.proto.Auths.CreateRole;
+import com.stone.proto.Auths.EnterScene;
 import com.stone.proto.Auths.Login;
 import com.stone.proto.Auths.LoginResult;
 import com.stone.proto.Auths.Role;
 import com.stone.proto.Auths.RoleList;
 import com.stone.proto.Auths.SelectRole;
+import com.stone.proto.Humans.Human;
 import com.stone.proto.MessageTypes.MessageType;
 
 /**
@@ -46,6 +49,21 @@ public class PlayerLoginModule extends BasePlayerModule {
 		} else if (msg instanceof InternalGetRoleListResult) {
 			InternalGetRoleListResult roleList = (InternalGetRoleListResult) msg;
 			handleRoleListResult(roleList, player);
+		} else if (msg instanceof InternalSelectRoleResult) {
+			// select role result
+			// send enter scene
+			Human.Builder humanBuilder = Human.newBuilder();
+			// bind player and human for each other
+			com.stone.game.human.Human human = new com.stone.game.human.Human();
+			player.setHuman(human);
+			human.setPlayer(player);
+			HumanEntity humanEntity = ((InternalSelectRoleResult) msg).getEntity();
+			// load
+			human.onLoad(humanEntity);
+			humanBuilder.setGuid(humanEntity.getGuid()).setLevel(humanEntity.getLevel()).setName(humanEntity.getName()).setPlayerId(humanEntity.getPlayerId());
+			EnterScene.Builder enterScene = EnterScene.newBuilder();
+			enterScene.setHuman(humanBuilder);
+			player.sendMessage(MessageType.GC_ENTER_SCENE_VALUE, enterScene);
 		}
 	}
 
@@ -107,7 +125,9 @@ public class PlayerLoginModule extends BasePlayerModule {
 		} else if (msg.getType() == MessageType.CG_SELECT_ROLE_VALUE) {
 			// select role
 			SelectRole.Builder selectRole = msg.parseBuilder(SelectRole.newBuilder());
-			dbMaster.tell(new InternalSelectRole(player.getPlayerId(), selectRole), playerActor);
+			dbMaster.tell(new DBGetMessage(selectRole.getRoleId(), HumanEntity.class), playerActor);
+		} else if (msg.getType() == MessageType.CG_ENTER_SCENE_READY_VALUE) {
+			logger.info(String.format("%s enter scene ready.", player.getHuman().getName()));
 		}
 	}
 

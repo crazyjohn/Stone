@@ -8,6 +8,7 @@ import com.stone.proto.Auths.LoginResult
 import com.stone.proto.Auths.RoleList
 import com.stone.proto.Auths.CreateRole
 import com.stone.proto.Auths.SelectRole
+import com.stone.proto.Auths.EnterScene
 /**
  * Bot login message handler;
  *
@@ -31,7 +32,7 @@ object BotLoginHandler {
    */
   Handlers.registHandler(MessageType.GC_GET_ROLE_LIST_VALUE, (msg: IMessage, bot: CrazyBot) => {
     val protobufMessage = msg.asInstanceOf[ProtobufMessage]
-    val roleList = protobufMessage.parseBuilder(RoleList.newBuilder());
+    val roleList = protobufMessage.parseBuilder(RoleList.newBuilder())
     if (roleList.getRoleListCount > 0) {
       val role = roleList.getRoleList(0)
       println(String.format("Get role, name: %s", role.getName))
@@ -40,5 +41,16 @@ object BotLoginHandler {
     } else {
       bot.sendMessage(MessageType.CG_CREATE_ROLE_VALUE, CreateRole.newBuilder().setTemplateId(1).setName(bot.name + "_" + "role"))
     }
+  })
+
+  /**
+   * Handle enter scene;
+   */
+  Handlers.registHandler(MessageType.GC_ENTER_SCENE_VALUE, (msg: IMessage, bot: CrazyBot) => {
+    val protobufMessage = msg.asInstanceOf[ProtobufMessage]
+    val enterScene = protobufMessage.parseBuilder(EnterScene.newBuilder())
+    println(String.format("%s enter scene", enterScene.getHuman.getName))
+    // enter scene ready
+    bot.sendMessage(MessageType.CG_ENTER_SCENE_READY_VALUE)
   })
 }

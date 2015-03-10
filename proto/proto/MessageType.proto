@@ -19,4 +19,8 @@ enum MessageType {
 	CG_CREATE_ROLE = 1007;
 	// create role result
 	GC_CREATE_ROLE_RESULT = 1008;
+	// enter scene
+	GC_ENTER_SCENE = 1009;
+	// enter scene ready
+	CG_ENTER_SCENE_READY = 1010;
 }

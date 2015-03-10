@@ -81,6 +81,22 @@ public final class MessageTypes {
      * </pre>
      */
     GC_CREATE_ROLE_RESULT(7, 1008),
+    /**
+     * <code>GC_ENTER_SCENE = 1009;</code>
+     *
+     * <pre>
+     * enter scene
+     * </pre>
+     */
+    GC_ENTER_SCENE(8, 1009),
+    /**
+     * <code>CG_ENTER_SCENE_READY = 1010;</code>
+     *
+     * <pre>
+     * enter scene ready
+     * </pre>
+     */
+    CG_ENTER_SCENE_READY(9, 1010),
     ;
 
     /**
@@ -147,6 +163,22 @@ public final class MessageTypes {
      * </pre>
      */
     public static final int GC_CREATE_ROLE_RESULT_VALUE = 1008;
+    /**
+     * <code>GC_ENTER_SCENE = 1009;</code>
+     *
+     * <pre>
+     * enter scene
+     * </pre>
+     */
+    public static final int GC_ENTER_SCENE_VALUE = 1009;
+    /**
+     * <code>CG_ENTER_SCENE_READY = 1010;</code>
+     *
+     * <pre>
+     * enter scene ready
+     * </pre>
+     */
+    public static final int CG_ENTER_SCENE_READY_VALUE = 1010;
 
 
     public final int getNumber() { return value; }
@@ -161,6 +193,8 @@ public final class MessageTypes {
         case 1006: return GC_ROLE_INFO;
         case 1007: return CG_CREATE_ROLE;
         case 1008: return GC_CREATE_ROLE_RESULT;
+        case 1009: return GC_ENTER_SCENE;
+        case 1010: return CG_ENTER_SCENE_READY;
         default: return null;
       }
     }
@@ -221,13 +255,14 @@ public final class MessageTypes {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\021MessageType.proto*\307\001\n\013MessageType\022\024\n\017C" +
+      "\n\021MessageType.proto*\367\001\n\013MessageType\022\024\n\017C" +
       "G_PLAYER_LOGIN\020\351\007\022\033\n\026GC_PLAYER_LOGIN_RES" +
       "ULT\020\352\007\022\025\n\020CG_GET_ROLE_LIST\020\353\007\022\025\n\020GC_GET_" +
       "ROLE_LIST\020\354\007\022\023\n\016CG_SELECT_ROLE\020\355\007\022\021\n\014GC_" +
       "ROLE_INFO\020\356\007\022\023\n\016CG_CREATE_ROLE\020\357\007\022\032\n\025GC_" +
-      "CREATE_ROLE_RESULT\020\360\007B\037\n\017com.stone.proto" +
-      "B\014MessageTypes"
+      "CREATE_ROLE_RESULT\020\360\007\022\023\n\016GC_ENTER_SCENE\020" +
+      "\361\007\022\031\n\024CG_ENTER_SCENE_READY\020\362\007B\037\n\017com.sto" +
+      "ne.protoB\014MessageTypes"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

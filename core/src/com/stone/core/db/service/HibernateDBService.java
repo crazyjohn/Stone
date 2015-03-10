@@ -64,6 +64,17 @@ public class HibernateDBService implements IDBService {
 	}
 
 	@Override
+	public IEntity<?> get(final Class<?> entityClass, final Serializable id) {
+		IEntity<?> entity = template.doCallback(new IHibernateOperationCallback<IEntity<?>>() {
+			@Override
+			public IEntity<?> doCallback(Session session) {
+				return (IEntity<?>) session.get(entityClass, id);
+			}
+		});
+		return entity;
+	}
+
+	@Override
 	public void delete(final IEntity<?> entity) {
 		template.doCallback(new IHibernateOperationCallback<Void>() {
 			@Override
