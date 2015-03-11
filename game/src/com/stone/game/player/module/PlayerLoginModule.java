@@ -22,6 +22,12 @@ import com.stone.proto.Auths.Role;
 import com.stone.proto.Auths.RoleList;
 import com.stone.proto.MessageTypes.MessageType;
 
+/**
+ * The player's login module;
+ * 
+ * @author crazyjohn
+ *
+ */
 public class PlayerLoginModule extends BasePlayerModule {
 	/** logger */
 	protected Logger logger = LoggerFactory.getLogger(PlayerLoginModule.class);

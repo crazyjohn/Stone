@@ -14,12 +14,13 @@ import com.stone.game.msg.ProtobufMessageFactory
 import com.stone.proto.Auths.Login
 import com.stone.bot.handler.Handlers
 import com.stone.proto.MessageTypes.MessageType
+import org.apache.mina.core.future.ConnectFuture
 
 /**
  * bot Actor;
  * @author crazyjohn
  */
-class CrazyBot extends Actor {
+class CrazyBot(userName: String, password: String) extends Actor {
   private val tasks = new MutableList[BotTask]
   private var session: IoSession = null
 
@@ -34,7 +35,7 @@ class CrazyBot extends Actor {
     tasks += task
   }
 
-  def connect(serverIp: String, port: Int) {
+  def connect(serverIp: String, port: Int): ConnectFuture = {
     val connector: NioSocketConnector = new NioSocketConnector()
     connector.setHandler(new ClientIoHandler())
     connector.getFilterChain().addLast("codec", new ProtocolCodecFilter(new GameCodecFactory(new ProtobufMessageFactory())))
@@ -72,14 +73,14 @@ class CrazyBot extends Actor {
     msg.setBuilder(builder)
     session.write(msg)
   }
-  
+
   def sendMessage(messageType: Short) {
     val msg = new ProtobufMessage(messageType)
     session.write(msg)
   }
-  
+
   def doLogin() {
-    sendMessage(MessageType.CG_PLAYER_LOGIN_VALUE, Login.newBuilder().setUserName("bot").setPassword("bot"))
+    sendMessage(MessageType.CG_PLAYER_LOGIN_VALUE, Login.newBuilder().setUserName(userName).setPassword(password))
   }
 
 }

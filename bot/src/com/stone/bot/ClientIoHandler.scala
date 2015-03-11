@@ -10,12 +10,7 @@ import org.slf4j.LoggerFactory
 class ClientIoHandler extends IoHandlerAdapter {
   private val logger = LoggerFactory.getLogger("ClientIoHandler")
   override def sessionOpened(session: IoSession) {
-    val bot = new CrazyBot()
-    bot.start()
-    bot.setSession(session)
-    session.setAttribute("bot", bot)
-    logger.info("Session opend: " + session)
-    bot.doLogin()
+    
   }
 
   override def messageReceived(session: IoSession, message: Object) {
