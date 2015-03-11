@@ -45,7 +45,7 @@ public class DBMaster extends UntypedActor {
 	public DBMaster(IDBService dbService) {
 		this.dbService = dbService;
 		// login actor use router
-		loginRouter = RouterFactory.createRouteeActor(this.getContext(), new RoundRobinRoutingLogic(), DBLoginActor.class, DEFAULT_ROUTEES_COUNT, dbService);
+		loginRouter = RouterFactory.createChildActorRouteeRouter(this.getContext(), new RoundRobinRoutingLogic(), DBLoginActor.class, DEFAULT_ROUTEES_COUNT, dbService);
 		// role actor
 		roleActor = this.getContext().actorOf(Props.create(DBRoleActor.class, dbService));
 		this.getContext().watch(roleActor);
