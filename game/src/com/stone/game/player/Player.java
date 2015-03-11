@@ -95,6 +95,9 @@ public class Player {
 	public void onExternalMessage(ProtobufMessage msg, ActorRef playerActor, ActorRef dbMaster) throws MessageParseException {
 		loginModule.onExternalMessage(msg, playerActor, dbMaster);
 		// call human
+		if (human == null) {
+			return;
+		}
 		this.human.onExternalMessage(msg, playerActor, dbMaster);
 	}
 
