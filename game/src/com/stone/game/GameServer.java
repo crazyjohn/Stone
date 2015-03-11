@@ -16,7 +16,7 @@ import com.stone.db.DBActorSystem;
 import com.stone.game.msg.ProtobufMessageFactory;
 
 /**
- * 游戏服务器;
+ * The game server instance;
  * 
  * @author crazyjohn
  *

@@ -12,7 +12,7 @@ import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
 import com.stone.core.service.IService;
 
 /**
- * 服务器网络io进程;
+ * The net io process;
  * 
  * @author crazyjohn
  *
@@ -24,13 +24,12 @@ public class ServerProcess implements IService {
 	private int port;
 	/** bindIp */
 	private String bindIp;
-	/** io回调处理器 */
+	/** ioHandler */
 	private IoHandler ioHandler;
-	/** 编解码工厂 */
+	/** codec factory */
 	private ProtocolCodecFactory codecFactory;
 
-	public ServerProcess(String bindIp, int port, IoHandler ioHandler,
-			ProtocolCodecFactory codecFactory) {
+	public ServerProcess(String bindIp, int port, IoHandler ioHandler, ProtocolCodecFactory codecFactory) {
 		acceptor = new NioSocketAcceptor();
 		this.bindIp = bindIp;
 		this.port = port;
@@ -47,15 +46,15 @@ public class ServerProcess implements IService {
 	@Override
 	public void start() throws IOException {
 		acceptor.setHandler(ioHandler);
-		acceptor.getFilterChain().addLast("codec",
-				new ProtocolCodecFilter(codecFactory));
+		acceptor.getFilterChain().addLast("codec", new ProtocolCodecFilter(codecFactory));
 		acceptor.bind(new InetSocketAddress(this.bindIp, this.port));
 	}
 
 	@Override
 	public void shutdown() {
-		// 解除绑定;
+		// unbind
 		acceptor.unbind();
+		// dispose
 		acceptor.dispose();
 	}
 

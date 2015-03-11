@@ -5,24 +5,29 @@ import java.io.IOException;
 import javax.script.ScriptException;
 
 /**
- * 服务接口;
+ * The service interface;
  * 
  * @author crazyjohn
  *
  */
 public interface IService {
 	/**
-	 * 初始化;
+	 * Init;
+	 * 
+	 * @throws ScriptException
+	 * @throws IOException
 	 */
 	public void init() throws ScriptException, IOException;
 
 	/**
-	 * 启动服务;
+	 * Start;
+	 * 
+	 * @throws IOException
 	 */
 	public void start() throws IOException;
 
 	/**
-	 * 停止服务;
+	 * Stop;
 	 */
 	public void shutdown();
 }
