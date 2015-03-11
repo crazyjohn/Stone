@@ -80,8 +80,7 @@ public class PlayerLoginModule extends BasePlayerModule {
 
 	@Override
 	public Player getPlayer() {
-		// TODO Auto-generated method stub
-		return null;
+		return player;
 	}
 
 	@Override

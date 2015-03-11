@@ -1,9 +1,6 @@
 package com.stone.game.human;
 
-import akka.actor.ActorRef;
-
 import com.stone.db.entity.HumanEntity;
-import com.stone.game.player.Player;
 
 /**
  * 玩家持久化管理器接口;
@@ -33,5 +30,5 @@ public interface IHumanModule {
 	 */
 	public Human getOwner();
 	
-	public void onMessage(Object message, Player player, ActorRef playerActor);
+	
 }
