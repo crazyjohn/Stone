@@ -14,7 +14,7 @@ object BotApp extends App {
   for (i <- begin to end) {
     val bot = new CrazyBot("bot" + i, "bot" + i)
     val connectFuture = bot.connect("0.0.0.0", 8081)
-    connectFuture.awaitUninterruptibly();
+    connectFuture.awaitUninterruptibly()
     bot.start()
     bot.setSession(connectFuture.getSession)
     connectFuture.getSession().setAttribute("bot", bot)

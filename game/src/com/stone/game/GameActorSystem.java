@@ -7,6 +7,8 @@ import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 
 import com.stone.core.system.ISystem;
+import com.typesafe.config.Config;
+import com.typesafe.config.ConfigFactory;
 
 /**
  * The game message router;
@@ -21,9 +23,11 @@ public class GameActorSystem implements ISystem {
 	private ActorSystem system;
 	/** game master */
 	private ActorRef gameMaster;
-	
+
 	public GameActorSystem(ActorRef dbMaster) {
-		system = ActorSystem.create("GameActorSystem");
+		// load GAME config
+		Config config = ConfigFactory.load().getConfig("GAME");
+		system = ActorSystem.create(this.getClass().getSimpleName(), config);
 		gameMaster = system.actorOf(GameMaster.props(dbMaster));
 	}
 

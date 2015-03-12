@@ -9,6 +9,8 @@ import com.stone.core.db.service.IDBService;
 import com.stone.core.system.ISystem;
 import com.stone.db.service.DBConfiguration;
 import com.stone.db.service.DBServiceFactory;
+import com.typesafe.config.Config;
+import com.typesafe.config.ConfigFactory;
 
 /**
  * The db actor system;
@@ -25,7 +27,9 @@ public class DBActorSystem implements ISystem {
 	private IDBService dbService;
 
 	public DBActorSystem() {
-		system = ActorSystem.create("DBActorSystem");
+		// load DB config
+		Config config = ConfigFactory.load().getConfig("DB");
+		system = ActorSystem.create(this.getClass().getSimpleName(), config);
 	}
 
 	public void initDBService(String dbServiceType, String dbConfigName, Properties props) {
