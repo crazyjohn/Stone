@@ -14,7 +14,7 @@ import com.stone.core.entity.IEntity;
  * 
  * @param <E>
  */
-public class ExclusiveEntityHolder<E extends IEntity<?>> extends AbstractEntityHolder<E> {
+public class ExclusiveEntityHolder<E extends IEntity> extends AbstractEntityHolder<E> {
 	protected E entity;
 	private List<E> entities = new ArrayList<E>();
 

@@ -9,7 +9,7 @@ import com.stone.core.entity.IEntity;
 
 @Entity
 @Table(name = "player")
-public class PlayerEntity implements IEntity<Long> {
+public class PlayerEntity implements IEntity {
 	@Id
 	@Column(name = "id")
 	private long id;

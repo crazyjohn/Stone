@@ -12,7 +12,7 @@ import com.stone.core.entity.IEntity;
  * 
  * @param <E>
  */
-public abstract class AbstractEntityHolder<E extends IEntity<?>> implements IEntityHolder<E> {
+public abstract class AbstractEntityHolder<E extends IEntity> implements IEntityHolder<E> {
 	protected boolean isModified;
 
 	@Override

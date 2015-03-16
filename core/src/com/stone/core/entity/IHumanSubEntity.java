@@ -9,7 +9,7 @@ import java.io.Serializable;
  *
  * @param <ID>
  */
-public interface IHumanSubEntity<ID extends Serializable> extends IEntity<ID> {
+public interface IHumanSubEntity<ID extends Serializable> extends IEntity {
 	/**
 	 * Get human id;
 	 * 

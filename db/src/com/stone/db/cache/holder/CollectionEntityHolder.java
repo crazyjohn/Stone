@@ -14,12 +14,12 @@ import com.stone.core.entity.IEntity;
  * @author crazyjohn
  * 
  */
-public class CollectionEntityHolder<E extends IEntity<?>> extends AbstractEntityHolder<E> {
+public class CollectionEntityHolder<E extends IEntity> extends AbstractEntityHolder<E> {
 	private Map<Serializable, E> entities = new HashMap<Serializable, E>();
 
 	@Override
 	public boolean add(E entity) {
-		IEntity<?> result = entities.put(entity.getId(), entity);
+		IEntity result = entities.put(entity.getId(), entity);
 		this.isModified = true;
 		return result != null;
 	}

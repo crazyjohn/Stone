@@ -41,7 +41,7 @@ public class HibernateDBService implements IDBService {
 	}
 
 	@Override
-	public void update(final IEntity<?> entity) {
+	public void update(final IEntity entity) {
 		template.doCallback(new IHibernateOperationCallback<Void>() {
 			@Override
 			public Void doCallback(Session session) {
@@ -52,7 +52,7 @@ public class HibernateDBService implements IDBService {
 	}
 
 	@Override
-	public Serializable insert(final IEntity<?> entity) {
+	public Serializable insert(final IEntity entity) {
 		Serializable id = template.doCallback(new IHibernateOperationCallback<Serializable>() {
 			@Override
 			public Serializable doCallback(Session session) {
@@ -64,18 +64,18 @@ public class HibernateDBService implements IDBService {
 	}
 
 	@Override
-	public IEntity<?> get(final Class<?> entityClass, final Serializable id) {
-		IEntity<?> entity = template.doCallback(new IHibernateOperationCallback<IEntity<?>>() {
+	public IEntity get(final Class<?> entityClass, final Serializable id) {
+		IEntity entity = template.doCallback(new IHibernateOperationCallback<IEntity>() {
 			@Override
-			public IEntity<?> doCallback(Session session) {
-				return (IEntity<?>) session.get(entityClass, id);
+			public IEntity doCallback(Session session) {
+				return (IEntity) session.get(entityClass, id);
 			}
 		});
 		return entity;
 	}
 
 	@Override
-	public void delete(final IEntity<?> entity) {
+	public void delete(final IEntity entity) {
 		template.doCallback(new IHibernateOperationCallback<Void>() {
 			@Override
 			public Void doCallback(Session session) {

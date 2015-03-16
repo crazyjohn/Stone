@@ -3,9 +3,9 @@ package com.stone.db.msg.internal;
 import com.stone.core.entity.IEntity;
 
 public class DBUpdateMessage implements IDBMessage {
-	private final IEntity<?> entity;
+	private final IEntity entity;
 
-	public DBUpdateMessage(IEntity<?> entity) {
+	public DBUpdateMessage(IEntity entity) {
 		this.entity = entity;
 	}
 
@@ -14,7 +14,7 @@ public class DBUpdateMessage implements IDBMessage {
 		return entity.getClass();
 	}
 
-	public IEntity<?> getEntity() {
+	public IEntity getEntity() {
 		return entity;
 	}
 }

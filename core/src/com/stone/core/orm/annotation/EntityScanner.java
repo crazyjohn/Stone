@@ -13,6 +13,8 @@ import java.util.jar.JarFile;
 
 import org.slf4j.Logger;
 
+import scala.reflect.internal.tpe.TypeMaps.AnnotationFilter;
+
 import com.stone.core.annotation.IAnnotationFilter;
 import com.stone.core.constants.Loggers;
 import com.stone.core.entity.IEntity;
@@ -93,7 +95,7 @@ public class EntityScanner {
 	private String entityPackage = "";
 
 	/** 保存扫描结果的list */
-	private List<Class<? extends IEntity<?>>> entityList = new ArrayList<Class<? extends IEntity<?>>>();;
+	private List<Class<? extends IEntity>> entityList = new ArrayList<Class<? extends IEntity>>();;
 
 	/**
 	 * 构造函数
@@ -123,9 +125,9 @@ public class EntityScanner {
 	 *            过滤器
 	 * @return 符合指定注解条件的Entity List
 	 */
-	public List<Class<? extends IEntity<?>>> getEntityListByAnnotationFilter(IAnnotationFilter filter) {
-		List<Class<? extends IEntity<?>>> result = new ArrayList<Class<? extends IEntity<?>>>();
-		for (Class<? extends IEntity<?>> entityClass : entityList) {
+	public List<Class<? extends IEntity>> getEntityListByAnnotationFilter(IAnnotationFilter filter) {
+		List<Class<? extends IEntity>> result = new ArrayList<Class<? extends IEntity>>();
+		for (Class<? extends IEntity> entityClass : entityList) {
 			if (filter.accept(entityClass)) {
 				result.add(entityClass);
 			}
@@ -142,7 +144,7 @@ public class EntityScanner {
 		List<String> entityClassNameList = listAllClassNamesInPackage();
 		for (String entityClassName : entityClassNameList) {
 			try {
-				Class<? extends IEntity<?>> entityClass = (Class<? extends IEntity<?>>) Class.forName(entityClassName);
+				Class<? extends IEntity> entityClass = (Class<? extends IEntity>) Class.forName(entityClassName);
 				if (IEntity.class.isAssignableFrom(entityClass)) {
 					entityList.add(entityClass);
 					logger.info("[EntityAnnotationScanner#scanAllEntityClassInPackage]:Entity '" + entityClassName + "' loaded successfully!");

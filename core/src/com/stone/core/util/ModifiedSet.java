@@ -16,7 +16,7 @@ import com.stone.core.entity.IEntity;
  * 
  * @author crazyjohn
  */
-public final class ModifiedSet<E extends IEntity<?>> {
+public final class ModifiedSet<E extends IEntity> {
 	private final Queue<E> modifiedQueue = new ConcurrentLinkedQueue<E>();
 	private final Map<Serializable, E> existMap = new HashMap<Serializable, E>();
 

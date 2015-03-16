@@ -9,6 +9,6 @@ import java.io.Serializable;
  *
  * @param <ID>
  */
-public interface IEntity<ID extends Serializable> {
-	public ID getId();
+public interface IEntity {
+	public Serializable getId();
 }

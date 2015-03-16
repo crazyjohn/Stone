@@ -34,7 +34,7 @@ public class DBHumanActor extends UntypedActor {
 			HumanEntity humanEntity = this.cache.get(getMsg.getId());
 			if (humanEntity == null) {
 				// load from db
-				IEntity<?> entity = this.dbService.get(HumanEntity.class, getMsg.getId());
+				IEntity entity = this.dbService.get(HumanEntity.class, getMsg.getId());
 				if (entity == null) {
 					return;
 				}

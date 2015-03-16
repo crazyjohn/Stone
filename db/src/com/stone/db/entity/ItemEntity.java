@@ -15,7 +15,7 @@ import com.stone.core.entity.IEntity;
  */
 @Entity
 @Table(name = "item")
-public class ItemEntity implements IEntity<Long> {
+public class ItemEntity implements IEntity {
 	@Id
 	@Column(name = "id")
 	private long id;

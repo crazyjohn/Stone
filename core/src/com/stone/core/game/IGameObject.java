@@ -1,7 +1,5 @@
 package com.stone.core.game;
 
-import java.io.Serializable;
-
 import com.stone.core.entity.IEntity;
 
 /**
@@ -10,7 +8,7 @@ import com.stone.core.entity.IEntity;
  * @author crazyjohn
  *
  */
-public interface IGameObject<Entity extends IEntity<? extends Serializable>, GameObject> {
+public interface IGameObject<Entity extends IEntity, GameObject> {
 	
 	public Entity toEntity();
 	

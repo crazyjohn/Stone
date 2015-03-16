@@ -4,9 +4,9 @@ import com.stone.core.entity.IEntity;
 
 public class DBDeleteMessage implements IDBMessage {
 
-	private final IEntity<?> entity;
+	private final IEntity entity;
 
-	public DBDeleteMessage(IEntity<?> entity) {
+	public DBDeleteMessage(IEntity entity) {
 		this.entity = entity;
 	}
 
@@ -15,7 +15,7 @@ public class DBDeleteMessage implements IDBMessage {
 		return entity.getClass();
 	}
 
-	public IEntity<?> getEntity() {
+	public IEntity getEntity() {
 		return entity;
 	}
 

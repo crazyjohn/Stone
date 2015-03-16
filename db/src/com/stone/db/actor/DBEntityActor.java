@@ -27,13 +27,13 @@ public class DBEntityActor extends UntypedActor {
 	@Override
 	public void onReceive(Object msg) throws Exception {
 		if (msg instanceof DBInsertMessage) {
-			IEntity<?> entity = ((DBInsertMessage)msg).getEntity();
+			IEntity entity = ((DBInsertMessage)msg).getEntity();
 			dbService.insert(entity);
 		} else if (msg instanceof DBUpdateMessage) {
-			IEntity<?> entity = ((DBUpdateMessage)msg).getEntity();
+			IEntity entity = ((DBUpdateMessage)msg).getEntity();
 			dbService.update(entity);
 		} else if (msg instanceof DBDeleteMessage) {
-			IEntity<?> entity = ((DBDeleteMessage)msg).getEntity();
+			IEntity entity = ((DBDeleteMessage)msg).getEntity();
 			dbService.delete(entity);
 		} else {
 			this.unhandled(msg);

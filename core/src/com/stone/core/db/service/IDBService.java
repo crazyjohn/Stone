@@ -17,7 +17,7 @@ public interface IDBService {
 	 * 
 	 * @param entity
 	 */
-	public void update(IEntity<?> entity);
+	public void update(IEntity entity);
 
 	/**
 	 * Get the entity;
@@ -26,7 +26,7 @@ public interface IDBService {
 	 * @param id
 	 * @return
 	 */
-	public IEntity<?> get(Class<?> entityClass, Serializable id);
+	public IEntity get(Class<?> entityClass, Serializable id);
 
 	/**
 	 * 插入实体接口;
@@ -34,14 +34,14 @@ public interface IDBService {
 	 * @param entity
 	 * @return
 	 */
-	public Serializable insert(IEntity<?> entity);
+	public Serializable insert(IEntity entity);
 
 	/**
 	 * 删除实体接口;
 	 * 
 	 * @param entity
 	 */
-	public void delete(IEntity<?> entity);
+	public void delete(IEntity entity);
 
 	/**
 	 * 根据id和类名删除实体;
