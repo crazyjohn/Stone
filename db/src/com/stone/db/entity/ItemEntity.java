@@ -5,7 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.stone.core.entity.IEntity;
+import com.stone.core.entity.BaseProtobufEntity;
+import com.stone.core.entity.IHumanSubEntity;
+import com.stone.proto.entity.Entities.HumanItem;
 
 /**
  * Item entity;
@@ -15,7 +17,7 @@ import com.stone.core.entity.IEntity;
  */
 @Entity
 @Table(name = "item")
-public class ItemEntity implements IEntity {
+public class ItemEntity extends BaseProtobufEntity<HumanItem.Builder> implements IHumanSubEntity {
 	@Id
 	@Column(name = "id")
 	private long id;

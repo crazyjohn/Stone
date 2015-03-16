@@ -1,6 +1,5 @@
 package com.stone.core.entity;
 
-import java.io.Serializable;
 
 /**
  * Human sub entity;
@@ -9,11 +8,11 @@ import java.io.Serializable;
  *
  * @param <ID>
  */
-public interface IHumanSubEntity<ID extends Serializable> extends IEntity {
+public interface IHumanSubEntity extends IEntity {
 	/**
 	 * Get human id;
 	 * 
 	 * @return
 	 */
-	public long getHumanId();
+	public long getHumanGuid();
 }

@@ -1,0 +1,10 @@
+option java_package = "com.stone.proto.entity";
+option java_outer_classname = "Entities";
+
+import "Common.proto";
+
+// ItemEntity
+message HumanItem {
+	required int64 humanGuid = 1;
+	required Item item = 2;
+}
