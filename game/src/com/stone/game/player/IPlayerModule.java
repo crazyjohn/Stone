@@ -1,9 +1,6 @@
 package com.stone.game.player;
 
-import com.stone.core.msg.MessageParseException;
-import com.stone.game.msg.ProtobufMessage;
-
-import akka.actor.ActorRef;
+import com.stone.game.module.IGameModule;
 
 /**
  * The player module;
@@ -11,7 +8,7 @@ import akka.actor.ActorRef;
  * @author crazyjohn
  *
  */
-public interface IPlayerModule {
+public interface IPlayerModule extends IGameModule{
 
 	/**
 	 * Get the player;
@@ -19,22 +16,4 @@ public interface IPlayerModule {
 	 * @return
 	 */
 	public Player getPlayer();
-
-	/**
-	 * Handle the system internal message;
-	 * 
-	 * @param msg
-	 * @param playerActor
-	 */
-	public void onInternalMessage(Object msg, ActorRef playerActor);
-
-	/**
-	 * Handle the net(io) external message;
-	 * 
-	 * @param msg
-	 * @param playerActor
-	 * @param dbMaster
-	 * @throws MessageParseException
-	 */
-	public void onExternalMessage(ProtobufMessage msg, ActorRef playerActor, ActorRef dbMaster) throws MessageParseException;
 }

@@ -2,6 +2,7 @@ package com.stone.game.human.module;
 
 import com.stone.db.entity.HumanEntity;
 import com.stone.game.human.Human;
+import com.stone.game.module.IGameModule;
 
 /**
  * The human module;
@@ -9,7 +10,7 @@ import com.stone.game.human.Human;
  * @author crazyjohn
  *
  */
-public interface IHumanModule {
+public interface IHumanModule extends IGameModule{
 	/**
 	 * Load module data;
 	 * 
