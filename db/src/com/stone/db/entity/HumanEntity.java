@@ -8,7 +8,7 @@ import javax.persistence.Table;
 import com.stone.core.entity.IEntity;
 
 /**
- * 玩家数据库实体;
+ * The human db entity;
  * 
  * @author crazyjohn
  *
