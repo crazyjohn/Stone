@@ -6,7 +6,7 @@ import akka.actor.ActorRef;
 
 import com.stone.core.msg.MessageParseException;
 import com.stone.db.entity.HumanEntity;
-import com.stone.db.entity.ItemEntity;
+import com.stone.db.entity.HumanItemEntity;
 import com.stone.game.human.Human;
 import com.stone.game.human.module.BaseHumanModule;
 import com.stone.game.msg.ProtobufMessage;
@@ -19,7 +19,7 @@ import com.stone.game.msg.ProtobufMessage;
  */
 public class HumanItemModule extends BaseHumanModule {
 	/** the item entities */
-	protected List<ItemEntity> itemEntities;
+	protected List<HumanItemEntity> itemEntities;
 
 	public HumanItemModule(Human human) {
 		super(human);

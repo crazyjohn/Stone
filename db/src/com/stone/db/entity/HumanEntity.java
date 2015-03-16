@@ -70,7 +70,7 @@ public class HumanEntity implements IEntity {
 	 * 
 	 * @return
 	 */
-	public List<ItemEntity> getItemEntities() {
+	public List<HumanItemEntity> getItemEntities() {
 		// TODO Auto-generated method stub
 		return null;
 	}
