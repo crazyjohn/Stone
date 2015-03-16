@@ -28,7 +28,7 @@ public class HumanItemModule extends BaseHumanModule {
 	@Override
 	public void onLoad(HumanEntity entity) {
 		// init entities
-		itemEntities = entity.getItemEntities();
+		
 	}
 
 	@Override

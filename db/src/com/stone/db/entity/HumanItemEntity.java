@@ -7,7 +7,8 @@ import javax.persistence.Table;
 
 import com.stone.core.entity.BaseProtobufEntity;
 import com.stone.core.entity.IHumanSubEntity;
-import com.stone.proto.entity.Entities.HumanItem;
+import com.stone.proto.entity.Entities.HumanItemData;
+import com.stone.proto.entity.Entities.HumanItemData.Builder;
 
 /**
  * Item entity;
@@ -17,7 +18,7 @@ import com.stone.proto.entity.Entities.HumanItem;
  */
 @Entity
 @Table(name = "item")
-public class HumanItemEntity extends BaseProtobufEntity<HumanItem.Builder> implements IHumanSubEntity {
+public class HumanItemEntity extends BaseProtobufEntity<HumanItemData.Builder> implements IHumanSubEntity {
 	@Id
 	@Column(name = "id")
 	private long id;
@@ -27,6 +28,14 @@ public class HumanItemEntity extends BaseProtobufEntity<HumanItem.Builder> imple
 	private long humanGuid;
 	@Column(name = "count")
 	private int count;
+
+	protected HumanItemEntity(Builder builder) {
+		super(builder);
+	}
+
+	public HumanItemEntity() {
+		this(HumanItemData.newBuilder());
+	}
 
 	@Override
 	public Long getId() {

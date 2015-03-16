@@ -4,7 +4,15 @@ option java_outer_classname = "Entities";
 import "Common.proto";
 
 // ItemEntity
-message HumanItem {
+message HumanItemData {
 	required int64 humanGuid = 1;
 	required Item item = 2;
+}
+
+
+// HumanEntity
+message HumanData {
+	required int64 guid = 1;
+	// item
+	repeated HumanItemData humanItems = 2;
 }
