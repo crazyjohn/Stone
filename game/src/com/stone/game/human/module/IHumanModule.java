@@ -14,16 +14,16 @@ public interface IHumanModule extends IGameModule{
 	/**
 	 * Load module data;
 	 * 
-	 * @param entity
+	 * @param humanEntity
 	 */
-	public void onLoad(HumanEntity entity);
+	public void onLoad(HumanEntity humanEntity);
 
 	/**
 	 * Persistence module data;
 	 * 
-	 * @param entity
+	 * @param humanEntity
 	 */
-	public void onPersistence(HumanEntity entity);
+	public void onPersistence(HumanEntity humanEntity);
 
 	/**
 	 * Get the host human;

@@ -1,5 +1,7 @@
 package com.stone.db.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -61,6 +63,16 @@ public class HumanEntity implements IEntity<Long> {
 
 	public void setGuid(long guid) {
 		this.guid = guid;
+	}
+
+	/**
+	 * Get item entities;
+	 * 
+	 * @return
+	 */
+	public List<ItemEntity> getItemEntities() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
