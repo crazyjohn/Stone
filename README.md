@@ -25,9 +25,9 @@ a game server engine
 
 ### TODO ###
 
--- all the framework use akka，use remote and cluster。
--- data layer use cache。
--- routing logic。
--- balance。
--- db human sub entity。
--- robot test, and test doc。
+- all the framework use akka，use remote and cluster。
+- data layer use cache。
+- routing logic。
+- balance。
+- db human sub entity。
+- robot test, and test doc。
