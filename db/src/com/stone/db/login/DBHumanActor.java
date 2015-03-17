@@ -9,10 +9,9 @@ import com.stone.core.entity.IEntity;
 import com.stone.core.util.LRUHashMap;
 import com.stone.db.cache.HumanCache;
 import com.stone.db.entity.HumanEntity;
-import com.stone.db.entity.HumanItemEntity;
+import com.stone.db.entity.converter.HumanConverter;
 import com.stone.db.msg.internal.DBGetMessage;
 import com.stone.db.msg.internal.player.InternalSelectRoleResult;
-import com.stone.proto.entity.Entities.HumanItemData;
 
 /**
  * The db human actor;
@@ -77,38 +76,6 @@ public class DBHumanActor extends UntypedActor {
 		return Props.create(DBHumanActor.class, cacheSize, dbService);
 	}
 
-	/**
-	 * Converter;
-	 * 
-	 * @author crazyjohn
-	 *
-	 */
-	static class HumanConverter implements IConverter<HumanEntity, HumanCache> {
-
-		@Override
-		public HumanCache convertFrom(HumanEntity entity) {
-			HumanCache cache = new HumanCache();
-			cache.setHumanGuid(entity.getGuid());
-			// add item
-			for (HumanItemData eachItem : entity.getBuilder().getHumanItemsList()) {
-				HumanItemEntity itemEntity = new HumanItemEntity(eachItem.toBuilder());
-				cache.add(itemEntity);
-			}
-			return cache;
-		}
-
-		@Override
-		public HumanEntity convertTo(HumanCache toObject) {
-			HumanEntity entity = new HumanEntity();
-			entity.setGuid(toObject.getHumanGuid());
-			// item
-			for (HumanItemEntity itemEntity : toObject
-					.getEntites(HumanItemEntity.class)) {
-				entity.getBuilder().addHumanItems(itemEntity.getBuilder().clone());
-			}
-			return entity;
-		}
-
-	}
+	
 
 }
