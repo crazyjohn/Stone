@@ -20,6 +20,9 @@ public class HumanCache implements ICacheObject {
 	/** the sub entity holder class */
 	private Map<Class<? extends IEntity>, IEntityHolder<? extends IEntity>> subEntityHolders = new HashMap<Class<? extends IEntity>, IEntityHolder<? extends IEntity>>();
 	protected long guid;
+	private long playerId;
+	private String name;
+	private int level;
 
 	public HumanCache() {
 		this.subEntityHolders = HumanEntityHolderCreater.getHumanEntityHolder();
@@ -127,6 +130,38 @@ public class HumanCache implements ICacheObject {
 			return new ArrayList<E>();
 		}
 		return holder.getEntities();
+	}
+
+	public Map<Class<? extends IEntity>, IEntityHolder<? extends IEntity>> getSubEntityHolders() {
+		return subEntityHolders;
+	}
+
+	public void setSubEntityHolders(Map<Class<? extends IEntity>, IEntityHolder<? extends IEntity>> subEntityHolders) {
+		this.subEntityHolders = subEntityHolders;
+	}
+
+	public long getPlayerId() {
+		return playerId;
+	}
+
+	public void setPlayerId(long playerId) {
+		this.playerId = playerId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
 	}
 
 }

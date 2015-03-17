@@ -18,6 +18,9 @@ public class HumanConverter implements IConverter<HumanEntity, HumanCache> {
 	public HumanCache convertFrom(HumanEntity entity) {
 		HumanCache cache = new HumanCache();
 		cache.setHumanGuid(entity.getGuid());
+		cache.setName(entity.getName());
+		cache.setLevel(entity.getLevel());
+		cache.setPlayerId(entity.getPlayerId());
 		// add item
 		for (HumanItemData eachItem : entity.getBuilder().getHumanItemsList()) {
 			HumanItemEntity itemEntity = new HumanItemEntity(eachItem.toBuilder());
@@ -30,6 +33,9 @@ public class HumanConverter implements IConverter<HumanEntity, HumanCache> {
 	public HumanEntity convertTo(HumanCache toObject) {
 		HumanEntity entity = new HumanEntity();
 		entity.setGuid(toObject.getHumanGuid());
+		entity.setPlayerId(toObject.getPlayerId());
+		entity.setName(toObject.getName());
+		entity.setLevel(toObject.getLevel());
 		// item
 		for (HumanItemEntity itemEntity : toObject.getEntites(HumanItemEntity.class)) {
 			entity.getBuilder().addHumanItems(itemEntity.getBuilder().clone());
