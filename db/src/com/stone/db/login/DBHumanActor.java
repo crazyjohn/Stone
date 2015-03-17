@@ -3,9 +3,11 @@ package com.stone.db.login;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
 
+import com.stone.core.converter.IConverter;
 import com.stone.core.db.service.IDBService;
 import com.stone.core.entity.IEntity;
 import com.stone.core.util.LRUHashMap;
+import com.stone.db.cache.HumanCache;
 import com.stone.db.entity.HumanEntity;
 import com.stone.db.msg.internal.DBGetMessage;
 import com.stone.db.msg.internal.player.InternalSelectRoleResult;
@@ -18,36 +20,81 @@ import com.stone.db.msg.internal.player.InternalSelectRoleResult;
  */
 public class DBHumanActor extends UntypedActor {
 	/** human cache */
-	private final LRUHashMap<Long, HumanEntity> cache;
+	private final LRUHashMap<Long, HumanCache> cache;
 	/** dbService */
 	protected final IDBService dbService;
+	/** converter */
+	protected final IConverter<HumanEntity, HumanCache> converter;
 
 	public DBHumanActor(int cacheSize, IDBService dbService) {
-		cache = new LRUHashMap<Long, HumanEntity>(cacheSize, null);
+		cache = new LRUHashMap<Long, HumanCache>(cacheSize, null);
 		this.dbService = dbService;
+		// converter
+		converter = new HumanConverter();
 	}
 
 	@Override
 	public void onReceive(Object msg) throws Exception {
 		if (msg instanceof DBGetMessage) {
 			DBGetMessage getMsg = (DBGetMessage) msg;
-			HumanEntity humanEntity = this.cache.get(getMsg.getId());
-			if (humanEntity == null) {
-				// load from db
-				IEntity entity = this.dbService.get(HumanEntity.class, getMsg.getId());
-				if (entity == null) {
-					return;
-				}
-				humanEntity = (HumanEntity) entity;
-				// put to cache
-				cache.put(humanEntity.getId(), humanEntity);
-				getSender().tell(new InternalSelectRoleResult(humanEntity), getSelf());
-			}
+			handleGetHuman(getMsg);
 		}
+	}
+
+	/**
+	 * Handle get human;
+	 * 
+	 * @param getMsg
+	 */
+	private void handleGetHuman(DBGetMessage getMsg) {
+		// get cache
+		HumanCache humanCache = this.cache.get(getMsg.getId());
+		HumanEntity humanEntity = null;
+		if (humanCache == null) {
+			// load from db
+			IEntity entity = this.dbService.get(HumanEntity.class, getMsg.getId());
+			if (entity == null) {
+				return;
+			}
+			humanEntity = (HumanEntity) entity;
+			// converter to cache
+			humanCache = converter.convertFrom(humanEntity);
+			// put to cache
+			cache.put(humanEntity.getId(), humanCache);
+		} else {
+			humanEntity = this.converter.convertTo(humanCache);
+		}
+		// null check
+		if (humanEntity == null) {
+			return;
+		}
+		getSender().tell(new InternalSelectRoleResult(humanEntity), getSelf());
 	}
 
 	public static Props props(int cacheSize, IDBService dbService) {
 		return Props.create(DBHumanActor.class, cacheSize, dbService);
+	}
+
+	/**
+	 * Converter;
+	 * 
+	 * @author crazyjohn
+	 *
+	 */
+	static class HumanConverter implements IConverter<HumanEntity, HumanCache> {
+
+		@Override
+		public HumanCache convertFrom(HumanEntity entity) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public HumanEntity convertTo(HumanCache toObject) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
 	}
 
 }

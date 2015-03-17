@@ -7,6 +7,7 @@ import javax.persistence.Table;
 
 import com.stone.core.entity.BaseProtobufEntity;
 import com.stone.core.entity.IHumanSubEntity;
+import com.stone.core.orm.annotation.AutoCreateHumanEntityHolder;
 import com.stone.proto.entity.Entities.HumanItemData;
 import com.stone.proto.entity.Entities.HumanItemData.Builder;
 
@@ -18,6 +19,7 @@ import com.stone.proto.entity.Entities.HumanItemData.Builder;
  */
 @Entity
 @Table(name = "item")
+@AutoCreateHumanEntityHolder(EntityHolderClass = "CollectionEntityHolder")
 public class HumanItemEntity extends BaseProtobufEntity<HumanItemData.Builder> implements IHumanSubEntity {
 	@Id
 	@Column(name = "id")
