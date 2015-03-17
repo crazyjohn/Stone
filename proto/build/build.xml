@@ -2,30 +2,38 @@
 <!-- pack protobuf.jar and compile proto files @author crazyjohn -->
 <project name="proto.biatch" default="proto.generate" basedir=".">
 	<!-- define property -->
-	<property name="proto.base" value="${basedir}/../"/>
-	<property name="proto.classes" value="${basedir}/classes"/>
-	<property name="proto.src" value="${proto.base}/proto"/>
+	<property name="proto.base" value="${basedir}/../" />
+	<property name="proto.classes" value="${basedir}/classes" />
+	<property name="proto.src" value="${proto.base}/proto" />
 	<property name="proto.build" value="${proto.base}/build" />
-	<property name="proto.compiler" value="${proto.build}/protoc.exe"/>
-	<property name="proto.outer" value="${proto.base}/src"/>
+	<property name="proto.compiler" value="${proto.build}/protoc.exe" />
+	<property name="proto.outer" value="${proto.base}/src" />
 	<!-- java lib path -->
 	<path id="libs">
-		<pathelement path="${java.class.path}"/>
+		<pathelement path="${java.class.path}" />
 	</path>
 	<!-- 1. compile the protobuf source code to a jar file -->
 	<target name="proto.compile">
-		<mkdir dir="${proto.classes}"/>
-		<javac srcdir="${proto.outer}" destdir="${proto.classes}" classpath="libs" compiler="javac1.6" source="1.6" nowarn="true"/>
-		<jar destfile="protobuf-2.6.0.jar" basedir="${proto.classes}"></jar>
-		<delete dir="${proto.classes}"></delete>
+		<mkdir dir="${proto.classes}" />
+		<javac srcdir="${proto.outer}" destdir="${proto.classes}" classpath="libs" compiler="javac1.6" source="1.6" nowarn="true" />
+		<jar destfile="protobuf-2.6.0.jar" basedir="${proto.classes}">
+		</jar>
+		<delete dir="${proto.classes}">
+		</delete>
 	</target>
-	
+
 	<!-- 2. generate proto files to java code -->
 	<target name="proto.generate">
 		<exec executable="${proto.compiler}">
-			<arg value="--java_out=${proto.outer}"/>
-			<arg value="--proto_path=../proto"/>
-			<arg value="../proto/*.proto"/>
+			<arg value="--java_out=${proto.outer}" />
+			<arg value="--proto_path=../proto" />
+			<arg value="../proto/*.proto" />
+		</exec>
+		<!-- entity -->
+		<exec executable="${proto.compiler}">
+			<arg value="--java_out=${proto.outer}" />
+			<arg value="--proto_path=../entity" />
+			<arg value="../entity/*.proto" />
 		</exec>
 	</target>
 </project>
