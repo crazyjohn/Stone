@@ -6,7 +6,7 @@ a game server engine
 
 ### The engine's structure ###
 
-- actor。the actor model implements by java language, instead of thread and lock。
+- actor。the actor model implements by java language, instead of thread and lock。but now i use akka to do this thing。
 - aspct。the engine's aspect, use aspectj language。
 - bot。the robot framework, use scala language。
 - core。the engine's common lib, class, and utils。
