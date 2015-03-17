@@ -1,5 +1,11 @@
 package com.stone.db.login;
 
+import java.util.concurrent.TimeUnit;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import scala.concurrent.duration.Duration;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
 
@@ -20,18 +26,27 @@ import com.stone.db.msg.internal.player.InternalSelectRoleResult;
  *
  */
 public class DBHumanActor extends UntypedActor {
+	private static final String TICK = "tick";
 	/** human cache */
 	private final LRUHashMap<Long, HumanCache> cache;
 	/** dbService */
 	protected final IDBService dbService;
 	/** converter */
 	protected final IConverter<HumanEntity, HumanCache> converter;
+	/** logger */
+	private Logger logger = LoggerFactory.getLogger(DBHumanActor.class);
 
 	public DBHumanActor(int cacheSize, IDBService dbService) {
 		cache = new LRUHashMap<Long, HumanCache>(cacheSize, null);
 		this.dbService = dbService;
 		// converter
 		converter = new HumanConverter();
+		// schedule
+		this.getContext()
+				.system()
+				.scheduler()
+				.schedule(Duration.create(50, TimeUnit.MILLISECONDS), Duration.create(10, TimeUnit.SECONDS), this.getSelf(), TICK,
+						this.getContext().system().dispatcher(), this.getSelf());
 	}
 
 	@Override
@@ -40,6 +55,9 @@ public class DBHumanActor extends UntypedActor {
 			// query human request
 			DBGetMessage getMsg = (DBGetMessage) msg;
 			onHumanQueryRequest(getMsg);
+		} else if (msg.equals(TICK)) {
+			// tick
+			logger.info("Time to update the dirty human cache.");
 		}
 	}
 
