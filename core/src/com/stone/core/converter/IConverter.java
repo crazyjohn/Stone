@@ -1,7 +1,7 @@
 package com.stone.core.converter;
 
 /**
- * 转换器接口;
+ * Converter;
  * 
  * @author crazyjohn
  *
@@ -10,8 +10,20 @@ package com.stone.core.converter;
  */
 public interface IConverter<From, To> {
 
-	public To convertFrom(From entity);
+	/**
+	 * Convert from;
+	 * 
+	 * @param from
+	 * @return
+	 */
+	public To convertFrom(From from);
 
-	public From convertTo(To toObject);
+	/**
+	 * Convert to;
+	 * 
+	 * @param to
+	 * @return
+	 */
+	public From convertTo(To to);
 
 }

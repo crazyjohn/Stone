@@ -37,8 +37,9 @@ public class DBHumanActor extends UntypedActor {
 	@Override
 	public void onReceive(Object msg) throws Exception {
 		if (msg instanceof DBGetMessage) {
+			// query human request
 			DBGetMessage getMsg = (DBGetMessage) msg;
-			handleGetHuman(getMsg);
+			onHumanQueryRequest(getMsg);
 		}
 	}
 
@@ -47,7 +48,7 @@ public class DBHumanActor extends UntypedActor {
 	 * 
 	 * @param getMsg
 	 */
-	private void handleGetHuman(DBGetMessage getMsg) {
+	private void onHumanQueryRequest(DBGetMessage getMsg) {
 		// get cache
 		HumanCache humanCache = this.cache.get(getMsg.getId());
 		HumanEntity humanEntity = null;
@@ -75,7 +76,5 @@ public class DBHumanActor extends UntypedActor {
 	public static Props props(int cacheSize, IDBService dbService) {
 		return Props.create(DBHumanActor.class, cacheSize, dbService);
 	}
-
-	
 
 }

@@ -18,16 +18,16 @@ a game server engine
 
 
 ### The progres of development ###
-- you can create account, login, create role, and enter scene。
+- you can create account, login, create role, select role and enter scene。
 
 
 
 
 ### TODO ###
-
-- all the framework use akka，use remote and cluster。
+- template engine: mabe i will use velocity。
+- db human sub entity。
 - data layer use cache。
 - routing logic。
 - balance。
-- db human sub entity。
-- robot test, and test doc。
+- robot pressure test, and make the test doc。
+- all the framework use akka，use remote and cluster。
