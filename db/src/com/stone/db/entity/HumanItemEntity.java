@@ -31,7 +31,7 @@ public class HumanItemEntity extends BaseProtobufEntity<HumanItemData.Builder> i
 	@Column(name = "count")
 	private int count;
 
-	protected HumanItemEntity(Builder builder) {
+	public HumanItemEntity(Builder builder) {
 		super(builder);
 	}
 

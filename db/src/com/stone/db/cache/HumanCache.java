@@ -1,6 +1,8 @@
 package com.stone.db.cache;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,6 +19,7 @@ import com.stone.db.cache.holder.IEntityHolder;
 public class HumanCache implements ICacheObject {
 	/** the sub entity holder class */
 	private Map<Class<? extends IEntity>, IEntityHolder<? extends IEntity>> subEntityHolders = new HashMap<Class<? extends IEntity>, IEntityHolder<? extends IEntity>>();
+	protected long guid;
 
 	public HumanCache() {
 		this.subEntityHolders = HumanEntityHolderCreater.getHumanEntityHolder();
@@ -100,6 +103,30 @@ public class HumanCache implements ICacheObject {
 		for (IEntityHolder<? extends IEntity> holder : this.subEntityHolders.values()) {
 			holder.removeAll();
 		}
+	}
+
+	public void setHumanGuid(long guid) {
+		this.guid = guid;
+	}
+
+	public long getHumanGuid() {
+		return guid;
+	}
+
+	/**
+	 * Get sub entities;
+	 * 
+	 * @param entityClass
+	 * @return
+	 */
+	public <E extends IEntity> Collection<E> getEntites(Class<E> entityClass) {
+		// get the holder
+		@SuppressWarnings("unchecked")
+		IEntityHolder<E> holder = (IEntityHolder<E>) this.subEntityHolders.get(entityClass);
+		if (holder == null) {
+			return new ArrayList<E>();
+		}
+		return holder.getEntities();
 	}
 
 }
