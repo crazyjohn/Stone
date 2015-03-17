@@ -4,28 +4,30 @@ Stone
 a game server engine
 
 
-### 结构介绍 ###
+### The engine's structure ###
 
-- actor。是基于java语言的actor框架。用来使用actor思想替换掉复杂易错的并发设计（synchronized，lock, thread等）。
-- aspct。是引擎的切面部分，使用aspectj实现。
-- bot。是基于scala语言的机器人框架。
-- core。是引擎的最核心的部分，放一些通用的库。
-- db。是引擎的数据层部分。
-- game。是引擎的业务部分，所有的游戏业务都在这里。
-- proto。是引擎的协议部分，使用google protobuf实现。
-- resource。是引擎的资源，用来放多语言以及模版资源。
-- test。是引擎的测试部分。
-
-
-### 开发进度 ###
-- 引擎现阶段可以实现玩家的登陆创建账号，创建角色，选择角色，进入场景
+- actor。the actor model implements by java language, instead of thread and lock。
+- aspct。the engine's aspect, use aspectj language。
+- bot。the robot framework, use scala language。
+- core。the engine's common lib, class, and utils。
+- db。the engine's data layer。
+- game。the engine's business logic part。
+- proto。protocol between client and server, use goole protobuf。
+- resource。the template data resources。
+- test。the engine test case。
 
 
+### The progres of development ###
+- you can create account, login, create role, and enter scene。
 
 
-### 后续目标 ###
-- 整体完全akka化，方便实现更高的并发度，更高的分布式扩展性。
-- db部分在必要部分使用缓存，提高db读的响应。
-- db数据层部分在必要的部分进行路由逻辑的设计，以便进行灵活的balance控制。
-- db部分角色子实体的存储逻辑设计。
-- 进行引擎的压力测试以及性能调优，并且给出压力测试文档。
+
+
+### TODO ###
+
+-- all the framework use akka，use remote and cluster。
+-- data layer use cache。
+-- routing logic。
+-- balance。
+-- db human sub entity。
+-- robot test, and test doc。
