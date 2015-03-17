@@ -12,9 +12,9 @@ a game server engine
 - core。the engine's common lib, class, and utils。
 - db。the engine's data layer。
 - game。the engine's business logic part。
-- proto。protocol between client and server, use goole protobuf。
+- proto。protocol between client and server, use google protobuf。
 - resource。the template data resources。
-- test。the engine test case。
+- test。the engine test cases。
 
 
 ### The progres of development ###
