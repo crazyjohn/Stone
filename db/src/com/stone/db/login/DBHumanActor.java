@@ -14,11 +14,13 @@ import com.stone.core.db.service.IDBService;
 import com.stone.core.entity.IEntity;
 import com.stone.core.entity.IHumanSubEntity;
 import com.stone.core.util.LRUHashMap;
+import com.stone.core.util.ModifiedSet;
 import com.stone.db.cache.HumanCache;
 import com.stone.db.entity.HumanEntity;
 import com.stone.db.entity.converter.HumanConverter;
 import com.stone.db.msg.internal.DBDeleteMessage;
 import com.stone.db.msg.internal.DBGetMessage;
+import com.stone.db.msg.internal.DBInsertMessage;
 import com.stone.db.msg.internal.DBUpdateMessage;
 import com.stone.db.msg.internal.player.InternalSelectRoleResult;
 
@@ -33,6 +35,8 @@ public class DBHumanActor extends UntypedActor {
 	private static final int BATCH_UPDATE_COUNT = 100;
 	/** human cache */
 	private final LRUHashMap<Long, HumanCache> cache;
+	/** modified set */
+	private final ModifiedSet<HumanCache> modifiedSet = new ModifiedSet<HumanCache>();
 	/** dbService */
 	protected final IDBService dbService;
 	/** converter */
@@ -61,7 +65,7 @@ public class DBHumanActor extends UntypedActor {
 			onHumanQueryRequest(getMsg);
 		} else if (msg.equals(TICK)) {
 			// handle tick request
-			logger.error("Time to update the dirty human cache.");
+			logger.debug("Time to update the dirty human cache.");
 			handleTickRequest();
 		} else if (msg instanceof DBUpdateMessage) {
 			DBUpdateMessage updateMsg = (DBUpdateMessage) msg;
@@ -72,6 +76,33 @@ public class DBHumanActor extends UntypedActor {
 			DBDeleteMessage deleteMsg = (DBDeleteMessage) msg;
 			// handle delete request
 			handleDeleteRequest(deleteMsg);
+		} else if (msg instanceof DBInsertMessage) {
+			DBInsertMessage insertMsg = (DBInsertMessage) msg;
+			// handle insert request
+			handleInsertRequest(insertMsg);
+		}
+	}
+
+	/**
+	 * Handle insert msg;
+	 * 
+	 * @param insertMsg
+	 */
+	private void handleInsertRequest(DBInsertMessage insertMsg) {
+		if (insertMsg.getEntity() instanceof IHumanSubEntity) {
+			// handle sub human entity
+			IHumanSubEntity humanSubEntity = (IHumanSubEntity) insertMsg.getEntity();
+			HumanCache humanCache = this.cache.get(humanSubEntity.getHumanGuid());
+			if (humanCache == null) {
+				logger.warn(String.format("Human cache is null, the humaGuid is: %d", humanSubEntity.getHumanGuid()));
+			}
+			// insert sub entity
+			humanCache.add(humanSubEntity);
+			// add to modified set
+			modifiedSet.addModified(humanCache);
+		} else {
+			logger.warn(String.format("MFucker are you kidding me? DBHumanActor do not handle this class: %s", insertMsg.getEntityClass()
+					.getSimpleName()));
 		}
 	}
 
@@ -90,6 +121,8 @@ public class DBHumanActor extends UntypedActor {
 			}
 			// remove sub entity
 			humanCache.remove(humanSubEntity.getClass(), humanSubEntity.getId());
+			// add to modified set
+			modifiedSet.addModified(humanCache);
 		} else {
 			logger.warn(String.format("MFucker are you kidding me? DBHumanActor do not handle this class: %s", deleteMsg.getEntityClass()
 					.getSimpleName()));
@@ -131,6 +164,8 @@ public class DBHumanActor extends UntypedActor {
 			}
 			// update sub entity
 			humanCache.update(humanSubEntity);
+			// add to modified set
+			modifiedSet.addModified(humanCache);
 		} else {
 			logger.warn(String.format("MFucker are you kidding me? DBHumanActor do not handle this class: %s", updateMsg.getEntityClass()
 					.getSimpleName()));

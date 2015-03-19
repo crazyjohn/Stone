@@ -16,7 +16,7 @@ import com.stone.db.cache.holder.IEntityHolder;
  * @author crazyjohn
  *
  */
-public class HumanCache implements ICacheObject {
+public class HumanCache implements ICacheObject, IEntity {
 	/** the sub entity holder class */
 	private Map<Class<? extends IEntity>, IEntityHolder<? extends IEntity>> subEntityHolders = new HashMap<Class<? extends IEntity>, IEntityHolder<? extends IEntity>>();
 	protected long guid;
@@ -162,6 +162,11 @@ public class HumanCache implements ICacheObject {
 
 	public void setLevel(int level) {
 		this.level = level;
+	}
+
+	@Override
+	public Serializable getId() {
+		return this.getHumanGuid();
 	}
 
 }

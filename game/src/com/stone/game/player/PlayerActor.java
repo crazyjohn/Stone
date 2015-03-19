@@ -1,18 +1,24 @@
 package com.stone.game.player;
 
+import java.util.concurrent.TimeUnit;
+
 import org.apache.mina.core.session.IoSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import scala.concurrent.duration.Duration;
 import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
 import akka.japi.Procedure;
 
 import com.stone.db.annotation.PlayerInternalMessage;
+import com.stone.db.entity.HumanItemEntity;
+import com.stone.game.data.DataEventBus;
 import com.stone.game.msg.GameSessionCloseMessage;
 import com.stone.game.msg.GameSessionOpenMessage;
 import com.stone.game.msg.ProtobufMessage;
+import com.stone.proto.common.Commons.Item;
 
 /**
  * The palyer actor;
@@ -21,6 +27,7 @@ import com.stone.game.msg.ProtobufMessage;
  *
  */
 public class PlayerActor extends UntypedActor {
+	private static final String MOCK = "mock";
 	/** real player */
 	protected final Player player;
 	/** db master */
@@ -31,6 +38,12 @@ public class PlayerActor extends UntypedActor {
 	public PlayerActor(Player player, ActorRef dbMaster) {
 		this.player = player;
 		this.dbMaster = dbMaster;
+		// schedule
+		this.getContext()
+				.system()
+				.scheduler()
+				.schedule(Duration.create(100, TimeUnit.MILLISECONDS), Duration.create(1, TimeUnit.MINUTES), this.getSelf(), MOCK,
+						this.getContext().dispatcher(), this.getSelf());
 	}
 
 	@Override
@@ -41,6 +54,11 @@ public class PlayerActor extends UntypedActor {
 			sessionOpen.execute();
 			// change state
 			getContext().become(CONNECTED);
+		} else if (msg.equals(MOCK)) {
+			// mock update human data
+			HumanItemEntity itemEntity = new HumanItemEntity();
+			itemEntity.getBuilder().setHumanGuid(player.getHuman().getGuid()).setItem(Item.newBuilder().setCount(1).setTemplateId(8888));
+			DataEventBus.fireUpdate(dbMaster, this.getSelf(), itemEntity);
 		} else {
 			// unhandle msg
 			unhandled(msg);

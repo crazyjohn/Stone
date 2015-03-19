@@ -24,12 +24,7 @@ public class HumanItemEntity extends BaseProtobufEntity<HumanItemData.Builder> i
 	@Id
 	@Column(name = "id")
 	private long id;
-	@Column(name = "templateId")
-	private int templateId;
-	@Column(name = "humanGuid")
 	private long humanGuid;
-	@Column(name = "count")
-	private int count;
 
 	public HumanItemEntity(Builder builder) {
 		super(builder);
@@ -50,22 +45,6 @@ public class HumanItemEntity extends BaseProtobufEntity<HumanItemData.Builder> i
 
 	public void setHumanGuid(long humanGuid) {
 		this.humanGuid = humanGuid;
-	}
-
-	public int getTemplateId() {
-		return templateId;
-	}
-
-	public void setTemplateId(int templateId) {
-		this.templateId = templateId;
-	}
-
-	public int getCount() {
-		return count;
-	}
-
-	public void setCount(int count) {
-		this.count = count;
 	}
 
 	public void setId(long id) {
