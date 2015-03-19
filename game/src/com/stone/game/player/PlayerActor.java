@@ -42,8 +42,8 @@ public class PlayerActor extends UntypedActor {
 		this.getContext()
 				.system()
 				.scheduler()
-				.schedule(Duration.create(100, TimeUnit.MILLISECONDS), Duration.create(1, TimeUnit.MINUTES), this.getSelf(), MOCK,
-						this.getContext().dispatcher(), this.getSelf());
+				.schedule(Duration.create(100, TimeUnit.MILLISECONDS), Duration.create(10, TimeUnit.SECONDS), this.getSelf(), MOCK,
+						this.getContext().system().dispatcher(), this.getSelf());
 	}
 
 	@Override
@@ -54,11 +54,6 @@ public class PlayerActor extends UntypedActor {
 			sessionOpen.execute();
 			// change state
 			getContext().become(CONNECTED);
-		} else if (msg.equals(MOCK)) {
-			// mock update human data
-			HumanItemEntity itemEntity = new HumanItemEntity();
-			itemEntity.getBuilder().setHumanGuid(player.getHuman().getGuid()).setItem(Item.newBuilder().setCount(1).setTemplateId(8888));
-			DataEventBus.fireUpdate(dbMaster, this.getSelf(), itemEntity);
 		} else {
 			// unhandle msg
 			unhandled(msg);
@@ -84,6 +79,16 @@ public class PlayerActor extends UntypedActor {
 				GameSessionCloseMessage sessionClose = (GameSessionCloseMessage) msg;
 				sessionClose.execute();
 				getContext().become(DISCONNECTED);
+				getContext().stop(getSelf());
+			} else if (msg.equals(MOCK)) {
+				// mock update human data
+				if (player.getHuman() == null) {
+					return;
+				}
+				HumanItemEntity itemEntity = new HumanItemEntity();
+				itemEntity.setHumanGuid(player.getHuman().getGuid());
+				itemEntity.getBuilder().setHumanGuid(player.getHuman().getGuid()).setItem(Item.newBuilder().setCount(1).setTemplateId(8888));
+				DataEventBus.fireUpdate(dbMaster, getSelf(), itemEntity);
 			}
 		}
 	};

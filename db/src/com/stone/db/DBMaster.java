@@ -11,6 +11,7 @@ import akka.routing.Router;
 
 import com.stone.core.actor.router.RouterFactory;
 import com.stone.core.db.service.IDBService;
+import com.stone.core.entity.IHumanSubEntity;
 import com.stone.db.actor.DBEntityActor;
 import com.stone.db.entity.HumanEntity;
 import com.stone.db.login.DBHumanActor;
@@ -45,7 +46,8 @@ public class DBMaster extends UntypedActor {
 	public DBMaster(IDBService dbService) {
 		this.dbService = dbService;
 		// login actor use router
-		loginRouter = RouterFactory.createChildActorRouteeRouter(this.getContext(), new RoundRobinRoutingLogic(), DBLoginActor.class, DEFAULT_ROUTEES_COUNT, dbService);
+		loginRouter = RouterFactory.createChildActorRouteeRouter(this.getContext(), new RoundRobinRoutingLogic(), DBLoginActor.class,
+				DEFAULT_ROUTEES_COUNT, dbService);
 		// role actor
 		roleActor = this.getContext().actorOf(Props.create(DBRoleActor.class, dbService));
 		this.getContext().watch(roleActor);
@@ -85,6 +87,12 @@ public class DBMaster extends UntypedActor {
 	 * @param msg
 	 */
 	private void handleDBOperation(IDBMessage msg) {
+		// is sub entity
+		if (IHumanSubEntity.class.isAssignableFrom(msg.getEntityClass())) {
+			this.humanActor.forward(msg, getContext());
+			return;
+		}
+		// other entity
 		ActorRef entityActor = this.entityActors.get(msg.getEntityClass());
 		if (entityActor == null) {
 			// create actor

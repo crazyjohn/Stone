@@ -1,5 +1,6 @@
 package com.stone.db.login;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
@@ -133,18 +134,13 @@ public class DBHumanActor extends UntypedActor {
 	 * Handle tick request;
 	 */
 	private void handleTickRequest() {
-		// not a good way
-		int updateCount = 0;
-		for (HumanCache eachCache : this.cache.values()) {
-			// break when up to max update count
-			if (updateCount >= BATCH_UPDATE_COUNT) {
-				break;
-			}
-			if (eachCache.isModified()) {
-				HumanEntity eachEntity = this.converter.convertTo(eachCache);
+		// get dirty caches
+		List<HumanCache> humanCaches = this.modifiedSet.getModified(BATCH_UPDATE_COUNT);
+		for (HumanCache dirtyCache : humanCaches) {
+			if (dirtyCache.isModified()) {
+				HumanEntity eachEntity = this.converter.convertTo(dirtyCache);
 				this.dbService.update(eachEntity);
-				eachCache.resetModified();
-				updateCount++;
+				dirtyCache.resetModified();
 			}
 		}
 	}
@@ -161,6 +157,7 @@ public class DBHumanActor extends UntypedActor {
 			HumanCache humanCache = this.cache.get(humanSubEntity.getHumanGuid());
 			if (humanCache == null) {
 				logger.warn(String.format("Human cache is null, the humaGuid is: %d", humanSubEntity.getHumanGuid()));
+				return;
 			}
 			// update sub entity
 			humanCache.update(humanSubEntity);
