@@ -9,7 +9,7 @@ package com.stone.core.uuid;
 public interface IUUIDService {
 
 	/**
-	 * 取得指定类型的下一个UUID
+	 * Get next uuid by type;
 	 * 
 	 * @param uuidType
 	 * @return

@@ -6,25 +6,19 @@ import com.stone.core.enums.IndexedEnum;
 import com.stone.core.util.EnumUtil;
 
 /**
- * 游戏中的UUID类型
- *
+ * The uuid type;
  * 
+ * @author crazyjohn
+ *
  */
 public enum UUIDType implements IndexedEnum {
-	/** 玩家角色的UUID */
-	HUMAN(0),
-	/** 已发送邮件的UUID */
-    SENTMAIL(1),
-	/** 接收邮件的UUID */
-    RECEIVEDMAIL(2),
-	/** gm问答 */
-    GMQUESTION(3),
-    /** 账号 */
-    ACCOUNT(4),
-     /** 邮件草稿箱 */
-    MAILDRAFT(5)
-	;
-	
+	/** Player */
+	PLAYER(0),
+	/** Human */
+	HUMAN(1),
+	/** Item */
+	ITEM(2);
+
 	private final int index;
 	/** 按索引顺序存放的枚举数组 */
 	private static final List<UUIDType> values = IndexedEnumUtil.toIndexes(UUIDType.values());
