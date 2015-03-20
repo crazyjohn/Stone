@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import akka.actor.UntypedActor;
 
 import com.stone.core.db.service.IDBService;
+import com.stone.core.uuid.msg.InternalGetUUID;
+import com.stone.core.uuid.msg.InternalGetUUIDResult;
 
 /**
  * The uuid service;
@@ -93,8 +95,12 @@ public class UUIDService extends UntypedActor implements IUUIDService {
 
 	@Override
 	public void onReceive(Object msg) throws Exception {
-		// TODO Auto-generated method stub
-
+		if (msg instanceof InternalGetUUID) {
+			InternalGetUUID getUUIDMsg = (InternalGetUUID) msg;
+			UUIDType type = getUUIDMsg.getUuidType();
+			long nextId = this.getNextUUID(type);
+			this.getSender().tell(new InternalGetUUIDResult(nextId), this.getSelf());
+		}
 	}
 
 }
