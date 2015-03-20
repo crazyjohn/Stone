@@ -1,7 +1,7 @@
 Stone
 =====
 
-[YO YO YO! Click here, biatch !](http://crazyjohn.github.io/)
+[YO YO YO! Click here, biatch !](https://github.com/crazyjohn/crazyjohn.github.io)
 
 a game server engine
 
