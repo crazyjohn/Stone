@@ -15,7 +15,6 @@ import akka.japi.Procedure;
 import com.stone.db.annotation.PlayerInternalMessage;
 import com.stone.db.entity.HumanItemEntity;
 import com.stone.game.data.DataEventBus;
-import com.stone.game.msg.GameSessionCloseMessage;
 import com.stone.game.msg.GameSessionOpenMessage;
 import com.stone.game.msg.ProtobufMessage;
 import com.stone.proto.common.Commons.Item;
@@ -74,12 +73,6 @@ public class PlayerActor extends UntypedActor {
 			} else if (msg.getClass().getAnnotation(PlayerInternalMessage.class) != null) {
 				// handle player internal message
 				player.onInternalMessage(msg, getSelf());
-			} else if (msg instanceof GameSessionCloseMessage) {
-				// close session
-				GameSessionCloseMessage sessionClose = (GameSessionCloseMessage) msg;
-				sessionClose.execute();
-				getContext().become(DISCONNECTED);
-				getContext().stop(getSelf());
 			} else if (msg.equals(MOCK)) {
 				// mock update human data
 				if (player.getHuman() == null) {
@@ -96,11 +89,12 @@ public class PlayerActor extends UntypedActor {
 	/**
 	 * Disconnected state;
 	 */
-	private Procedure<Object> DISCONNECTED = new Procedure<Object>() {
+	protected Procedure<Object> DISCONNECTED = new Procedure<Object>() {
 
 		@Override
 		public void apply(Object msg) throws Exception {
-			logger.warn("PlayerActor in disconnected state now, do not handle any type of message!");
+			logger.warn(String.format("PlayerActor in disconnected state now, do not handle any type of message! msg: %s", msg.getClass()
+					.getSimpleName()));
 		}
 	};
 

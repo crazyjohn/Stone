@@ -7,8 +7,10 @@ import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
 
+import com.stone.core.msg.MessageParseException;
 import com.stone.core.session.ISession;
 import com.stone.game.msg.CGMessage;
+import com.stone.game.msg.GameSessionCloseMessage;
 import com.stone.game.msg.GameSessionOpenMessage;
 import com.stone.game.player.PlayerActor;
 
@@ -33,16 +35,12 @@ public class GameMaster extends UntypedActor {
 		// CG消息分发
 		if (msg instanceof GameSessionOpenMessage) {
 			GameSessionOpenMessage sessionOpenMsg = (GameSessionOpenMessage) msg;
-			if (sessionOpenMsg.getSession().getPlayerActor() == null) {
-				ActorRef playerActor = getContext().actorOf(PlayerActor.props(sessionOpenMsg.getSession().getSession(), dbMaster));
-				// watch this player actor
-				getContext().watch(playerActor);
-				sessionOpenMsg.getSession().setPlayerActor(playerActor);
-				playerActor.forward(msg, getContext());
-			} else {
-				// invalid, close session
-				sessionOpenMsg.getSession().close();
-			}
+			onGameSessionOpened(sessionOpenMsg);
+
+		} else if (msg instanceof GameSessionCloseMessage) {
+			// close session
+			GameSessionCloseMessage sessionClose = (GameSessionCloseMessage) msg;
+			onGameSessionClosed(sessionClose);
 		} else if (msg instanceof CGMessage) {
 			ActorRef playerActor = ((CGMessage) msg).getPlayerActor();
 			if (playerActor == null) {
@@ -56,6 +54,37 @@ public class GameMaster extends UntypedActor {
 
 		} else {
 			unhandled(msg);
+		}
+	}
+
+	/**
+	 * On session closed;
+	 * 
+	 * @param sessionClose
+	 * @throws MessageParseException
+	 */
+	private void onGameSessionClosed(GameSessionCloseMessage sessionClose) throws MessageParseException {
+		sessionClose.execute();
+		// stop the actor
+		getContext().stop(sessionClose.getPlayerActor());
+		getContext().unwatch(sessionClose.getPlayerActor());
+	}
+
+	/**
+	 * On game session opened;
+	 * 
+	 * @param sessionOpenMsg
+	 */
+	private void onGameSessionOpened(GameSessionOpenMessage sessionOpenMsg) {
+		if (sessionOpenMsg.getSession().getPlayerActor() == null) {
+			ActorRef playerActor = getContext().actorOf(PlayerActor.props(sessionOpenMsg.getSession().getSession(), dbMaster));
+			// watch this player actor
+			getContext().watch(playerActor);
+			sessionOpenMsg.getSession().setPlayerActor(playerActor);
+			playerActor.forward(sessionOpenMsg, getContext());
+		} else {
+			// invalid, close session
+			sessionOpenMsg.getSession().close();
 		}
 	}
 
