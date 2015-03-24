@@ -9,7 +9,7 @@ import akka.actor.UntypedActor;
 import akka.japi.Function;
 
 public class Supervisor extends UntypedActor {
-
+	private static int counter = 0;
 	private static SupervisorStrategy strategy = new OneForOneStrategy(10, Duration.create("1 minute"), new Function<Throwable, Directive>() {
 
 		@Override
@@ -35,7 +35,8 @@ public class Supervisor extends UntypedActor {
 	@Override
 	public void onReceive(Object msg) throws Exception {
 		if (msg instanceof Props) {
-			getSender().tell(getContext().actorOf((Props) msg), getSelf());
+			counter++;
+			getSender().tell(getContext().actorOf((Props) msg, "child" + counter), getSelf());
 		} else {
 			unhandled(msg);
 		}
