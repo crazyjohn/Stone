@@ -1,0 +1,3 @@
+int maxBattleTimes; //每日挑战次数上限
+int randRewardPeriod; //排名奖励结算周期
+int battleCd; //战斗cd(秒)

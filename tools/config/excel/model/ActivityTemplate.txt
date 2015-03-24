@@ -1,0 +1,14 @@
+String activityName; //活动名称
+int activityNameLangId; //活动名称多语言id
+int activityIconId; //活动图标id
+String simpleDesc; //活动简要说明
+int simpleDescLangId; //活动简要说明多语言id
+String desc;[notNull=false] //活动详细说明
+int descLangId; //活动详细说明多语言id
+int activityShowType; //活动类型
+int visibleLevel; //可视等级
+int openLevel; //开启等级
+String startDate; //开始日期(yyyy-MM-dd)
+String endDate; //结束日期(yyyy-MM-dd)
+boolean timing; //是否为定时开启活动，当为false时表示全天开启
+String activeTimeSpan;[notNull=false] //活动开启的时间段

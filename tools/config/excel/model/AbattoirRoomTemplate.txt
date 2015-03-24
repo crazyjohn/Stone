@@ -1,0 +1,6 @@
+int levelLowest; //玩家等级下限
+int levelHighest;//玩家等级上限
+String currentType;//货币类型
+com.hifun.soul.gameserver.abattoir.template.AbattoirRoomTemp[] abattoirRooms;[collection(3,4)] //角斗场房间
+int timeLimit;//单次收益时间上限(分钟)
+int protectTime;[notNull=false]//保护时间

@@ -1,0 +1,5 @@
+String name; //类型名称
+int nameLangId; //类型名称多语言id
+int iconId; //目标
+int visibleLevel; //可视等级
+int openLevel; //开启等级

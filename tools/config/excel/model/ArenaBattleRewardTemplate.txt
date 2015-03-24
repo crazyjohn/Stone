@@ -1,0 +1,5 @@
+int minLevel; //等级区间(上)
+int maxLevel; //等级区间(下)
+int money;[notNull=false;minValue=0] //金钱
+int experience;[notNull=false;minValue=0] //经验
+int honour;[notNull=false;minValue=0] //荣誉
