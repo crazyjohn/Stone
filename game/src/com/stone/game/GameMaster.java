@@ -77,7 +77,7 @@ public class GameMaster extends UntypedActor {
 	 */
 	private void onGameSessionOpened(GameSessionOpenMessage sessionOpenMsg) {
 		if (sessionOpenMsg.getSession().getPlayerActor() == null) {
-			ActorRef playerActor = getContext().actorOf(PlayerActor.props(sessionOpenMsg.getSession().getSession(), dbMaster));
+			ActorRef playerActor = getContext().actorOf(PlayerActor.props(sessionOpenMsg.getSession().getSession(), dbMaster), "PlayerActor");
 			// watch this player actor
 			getContext().watch(playerActor);
 			sessionOpenMsg.getSession().setPlayerActor(playerActor);

@@ -28,7 +28,7 @@ public class GameActorSystem implements ISystem {
 		// load GAME config
 		Config config = ConfigFactory.load().getConfig("GAME");
 		system = ActorSystem.create(this.getClass().getSimpleName(), config);
-		gameMaster = system.actorOf(GameMaster.props(dbMaster));
+		gameMaster = system.actorOf(GameMaster.props(dbMaster), "GameMaster");
 	}
 
 	/**

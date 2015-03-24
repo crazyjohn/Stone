@@ -74,6 +74,7 @@ public class PlayerActor extends UntypedActor {
 				// handle player internal message
 				player.onInternalMessage(msg, getSelf());
 			} else if (msg.equals(MOCK)) {
+				// FIXME: crazyjohn test code
 				// mock update human data
 				if (player.getHuman() == null) {
 					return;

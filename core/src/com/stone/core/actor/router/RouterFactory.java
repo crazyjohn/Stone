@@ -30,11 +30,12 @@ public class RouterFactory {
 	 * @param params
 	 * @return
 	 */
-	public static Router createChildActorRouteeRouter(UntypedActorContext context, RoutingLogic routingLogic, Class<?> actorClass, int defaultRouteeCount, Object... params) {
+	public static Router createChildActorRouteeRouter(UntypedActorContext context, RoutingLogic routingLogic, Class<?> actorClass,
+			int defaultRouteeCount, Object... params) {
 		Router router;
 		List<Routee> routees = new ArrayList<Routee>();
 		for (int i = 0; i < defaultRouteeCount; i++) {
-			ActorRef actor = context.actorOf(Props.create(actorClass, params));
+			ActorRef actor = context.actorOf(Props.create(actorClass, params), actorClass.getSimpleName() + i);
 			context.watch(actor);
 			routees.add(new ActorRefRoutee(actor));
 		}
@@ -52,7 +53,8 @@ public class RouterFactory {
 	 * @param params
 	 * @return
 	 */
-	public static Router createTopActorRouteeRouter(ActorSystem system, RoutingLogic routingLogic, Class<?> actorClass, int defaultRouteeCount, Object... params) {
+	public static Router createTopActorRouteeRouter(ActorSystem system, RoutingLogic routingLogic, Class<?> actorClass, int defaultRouteeCount,
+			Object... params) {
 		Router router;
 		List<Routee> routees = new ArrayList<Routee>();
 		for (int i = 0; i < defaultRouteeCount; i++) {
