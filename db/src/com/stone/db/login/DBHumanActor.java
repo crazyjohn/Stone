@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import scala.concurrent.duration.Duration;
+import akka.actor.Cancellable;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
 
@@ -44,6 +45,8 @@ public class DBHumanActor extends UntypedActor {
 	protected final IConverter<HumanEntity, HumanCache> converter;
 	/** logger */
 	private Logger logger = LoggerFactory.getLogger(DBHumanActor.class);
+	/** schudule task */
+	final Cancellable scheduleTask;
 
 	public DBHumanActor(int cacheSize, IDBService dbService) {
 		cache = new LRUHashMap<Long, HumanCache>(cacheSize, null);
@@ -51,11 +54,17 @@ public class DBHumanActor extends UntypedActor {
 		// converter
 		converter = new HumanConverter();
 		// schedule
-		this.getContext()
+		scheduleTask = this
+				.getContext()
 				.system()
 				.scheduler()
 				.schedule(Duration.create(50, TimeUnit.MILLISECONDS), Duration.create(10, TimeUnit.SECONDS), this.getSelf(), TICK,
 						this.getContext().system().dispatcher(), this.getSelf());
+	}
+
+	@Override
+	public void postStop() throws Exception {
+		scheduleTask.cancel();
 	}
 
 	@Override
