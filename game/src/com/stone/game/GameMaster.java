@@ -34,9 +34,9 @@ public class GameMaster extends UntypedActor {
 	public void onReceive(Object msg) throws Exception {
 		// CG消息分发
 		if (msg instanceof GameSessionOpenMessage) {
+			// open session
 			GameSessionOpenMessage sessionOpenMsg = (GameSessionOpenMessage) msg;
 			onGameSessionOpened(sessionOpenMsg);
-
 		} else if (msg instanceof GameSessionCloseMessage) {
 			// close session
 			GameSessionCloseMessage sessionClose = (GameSessionCloseMessage) msg;
@@ -65,6 +65,8 @@ public class GameMaster extends UntypedActor {
 	 */
 	private void onGameSessionClosed(GameSessionCloseMessage sessionClose) throws MessageParseException {
 		sessionClose.execute();
+		// forward
+		sessionClose.getPlayerActor().forward(sessionClose, getContext());
 		// stop the actor
 		getContext().stop(sessionClose.getPlayerActor());
 		getContext().unwatch(sessionClose.getPlayerActor());

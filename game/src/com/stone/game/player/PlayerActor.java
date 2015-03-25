@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import scala.concurrent.duration.Duration;
 import akka.actor.ActorRef;
+import akka.actor.Cancellable;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
 import akka.japi.Procedure;
@@ -15,6 +16,7 @@ import akka.japi.Procedure;
 import com.stone.db.annotation.PlayerInternalMessage;
 import com.stone.db.entity.HumanItemEntity;
 import com.stone.game.data.DataEventBus;
+import com.stone.game.msg.GameSessionCloseMessage;
 import com.stone.game.msg.GameSessionOpenMessage;
 import com.stone.game.msg.ProtobufMessage;
 import com.stone.proto.common.Commons.Item;
@@ -33,12 +35,15 @@ public class PlayerActor extends UntypedActor {
 	protected final ActorRef dbMaster;
 	/** logger */
 	protected Logger logger = LoggerFactory.getLogger(PlayerActor.class);
+	/** mock task, just for test */
+	final Cancellable mockTask;
 
 	public PlayerActor(Player player, ActorRef dbMaster) {
 		this.player = player;
 		this.dbMaster = dbMaster;
 		// schedule
-		this.getContext()
+		mockTask = this
+				.getContext()
 				.system()
 				.scheduler()
 				.schedule(Duration.create(100, TimeUnit.MILLISECONDS), Duration.create(10, TimeUnit.SECONDS), this.getSelf(), MOCK,
@@ -66,7 +71,11 @@ public class PlayerActor extends UntypedActor {
 
 		@Override
 		public void apply(Object msg) throws Exception {
-			if (msg instanceof ProtobufMessage) {
+			if (msg instanceof GameSessionCloseMessage) {
+				getContext().become(DISCONNECTED);
+				// cancel task
+				mockTask.cancel();
+			} else if (msg instanceof ProtobufMessage) {
 				// net message use self execute
 				ProtobufMessage netMessage = (ProtobufMessage) msg;
 				player.onExternalMessage(netMessage, getSelf(), dbMaster);
