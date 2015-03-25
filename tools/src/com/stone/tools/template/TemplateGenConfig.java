@@ -1,9 +1,10 @@
 package com.stone.tools.template;
 
 /**
+ * The template genrater config;
  * 
- * 
- * 
+ * @author crazyjohn
+ *
  */
 public class TemplateGenConfig {
 	/** 文件名字 */
@@ -17,8 +18,7 @@ public class TemplateGenConfig {
 	/** 父类 */
 	private String father;
 
-	public TemplateGenConfig(String fileName, String path, String className,
-			String father, String comment) {
+	public TemplateGenConfig(String fileName, String path, String className, String father, String comment) {
 		this.fileName = fileName;
 		this.path = path;
 		this.className = className;

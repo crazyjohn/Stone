@@ -3,9 +3,10 @@ package com.stone.tools.template;
 import java.util.List;
 
 /**
- * 字段对象
+ * The excel field object;
  * 
- * 
+ * @author crazyjohn
+ *
  */
 public class ExcelFieldObject {
 
@@ -44,10 +45,8 @@ public class ExcelFieldObject {
 	 * @param xpoint
 	 * @param ypoint
 	 */
-	public ExcelFieldObject(String fieldType, String fieldName,
-			List<String> anotations, String comment, boolean xpoint,
-			boolean ypoint, int maxValue, int minValue, boolean notNull,
-			int startLine, int maxLen, int minLen) {
+	public ExcelFieldObject(String fieldType, String fieldName, List<String> anotations, String comment, boolean xpoint, boolean ypoint,
+			int maxValue, int minValue, boolean notNull, int startLine, int maxLen, int minLen) {
 		super();
 		this.fieldType = fieldType;
 		this.fieldName = fieldName;
@@ -62,8 +61,7 @@ public class ExcelFieldObject {
 		this.maxLen = maxLen;
 		this.minLen = minLen;
 		// 首字母大写
-		this.bigName = fieldName.substring(0, 1).toUpperCase()
-				+ fieldName.substring(1);
+		this.bigName = fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
 		if (xpoint || ypoint) {
 			if (minValue == -1) {
 				this.minValue = 0;

@@ -25,9 +25,10 @@ import org.apache.velocity.app.Velocity;
 import com.stone.core.exception.ConfigException;
 
 /**
- * Excel模板生成器
+ * The excel template generator;
  * 
- * 
+ * @author crazyjohn
+ *
  */
 public class ExcelTemplateGenerator {
 
@@ -37,18 +38,12 @@ public class ExcelTemplateGenerator {
 	private static final String CONFIG_DIR = "excel/";
 	private static final String MODEL_DIR = "excel/model/";
 
-	private static final Pattern TEMPLATE_FIELD = Pattern
-			.compile("([^\\s]+)\\s+([^\\s]+)\\s*;\\s*(\\[([^\\s]*)\\])?\\s*(//\\s*?(.*))?");
-	private static final Pattern TEMPLATE_CONFIG = Pattern
-			.compile("([^\\s]+)\\s+([^\\s]+)\\s+([^\\s]+)\\s+([a-zA-Z0-9]*)\\s*(//([^\\s]*))?");
-	private static final Pattern ANOTATION_COLLECTION = Pattern
-			.compile("^collection\\((\\d+),(\\d+)\\)$");
-	private static final Pattern ANOTATION_ROWBINDING = Pattern
-			.compile("^object\\((\\d+)\\)$");
-	private static final Pattern ANOTATION_CELLBINDING = Pattern
-			.compile("cell");
-	private static final Pattern ANOTATION_NOTTRANSLATE = Pattern
-			.compile("nottranslate");
+	private static final Pattern TEMPLATE_FIELD = Pattern.compile("([^\\s]+)\\s+([^\\s]+)\\s*;\\s*(\\[([^\\s]*)\\])?\\s*(//\\s*?(.*))?");
+	private static final Pattern TEMPLATE_CONFIG = Pattern.compile("([^\\s]+)\\s+([^\\s]+)\\s+([^\\s]+)\\s+([a-zA-Z0-9]*)\\s*(//([^\\s]*))?");
+	private static final Pattern ANOTATION_COLLECTION = Pattern.compile("^collection\\((\\d+),(\\d+)\\)$");
+	private static final Pattern ANOTATION_ROWBINDING = Pattern.compile("^object\\((\\d+)\\)$");
+	private static final Pattern ANOTATION_CELLBINDING = Pattern.compile("cell");
+	private static final Pattern ANOTATION_NOTTRANSLATE = Pattern.compile("nottranslate");
 
 	private static int lineNumber = 1;
 	private static Set<String> types;
@@ -62,20 +57,17 @@ public class ExcelTemplateGenerator {
 			throw new RuntimeException(e);
 		}
 
-		List<TemplateGenConfig> _configs = loadTemplateGenConfig(CONFIG_DIR,
-				"model_template_gen.config");
+		List<TemplateGenConfig> _configs = loadTemplateGenConfig(CONFIG_DIR, "model_template_gen.config");
 		for (TemplateGenConfig _conf : _configs) {
 			types = new HashSet<String>();
 			lineNumber = 1;
-			List<ExcelFieldObject> fields = loadDetailTemplateConfig(_conf);
+			List<ExcelFieldObject> fields = loadDetailTemplateFields(_conf);
 
 			String _fileName = "";
 			String _pkgName = "";
 			if (_conf.getClassName().contains(".")) {
-				_fileName = _conf.getClassName().substring(
-						_conf.getClassName().lastIndexOf(".") + 1);
-				_pkgName = _conf.getClassName().substring(0,
-						_conf.getClassName().lastIndexOf("."));
+				_fileName = _conf.getClassName().substring(_conf.getClassName().lastIndexOf(".") + 1);
+				_pkgName = _conf.getClassName().substring(0, _conf.getClassName().lastIndexOf("."));
 			} else {
 				_fileName = _conf.getClassName();
 			}
@@ -97,37 +89,40 @@ public class ExcelTemplateGenerator {
 	}
 
 	/**
-	 * 读取要生成的模板的配置文件
+	 * Load the template configs;
 	 * 
 	 * @param sourceDir
 	 * @param fileName
 	 * @return
 	 * @throws IOException
 	 */
-	private static List<TemplateGenConfig> loadTemplateGenConfig(
-			String sourceDir, String fileName) throws IOException {
+	private static List<TemplateGenConfig> loadTemplateGenConfig(String sourceDir, String fileName) throws IOException {
 		List<TemplateGenConfig> _configs = new ArrayList<TemplateGenConfig>();
 
-		String _genConfig = getFilePath(sourceDir, fileName);
-		BufferedReader _reader = new BufferedReader(new InputStreamReader(
-				new FileInputStream(_genConfig)));
-		String _line = null;
+		String config = getFilePath(sourceDir, fileName);
+		BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(config)));
+		String line = null;
 
-		while ((_line = _reader.readLine()) != null) {
-			_line = _line.trim();
-			if (_line.length() == 0) {
-				continue;
-			}
-
-			Matcher _matcher = TEMPLATE_CONFIG.matcher(_line);
-			if (_matcher.matches()) {
-				if (_line.startsWith("#")) {
+		try {
+			while ((line = reader.readLine()) != null) {
+				line = line.trim();
+				if (line.length() == 0) {
 					continue;
 				}
-				TemplateGenConfig _conf = new TemplateGenConfig(_matcher
-						.group(1), _matcher.group(2), _matcher.group(3),
-						_matcher.group(4), _matcher.group(6));
-				_configs.add(_conf);
+
+				Matcher _matcher = TEMPLATE_CONFIG.matcher(line);
+				if (_matcher.matches()) {
+					if (line.startsWith("#")) {
+						continue;
+					}
+					TemplateGenConfig _conf = new TemplateGenConfig(_matcher.group(1), _matcher.group(2), _matcher.group(3), _matcher.group(4),
+							_matcher.group(6));
+					_configs.add(_conf);
+				}
+			}
+		} finally {
+			if (reader != null) {
+				reader.close();
 			}
 		}
 
@@ -135,58 +130,61 @@ public class ExcelTemplateGenerator {
 	}
 
 	/**
-	 * 加载某一具体模板的详细信息
+	 * Load the template fields;
 	 * 
 	 * @param config
 	 * @return
 	 * @throws IOException
 	 */
-	private static List<ExcelFieldObject> loadDetailTemplateConfig(
-			TemplateGenConfig config) throws IOException {
-		List<ExcelFieldObject> _fields = new ArrayList<ExcelFieldObject>();
+	private static List<ExcelFieldObject> loadDetailTemplateFields(TemplateGenConfig config) throws IOException {
+		List<ExcelFieldObject> fields = new ArrayList<ExcelFieldObject>();
 
-		String _fileName = config.getFileName();
-		System.out.println(_fileName);
-		String _tmpConfig = getFilePath(MODEL_DIR, _fileName);
+		String fileName = config.getFileName();
+		System.out.println(fileName);
+		String tempConfig = getFilePath(MODEL_DIR, fileName);
 
-		BufferedReader _reader = new BufferedReader(new InputStreamReader(
-				new FileInputStream(_tmpConfig)));
-		String _line = null;
+		BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(tempConfig)));
+		String line = null;
 
-		while ((_line = _reader.readLine()) != null) {
-			_line = _line.trim();
-			if (_line.length() == 0) {
-				continue;
+		try {
+			while ((line = reader.readLine()) != null) {
+				line = line.trim();
+				if (line.length() == 0) {
+					continue;
+				}
+
+				Matcher _matcher = TEMPLATE_FIELD.matcher(line);
+				if (!_matcher.matches()) {
+					lineNumber++;
+					continue;
+				}
+
+				ExcelFieldObject _f = buildFieldObject(_matcher.group(1), _matcher.group(2), _matcher.group(4), _matcher.group(6), lineNumber + 1);
+				fields.add(_f);
 			}
-
-			Matcher _matcher = TEMPLATE_FIELD.matcher(_line);
-			if (!_matcher.matches()) {
-				lineNumber++;
-				continue;
+		} finally {
+			if (reader != null) {
+				reader.close();
 			}
-
-			ExcelFieldObject _f = buildFieldObject(_matcher.group(1), _matcher
-					.group(2), _matcher.group(4), _matcher.group(6),
-					lineNumber + 1);
-			_fields.add(_f);
 		}
-		return _fields;
+		return fields;
 	}
 
 	/**
-	 * 生成模板类
+	 * Generate the template file;
 	 * 
-	 * @param config
-	 * @throws IOException
+	 * @param context
+	 * @param fileName
+	 * @param pkgName
+	 * @param path
 	 * @throws UnsupportedEncodingException
+	 * @throws IOException
 	 */
-	private static void generateTemplate(VelocityContext context,
-			String fileName, String pkgName, String path)
-			throws UnsupportedEncodingException, IOException {
+	private static void generateTemplate(VelocityContext context, String fileName, String pkgName, String path) throws UnsupportedEncodingException,
+			IOException {
 		StringWriter _readWriter = new StringWriter();
 		try {
-			Velocity.mergeTemplate("TemplateClass.template", "UTF-8", context,
-					_readWriter);
+			Velocity.mergeTemplate("TemplateClass.template", "UTF-8", context, _readWriter);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -199,28 +197,25 @@ public class ExcelTemplateGenerator {
 					throw new RuntimeException("Can't create dir " + _srcDist);
 				}
 			}
-			Writer _fileWriter = new OutputStreamWriter(new FileOutputStream(
-					new File(_srcDist, fileName + ".java")), "UTF-8");
+			Writer _fileWriter = new OutputStreamWriter(new FileOutputStream(new File(_srcDist, fileName + ".java")), "UTF-8");
 			_fileWriter.write(_readWriter.toString());
 			_fileWriter.close();
 		} else {
-			Writer _fileWriter = new OutputStreamWriter(new FileOutputStream(
-					new File(fileName + ".java")), "UTF-8");
+			Writer _fileWriter = new OutputStreamWriter(new FileOutputStream(new File(fileName + ".java")), "UTF-8");
 			_fileWriter.write(_readWriter.toString());
 			_fileWriter.close();
 		}
 	}
 
 	/**
-	 * 获取文件路径
+	 * Get the file path;
 	 * 
 	 * @param dir
 	 * @param fileName
 	 * @return
 	 */
 	private static String getFilePath(String dir, String fileName) {
-		ClassLoader classLoader = Thread.currentThread()
-				.getContextClassLoader();
+		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 		URL url = classLoader.getResource(dir + fileName);
 		if (url == null) {
 			throw new ConfigException("file:" + fileName + " does not exists");
@@ -229,9 +224,10 @@ public class ExcelTemplateGenerator {
 	}
 
 	/**
-	 * 解析生成字段的anotation
+	 * Build the annotation;
 	 * 
 	 * @param str
+	 * @param type
 	 * @return
 	 */
 	private static List<String> buildAnotation(String str, String type) {
@@ -253,12 +249,10 @@ public class ExcelTemplateGenerator {
 			Matcher _matcher = ANOTATION_COLLECTION.matcher(tmp);
 
 			if (_matcher.matches()) {
-				types
-						.add("com.hifun.soul.core.template.ExcelCollectionMapping");
+				types.add("com.hifun.soul.core.template.ExcelCollectionMapping");
 				int _g = Integer.parseInt(_matcher.group(1));
 				int _p = Integer.parseInt(_matcher.group(2));
-				StringBuilder sb = new StringBuilder(
-						"@ExcelCollectionMapping(clazz = ");
+				StringBuilder sb = new StringBuilder("@ExcelCollectionMapping(clazz = ");
 				sb.append(type);
 				sb.append(".class, collectionNumber = \"");
 				for (int j = 0; j < _g; j++) {
@@ -280,8 +274,7 @@ public class ExcelTemplateGenerator {
 
 			_matcher = ANOTATION_CELLBINDING.matcher(tmp);
 			if (_matcher.matches()) {
-				StringBuilder sb = new StringBuilder(
-						"@ExcelCellBinding(offset = ");
+				StringBuilder sb = new StringBuilder("@ExcelCellBinding(offset = ");
 				sb.append(lineNumber);
 				sb.append(")");
 				_anotations.add(sb.toString());
@@ -309,7 +302,7 @@ public class ExcelTemplateGenerator {
 	}
 
 	/**
-	 * 解析字段类型
+	 * Parse the field type;
 	 * 
 	 * @param type
 	 * @return
@@ -320,7 +313,7 @@ public class ExcelTemplateGenerator {
 		Pattern _set = Pattern.compile("Set<([^\\s]+)>");
 		Pattern _array = Pattern.compile("([a-zA-Z]+)\\[\\]");
 
-		// Map类型的
+		// Map
 		Matcher _matcher = _map.matcher(type);
 		if (_matcher.matches()) {
 			types.add("java.util.Map");
@@ -350,16 +343,14 @@ public class ExcelTemplateGenerator {
 		return type;
 	}
 
-	private static final ExcelFieldObject buildFieldObject(String type,
-			String name, String condition, String comment, int startLine) {
+	private static final ExcelFieldObject buildFieldObject(String type, String name, String condition, String comment, int startLine) {
 		ExcelFieldObject _f = null;
 
 		Pattern _minValue = Pattern.compile("minvalue=(\\d+)");
 		Pattern _maxValue = Pattern.compile("maxvalue=(\\d+)");
 		Pattern _x = Pattern.compile("x=([^\\s]+)");
 		Pattern _y = Pattern.compile("y=([^\\s]+)");
-		Pattern _anot = Pattern
-				.compile("(collection[^\\s]+)|(object[^\\s]+)|(nottranslate)|(cell)");
+		Pattern _anot = Pattern.compile("(collection[^\\s]+)|(object[^\\s]+)|(nottranslate)|(cell)");
 		Pattern _notNull = Pattern.compile("notnull=([^\\s]+)");
 		Pattern _maxLen = Pattern.compile("maxlen=(\\d+)");
 		Pattern _minLen = Pattern.compile("minlen=(\\d+)");
@@ -449,18 +440,14 @@ public class ExcelTemplateGenerator {
 		}
 
 		if (!notNull && ( // 如果是非对象类型数据, 且 notNull=false
-			type.equals("int") || 
-			type.equals("float") || 
-			type.equals("long") || 
-			type.equals("short"))) {
+				type.equals("int") || type.equals("float") || type.equals("long") || type.equals("short"))) {
 			types.add("com.hifun.soul.common.exception.TemplateConfigException");
 		}
 
 		String _fieldType = parseFieldType(type);
 		List<String> _anotations = buildAnotation(anot.toString(), _fieldType);
 
-		_f = new ExcelFieldObject(type, name, _anotations, comment, x, y,
-				maxValue, minValue, notNull, startLine, maxLen, minLen);
+		_f = new ExcelFieldObject(type, name, _anotations, comment, x, y, maxValue, minValue, notNull, startLine, maxLen, minLen);
 
 		return _f;
 	}
@@ -474,8 +461,7 @@ public class ExcelTemplateGenerator {
 			return path_core;
 		}
 
-		throw new ConfigException("您在model_template_gen.config中配置了错误的包名："
-				+ pkgName);
+		throw new ConfigException("you make the wrong packageName in model_template_gen.config：" + pkgName);
 	}
 
 }
