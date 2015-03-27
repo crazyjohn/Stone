@@ -113,7 +113,7 @@ public class GameServer implements IService {
 		externalProcess.shutdown();
 		gameActorSystem.shutdown();
 		dbActorSystem.shutdown();
-		logger.info("Game Server shutdown command already send to all server component.");
+		logger.info("Game Server already shutdown.");
 	}
 
 	public static void main(String[] args) {
