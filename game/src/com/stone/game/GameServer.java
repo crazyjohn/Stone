@@ -94,7 +94,8 @@ public class GameServer implements IService {
 				public void run() {
 					try {
 						System.in.read();
-						shutdown();
+						// send exit signal
+						System.exit(0);
 					} catch (IOException e) {
 						logger.error("Wait shutdown error", e);
 					}
