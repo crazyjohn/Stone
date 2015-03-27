@@ -47,12 +47,13 @@ public class GameServer implements IService {
 	@Override
 	public void init() throws ScriptException, IOException {
 		config = new GameServerConfig();
+		// load js config
 		ConfigUtil.loadJsConfig(config, configPath);
 		// db actor system
 		dbActorSystem = new DBActorSystem();
+		// init db service
 		dbActorSystem.initDBService(config.getDbServiceType(), config.getDbConfigName(), config.getDataServiceProperties());
 		gameActorSystem = new GameActorSystem(dbActorSystem.getMasterActor());
-
 		// external service
 		externalProcess = new ServerProcess(config.getBindIp(), config.getPort(), new GameIoHandler(gameActorSystem.getMasterActor(),
 				dbActorSystem.getMasterActor()), new GameCodecFactory(new ProtobufMessageFactory()));
