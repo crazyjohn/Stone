@@ -32,7 +32,7 @@ public class GameMaster extends UntypedActor {
 
 	@Override
 	public void onReceive(Object msg) throws Exception {
-		// CG消息分发
+		// dispatch cg msg
 		if (msg instanceof GameSessionOpenMessage) {
 			// open session
 			GameSessionOpenMessage sessionOpenMsg = (GameSessionOpenMessage) msg;
@@ -42,19 +42,28 @@ public class GameMaster extends UntypedActor {
 			GameSessionCloseMessage sessionClose = (GameSessionCloseMessage) msg;
 			onGameSessionClosed(sessionClose);
 		} else if (msg instanceof CGMessage) {
-			ActorRef playerActor = ((CGMessage) msg).getPlayerActor();
-			if (playerActor == null) {
-				ISession sessionInfo = ((CGMessage) msg).getSession();
-				logger.info(String.format("Player null, close this session: %s", sessionInfo));
-				sessionInfo.close();
-				return;
-			}
-			// put to player actor
-			playerActor.tell(msg, ActorRef.noSender());
-
+			routeToTargetPlayerActor(msg);
 		} else {
 			unhandled(msg);
 		}
+	}
+
+	/**
+	 * 路由消息到指定的玩家Actor;
+	 * 
+	 * @param msg
+	 */
+	private void routeToTargetPlayerActor(Object msg) {
+		ActorRef playerActor = ((CGMessage) msg).getPlayerActor();
+		if (playerActor == null) {
+			ISession sessionInfo = ((CGMessage) msg).getSession();
+			logger.info(String.format("Player null, close this session: %s", sessionInfo));
+			sessionInfo.close();
+			return;
+		}
+		// put to player actor
+		playerActor.tell(msg, ActorRef.noSender());
+
 	}
 
 	/**
