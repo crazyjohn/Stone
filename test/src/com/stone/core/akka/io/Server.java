@@ -21,11 +21,12 @@ public class Server extends UntypedActor {
 	@Override
 	public void preStart() throws Exception {
 		final ActorRef tcp = Tcp.get(this.getContext().system()).manager();
-		tcp.tell(TcpMessage.bind(getSelf(), new InetSocketAddress("localhost", 0), 100), getSelf());
+		tcp.tell(TcpMessage.bind(getSelf(), new InetSocketAddress("localhost", 8888), 100), getSelf());
 	}
 
 	@Override
 	public void onReceive(Object msg) throws Exception {
+		System.out.println("Server received msg: " + msg);
 		if (msg instanceof Bound) {
 			manager.tell(msg, getSelf());
 		} else if (msg instanceof CommandFailed) {

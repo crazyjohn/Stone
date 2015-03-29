@@ -27,6 +27,7 @@ public class Client extends UntypedActor {
 
 	@Override
 	public void onReceive(Object msg) throws Exception {
+		System.out.println("Client received msg: " + msg);
 		if (msg instanceof CommandFailed) {
 			// when failed
 			listener.tell("failed", getSelf());
