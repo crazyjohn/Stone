@@ -62,12 +62,6 @@ public class GameServer implements IService {
 
 	@Override
 	public void start() throws IOException {
-		logger.info("Begin to start the GameActorSystem...");
-		gameActorSystem.start();
-		logger.info("GameActorSystem started.");
-		logger.info("Begin to start DBActorSystem...");
-		dbActorSystem.start();
-		logger.info("DBActorSystem started.");
 		logger.info("Begin to start Server Process...");
 		externalProcess.start();
 		logger.info("Server Process started.");
@@ -110,11 +104,11 @@ public class GameServer implements IService {
 
 	@Override
 	public void shutdown() {
-		logger.info("Begin to shutdown Game Server...");
+		logger.info("Begin to shutdown GameServer...");
 		externalProcess.shutdown();
 		gameActorSystem.shutdown();
 		dbActorSystem.shutdown();
-		logger.info("Game Server already shutdown.");
+		logger.info("GameServer already shutdown.");
 	}
 
 	public static void main(String[] args) {

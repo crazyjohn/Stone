@@ -9,12 +9,7 @@ import akka.actor.ActorSystem;
  * @author crazyjohn
  *
  */
-public interface ISystem {
-
-	/**
-	 * Start the system;
-	 */
-	public void start();
+public interface IActorHostSystem {
 
 	/**
 	 * Shutdown the system;

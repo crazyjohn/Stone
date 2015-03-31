@@ -9,7 +9,7 @@ import akka.actor.DeadLetter;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
 
-import com.stone.core.system.ISystem;
+import com.stone.core.system.IActorHostSystem;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 
@@ -19,7 +19,7 @@ import com.typesafe.config.ConfigFactory;
  * @author crazyjohn
  *
  */
-public class GameActorSystem implements ISystem {
+public class GameActorSystem implements IActorHostSystem {
 	/** loggers */
 	protected static Logger logger = LoggerFactory.getLogger(GameActorSystem.class);
 	/** ActorSystem */
@@ -62,12 +62,6 @@ public class GameActorSystem implements ISystem {
 	@Override
 	public ActorSystem getSystem() {
 		return system;
-	}
-
-	@Override
-	public void start() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

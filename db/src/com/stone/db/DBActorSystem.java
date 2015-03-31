@@ -6,7 +6,7 @@ import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 
 import com.stone.core.db.service.IDBService;
-import com.stone.core.system.ISystem;
+import com.stone.core.system.IActorHostSystem;
 import com.stone.db.service.DBConfiguration;
 import com.stone.db.service.DBServiceFactory;
 import com.typesafe.config.Config;
@@ -18,7 +18,7 @@ import com.typesafe.config.ConfigFactory;
  * @author crazyjohn
  *
  */
-public class DBActorSystem implements ISystem {
+public class DBActorSystem implements IActorHostSystem {
 	/** actor system */
 	private final ActorSystem system;
 	/** db master */
@@ -43,11 +43,6 @@ public class DBActorSystem implements ISystem {
 		return system;
 	}
 
-	@Override
-	public void start() {
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
 	public void shutdown() {
