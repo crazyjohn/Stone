@@ -3,5 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="lib" path="lib/protobuf-2.6.0.jar" sourcepath="lib-src/protobuf-2.6.0-src.zip"/>
+	<classpathentry kind="lib" path="lib/protoc-gen-as3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

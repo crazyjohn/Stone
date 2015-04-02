@@ -8,6 +8,7 @@
 	<property name="proto.build" value="${proto.base}/build" />
 	<property name="proto.compiler" value="${proto.build}/protoc.exe" />
 	<property name="proto.outer" value="${proto.base}/src" />
+	<property name="as.outer" value="${basedir}/as" />
 	<!-- java lib path -->
 	<path id="libs">
 		<pathelement path="${java.class.path}" />
@@ -24,16 +25,23 @@
 
 	<!-- 2. generate proto files to java code -->
 	<target name="proto.generate">
+		<!-- to java protocol -->
 		<exec executable="${proto.compiler}">
 			<arg value="--java_out=${proto.outer}" />
 			<arg value="--proto_path=../proto" />
 			<arg value="../proto/*.proto" />
 		</exec>
-		<!-- entity -->
+		<!-- to java entity -->
 		<exec executable="${proto.compiler}">
 			<arg value="--java_out=${proto.outer}" />
 			<arg value="--proto_path=../entity" />
 			<arg value="../entity/*.proto" />
+		</exec>
+		<!-- to as protocol -->
+		<exec executable="${proto.compiler}">
+			<arg value="--plugin=protoc-gen-as3='protoc-gen-as3.bat'" />
+			<arg value="--as3_out=${as.outer}" />
+			<arg value="../proto/*.proto" />
 		</exec>
 	</target>
 </project>
