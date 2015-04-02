@@ -24,6 +24,17 @@ public class HelperDeadLockTest {
 				this.dispatcher.notifyAvailable(this);
 			}
 		}
+		
+		public void openSetLocation(Point location) {
+			boolean reachedDestination;
+			synchronized (this) {
+				this.location = location;
+				reachedDestination = this.destination.equals(location);
+			}
+			if (reachedDestination) {
+				this.dispatcher.notifyAvailable(this);
+			}
+		}
 
 	}
 
@@ -45,6 +56,20 @@ public class HelperDeadLockTest {
 		public synchronized LocationImage getImage() {
 			LocationImage image = new LocationImage();
 			for (Taxi t : taxis) {
+				image.drawMarker(t.getLocation());
+			}
+			return image;
+		}
+		
+		public LocationImage openGetImage() {
+			// do a copy
+			Set<Taxi> copy;
+			synchronized (this) {
+				copy = new HashSet<Taxi>(this.taxis);
+			}
+			// iterate this copy
+			LocationImage image = new LocationImage();
+			for (Taxi t : copy) {
 				image.drawMarker(t.getLocation());
 			}
 			return image;
