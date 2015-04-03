@@ -38,8 +38,11 @@
 			<arg value="../entity/*.proto" />
 		</exec>
 		<!-- to as protocol -->
-		<exec executable="cmd.exe">
-			 <arg line="--plugin=protoc-gen-as3='protoc-gen-as3.bat' --as3_out=${as.outer} ../proto/%%~ni.proto"/>
+		<exec executable="${proto.compiler}">
+			<arg value="--plugin=protoc-gen-as3=${basedir}/protoc-gen-as3.bat" />
+			<arg value="--as3_out=${basedir}/as" />
+			<arg value="--proto_path=../proto" />
+			<arg value="../proto/*.proto" />
 		</exec>
 	</target>
 </project>
