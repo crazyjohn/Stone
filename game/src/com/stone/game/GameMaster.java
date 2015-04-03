@@ -49,7 +49,7 @@ public class GameMaster extends UntypedActor {
 	}
 
 	/**
-	 * 路由消息到指定的玩家Actor;
+	 * Route the msg to target playerActor;
 	 * 
 	 * @param msg
 	 */
