@@ -9,11 +9,11 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-import com.stone.actor.annotation.GuardedByUnit;
-import com.stone.actor.annotation.ThreadSafeUnit;
 import com.stone.actor.call.IActorCallback;
 import com.stone.actor.listener.IActorFutureListener;
 import com.stone.actor.system.IActorSystem;
+import com.stone.core.concurrent.annotation.GuardedByUnit;
+import com.stone.core.concurrent.annotation.ThreadSafeUnit;
 
 /**
  * Future future everywhere;

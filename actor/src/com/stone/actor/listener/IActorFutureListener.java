@@ -1,8 +1,8 @@
 package com.stone.actor.listener;
 
 import com.stone.actor.IActor;
-import com.stone.actor.annotation.NotThreadSafeUnit;
 import com.stone.actor.future.IActorFuture;
+import com.stone.core.concurrent.annotation.NotThreadSafeUnit;
 
 /**
  * future监听器;

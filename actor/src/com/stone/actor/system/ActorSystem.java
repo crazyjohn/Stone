@@ -12,8 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.stone.actor.IActor;
-import com.stone.actor.annotation.GuardedByUnit;
-import com.stone.actor.annotation.ThreadSafeUnit;
 import com.stone.actor.call.IActorCall;
 import com.stone.actor.call.IActorCallback;
 import com.stone.actor.concurrent.ActorWokerMonster;
@@ -22,6 +20,8 @@ import com.stone.actor.concurrent.IActorWorkerMonster;
 import com.stone.actor.concurrent.NamedThreadFactory;
 import com.stone.actor.future.ActorFuture;
 import com.stone.actor.future.IActorFuture;
+import com.stone.core.concurrent.annotation.GuardedByUnit;
+import com.stone.core.concurrent.annotation.ThreadSafeUnit;
 
 /**
  * base actor system;
