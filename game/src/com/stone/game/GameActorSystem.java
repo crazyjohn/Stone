@@ -48,7 +48,7 @@ public class GameActorSystem implements IActorHostSystem {
 		// load GAME config
 		Config config = ConfigFactory.load().getConfig("GAME");
 		system = ActorSystem.create(this.getClass().getSimpleName(), config);
-		gameMaster = system.actorOf(GameMaster.props(dbMaster), "GameMaster");
+		gameMaster = system.actorOf(GameMaster.props(dbMaster), "gameMaster");
 		// deadletter actor
 		ActorRef deadLetterActor = system.actorOf(Props.create(DeadLetterActor.class));
 		system.eventStream().subscribe(deadLetterActor, DeadLetter.class);

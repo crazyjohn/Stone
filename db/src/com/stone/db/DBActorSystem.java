@@ -35,7 +35,7 @@ public class DBActorSystem implements IActorHostSystem {
 	public void initDBService(String dbServiceType, String dbConfigName, Properties props) {
 		dbService = DBServiceFactory.createDBService(new DBConfiguration(dbServiceType, dbConfigName, props));
 		// dbMaster
-		dbMaster = system.actorOf(DBMaster.props(dbService), "DBMaster");
+		dbMaster = system.actorOf(DBMaster.props(dbService), "dBMaster");
 	}
 
 	@Override

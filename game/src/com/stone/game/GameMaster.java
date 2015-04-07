@@ -1,5 +1,7 @@
 package com.stone.game;
 
+import java.util.concurrent.atomic.AtomicLong;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,6 +27,8 @@ public class GameMaster extends UntypedActor {
 	private Logger logger = LoggerFactory.getLogger(GameMaster.class);
 	/** dbMaster */
 	private final ActorRef dbMaster;
+	/** counter */
+	private AtomicLong counter = new AtomicLong(0);
 
 	public GameMaster(ActorRef dbMaster) {
 		this.dbMaster = dbMaster;
@@ -88,7 +92,7 @@ public class GameMaster extends UntypedActor {
 	 */
 	private void onGameSessionOpened(GameSessionOpenMessage sessionOpenMsg) {
 		if (sessionOpenMsg.getSession().getPlayerActor() == null) {
-			ActorRef playerActor = getContext().actorOf(PlayerActor.props(sessionOpenMsg.getSession().getSession(), dbMaster), "PlayerActor");
+			ActorRef playerActor = getContext().actorOf(PlayerActor.props(sessionOpenMsg.getSession().getSession(), dbMaster), "playerActor" + counter.incrementAndGet());
 			// watch this player actor
 			getContext().watch(playerActor);
 			sessionOpenMsg.getSession().setPlayerActor(playerActor);
