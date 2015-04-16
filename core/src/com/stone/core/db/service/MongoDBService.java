@@ -31,25 +31,33 @@ public class MongoDBService implements IDBService {
 
 	@Override
 	public void update(IEntity entity) {
-		// TODO Auto-generated method stub
-		// get collection
-		DBCollection collection = getDBCollection(entity.getClass(), entity.getId());
-		collection.findAndModify(findOldDoc(entity.getClass(), entity.getId()), entityToDoc(entity));
+		DBCollection collection = getDBCollection(entity);
+		collection.update(getIdQuery(entity.getClass(), entity.getId()), getDBObject(entity));
 	}
 
-	private DBObject entityToDoc(IEntity entity) {
-		// TODO Auto-generated method stub
+	private DBObject getDBObject(IEntity entity) {
 		return null;
 	}
 
-	private DBObject findOldDoc(Class<? extends IEntity> class1, Serializable id) {
-		// TODO Auto-generated method stub
-		return null;
+	/**
+	 * Get query object;
+	 * 
+	 * @param entityClass
+	 * @param id
+	 * @return
+	 */
+	private DBObject getIdQuery(Class<? extends IEntity> entityClass, Serializable id) {
+		return new BasicDBObject("guid", id);
 	}
 
-	private DBCollection getDBCollection(Class<? extends IEntity> class1, Serializable id) {
-		// TODO Auto-generated method stub
-		return null;
+	/**
+	 * Get db collection;
+	 * 
+	 * @param entity
+	 * @return
+	 */
+	private DBCollection getDBCollection(IEntity entity) {
+		return db.getCollection(entity.getClass().getSimpleName());
 	}
 
 	@Override
