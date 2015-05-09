@@ -15,6 +15,8 @@ public class RemoteClient {
 		String remotePath = "akka.tcp://RemoteActorSystem@127.0.0.1:2552/user/remoteMaster";
 		ActorRef remoteProxy = system.actorOf(Props.create(RemoteActorProxy.class, remotePath), "remoteProxy");
 		remoteProxy.tell("hi, remote actor!", ActorRef.noSender());
+		// shutdown
+		system.shutdown();
 	}
 
 }
