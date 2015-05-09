@@ -5,6 +5,9 @@ import org.slf4j.LoggerFactory;
 
 import akka.actor.UntypedActor;
 
+import com.google.protobuf.Message;
+import com.googlecode.protobuf.format.JsonFormat;
+
 /**
  * The remote actor;
  * 
@@ -19,6 +22,8 @@ public class RemoteActor extends UntypedActor {
 	public void onReceive(Object msg) throws Exception {
 		if (msg instanceof String) {
 			logger.info(msg.toString());
+		} else if (msg instanceof Message) {
+			logger.info(JsonFormat.printToString((Message) msg));
 		}
 	}
 
