@@ -3,7 +3,8 @@ package com.stone.game.player.state;
 import com.stone.core.state.IState;
 
 /**
- * 玩家状态类型;
+ * Player state type;
+ * 
  * @author crazyjohn
  *
  */
@@ -77,7 +78,7 @@ public enum PlayerState implements IState {
 			return false;
 		}
 	},
-	/** 战斗中  */
+	/** 战斗中 */
 	BATTLING() {
 		@Override
 		public boolean canProcessMessage(short type) {
