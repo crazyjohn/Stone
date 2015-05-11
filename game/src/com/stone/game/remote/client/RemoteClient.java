@@ -1,4 +1,4 @@
-package com.stone.game.remote;
+package com.stone.game.remote.client;
 
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;

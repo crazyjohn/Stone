@@ -1,4 +1,4 @@
-package com.stone.game.remote;
+package com.stone.game.remote.server;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

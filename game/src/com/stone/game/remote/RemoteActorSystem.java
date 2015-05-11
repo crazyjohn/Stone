@@ -8,6 +8,7 @@ import akka.actor.ActorSystem;
 import akka.actor.Props;
 
 import com.stone.core.system.IActorHostSystem;
+import com.stone.game.remote.server.RemoteActor;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 
