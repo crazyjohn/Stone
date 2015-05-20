@@ -52,7 +52,7 @@ class CrazyBot(userName: String, password: String) extends Actor {
       // 1. run tasks
       try {
         if (!tasks.isEmpty) {
-          tasks.foreach(task => { task.runOnceTime(this) })
+          tasks.foreach(_.runOnceTime(this))
         }
       } catch {
         case e: Exception => {
