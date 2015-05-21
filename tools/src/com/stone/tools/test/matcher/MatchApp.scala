@@ -27,6 +27,12 @@ object MatchApp {
     case _            => 1
   }
 
+  def matchGuarder(x: Any) = x match {
+    case n: Int if n > 0          => "Suit n: " + n
+    case s: String if s(0) == 'a' => "Suit s: " + s
+    case _                        =>
+  }
+
   def main(args: Array[String]): Unit = {
     // const match
     //    println(describe(5))
@@ -40,8 +46,11 @@ object MatchApp {
     // tuple match
     //    println(tupleMatch(("a", 3, "-tuple")))
     // type match
-    println(typeMatch("hello, scala"))
-    println(Map(1 -> 'a', 2 -> 'b'))
-    println(typeMatch(5))
+    //    println(typeMatch("hello, scala"))
+    //    println(Map(1 -> 'a', 2 -> 'b'))
+    //    println(typeMatch(5))
+    // match guarder
+    println(matchGuarder(10))
+    println(matchGuarder("aBiatch"))
   }
 }
