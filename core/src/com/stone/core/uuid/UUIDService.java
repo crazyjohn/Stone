@@ -19,7 +19,7 @@ import com.stone.core.uuid.msg.InternalGetUUIDResult;
  */
 public class UUIDService extends UntypedActor implements IUUIDService {
 
-	/** 日志 */
+	/** logger */
 	private static final Logger logger = LoggerFactory.getLogger(UUIDService.class);
 	/** 每次服务器启动跳过的ID数 */
 	private static final int UUID_STEP = 1000;
@@ -46,7 +46,6 @@ public class UUIDService extends UntypedActor implements IUUIDService {
 		this.lineId = lineId;
 	}
 
-
 	public long getNextUUID(UUIDType uuidType) {
 		return this.uuid64[uuidType.getIndex()].getNextUUID();
 	}
@@ -68,8 +67,8 @@ public class UUIDService extends UntypedActor implements IUUIDService {
 			long _initOid = queryOId(_type.getIndex());
 			this.uuid64[_type.getIndex()] = UUID64.buildDefaultUUID(regionId, serverId, lineId, _initOid);
 			UUID64 _uuid64 = this.uuid64[_type.getIndex()];
-			logger.info("Get UUID for [rid:" + this.regionId + ",sid:" + this.serverId + ",lid:" + this.lineId + ",type:" + _type + "] initOid[" + _initOid
-					+ "] cur uuid[Hex:" + Long.toHexString(_uuid64.getCurUUID()) + " " + _uuid64.getCurUUID() + "]");
+			logger.info("Get UUID for [rid:" + this.regionId + ",sid:" + this.serverId + ",lid:" + this.lineId + ",type:" + _type + "] initOid["
+					+ _initOid + "] cur uuid[Hex:" + Long.toHexString(_uuid64.getCurUUID()) + " " + _uuid64.getCurUUID() + "]");
 		}
 	}
 

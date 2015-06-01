@@ -128,7 +128,7 @@ public class UUID64 {
 	 * 
 	 * @return
 	 */
-	public long getCurUUID() {
+	protected long getCurUUID() {
 		final long _curId = this.oid.get();
 		if (_curId > this.maxUUID) {
 			this.oid.set(this.maxUUID);
@@ -137,10 +137,7 @@ public class UUID64 {
 		return _curId;
 	}
 
-	/**
-	 * @return the rid
-	 */
-	public long getRid() {
+	protected long getRid() {
 		return rid;
 	}
 
@@ -150,14 +147,11 @@ public class UUID64 {
 	 * @param uuid
 	 * @return
 	 */
-	public long getRid(final long uuid) {
+	protected long getRid(final long uuid) {
 		return (this.ridMask & uuid) >> (MAX_BITS - this.ridBits);
 	}
 
-	/**
-	 * @return the sid
-	 */
-	public long getSid() {
+	protected long getSid() {
 		return sid;
 	}
 
@@ -167,14 +161,11 @@ public class UUID64 {
 	 * @param uuid
 	 * @return
 	 */
-	public long getSid(final long uuid) {
+	protected long getSid(final long uuid) {
 		return (this.sidMask & uuid) >> (MAX_BITS - this.ridBits - this.sidBits);
 	}
 
-	/**
-	 * @return the lid
-	 */
-	public long getLid() {
+	protected long getLid() {
 		return lid;
 	}
 
@@ -184,7 +175,7 @@ public class UUID64 {
 	 * @param uuid
 	 * @return
 	 */
-	public long getLid(final long uuid) {
+	protected long getLid(final long uuid) {
 		return (this.lidMask & uuid) >> (MAX_BITS - this.ridBits - this.sidBits - this.lidBits);
 	}
 
