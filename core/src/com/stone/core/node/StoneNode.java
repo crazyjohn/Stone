@@ -32,6 +32,13 @@ public class StoneNode implements IStoneNode {
 	protected Map<String, IStoneService> services = new ConcurrentHashMap<String, IStoneService>();
 	/** main io processor */
 	protected ServerIoProcessor mainIoProcessor;
+	protected String configPath;
+	protected ServerConfig config;
+
+	public StoneNode(String configPath, ServerConfig config) {
+		this.configPath = configPath;
+		this.config = config;
+	}
 
 	@Override
 	public void setName(String nodeName) {
