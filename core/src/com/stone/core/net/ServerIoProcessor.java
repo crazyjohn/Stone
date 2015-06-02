@@ -12,12 +12,12 @@ import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
 import com.stone.core.service.IService;
 
 /**
- * The net io process;
+ * The net io processor;
  * 
  * @author crazyjohn
  *
  */
-public class ServerProcess implements IService {
+public class ServerIoProcessor implements IService {
 	/** Acceptor */
 	private IoAcceptor acceptor;
 	/** port */
@@ -29,7 +29,7 @@ public class ServerProcess implements IService {
 	/** codec factory */
 	private ProtocolCodecFactory codecFactory;
 
-	public ServerProcess(String bindIp, int port, IoHandler ioHandler, ProtocolCodecFactory codecFactory) {
+	public ServerIoProcessor(String bindIp, int port, IoHandler ioHandler, ProtocolCodecFactory codecFactory) {
 		acceptor = new NioSocketAcceptor();
 		this.bindIp = bindIp;
 		this.port = port;

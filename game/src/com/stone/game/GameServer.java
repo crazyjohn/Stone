@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import com.stone.core.codec.GameCodecFactory;
 import com.stone.core.config.ConfigUtil;
-import com.stone.core.net.ServerProcess;
+import com.stone.core.net.ServerIoProcessor;
 import com.stone.core.service.IService;
 import com.stone.core.util.OSUtil;
 import com.stone.db.DBActorSystem;
@@ -28,7 +28,7 @@ public class GameServer implements IService {
 	/** config path */
 	private String configPath;
 	/** server io process */
-	protected ServerProcess externalProcess;
+	protected ServerIoProcessor externalProcess;
 	/** game actor system */
 	protected GameActorSystem gameActorSystem;
 	/** db actor system */
@@ -55,7 +55,7 @@ public class GameServer implements IService {
 		dbActorSystem.initDBService(config.getDbServiceType(), config.getDbConfigName(), config.getDataServiceProperties());
 		gameActorSystem = new GameActorSystem(dbActorSystem.getMasterActor());
 		// external service
-		externalProcess = new ServerProcess(config.getBindIp(), config.getPort(), new GameIoHandler(gameActorSystem.getMasterActor(),
+		externalProcess = new ServerIoProcessor(config.getBindIp(), config.getPort(), new GameIoHandler(gameActorSystem.getMasterActor(),
 				dbActorSystem.getMasterActor()), new GameCodecFactory(new ProtobufMessageFactory()));
 
 	}

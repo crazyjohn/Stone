@@ -60,7 +60,8 @@ public class PlayerLoginModule extends BasePlayerModule {
 			HumanEntity humanEntity = ((InternalSelectRoleResult) msg).getEntity();
 			// load
 			human.onLoad(humanEntity);
-			humanBuilder.setGuid(humanEntity.getGuid()).setLevel(humanEntity.getLevel()).setName(humanEntity.getName()).setPlayerId(humanEntity.getPlayerId());
+			humanBuilder.setGuid(humanEntity.getGuid()).setLevel(humanEntity.getLevel()).setName(humanEntity.getName())
+					.setPlayerId(humanEntity.getPlayerId());
 			EnterScene.Builder enterScene = EnterScene.newBuilder();
 			enterScene.setHuman(humanBuilder);
 			player.sendMessage(MessageType.GC_ENTER_SCENE_VALUE, enterScene);

@@ -1,7 +1,7 @@
 package com.stone.core.config;
 
 /**
- * 服务器基础配置;
+ * The base server config;
  * 
  * @author crazyjohn
  *

@@ -14,7 +14,7 @@ import com.stone.core.service.IService;
 public class ServerProcessTest {
 
 	public static void main(String[] args) throws IOException {
-		IService serverProcess = new ServerProcess("0.0.0.0", 8888,
+		IService serverProcess = new ServerIoProcessor("0.0.0.0", 8888,
 				new IoHandler() {
 
 					@Override
