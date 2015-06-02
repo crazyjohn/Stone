@@ -30,8 +30,7 @@ import com.stone.core.script.JSScriptEngine;
  *
  */
 public class ConfigUtil {
-	private static final Logger logger = LoggerFactory
-			.getLogger(ConfigUtil.class);
+	private static final Logger logger = LoggerFactory.getLogger(ConfigUtil.class);
 
 	/**
 	 * 根据指定的配置类型<tt>configClass</tt>从<tt>configURL</tt>中加载配置
@@ -49,8 +48,7 @@ public class ConfigUtil {
 	 * @exception IllegalStateException
 	 *                从configUrl中加载内容失败时抛出此异常
 	 */
-	public static <T extends IConfig> T buildConfig(Class<T> configClass,
-			URL configURL) {
+	public static <T extends IConfig> T buildConfig(Class<T> configClass, URL configURL) {
 		if (configClass == null) {
 			throw new IllegalArgumentException("ConfigClass can not be null");
 		}
@@ -58,8 +56,7 @@ public class ConfigUtil {
 			throw new IllegalArgumentException("ConfigURL can not be null");
 		}
 		if (logger.isInfoEnabled()) {
-			logger.info("Load config [" + configClass + "] from [" + configURL
-					+ "]");
+			logger.info("Load config [" + configClass + "] from [" + configURL + "]");
 		}
 		T config = null;
 		try {
@@ -78,8 +75,7 @@ public class ConfigUtil {
 			_r = new InputStreamReader(configURL.openStream(), "UTF-8");
 			_scriptContent = IOUtils.toString(_r);
 		} catch (IOException e) {
-			throw new IllegalStateException("Can't load config from url ["
-					+ configURL + "]");
+			throw new IllegalStateException("Can't load config from url [" + configURL + "]");
 		} finally {
 			IOUtils.closeQuietly(_r);
 		}
@@ -95,8 +91,7 @@ public class ConfigUtil {
 	 * @return
 	 */
 	public static String getConfigPath(String fileName) {
-		ClassLoader classLoader = Thread.currentThread()
-				.getContextClassLoader();
+		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 		return classLoader.getResource(fileName).getPath();
 	}
 
@@ -107,8 +102,7 @@ public class ConfigUtil {
 	 * @return
 	 */
 	public static URL getConfigURL(String fileName) {
-		ClassLoader classLoader = Thread.currentThread()
-				.getContextClassLoader();
+		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 		return classLoader.getResource(fileName);
 	}
 
@@ -119,15 +113,12 @@ public class ConfigUtil {
 	 * @throws ScriptException
 	 * @throws IOException
 	 */
-	public static void loadJsConfigsByOrder(String[] configs)
-			throws ScriptException, IOException {
+	public static void loadJsConfigsByOrder(String[] configs) throws ScriptException, IOException {
 		Reader reader = null;
-		ScriptEngine engine = new ScriptEngineManager()
-				.getEngineByName("JavaScript");
+		ScriptEngine engine = new ScriptEngineManager().getEngineByName("JavaScript");
 		for (String cfgFile : configs) {
 			try {
-				reader = new FileReader(System.getProperty("user.dir")
-						+ File.separator + cfgFile);
+				reader = new FileReader(System.getProperty("user.dir") + File.separator + cfgFile);
 				engine.eval(reader);
 			} catch (IOException e) {
 				throw e;
@@ -148,8 +139,7 @@ public class ConfigUtil {
 	 * @throws ScriptException
 	 * @throws IOException
 	 */
-	public static void loadJsConfig(boolean isEncrypt, IConfig config,
-			String cfgFile) throws ScriptException, IOException {
+	public static IConfig loadJsConfig(boolean isEncrypt, IConfig config, String cfgFile) throws ScriptException, IOException {
 		logger.info(String.format("Load js config, file: %s", cfgFile));
 		Reader reader = null;
 		URL cfgUrl = config.getClass().getClassLoader().getResource(cfgFile);
@@ -165,22 +155,18 @@ public class ConfigUtil {
 				reader = new InputStreamReader(in, "UTF-8");
 			} else {
 				if (isEncrypt) {
-					reader = new InputStreamReader(new XorDecryptedInputStream(
-							cfgFile));
+					reader = new InputStreamReader(new XorDecryptedInputStream(cfgFile));
 				} else {
-					reader = new FileReader(System.getProperty("user.dir")
-							+ File.separator + cfgFile);
+					reader = new FileReader(System.getProperty("user.dir") + File.separator + cfgFile);
 				}
 
 			}
-			ScriptEngine engine = new ScriptEngineManager()
-					.getEngineByName("JavaScript");
+			ScriptEngine engine = new ScriptEngineManager().getEngineByName("JavaScript");
 			Map<String, Object> bindings = new HashMap<String, Object>();
 			bindings.put("config", config);
 			engine.eval(reader, new SimpleBindings(bindings));
 		} catch (IOException e) {
-			logger.error(String.format("Load js config error, file: %s",
-					cfgFile));
+			logger.error(String.format("Load js config error, file: %s", cfgFile));
 			throw e;
 		} finally {
 			if (reader != null) {
@@ -188,6 +174,7 @@ public class ConfigUtil {
 			}
 		}
 		config.validate();
+		return config;
 	}
 
 	/**
@@ -198,9 +185,8 @@ public class ConfigUtil {
 	 * @throws ScriptException
 	 * @throws IOException
 	 */
-	public static void loadJsConfig(IConfig config, String cfgFile)
-			throws ScriptException, IOException {
-		loadJsConfig(false, config, cfgFile);
+	public static IConfig loadJsConfig(IConfig config, String cfgFile) throws ScriptException, IOException {
+		return loadJsConfig(false, config, cfgFile);
 	}
 
 }

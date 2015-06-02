@@ -62,8 +62,9 @@ public interface IStoneNode {
 	 * @param ioHandler
 	 *            io handler;
 	 * @param messageFactory
+	 * @throws Exception
 	 */
-	public void init(ServerConfig config, IoHandler ioHandler, IMessageFactory messageFactory);
+	public void init(ServerConfig config, IoHandler ioHandler, IMessageFactory messageFactory) throws Exception;
 
 	/**
 	 * Start the node;

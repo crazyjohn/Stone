@@ -32,13 +32,7 @@ public class StoneNode implements IStoneNode {
 	protected Map<String, IStoneService> services = new ConcurrentHashMap<String, IStoneService>();
 	/** main io processor */
 	protected ServerIoProcessor mainIoProcessor;
-	protected String configPath;
 	protected ServerConfig config;
-
-	public StoneNode(String configPath, ServerConfig config) {
-		this.configPath = configPath;
-		this.config = config;
-	}
 
 	@Override
 	public void setName(String nodeName) {
@@ -87,7 +81,10 @@ public class StoneNode implements IStoneNode {
 	}
 
 	@Override
-	public void init(ServerConfig config, IoHandler ioHandler, IMessageFactory messageFactory) {
+	public void init(ServerConfig config, IoHandler ioHandler, IMessageFactory messageFactory) throws Exception {
+		this.config = config;
 		mainIoProcessor = new ServerIoProcessor(config.getBindIp(), config.getPort(), ioHandler, new GameCodecFactory(messageFactory));
+		// add processor
+		this.addIoProcessor("mainProcessor", mainIoProcessor);
 	}
 }
