@@ -25,6 +25,33 @@ import com.stone.game.msg.ProtobufMessageFactory;
 public class StoneGameApp {
 	private static Logger logger = LoggerFactory.getLogger(StoneGameApp.class);
 
+	/**
+	 * Build db system;
+	 * 
+	 * @param config
+	 * @return
+	 */
+	private static DBActorSystem buildDBSystem(GameServerConfig config) {
+		DBActorSystem dbActorSystem = new DBActorSystem();
+		// init db service
+		dbActorSystem.initDBService(config.getDbServiceType(), config.getDbConfigName(), config.getDataServiceProperties());
+		return dbActorSystem;
+	}
+
+	/**
+	 * Load config;
+	 * 
+	 * @param string
+	 * @return
+	 * @throws ScriptException
+	 * @throws IOException
+	 */
+	private static GameServerConfig loadConfig(String string) throws ScriptException, IOException {
+		GameServerConfig config = new GameServerConfig();
+		ConfigUtil.loadJsConfig(config, "game_server.cfg.js");
+		return config;
+	}
+
 	public static void main(String[] args) {
 		try {
 			logger.info("Begin to start StoneGameApp...");
@@ -47,27 +74,6 @@ public class StoneGameApp {
 			// exit
 			System.exit(0);
 		}
-	}
-
-	private static DBActorSystem buildDBSystem(GameServerConfig config) {
-		DBActorSystem dbActorSystem = new DBActorSystem();
-		// init db service
-		dbActorSystem.initDBService(config.getDbServiceType(), config.getDbConfigName(), config.getDataServiceProperties());
-		return dbActorSystem;
-	}
-
-	/**
-	 * Load config;
-	 * 
-	 * @param string
-	 * @return
-	 * @throws ScriptException
-	 * @throws IOException
-	 */
-	private static GameServerConfig loadConfig(String string) throws ScriptException, IOException {
-		GameServerConfig config = new GameServerConfig();
-		ConfigUtil.loadJsConfig(config, "game_server.cfg.js");
-		return config;
 	}
 
 }
