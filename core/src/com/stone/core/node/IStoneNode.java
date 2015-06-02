@@ -1,5 +1,11 @@
 package com.stone.core.node;
 
+import java.io.IOException;
+
+import org.apache.mina.core.service.IoHandler;
+
+import com.stone.core.codec.IMessageFactory;
+import com.stone.core.config.ServerConfig;
 import com.stone.core.net.ServerIoProcessor;
 
 /**
@@ -49,9 +55,22 @@ public interface IStoneNode {
 	public void unRegisterService(String name, IStoneService service);
 
 	/**
-	 * Start the node;
+	 * Init the node;
+	 * 
+	 * @param config
+	 *            the node config;
+	 * @param ioHandler
+	 *            io handler;
+	 * @param messageFactory
 	 */
-	public void start();
+	public void init(ServerConfig config, IoHandler ioHandler, IMessageFactory messageFactory);
+
+	/**
+	 * Start the node;
+	 * 
+	 * @throws IOException
+	 */
+	public void start() throws IOException;
 
 	/**
 	 * Shutdown the node;
