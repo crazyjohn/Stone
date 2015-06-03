@@ -1,6 +1,8 @@
 package com.stone.core.node;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
@@ -32,7 +34,10 @@ public class StoneNode implements IStoneNode {
 	protected Map<String, IStoneService> services = new ConcurrentHashMap<String, IStoneService>();
 	/** main io processor */
 	protected ServerIoProcessor mainIoProcessor;
+	/** server config */
 	protected ServerConfig config;
+	/** hooks */
+	private List<IShutdownHook> hooks = new ArrayList<IShutdownHook>();
 
 	@Override
 	public void setName(String nodeName) {
@@ -92,5 +97,19 @@ public class StoneNode implements IStoneNode {
 		mainIoProcessor = new ServerIoProcessor(config.getBindIp(), config.getPort(), ioHandler, new GameCodecFactory(messageFactory));
 		// add processor
 		this.addIoProcessor("mainProcessor", mainIoProcessor);
+		// add hook
+		for (final IShutdownHook eachHook : this.hooks) {
+			Runtime.getRuntime().addShutdownHook(new Thread() {
+				@Override
+				public void run() {
+					eachHook.run();
+				}
+			});
+		}
+	}
+
+	@Override
+	public void addShutdownHook(IShutdownHook hook) {
+		hooks.add(hook);
 	}
 }

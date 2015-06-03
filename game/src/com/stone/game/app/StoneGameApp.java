@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.stone.core.config.ConfigUtil;
+import com.stone.core.node.IShutdownHook;
 import com.stone.core.node.IStoneService;
 import com.stone.core.node.StoneNode;
 import com.stone.db.DBActorSystem;
@@ -63,7 +64,14 @@ public class StoneGameApp {
 			// game actor system
 			IStoneService gameActorSystem = new GameActorSystem(dbActorSystem.getMasterActor());
 			// new node
-			StoneNode gameServerNode = new StoneNode();
+			final StoneNode gameServerNode = new StoneNode();
+			// shutdown hook
+			gameServerNode.addShutdownHook(new IShutdownHook() {
+				@Override
+				public void run() {
+					gameServerNode.shutdown();
+				}
+			});
 			// init game node
 			gameServerNode.init(config, new GameIoHandler(gameActorSystem.getMasterActor(), dbActorSystem.getMasterActor()),
 					new ProtobufMessageFactory());

@@ -77,4 +77,11 @@ public interface IStoneNode {
 	 * Shutdown the node;
 	 */
 	public void shutdown();
+
+	/**
+	 * Add shutdown hook;
+	 * 
+	 * @param hook
+	 */
+	public void addShutdownHook(IShutdownHook hook);
 }
