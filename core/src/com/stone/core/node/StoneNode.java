@@ -68,6 +68,7 @@ public class StoneNode implements IStoneNode {
 			processorEntry.getValue().start();
 			logger.info("ServerIoProcessor: " + processorEntry.getKey() + " started.");
 		}
+
 	}
 
 	@Override
@@ -77,6 +78,11 @@ public class StoneNode implements IStoneNode {
 			// shutdown
 			processorEntry.getValue().shutdown();
 			logger.info("ServerIoProcessor: " + processorEntry.getKey() + " shutdown.");
+		}
+		// shutdown the service
+		for (Entry<String, IStoneService> serviceEntry : this.services.entrySet()) {
+			serviceEntry.getValue().shutdown();
+			logger.info("IStoneService: " + serviceEntry.getKey() + " shutdown.");
 		}
 	}
 

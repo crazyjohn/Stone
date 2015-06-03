@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.stone.core.config.ConfigUtil;
+import com.stone.core.node.IStoneService;
 import com.stone.core.node.StoneNode;
 import com.stone.db.DBActorSystem;
 import com.stone.game.GameActorSystem;
@@ -31,7 +32,7 @@ public class StoneGameApp {
 	 * @param config
 	 * @return
 	 */
-	private static DBActorSystem buildDBSystem(GameServerConfig config) {
+	private static IStoneService buildDBSystem(GameServerConfig config) {
 		DBActorSystem dbActorSystem = new DBActorSystem();
 		// init db service
 		dbActorSystem.initDBService(config.getDbServiceType(), config.getDbConfigName(), config.getDataServiceProperties());
@@ -58,9 +59,9 @@ public class StoneGameApp {
 			// load config
 			GameServerConfig config = loadConfig("game_server.cfg.js");
 			// db actor system
-			DBActorSystem dbActorSystem = buildDBSystem(config);
+			IStoneService dbActorSystem = buildDBSystem(config);
 			// game actor system
-			GameActorSystem gameActorSystem = new GameActorSystem(dbActorSystem.getMasterActor());
+			IStoneService gameActorSystem = new GameActorSystem(dbActorSystem.getMasterActor());
 			// new node
 			StoneNode gameServerNode = new StoneNode();
 			// init game node
