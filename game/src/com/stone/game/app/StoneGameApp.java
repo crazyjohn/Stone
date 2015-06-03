@@ -65,6 +65,9 @@ public class StoneGameApp {
 			IStoneService gameActorSystem = new GameActorSystem(dbActorSystem.getMasterActor());
 			// new node
 			final StoneNode gameServerNode = new StoneNode();
+			// register service
+			gameServerNode.registerService("GameActorSystem", gameActorSystem);
+			gameServerNode.registerService("DBActorSystem", dbActorSystem);
 			// shutdown hook
 			gameServerNode.addShutdownHook(new IShutdownHook() {
 				@Override
@@ -78,6 +81,9 @@ public class StoneGameApp {
 			// start the game node
 			gameServerNode.start();
 			logger.info("StoneGameApp started.");
+			// test shutdown
+			Thread.sleep(5 * 1000);
+			gameServerNode.shutdown();
 		} catch (Exception e) {
 			logger.error("Start StoneGameApp failed.");
 			// exit

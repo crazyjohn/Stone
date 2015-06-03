@@ -1,11 +1,11 @@
 package com.stone.core.node;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.apache.mina.core.service.IoHandler;
 import org.slf4j.Logger;
@@ -37,7 +37,9 @@ public class StoneNode implements IStoneNode {
 	/** server config */
 	protected ServerConfig config;
 	/** hooks */
-	private List<IShutdownHook> hooks = new ArrayList<IShutdownHook>();
+	@GuardedByUnit(whoCareMe = "hooks")
+	private List<IShutdownHook> hooks = new CopyOnWriteArrayList<IShutdownHook>();
+	protected volatile boolean terminated = true;
 
 	@Override
 	public void setName(String nodeName) {
@@ -73,22 +75,29 @@ public class StoneNode implements IStoneNode {
 			processorEntry.getValue().start();
 			logger.info("ServerIoProcessor: " + processorEntry.getKey() + " started.");
 		}
+		terminated = false;
 
 	}
 
 	@Override
 	public void shutdown() {
+		if (terminated) {
+			return;
+		}
 		// shutdown the io processor
 		for (Entry<String, ServerIoProcessor> processorEntry : this.ioProcessors.entrySet()) {
 			// shutdown
 			processorEntry.getValue().shutdown();
 			logger.info("ServerIoProcessor: " + processorEntry.getKey() + " shutdown.");
 		}
+		this.ioProcessors.clear();
 		// shutdown the service
 		for (Entry<String, IStoneService> serviceEntry : this.services.entrySet()) {
 			serviceEntry.getValue().shutdown();
 			logger.info("IStoneService: " + serviceEntry.getKey() + " shutdown.");
 		}
+		this.services.clear();
+		terminated = true;
 	}
 
 	@Override
