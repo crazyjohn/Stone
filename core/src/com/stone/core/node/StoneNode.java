@@ -37,8 +37,9 @@ public class StoneNode implements IStoneNode {
 	/** server config */
 	protected ServerConfig config;
 	/** hooks */
-	@GuardedByUnit(whoCareMe = "hooks")
+	@GuardedByUnit(whoCareMe = "CopyOnWriteArrayList")
 	private List<IShutdownHook> hooks = new CopyOnWriteArrayList<IShutdownHook>();
+	@GuardedByUnit(whoCareMe = "volatile")
 	protected volatile boolean terminated = true;
 
 	@Override
