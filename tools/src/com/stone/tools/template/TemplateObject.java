@@ -1,5 +1,11 @@
 package com.stone.tools.template;
 
+/**
+ * The template object;
+ * 
+ * @author crazyjohn
+ *
+ */
 public class TemplateObject implements ITemplateObject {
 	protected String group;
 
@@ -9,7 +15,7 @@ public class TemplateObject implements ITemplateObject {
 
 	@Override
 	public String toString() {
-		return super.toString() + " group: " + group;
+		return super.toString() + " group: \n" + group;
 	}
 
 }

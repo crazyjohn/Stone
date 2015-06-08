@@ -45,7 +45,7 @@ public class RegularTemplateParser implements ITemplateFileParser {
 		// match
 		Matcher matcher = TEMPLATE_OBJECT.matcher(content.toString());
 		while (matcher.find()) {
-			result.add(toTemplateObject(matcher.group()));
+			result.add(toTemplateObject(matcher.group().trim()));
 		}
 		return result;
 	}
