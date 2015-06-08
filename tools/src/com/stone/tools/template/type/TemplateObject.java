@@ -1,5 +1,6 @@
 package com.stone.tools.template.type;
 
+import java.util.Collections;
 import java.util.List;
 
 import com.stone.tools.template.field.ITemplateObjectField;
@@ -29,6 +30,16 @@ public class TemplateObject implements ITemplateObject {
 		}
 		sb.append("}");
 		return sb.toString();
+	}
+
+	@Override
+	public List<ITemplateObjectField> getAllFileds() {
+		return Collections.unmodifiableList(fields);
+	}
+
+	@Override
+	public String getName() {
+		return templateName;
 	}
 
 }
