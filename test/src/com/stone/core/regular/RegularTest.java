@@ -22,7 +22,7 @@ public class RegularTest {
 			.compile("\\s*template\\s+([^\\s]+)\\s*\\{\\s*(([^\\s]+)\\s+([^\\s]+)\\s*;\\s*(//\\s*(.*)\\s*+)?)+\\}\\s*");
 	/** templates */
 	public static final Pattern TEMPLATE_OBJECTS = Pattern
-			.compile("\\s*template\\s+([^\\s]+)\\s*\\{\\s*(([^\\s]+)\\s+([^\\s]+)\\s*;\\s*(//\\s*(.*)\\s*+)?)+\\}\\s*");
+			.compile("(\\s*template\\s+([^\\s]+)\\s*\\{\\s*(([^\\s]+)\\s+([^\\s]+)\\s*;\\s*(//\\s*(.*)\\s*+)?)+\\}\\s*)+");
 
 	public static void main(String[] args) throws IOException {
 		// head
@@ -44,12 +44,15 @@ public class RegularTest {
 			content.append(line + "\n");
 		}
 		// print content
-		System.out.println(content.toString());
+		System.out.println("Read file: \n" + content.toString());
 		// match
-		Matcher matcher = TEMPLATE_OBJECTS.matcher(content.toString());
-		
-		System.out.println(matcher.find());
-		System.out.println(matcher.group());
+		Matcher matcher = TEMPLATE_OBJECT.matcher(content.toString());
+		int i = 1;
+		while (matcher.find()) {
+			System.out.println("Match group " + i + ": \n" + matcher.group(0));
+			i++;
+		}
+
 		reader.close();
 
 	}
