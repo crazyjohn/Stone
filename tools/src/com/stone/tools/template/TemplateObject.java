@@ -1,5 +1,9 @@
 package com.stone.tools.template;
 
+import java.util.List;
+
+import com.stone.tools.template.field.ITemplateObjectField;
+
 /**
  * The template object;
  * 
@@ -8,9 +12,13 @@ package com.stone.tools.template;
  */
 public class TemplateObject implements ITemplateObject {
 	protected String group;
+	protected String templateName;
+	protected List<ITemplateObjectField> fields;
 
-	public TemplateObject(String group) {
+	public TemplateObject(String group, String templateName, List<ITemplateObjectField> fields) {
 		this.group = group;
+		this.templateName = templateName;
+		this.fields = fields;
 	}
 
 	@Override
