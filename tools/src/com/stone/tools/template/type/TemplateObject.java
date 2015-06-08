@@ -1,4 +1,4 @@
-package com.stone.tools.template;
+package com.stone.tools.template.type;
 
 import java.util.List;
 
@@ -23,7 +23,12 @@ public class TemplateObject implements ITemplateObject {
 
 	@Override
 	public String toString() {
-		return super.toString() + " group: \n" + group;
+		StringBuilder sb = new StringBuilder("{").append(this.templateName).append(":\n");
+		for (ITemplateObjectField field : fields) {
+			sb.append(field.toString() + "\n");
+		}
+		sb.append("}");
+		return sb.toString();
 	}
 
 }

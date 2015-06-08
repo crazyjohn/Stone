@@ -1,6 +1,8 @@
-package com.stone.tools.template;
+package com.stone.tools.template.parser;
 
 import java.util.List;
+
+import com.stone.tools.template.type.ITemplateObject;
 
 /**
  * The template file parser;

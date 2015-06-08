@@ -1,5 +1,11 @@
 package com.stone.tools.template.field;
 
+/**
+ * The template object's field;
+ * 
+ * @author crazyjohn
+ *
+ */
 public class TemplateObjectField implements ITemplateObjectField {
 	protected String fieldType;
 	protected String fieldName;
@@ -24,6 +30,11 @@ public class TemplateObjectField implements ITemplateObjectField {
 	@Override
 	public String getComment() {
 		return comment;
+	}
+
+	@Override
+	public String toString() {
+		return this.fieldName + " " + this.fieldType + "; // " + this.comment;
 	}
 
 }

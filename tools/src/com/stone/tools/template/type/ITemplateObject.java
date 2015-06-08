@@ -1,4 +1,4 @@
-package com.stone.tools.template;
+package com.stone.tools.template.type;
 
 public interface ITemplateObject {
 

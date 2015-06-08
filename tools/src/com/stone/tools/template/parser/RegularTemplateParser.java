@@ -8,11 +8,10 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.stone.tools.template.ITemplateFileParser;
-import com.stone.tools.template.ITemplateObject;
-import com.stone.tools.template.TemplateObject;
 import com.stone.tools.template.field.ITemplateObjectField;
 import com.stone.tools.template.field.TemplateObjectField;
+import com.stone.tools.template.type.ITemplateObject;
+import com.stone.tools.template.type.TemplateObject;
 
 /**
  * Parse the template file by regular language way;
