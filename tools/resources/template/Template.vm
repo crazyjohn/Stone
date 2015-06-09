@@ -8,7 +8,7 @@ import com.stone.tools.template.TemplateClass;
  * @author crazyjohn
  *
  */
- @TemplateClass(templateFile = "template/${templateName}.xml")
+ @TemplateClass(templateFile = "xml/${templateName}.xml")
 public class $templateName {
 #foreach($field in $fields)
     /** $field.getComment()s */

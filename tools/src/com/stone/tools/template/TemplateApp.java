@@ -28,7 +28,7 @@ public class TemplateApp {
 		ITemplateFileParser parser = new RegularTemplateParser();
 		// data dir
 		String dataDir = System.getProperty("user.dir")
-				+ "/resources/template/data/";
+				+ "/resources/template/DSL/";
 		// parse the file
 		List<ITemplateObject> templates = parser.parseFile(dataDir
 				+ "Item.templ");

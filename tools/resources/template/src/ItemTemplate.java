@@ -7,7 +7,7 @@ import com.stone.tools.template.TemplateClass;
  * @author crazyjohn
  *
  */
- @TemplateClass(templateFile = "template/ItemTemplate.xml")
+ @TemplateClass(templateFile = "xml/ItemTemplate.xml")
 public class ItemTemplate {
     /** ids */
 	protected int id;
