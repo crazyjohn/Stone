@@ -1,3 +1,0 @@
-1. 制定［min，max］，null等规则。
-2. 添加列组合构建对象规则。
-3. 添加orm从class到xml的映射code。
