@@ -1,19 +1,19 @@
 
 public class ItemLevelUpTemplate {
-	/**  等级s */
+    /**  等级s */
 	protected int level;
-	/** 消耗货币s */
+    /** 消耗货币s */
 	protected int costCoin;
-	/** descs */
+    /** descs */
 	protected String desc;
-		
-	public int getlevel() {
+	
+	public int getLevel() {
 		return level;
 	}
-	public int getcostCoin() {
+	public int getCostCoin() {
 		return costCoin;
 	}
-	public String getdesc() {
+	public String getDesc() {
 		return desc;
 	}
 
