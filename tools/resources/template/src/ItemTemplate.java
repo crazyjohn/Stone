@@ -1,3 +1,4 @@
+import com.stone.tools.template.TemplateClass;
 /**
  * The template of ItemTemplate;<br>
  *
@@ -6,6 +7,7 @@
  * @author crazyjohn
  *
  */
+ @TemplateClass(templateFile = "template/ItemTemplate.xml")
 public class ItemTemplate {
     /** ids */
 	protected int id;

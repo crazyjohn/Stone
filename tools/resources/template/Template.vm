@@ -1,4 +1,5 @@
 #macro(upperFirstChar $typeName)$typeName.substring(0,1).toUpperCase()$typeName.substring(1)#end
+import com.stone.tools.template.TemplateClass;
 /**
  * The template of $templateName;<br>
  *
@@ -7,6 +8,7 @@
  * @author crazyjohn
  *
  */
+ @TemplateClass(templateFile = "template/${templateName}.xml")
 public class $templateName {
 #foreach($field in $fields)
     /** $field.getComment()s */

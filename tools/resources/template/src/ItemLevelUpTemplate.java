@@ -1,3 +1,4 @@
+import com.stone.tools.template.TemplateClass;
 /**
  * The template of ItemLevelUpTemplate;<br>
  *
@@ -6,6 +7,7 @@
  * @author crazyjohn
  *
  */
+ @TemplateClass(templateFile = "template/ItemLevelUpTemplate.xml")
 public class ItemLevelUpTemplate {
     /**  等级s */
 	protected int level;
