@@ -30,6 +30,13 @@ public interface ITemplateObjectField {
 	public FieldType getType();
 
 	/**
+	 * Get type name;
+	 * 
+	 * @return
+	 */
+	public String getTypeName();
+
+	/**
 	 * Get the fieldName;
 	 * 
 	 * @return

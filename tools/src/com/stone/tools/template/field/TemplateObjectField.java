@@ -34,7 +34,12 @@ public class TemplateObjectField implements ITemplateObjectField {
 
 	@Override
 	public String toString() {
-		return this.fieldName + " " + this.fieldType + "; // " + this.comment;
+		return this.fieldType + " " + this.fieldName + "; // " + this.comment;
+	}
+
+	@Override
+	public String getTypeName() {
+		return fieldType;
 	}
 
 }

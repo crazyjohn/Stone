@@ -1,0 +1,15 @@
+#macro( upperFirstChar $type)$type.subString(0, 1).toUpperCase()$type.subString(1)#end
+
+public class $templateName {
+	#foreach($field in $fields)
+/** $field.getComment()s */
+	protected $field.getTypeName() $field.getName();
+	#end
+	
+#foreach($field in $fields)
+	public $field.getTypeName() get$field.getName()() {
+		return $field.getName();
+	}
+#end
+
+}
