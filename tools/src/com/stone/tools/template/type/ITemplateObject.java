@@ -24,4 +24,11 @@ public interface ITemplateObject {
 	 * @return
 	 */
 	public String getName();
+
+	/**
+	 * Get the template class comment;
+	 * 
+	 * @return
+	 */
+	public String getComment();
 }

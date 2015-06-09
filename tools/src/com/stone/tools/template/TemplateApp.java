@@ -27,11 +27,9 @@ public class TemplateApp {
 		// build parser
 		ITemplateFileParser parser = new RegularTemplateParser();
 		// data dir
-		String dataDir = System.getProperty("user.dir")
-				+ "/resources/template/DSL/";
+		String dataDir = System.getProperty("user.dir") + "/resources/template/DSL/";
 		// parse the file
-		List<ITemplateObject> templates = parser.parseFile(dataDir
-				+ "Item.templ");
+		List<ITemplateObject> templates = parser.parseFile(dataDir + "Item.templ");
 		// context
 		for (ITemplateObject eachTemplate : templates) {
 			generateTemplateClassFile(eachTemplate, outDir);
@@ -45,21 +43,19 @@ public class TemplateApp {
 	 * @param outDir
 	 * @throws IOException
 	 */
-	private static void generateTemplateClassFile(ITemplateObject eachTemplate,
-			String outDir) throws IOException {
+	private static void generateTemplateClassFile(ITemplateObject eachTemplate, String outDir) throws IOException {
 		Properties props = new Properties();
 		props.put("file.resource.loader.path", "resources/template");
 		Velocity.init(props);
 		VelocityContext context = new VelocityContext();
 		context.put("templateName", eachTemplate.getName());
+		context.put("classComment", eachTemplate.getComment());
 		context.put("fields", eachTemplate.getAllFileds());
 		// merge
-		FileWriter out = new FileWriter(new File(outDir
-				+ eachTemplate.getName() + ".java"));
+		FileWriter out = new FileWriter(new File(outDir + eachTemplate.getName() + ".java"));
 		Velocity.mergeTemplate("Template.vm", "UTF-8", context, out);
 		// close
 		out.close();
-		System.out.println("Succeed generate class file: "
-				+ eachTemplate.getName() + ".");
+		System.out.println("Succeed generate class file: " + eachTemplate.getName() + ".");
 	}
 }

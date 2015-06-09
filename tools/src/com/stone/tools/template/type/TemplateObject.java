@@ -14,12 +14,14 @@ import com.stone.tools.template.field.ITemplateObjectField;
 public class TemplateObject implements ITemplateObject {
 	protected String group;
 	protected String templateName;
+	protected String comment;
 	protected List<ITemplateObjectField> fields;
 
-	public TemplateObject(String group, String templateName, List<ITemplateObjectField> fields) {
+	public TemplateObject(String group, String templateName, String comment, List<ITemplateObjectField> fields) {
 		this.group = group;
 		this.templateName = templateName;
 		this.fields = fields;
+		this.comment = comment;
 	}
 
 	@Override
@@ -40,6 +42,11 @@ public class TemplateObject implements ITemplateObject {
 	@Override
 	public String getName() {
 		return templateName;
+	}
+
+	@Override
+	public String getComment() {
+		return comment;
 	}
 
 }

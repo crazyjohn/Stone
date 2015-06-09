@@ -20,16 +20,18 @@ import com.stone.tools.template.type.TemplateObject;
  *
  */
 public class RegularTemplateParser implements ITemplateFileParser {
+	/** the comment */
+	protected final Pattern TEMPLATE_OBJECT_COMMENT = Pattern.compile("\\s*(//\\s*(.*)\\s*)?");
 	/** the header */
-	protected final Pattern TEMPLATE_OBJECT_HEADER = Pattern.compile("\\s*template\\s+([^\\s]+)\\s*\\{");
+	protected final Pattern TEMPLATE_OBJECT_HEADER = Pattern.compile("\\s*(//\\s*(.*)\\s*)?\\s*template\\s+([^\\s]+)\\s*\\{");
 	/** field */
 	protected final Pattern TEMPLATE_OBJECT_FIELD = Pattern.compile("\\s*([^\\s]+)\\s+([^\\s]+)\\s*;\\s*(//\\s*(.*)\\s*+)?");
 	/** one template */
 	protected final Pattern TEMPLATE_OBJECT = Pattern
-			.compile("\\s*template\\s+([^\\s]+)\\s*\\{\\s*(([^\\s]+)\\s+([^\\s]+)\\s*;\\s*(//\\s*(.*)\\s*+)?)+\\}\\s*");
+			.compile("\\s*(//\\s*(.*)\\s*)?\\s*template\\s+([^\\s]+)\\s*\\{\\s*(([^\\s]+)\\s+([^\\s]+)\\s*;\\s*(//\\s*(.*)\\s*)?)+\\}\\s*");
 	/** templates */
 	public static final Pattern TEMPLATE_OBJECTS = Pattern
-			.compile("(\\s*template\\s+([^\\s]+)\\s*\\{\\s*(([^\\s]+)\\s+([^\\s]+)\\s*;\\s*(//\\s*(.*)\\s*+)?)+\\}\\s*)+");
+			.compile("(\\s*(//\\s*(.*)\\s*)?\\s*template\\s+([^\\s]+)\\s*\\{\\s*(([^\\s]+)\\s+([^\\s]+)\\s*;\\s*(//\\s*(.*)\\s*)?)+\\}\\s*)+");
 
 	@Override
 	public List<ITemplateObject> parseFile(String filePath) throws Exception {
@@ -61,10 +63,13 @@ public class RegularTemplateParser implements ITemplateFileParser {
 	 */
 	private ITemplateObject toTemplateObject(String group) {
 		// template name
-		String templateName = parseTemplateName(group);
+		NameAndComment headerInfo = parseTemplateNameAndComment(group);
+		String templateName = headerInfo.name;
+		// comment
+		String comment = headerInfo.comment;
 		// template fields
 		List<ITemplateObjectField> fields = parseTemplateFields(group);
-		return new TemplateObject(group, templateName, fields);
+		return new TemplateObject(group, templateName, comment, fields);
 	}
 
 	private ITemplateObjectField toTemplateField(String group) {
@@ -93,16 +98,38 @@ public class RegularTemplateParser implements ITemplateFileParser {
 	}
 
 	/**
-	 * Parse the template's name;
+	 * Parse the template's name and comment;
 	 * 
 	 * @param group
 	 * @return
 	 */
-	private String parseTemplateName(String group) {
+	private NameAndComment parseTemplateNameAndComment(String group) {
+		NameAndComment nameAndComment = new NameAndComment();
 		Matcher matcher = TEMPLATE_OBJECT_HEADER.matcher(group);
+		// header
 		matcher.find();
-		String header = matcher.group().trim();
-		return header.split(" ")[1] + "Template";
+		String header = matcher.group();
+		String comment = "";
+		// has comment?
+		Matcher commentMatcher = TEMPLATE_OBJECT_COMMENT.matcher(header);
+		if (commentMatcher.find()) {
+			comment = commentMatcher.group();
+		}
+		header = header.substring(comment.length() - 1);
+		// put to map, fucking java no tuple
+		nameAndComment.name = header.split(" ")[1] + "Template";
+		nameAndComment.comment = comment.trim().substring(2).trim();
+		return nameAndComment;
 	}
 
+	/**
+	 * Fucking java no tuple;
+	 * 
+	 * @author crazyjohn
+	 *
+	 */
+	class NameAndComment {
+		public String name;
+		public String comment;
+	}
 }
