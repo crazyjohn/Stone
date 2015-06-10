@@ -7,11 +7,15 @@ package com.stone.tools.template.field;
  *
  */
 public class TemplateObjectField implements ITemplateObjectField {
+	/** the field's type */
 	protected String fieldType;
+	/** the field's name */
 	protected String fieldName;
+	/** the field's comment */
 	protected String comment;
 
-	public TemplateObjectField(String fieldType, String fieldName, String comment) {
+	public TemplateObjectField(String fieldType, String fieldName,
+			String comment) {
 		this.fieldType = fieldType;
 		this.fieldName = fieldName;
 		this.comment = comment;

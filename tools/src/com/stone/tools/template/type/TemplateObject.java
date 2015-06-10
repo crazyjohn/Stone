@@ -12,12 +12,16 @@ import com.stone.tools.template.field.ITemplateObjectField;
  *
  */
 public class TemplateObject implements ITemplateObject {
+	/** the template's regular string group */
 	protected String group;
+	/** the template's name */
 	protected String templateName;
+	/** the template's comment */
 	protected String comment;
 	protected List<ITemplateObjectField> fields;
 
-	public TemplateObject(String group, String templateName, String comment, List<ITemplateObjectField> fields) {
+	public TemplateObject(String group, String templateName, String comment,
+			List<ITemplateObjectField> fields) {
 		this.group = group;
 		this.templateName = templateName;
 		this.fields = fields;
@@ -26,7 +30,8 @@ public class TemplateObject implements ITemplateObject {
 
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder("{").append(this.templateName).append(":\n");
+		StringBuilder sb = new StringBuilder("{").append(this.templateName)
+				.append(":\n");
 		for (ITemplateObjectField field : fields) {
 			sb.append(field.toString() + "\n");
 		}
