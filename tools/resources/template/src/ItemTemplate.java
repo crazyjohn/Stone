@@ -1,4 +1,5 @@
-import com.stone.tools.template.TemplateClass;
+package com.stone.game.template;
+import com.stone.core.annotation.TemplateClass;
 /**
  * The template of ItemTemplate( 物品模版 );<br>
  *

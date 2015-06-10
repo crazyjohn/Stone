@@ -1,4 +1,4 @@
-package com.stone.tools.template;
+package com.stone.core.annotation;
 
 /**
  * The template class annotation;

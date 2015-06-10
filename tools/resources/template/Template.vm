@@ -1,5 +1,6 @@
 #macro(upperFirstChar $typeName)$typeName.substring(0,1).toUpperCase()$typeName.substring(1)#end
-import com.stone.tools.template.TemplateClass;
+package com.stone.game.template;
+import com.stone.core.annotation.TemplateClass;
 /**
  * The template of $templateName( $classComment );<br>
  *

@@ -10,7 +10,7 @@ public class TemplateService implements ITemplateService {
 	public void loadAllTemplates(String templateFilePath) {
 		// TODO 扫描指定的包，加载配置类
 		// 2。根据对应的文件加载文件
-		// 3. 每行记录对应一个object，使用反射映射字段
+		// 3. 每行记录对应一个object，使用反射映射字段 
 
 	}
 
