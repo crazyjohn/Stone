@@ -14,8 +14,9 @@ public interface ITemplateService {
 	 * Load all templates;
 	 * 
 	 * @param templateFilePath
+	 * @throws Exception 
 	 */
-	public void loadAllTemplates(String templateFilePath);
+	public void loadAllTemplates(String templateFilePath) throws Exception;
 
 	/**
 	 * Get typed templates;

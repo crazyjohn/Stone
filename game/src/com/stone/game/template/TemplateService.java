@@ -1,16 +1,26 @@
-package com.stone.core.template;
+package com.stone.game.template;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
+import com.stone.core.template.ITemplateClass;
+import com.stone.core.template.ITemplateService;
 
 public class TemplateService implements ITemplateService {
 	protected Map<Class<?>, Map<Integer, ITemplateClass>> allTemplates = new ConcurrentHashMap<Class<?>, Map<Integer, ITemplateClass>>();
 
 	@Override
-	public void loadAllTemplates(String templateFilePath) {
+	public void loadAllTemplates(String templateFilePath) throws Exception {
 		// TODO 扫描指定的包，加载配置类
 		// 2。根据对应的文件加载文件
-		// 3. 每行记录对应一个object，使用反射映射字段 
+		// 3. 每行记录对应一个object，使用反射映射字段
+		// ItemLevelUpTemplate instance =
+		// ItemLevelUpTemplate.class.newInstance();
+		// TemplateClass marked =
+		// ItemLevelUpTemplate.class.getAnnotation(TemplateClass.class);
+		// if (marked != null) {
+		// String filePath = marked.templateFile();
+		// }
 
 	}
 
