@@ -5,6 +5,7 @@ import akka.actor.Props;
 import akka.actor.UntypedActor;
 import akka.routing.RoundRobinRouter;
 
+@SuppressWarnings("deprecation")
 public class MasterActor extends UntypedActor {
 	ActorRef mapActor;
 	ActorRef reduceActor;

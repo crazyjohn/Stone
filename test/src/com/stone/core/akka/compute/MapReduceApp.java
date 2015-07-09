@@ -11,6 +11,7 @@ import akka.util.Timeout;
 public class MapReduceApp {
 
 	public static void main(String[] args) throws Exception {
+		@SuppressWarnings("deprecation")
 		Timeout timeout = new Timeout(60 * 1000);
 		ActorSystem system = ActorSystem.create("MapReduceApp");
 		ActorRef master = system.actorOf(Props.create(MasterActor.class));
