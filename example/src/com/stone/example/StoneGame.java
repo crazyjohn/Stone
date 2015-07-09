@@ -24,8 +24,8 @@ import com.stone.game.msg.ProtobufMessageFactory;
  * @author crazyjohn
  *
  */
-public class StoneGameApp {
-	private static Logger logger = LoggerFactory.getLogger(StoneGameApp.class);
+public class StoneGame {
+	private static Logger logger = LoggerFactory.getLogger(StoneGame.class);
 
 	/**
 	 * Build db system;
