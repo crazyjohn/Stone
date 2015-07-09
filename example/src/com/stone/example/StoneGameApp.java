@@ -1,4 +1,4 @@
-package com.stone.game.app;
+package com.stone.example;
 
 import java.io.IOException;
 
@@ -82,7 +82,7 @@ public class StoneGameApp {
 			gameServerNode.start();
 			logger.info("StoneGameApp started.");
 			// test shutdown
-			Thread.sleep(5 * 1000);
+			Thread.sleep(5 * 60 * 1000);
 			gameServerNode.shutdown();
 		} catch (Exception e) {
 			logger.error("Start StoneGameApp failed.");
