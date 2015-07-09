@@ -1,13 +1,8 @@
 package com.stone.example;
 
-import java.io.IOException;
-
-import javax.script.ScriptException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.stone.core.config.ConfigUtil;
 import com.stone.core.node.IShutdownHook;
 import com.stone.core.node.IStoneService;
 import com.stone.core.node.StoneServerNode;
@@ -40,31 +35,17 @@ public class StoneGame {
 		return dbActorSystem;
 	}
 
-	/**
-	 * Load config;
-	 * 
-	 * @param configPath
-	 * @return
-	 * @throws ScriptException
-	 * @throws IOException
-	 */
-	private static GameServerConfig loadConfig(String configPath) throws ScriptException, IOException {
-		GameServerConfig config = new GameServerConfig();
-		ConfigUtil.loadJsConfig(config, configPath);
-		return config;
-	}
-
 	public static void main(String[] args) {
 		try {
 			logger.info("Begin to start StoneGameApp...");
+			// new node
+			final StoneServerNode gameServerNode = new StoneServerNode();
 			// load config
-			GameServerConfig config = loadConfig("game_server.cfg.js");
+			GameServerConfig config = gameServerNode.loadConfig(GameServerConfig.class, "game_server.cfg.js");
 			// db actor system
 			IStoneService dbActorSystem = buildDBSystem(config);
 			// game actor system
 			IStoneService gameActorSystem = new GameActorSystem(dbActorSystem.getMasterActor());
-			// new node
-			final StoneServerNode gameServerNode = new StoneServerNode();
 			// register service
 			gameServerNode.registerService("GameActorSystem", gameActorSystem);
 			gameServerNode.registerService("DBActorSystem", dbActorSystem);

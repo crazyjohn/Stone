@@ -15,6 +15,7 @@ import com.stone.core.codec.GameCodecFactory;
 import com.stone.core.codec.IMessageFactory;
 import com.stone.core.concurrent.annotation.GuardedByUnit;
 import com.stone.core.concurrent.annotation.ThreadSafeUnit;
+import com.stone.core.config.ConfigUtil;
 import com.stone.core.config.ServerConfig;
 import com.stone.core.net.ServerIoProcessor;
 import com.stone.core.util.OSUtil;
@@ -147,5 +148,20 @@ public class StoneServerNode implements IStoneNode {
 	@Override
 	public void addShutdownHook(IShutdownHook hook) {
 		hooks.add(hook);
+	}
+
+	/**
+	 * Load the config;
+	 * 
+	 * @param configClass
+	 * @param configPath
+	 * @return
+	 * @throws Exception
+	 */
+	public <T extends ServerConfig> T loadConfig(Class<?> configClass, String configPath) throws Exception {
+		@SuppressWarnings("unchecked")
+		T config = (T) configClass.newInstance();
+		ConfigUtil.loadJsConfig(config, configPath);
+		return config;
 	}
 }
