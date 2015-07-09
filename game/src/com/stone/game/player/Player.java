@@ -1,5 +1,8 @@
 package com.stone.game.player;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.mina.core.session.IoSession;
 
 import akka.actor.ActorRef;
@@ -17,19 +20,35 @@ import com.stone.game.player.module.PlayerLoginModule;
  *
  */
 public class Player {
-
 	/** binded human */
 	private Human human;
 	/** binded io session */
 	private IoSession session;
 	private long playerId;
-
-	/** item module */
-	private IPlayerModule loginModule;
+	/** player modules */
+	private List<IPlayerModule> modules = new ArrayList<IPlayerModule>();
 
 	public Player() {
-		// loginModule
-		loginModule = new PlayerLoginModule(this);
+		// register loginModule
+		registerModule(new PlayerLoginModule(this));
+	}
+
+	/**
+	 * Register the module;
+	 * 
+	 * @param module
+	 */
+	public void registerModule(IPlayerModule module) {
+		this.modules.add(module);
+	}
+
+	/**
+	 * Unregister the module;
+	 * 
+	 * @param module
+	 */
+	public void unRegisterModule(IPlayerModule module) {
+		this.modules.remove(module);
 	}
 
 	public Human getHuman() {
@@ -47,7 +66,6 @@ public class Player {
 	public void setSession(IoSession session) {
 		this.session = session;
 	}
-
 
 	public long getPlayerId() {
 		return playerId;
@@ -76,7 +94,11 @@ public class Player {
 	 * @param playerActor
 	 */
 	public void onInternalMessage(Object message, ActorRef playerActor) {
-		loginModule.onInternalMessage(message, playerActor);
+		// player module
+		for (IPlayerModule eachModule : this.modules) {
+			eachModule.onInternalMessage(message, playerActor);
+		}
+		// call human
 		if (human == null) {
 			return;
 		}
@@ -93,7 +115,10 @@ public class Player {
 	 * @throws MessageParseException
 	 */
 	public void onExternalMessage(ProtobufMessage msg, ActorRef playerActor, ActorRef dbMaster) throws MessageParseException {
-		loginModule.onExternalMessage(msg, playerActor, dbMaster);
+		// player module
+		for (IPlayerModule eachModule : this.modules) {
+			eachModule.onExternalMessage(msg, playerActor, dbMaster);
+		}
 		// call human
 		if (human == null) {
 			return;
