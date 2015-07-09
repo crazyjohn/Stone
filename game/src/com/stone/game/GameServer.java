@@ -21,6 +21,7 @@ import com.stone.game.msg.ProtobufMessageFactory;
  * @author crazyjohn
  *
  */
+@Deprecated
 public class GameServer implements IService {
 	private static Logger logger = LoggerFactory.getLogger(GameServer.class);
 	/** server config */

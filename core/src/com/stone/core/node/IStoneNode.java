@@ -21,14 +21,14 @@ public interface IStoneNode {
 	 * 
 	 * @param nodeName
 	 */
-	public void setName(String nodeName);
+	public void setNodeName(String nodeName);
 
 	/**
 	 * Get node name;
 	 * 
 	 * @return
 	 */
-	public String getName();
+	public String getNodeName();
 
 	/**
 	 * Add io processor;
@@ -71,7 +71,7 @@ public interface IStoneNode {
 	 * 
 	 * @throws IOException
 	 */
-	public void start() throws IOException;
+	public void startup() throws IOException;
 
 	/**
 	 * Shutdown the node;

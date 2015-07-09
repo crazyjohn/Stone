@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import com.stone.core.config.ConfigUtil;
 import com.stone.core.node.IShutdownHook;
 import com.stone.core.node.IStoneService;
-import com.stone.core.node.StoneNode;
+import com.stone.core.node.StoneServerNode;
 import com.stone.db.DBActorSystem;
 import com.stone.game.GameActorSystem;
 import com.stone.game.GameIoHandler;
@@ -43,14 +43,14 @@ public class StoneGameApp {
 	/**
 	 * Load config;
 	 * 
-	 * @param string
+	 * @param configPath
 	 * @return
 	 * @throws ScriptException
 	 * @throws IOException
 	 */
-	private static GameServerConfig loadConfig(String string) throws ScriptException, IOException {
+	private static GameServerConfig loadConfig(String configPath) throws ScriptException, IOException {
 		GameServerConfig config = new GameServerConfig();
-		ConfigUtil.loadJsConfig(config, "game_server.cfg.js");
+		ConfigUtil.loadJsConfig(config, configPath);
 		return config;
 	}
 
@@ -64,7 +64,7 @@ public class StoneGameApp {
 			// game actor system
 			IStoneService gameActorSystem = new GameActorSystem(dbActorSystem.getMasterActor());
 			// new node
-			final StoneNode gameServerNode = new StoneNode();
+			final StoneServerNode gameServerNode = new StoneServerNode();
 			// register service
 			gameServerNode.registerService("GameActorSystem", gameActorSystem);
 			gameServerNode.registerService("DBActorSystem", dbActorSystem);
@@ -79,7 +79,7 @@ public class StoneGameApp {
 			gameServerNode.init(config, new GameIoHandler(gameActorSystem.getMasterActor(), dbActorSystem.getMasterActor()),
 					new ProtobufMessageFactory());
 			// start the game node
-			gameServerNode.start();
+			gameServerNode.startup();
 			logger.info("StoneGameApp started.");
 			// test shutdown
 			Thread.sleep(5 * 60 * 1000);

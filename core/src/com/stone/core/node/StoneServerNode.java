@@ -17,6 +17,7 @@ import com.stone.core.concurrent.annotation.GuardedByUnit;
 import com.stone.core.concurrent.annotation.ThreadSafeUnit;
 import com.stone.core.config.ServerConfig;
 import com.stone.core.net.ServerIoProcessor;
+import com.stone.core.util.OSUtil;
 
 /**
  * The base stone node;
@@ -25,8 +26,8 @@ import com.stone.core.net.ServerIoProcessor;
  *
  */
 @ThreadSafeUnit
-public class StoneNode implements IStoneNode {
-	private Logger logger = LoggerFactory.getLogger(StoneNode.class);
+public class StoneServerNode implements IStoneNode {
+	private Logger logger = LoggerFactory.getLogger(StoneServerNode.class);
 	protected String nodeName;
 	@GuardedByUnit(whoCareMe = "ConcurrentHashMap")
 	protected Map<String, ServerIoProcessor> ioProcessors = new ConcurrentHashMap<String, ServerIoProcessor>();
@@ -43,12 +44,36 @@ public class StoneNode implements IStoneNode {
 	protected volatile boolean terminated = true;
 
 	@Override
-	public void setName(String nodeName) {
+	public void setNodeName(String nodeName) {
 		this.nodeName = nodeName;
 	}
 
+	/**
+	 * Add safe debug work follow;
+	 */
+	protected void addSafeDebugWorkFolow() {
+		// if windows, add daemon thread wait to safe shutdown
+		if (OSUtil.isWindowsOS()) {
+			Thread winDeamon = new Thread() {
+				@Override
+				public void run() {
+					try {
+						System.in.read();
+						// send exit signal
+						System.exit(0);
+					} catch (IOException e) {
+						logger.error("Wait shutdown error", e);
+					}
+				}
+			};
+			winDeamon.setDaemon(true);
+			winDeamon.setName("WindowDebugGuarder");
+			winDeamon.start();
+		}
+	}
+
 	@Override
-	public String getName() {
+	public String getNodeName() {
 		return nodeName;
 	}
 
@@ -68,7 +93,7 @@ public class StoneNode implements IStoneNode {
 	}
 
 	@Override
-	public void start() throws IOException {
+	public void startup() throws IOException {
 		// start the io processor
 		for (Entry<String, ServerIoProcessor> processorEntry : this.ioProcessors.entrySet()) {
 			// init and start
@@ -77,7 +102,8 @@ public class StoneNode implements IStoneNode {
 			logger.info("ServerIoProcessor: " + processorEntry.getKey() + " started.");
 		}
 		terminated = false;
-
+		// add debug flow
+		addSafeDebugWorkFolow();
 	}
 
 	@Override
