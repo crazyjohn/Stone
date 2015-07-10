@@ -21,9 +21,9 @@ public class RemoteActor extends UntypedActor {
 	@Override
 	public void onReceive(Object msg) throws Exception {
 		if (msg instanceof String) {
-			logger.info(msg.toString());
+			logger.info(String.format("Received String message: %s", msg.toString()));
 		} else if (msg instanceof Message) {
-			logger.info(JsonFormat.printToString((Message) msg));
+			logger.info(String.format("Received Protobuf message: %s", JsonFormat.printToString((Message) msg)));
 		}
 	}
 
