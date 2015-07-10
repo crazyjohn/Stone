@@ -13,7 +13,7 @@ import com.stone.game.GameServerConfig;
 import com.stone.game.msg.ProtobufMessageFactory;
 
 /**
- * The StoneGameApp;
+ * The mmo game server, use stone engine;
  * 
  * 
  * @author crazyjohn
