@@ -1,4 +1,4 @@
-package com.stone.example.game;
+package com.stone.example.mmo.game;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
