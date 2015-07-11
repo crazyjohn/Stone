@@ -1,11 +1,10 @@
 package com.stone.core.node;
 
-import java.io.IOException;
-
 import org.apache.mina.core.service.IoHandler;
 
 import com.stone.core.codec.IMessageFactory;
 import com.stone.core.config.ServerConfig;
+import com.stone.core.lifecircle.ILifeCircle;
 import com.stone.core.net.ServerIoProcessor;
 
 /**
@@ -14,7 +13,7 @@ import com.stone.core.net.ServerIoProcessor;
  * @author crazyjohn
  *
  */
-public interface IStoneNode {
+public interface IStoneNode extends ILifeCircle {
 
 	/**
 	 * Set node name;
@@ -66,22 +65,4 @@ public interface IStoneNode {
 	 */
 	public void init(ServerConfig config, IoHandler ioHandler, IMessageFactory messageFactory) throws Exception;
 
-	/**
-	 * Start the node;
-	 * 
-	 * @throws IOException
-	 */
-	public void startup() throws IOException;
-
-	/**
-	 * Shutdown the node;
-	 */
-	public void shutdown();
-
-	/**
-	 * Add shutdown hook;
-	 * 
-	 * @param hook
-	 */
-	public void addShutdownHook(IShutdownHook hook);
 }
