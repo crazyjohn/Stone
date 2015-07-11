@@ -5,30 +5,35 @@ import org.apache.mina.core.session.IoSession;
 import com.stone.core.msg.IMessage;
 
 /**
- * 回话接口;
+ * The session;
  * 
  * @author crazyjohn
  *
  */
 public interface ISession {
 	/**
-	 * 是否已经建立连接;
+	 * Is this session already connected?
 	 * 
 	 * @return
 	 */
 	public boolean isConnected();
 
 	/**
-	 * 关闭会话;
+	 * Close the session;
 	 */
 	public void close();
 
 	/**
-	 * 写消息;
+	 * Write message;
 	 * 
 	 * @param message
 	 */
 	public void writeMessage(IMessage message);
-	
+
+	/**
+	 * Get the session;
+	 * 
+	 * @return
+	 */
 	public IoSession getSession();
 }
