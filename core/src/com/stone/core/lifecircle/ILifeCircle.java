@@ -25,6 +25,8 @@ public interface ILifeCircle {
 
 	/**
 	 * Add shutdown hook;
+	 * <p>
+	 * Or maybe i can use lifecircle listener, just like tomcat and jetty?
 	 * 
 	 * @param hook
 	 */
