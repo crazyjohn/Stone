@@ -10,6 +10,7 @@ import akka.routing.RoundRobinRoutingLogic;
 import akka.routing.Router;
 
 import com.stone.core.actor.router.RouterFactory;
+import com.stone.core.data.msg.IDBMessage;
 import com.stone.core.db.service.IDBService;
 import com.stone.core.entity.IHumanSubEntity;
 import com.stone.db.actor.DBEntityActor;
@@ -17,7 +18,6 @@ import com.stone.db.actor.DBHumanActor;
 import com.stone.db.actor.DBLoginActor;
 import com.stone.db.actor.DBRoleActor;
 import com.stone.db.entity.HumanEntity;
-import com.stone.db.msg.internal.IDBMessage;
 import com.stone.db.msg.internal.InternalCreateRole;
 import com.stone.db.msg.internal.InternalGetRoleList;
 import com.stone.proto.Auths.CreateRole;

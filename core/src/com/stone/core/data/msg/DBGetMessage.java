@@ -1,4 +1,4 @@
-package com.stone.db.msg.internal;
+package com.stone.core.data.msg;
 
 public class DBGetMessage implements IDBMessage {
 	private final long id;

@@ -1,4 +1,4 @@
-package com.stone.example.mmo.game;
+package com.stone.game;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -6,9 +6,6 @@ import org.slf4j.LoggerFactory;
 import com.stone.core.node.StoneServerNode;
 import com.stone.core.node.service.IStoneActorService;
 import com.stone.db.DBActorSystem;
-import com.stone.game.GameActorSystem;
-import com.stone.game.GameIoHandler;
-import com.stone.game.GameServerConfig;
 import com.stone.game.msg.ProtobufMessageFactory;
 
 /**

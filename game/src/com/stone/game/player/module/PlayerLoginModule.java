@@ -5,10 +5,10 @@ import org.slf4j.LoggerFactory;
 
 import akka.actor.ActorRef;
 
+import com.stone.core.data.msg.DBGetMessage;
 import com.stone.core.msg.MessageParseException;
 import com.stone.db.entity.HumanEntity;
 import com.stone.db.entity.PlayerEntity;
-import com.stone.db.msg.internal.DBGetMessage;
 import com.stone.db.msg.internal.InternalCreateRole;
 import com.stone.db.msg.internal.InternalGetRoleList;
 import com.stone.db.msg.internal.player.InternalGetRoleListResult;

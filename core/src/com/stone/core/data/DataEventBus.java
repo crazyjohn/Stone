@@ -1,11 +1,11 @@
-package com.stone.game.data;
+package com.stone.core.data;
 
 import akka.actor.ActorRef;
 
+import com.stone.core.data.msg.DBDeleteMessage;
+import com.stone.core.data.msg.DBInsertMessage;
+import com.stone.core.data.msg.DBUpdateMessage;
 import com.stone.core.entity.IEntity;
-import com.stone.db.msg.internal.DBDeleteMessage;
-import com.stone.db.msg.internal.DBInsertMessage;
-import com.stone.db.msg.internal.DBUpdateMessage;
 
 /**
  * The db event bus;

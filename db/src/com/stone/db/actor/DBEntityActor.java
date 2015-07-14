@@ -3,11 +3,11 @@ package com.stone.db.actor;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
 
+import com.stone.core.data.msg.DBDeleteMessage;
+import com.stone.core.data.msg.DBInsertMessage;
+import com.stone.core.data.msg.DBUpdateMessage;
 import com.stone.core.db.service.IDBService;
 import com.stone.core.entity.IEntity;
-import com.stone.db.msg.internal.DBDeleteMessage;
-import com.stone.db.msg.internal.DBInsertMessage;
-import com.stone.db.msg.internal.DBUpdateMessage;
 
 /**
  * Common entity actor;

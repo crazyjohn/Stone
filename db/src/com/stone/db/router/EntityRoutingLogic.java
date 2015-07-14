@@ -5,7 +5,7 @@ import scala.collection.immutable.IndexedSeq;
 import akka.routing.Routee;
 import akka.routing.RoutingLogic;
 
-import com.stone.db.msg.internal.IDBMessage;
+import com.stone.core.data.msg.IDBMessage;
 
 /**
  * Entity routing logic;
