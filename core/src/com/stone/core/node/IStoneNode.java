@@ -6,6 +6,7 @@ import com.stone.core.codec.IMessageFactory;
 import com.stone.core.config.ServerConfig;
 import com.stone.core.lifecircle.ILifeCircle;
 import com.stone.core.net.ServerIoProcessor;
+import com.stone.core.node.service.IStoneActorService;
 
 /**
  * The stone node;

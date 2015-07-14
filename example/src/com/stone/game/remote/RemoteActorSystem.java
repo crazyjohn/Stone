@@ -9,7 +9,7 @@ import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
 
-import com.stone.core.node.IStoneActorService;
+import com.stone.core.node.service.IStoneActorService;
 import com.stone.game.remote.server.RemoteActor;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;

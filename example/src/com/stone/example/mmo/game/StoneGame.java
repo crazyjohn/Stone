@@ -3,8 +3,8 @@ package com.stone.example.mmo.game;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.stone.core.node.IStoneActorService;
 import com.stone.core.node.StoneServerNode;
+import com.stone.core.node.service.IStoneActorService;
 import com.stone.db.DBActorSystem;
 import com.stone.game.GameActorSystem;
 import com.stone.game.GameIoHandler;

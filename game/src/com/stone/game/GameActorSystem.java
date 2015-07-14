@@ -1,17 +1,12 @@
 package com.stone.game;
 
-import java.io.IOException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.DeadLetter;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
 
-import com.stone.core.node.IStoneActorService;
+import com.stone.core.node.service.BaseStoneActorService;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 
@@ -21,13 +16,7 @@ import com.typesafe.config.ConfigFactory;
  * @author crazyjohn
  *
  */
-public class GameActorSystem implements IStoneActorService {
-	/** loggers */
-	protected static Logger logger = LoggerFactory.getLogger(GameActorSystem.class);
-	/** ActorSystem */
-	private ActorSystem system;
-	/** game master */
-	private ActorRef gameMaster;
+public class GameActorSystem extends BaseStoneActorService {
 
 	/**
 	 * DeadLetter actor;
@@ -50,36 +39,10 @@ public class GameActorSystem implements IStoneActorService {
 		// load GAME config
 		Config config = ConfigFactory.load().getConfig("GAME");
 		system = ActorSystem.create(this.getClass().getSimpleName(), config);
-		gameMaster = system.actorOf(GameMaster.props(dbMaster), "gameMaster");
+		master = system.actorOf(GameMaster.props(dbMaster), "gameMaster");
 		// deadletter actor
 		ActorRef deadLetterActor = system.actorOf(Props.create(DeadLetterActor.class));
 		system.eventStream().subscribe(deadLetterActor, DeadLetter.class);
-	}
-
-	/**
-	 * Get the actor system;
-	 * 
-	 * @return
-	 */
-	@Override
-	public ActorSystem getSystem() {
-		return system;
-	}
-
-	@Override
-	public void shutdown() {
-		this.system.shutdown();
-	}
-
-	@Override
-	public ActorRef getMasterActor() {
-		return gameMaster;
-	}
-
-	@Override
-	public void startup() throws IOException {
-		// TODO Auto-generated method stub
-
 	}
 
 }
