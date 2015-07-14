@@ -1,5 +1,7 @@
 package com.stone.game;
 
+import java.io.IOException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,7 +11,7 @@ import akka.actor.DeadLetter;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
 
-import com.stone.core.node.IStoneService;
+import com.stone.core.node.IStoneActorService;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 
@@ -19,7 +21,7 @@ import com.typesafe.config.ConfigFactory;
  * @author crazyjohn
  *
  */
-public class GameActorSystem implements IStoneService {
+public class GameActorSystem implements IStoneActorService {
 	/** loggers */
 	protected static Logger logger = LoggerFactory.getLogger(GameActorSystem.class);
 	/** ActorSystem */
@@ -72,6 +74,12 @@ public class GameActorSystem implements IStoneService {
 	@Override
 	public ActorRef getMasterActor() {
 		return gameMaster;
+	}
+
+	@Override
+	public void startup() throws IOException {
+		// TODO Auto-generated method stub
+
 	}
 
 }

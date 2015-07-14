@@ -3,8 +3,7 @@ package com.stone.example.mmo.game;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.stone.core.node.IShutdownHook;
-import com.stone.core.node.IStoneService;
+import com.stone.core.node.IStoneActorService;
 import com.stone.core.node.StoneServerNode;
 import com.stone.db.DBActorSystem;
 import com.stone.game.GameActorSystem;
@@ -28,7 +27,7 @@ public class StoneGame {
 	 * @param config
 	 * @return
 	 */
-	private static IStoneService buildDBSystem(GameServerConfig config) {
+	private static IStoneActorService buildDBSystem(GameServerConfig config) {
 		DBActorSystem dbActorSystem = new DBActorSystem();
 		// init db service
 		dbActorSystem.initDBService(config.getDbServiceType(), config.getDbConfigName(), config.getDataServiceProperties());
@@ -43,19 +42,12 @@ public class StoneGame {
 			// load config
 			GameServerConfig config = gameServerNode.loadConfig(GameServerConfig.class, "game_server.cfg.js");
 			// db actor system
-			IStoneService dbActorSystem = buildDBSystem(config);
+			IStoneActorService dbActorSystem = buildDBSystem(config);
 			// game actor system
-			IStoneService gameActorSystem = new GameActorSystem(dbActorSystem.getMasterActor());
+			IStoneActorService gameActorSystem = new GameActorSystem(dbActorSystem.getMasterActor());
 			// register service
 			gameServerNode.registerService("GameActorSystem", gameActorSystem);
 			gameServerNode.registerService("DBActorSystem", dbActorSystem);
-			// shutdown hook
-			gameServerNode.addShutdownHook(new IShutdownHook() {
-				@Override
-				public void run() {
-					gameServerNode.shutdown();
-				}
-			});
 			// init game node
 			gameServerNode.init(config, new GameIoHandler(gameActorSystem.getMasterActor(), dbActorSystem.getMasterActor()),
 					new ProtobufMessageFactory());

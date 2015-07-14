@@ -1,20 +1,17 @@
-package com.stone.core.system;
+package com.stone.core.node;
+
+import com.stone.core.lifecircle.ILifeCircle;
 
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 
 /**
- * Actor sytem interface;
+ * The stone service;
  * 
  * @author crazyjohn
  *
  */
-public interface IActorHostSystem {
-
-	/**
-	 * Shutdown the system;
-	 */
-	public void shutdown();
+public interface IStoneActorService extends ILifeCircle {
 
 	/**
 	 * Get the real actorSystem;

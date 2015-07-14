@@ -1,5 +1,7 @@
 package com.stone.game.remote;
 
+import java.io.IOException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -7,7 +9,7 @@ import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
 
-import com.stone.core.system.IActorHostSystem;
+import com.stone.core.node.IStoneActorService;
 import com.stone.game.remote.server.RemoteActor;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
@@ -18,7 +20,7 @@ import com.typesafe.config.ConfigFactory;
  * @author crazyjohn
  *
  */
-public class RemoteActorSystem implements IActorHostSystem {
+public class RemoteActorSystem implements IStoneActorService {
 	/** loggers */
 	protected static Logger logger = LoggerFactory.getLogger(RemoteActorSystem.class);
 	/** ActorSystem */
@@ -47,6 +49,12 @@ public class RemoteActorSystem implements IActorHostSystem {
 	@Override
 	public ActorRef getMasterActor() {
 		return remoteMaster;
+	}
+
+	@Override
+	public void startup() throws IOException {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

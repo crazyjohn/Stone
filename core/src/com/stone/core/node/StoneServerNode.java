@@ -33,7 +33,7 @@ public class StoneServerNode implements IStoneNode {
 	@GuardedByUnit(whoCareMe = "ConcurrentHashMap")
 	protected Map<String, ServerIoProcessor> ioProcessors = new ConcurrentHashMap<String, ServerIoProcessor>();
 	@GuardedByUnit(whoCareMe = "ConcurrentHashMap")
-	protected Map<String, IStoneService> services = new ConcurrentHashMap<String, IStoneService>();
+	protected Map<String, IStoneActorService> services = new ConcurrentHashMap<String, IStoneActorService>();
 	/** main io processor */
 	protected ServerIoProcessor mainIoProcessor;
 	/** server config */
@@ -43,6 +43,16 @@ public class StoneServerNode implements IStoneNode {
 	private List<IShutdownHook> hooks = new CopyOnWriteArrayList<IShutdownHook>();
 	@GuardedByUnit(whoCareMe = "volatile")
 	protected volatile boolean terminated = true;
+
+	public StoneServerNode() {
+		// shutdown hook
+		this.addShutdownHook(new IShutdownHook() {
+			@Override
+			public void run() {
+				shutdown();
+			}
+		});
+	}
 
 	@Override
 	public void setNodeName(String nodeName) {
@@ -84,12 +94,12 @@ public class StoneServerNode implements IStoneNode {
 	}
 
 	@Override
-	public void registerService(String name, IStoneService service) {
+	public void registerService(String name, IStoneActorService service) {
 		services.put(name, service);
 	}
 
 	@Override
-	public void unRegisterService(String name, IStoneService service) {
+	public void unRegisterService(String name, IStoneActorService service) {
 		services.remove(name);
 	}
 
@@ -98,8 +108,7 @@ public class StoneServerNode implements IStoneNode {
 		// start the io processor
 		for (Entry<String, ServerIoProcessor> processorEntry : this.ioProcessors.entrySet()) {
 			// init and start
-			processorEntry.getValue().init();
-			processorEntry.getValue().start();
+			processorEntry.getValue().startup();
 			logger.info("ServerIoProcessor: " + processorEntry.getKey() + " started.");
 		}
 		terminated = false;
@@ -120,7 +129,7 @@ public class StoneServerNode implements IStoneNode {
 		}
 		this.ioProcessors.clear();
 		// shutdown the service
-		for (Entry<String, IStoneService> serviceEntry : this.services.entrySet()) {
+		for (Entry<String, IStoneActorService> serviceEntry : this.services.entrySet()) {
 			serviceEntry.getValue().shutdown();
 			logger.info("IStoneService: " + serviceEntry.getKey() + " shutdown.");
 		}
@@ -145,7 +154,6 @@ public class StoneServerNode implements IStoneNode {
 		}
 	}
 
-	@Override
 	public void addShutdownHook(IShutdownHook hook) {
 		hooks.add(hook);
 	}

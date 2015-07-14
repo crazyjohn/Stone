@@ -43,7 +43,7 @@ public interface IStoneNode extends ILifeCircle {
 	 * @param name
 	 * @param service
 	 */
-	public void registerService(String name, IStoneService service);
+	public void registerService(String name, IStoneActorService service);
 
 	/**
 	 * Unregister the service;
@@ -51,7 +51,7 @@ public interface IStoneNode extends ILifeCircle {
 	 * @param name
 	 * @param service
 	 */
-	public void unRegisterService(String name, IStoneService service);
+	public void unRegisterService(String name, IStoneActorService service);
 
 	/**
 	 * Init the node;

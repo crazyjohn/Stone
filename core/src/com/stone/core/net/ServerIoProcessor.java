@@ -9,7 +9,7 @@ import org.apache.mina.filter.codec.ProtocolCodecFactory;
 import org.apache.mina.filter.codec.ProtocolCodecFilter;
 import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
 
-import com.stone.core.service.IService;
+import com.stone.core.lifecircle.ILifeCircle;
 
 /**
  * The net io processor;
@@ -17,7 +17,7 @@ import com.stone.core.service.IService;
  * @author crazyjohn
  *
  */
-public class ServerIoProcessor implements IService {
+public class ServerIoProcessor implements ILifeCircle {
 	/** Acceptor */
 	private IoAcceptor acceptor;
 	/** port */
@@ -38,13 +38,7 @@ public class ServerIoProcessor implements IService {
 	}
 
 	@Override
-	public void init() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void start() throws IOException {
+	public void startup() throws IOException {
 		acceptor.setHandler(ioHandler);
 		acceptor.getFilterChain().addLast("codec", new ProtocolCodecFilter(codecFactory));
 		acceptor.bind(new InetSocketAddress(this.bindIp, this.port));

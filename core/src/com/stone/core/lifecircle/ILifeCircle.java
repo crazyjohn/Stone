@@ -2,8 +2,6 @@ package com.stone.core.lifecircle;
 
 import java.io.IOException;
 
-import com.stone.core.node.IShutdownHook;
-
 /**
  * LifeCircle;
  * 
@@ -23,12 +21,4 @@ public interface ILifeCircle {
 	 */
 	public void shutdown();
 
-	/**
-	 * Add shutdown hook;
-	 * <p>
-	 * Or maybe i can use lifecircle listener, just like tomcat and jetty?
-	 * 
-	 * @param hook
-	 */
-	public void addShutdownHook(IShutdownHook hook);
 }
