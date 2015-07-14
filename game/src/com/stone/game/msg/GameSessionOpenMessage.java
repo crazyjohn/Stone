@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.stone.core.msg.MessageParseException;
-import com.stone.game.session.GamePlayerSession;
+import com.stone.core.session.GamePlayerSession;
 
 /**
  * Game session open message;

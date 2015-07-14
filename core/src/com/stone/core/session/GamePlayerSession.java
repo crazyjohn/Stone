@@ -1,10 +1,8 @@
-package com.stone.game.session;
+package com.stone.core.session;
 
 import org.apache.mina.core.session.IoSession;
 
 import akka.actor.ActorRef;
-
-import com.stone.core.session.BaseSession;
 
 /**
  * 游戏玩家回话信息;

@@ -3,7 +3,7 @@ package com.stone.game.msg;
 import akka.actor.ActorRef;
 
 import com.stone.core.msg.BaseMessage;
-import com.stone.game.session.GamePlayerSession;
+import com.stone.core.session.GamePlayerSession;
 
 /**
  * 基础CG消息;

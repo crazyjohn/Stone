@@ -1,8 +1,6 @@
-package com.stone.game.session;
+package com.stone.core.session;
 
 import akka.actor.ActorRef;
-
-import com.stone.core.session.ISession;
 
 /**
  * 玩家回话信息接口;

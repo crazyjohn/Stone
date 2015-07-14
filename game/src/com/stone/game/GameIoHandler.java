@@ -6,9 +6,9 @@ import akka.actor.ActorRef;
 
 import com.stone.core.msg.ISessionMessage;
 import com.stone.core.net.AbstractIoHandler;
+import com.stone.core.session.GamePlayerSession;
 import com.stone.game.msg.GameSessionCloseMessage;
 import com.stone.game.msg.GameSessionOpenMessage;
-import com.stone.game.session.GamePlayerSession;
 
 /**
  * Game io handler;
