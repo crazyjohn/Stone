@@ -9,12 +9,12 @@ import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
 
+import com.stone.core.msg.CGMessage;
 import com.stone.core.msg.MessageParseException;
 import com.stone.core.session.ISession;
-import com.stone.game.msg.CGMessage;
-import com.stone.game.msg.GameSessionCloseMessage;
-import com.stone.game.msg.GameSessionOpenMessage;
 import com.stone.game.player.PlayerActor;
+import com.stone.game.session.msg.GameSessionCloseMessage;
+import com.stone.game.session.msg.GameSessionOpenMessage;
 
 /**
  * The master actor;

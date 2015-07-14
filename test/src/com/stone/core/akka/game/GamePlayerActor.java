@@ -5,7 +5,7 @@ import akka.actor.UntypedActor;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
 
-import com.stone.game.msg.ProtobufMessage;
+import com.stone.core.msg.ProtobufMessage;
 
 /**
  * The player actor;

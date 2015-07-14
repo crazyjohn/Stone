@@ -3,10 +3,10 @@ package com.stone.game;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.stone.core.msg.ProtobufMessageFactory;
 import com.stone.core.node.StoneServerNode;
 import com.stone.core.node.service.IStoneActorService;
 import com.stone.db.DBActorSystem;
-import com.stone.game.msg.ProtobufMessageFactory;
 
 /**
  * The mmo game server, use stone engine;
@@ -15,8 +15,8 @@ import com.stone.game.msg.ProtobufMessageFactory;
  * @author crazyjohn
  *
  */
-public class StoneGame {
-	private static Logger logger = LoggerFactory.getLogger(StoneGame.class);
+public class GameServer {
+	private static Logger logger = LoggerFactory.getLogger(GameServer.class);
 
 	/**
 	 * Build db system;

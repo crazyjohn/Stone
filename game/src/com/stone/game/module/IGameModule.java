@@ -3,7 +3,7 @@ package com.stone.game.module;
 import akka.actor.ActorRef;
 
 import com.stone.core.msg.MessageParseException;
-import com.stone.game.msg.ProtobufMessage;
+import com.stone.core.msg.ProtobufMessage;
 
 /**
  * The game module;

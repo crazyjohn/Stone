@@ -1,8 +1,7 @@
-package com.stone.game.msg;
+package com.stone.core.msg;
 
 import akka.actor.ActorRef;
 
-import com.stone.core.msg.BaseMessage;
 import com.stone.core.session.GamePlayerSession;
 
 /**

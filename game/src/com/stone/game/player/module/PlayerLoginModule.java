@@ -7,6 +7,7 @@ import akka.actor.ActorRef;
 
 import com.stone.core.data.msg.DBGetMessage;
 import com.stone.core.msg.MessageParseException;
+import com.stone.core.msg.ProtobufMessage;
 import com.stone.db.entity.HumanEntity;
 import com.stone.db.entity.PlayerEntity;
 import com.stone.db.msg.internal.InternalCreateRole;
@@ -14,7 +15,6 @@ import com.stone.db.msg.internal.InternalGetRoleList;
 import com.stone.db.msg.internal.player.InternalGetRoleListResult;
 import com.stone.db.msg.internal.player.InternalLoginResult;
 import com.stone.db.msg.internal.player.InternalSelectRoleResult;
-import com.stone.game.msg.ProtobufMessage;
 import com.stone.game.player.BasePlayerModule;
 import com.stone.game.player.Player;
 import com.stone.proto.Auths.CreateRole;

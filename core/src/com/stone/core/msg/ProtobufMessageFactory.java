@@ -1,7 +1,6 @@
-package com.stone.game.msg;
+package com.stone.core.msg;
 
 import com.stone.core.codec.IMessageFactory;
-import com.stone.core.msg.IProtobufMessage;
 
 /**
  * protobuf消息工厂;

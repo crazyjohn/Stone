@@ -14,11 +14,11 @@ import akka.actor.UntypedActor;
 import akka.japi.Procedure;
 
 import com.stone.core.data.DataEventBus;
+import com.stone.core.msg.ProtobufMessage;
 import com.stone.db.annotation.PlayerInternalMessage;
 import com.stone.db.entity.HumanItemEntity;
-import com.stone.game.msg.GameSessionCloseMessage;
-import com.stone.game.msg.GameSessionOpenMessage;
-import com.stone.game.msg.ProtobufMessage;
+import com.stone.game.session.msg.GameSessionCloseMessage;
+import com.stone.game.session.msg.GameSessionOpenMessage;
 import com.stone.proto.common.Commons.Item;
 
 /**

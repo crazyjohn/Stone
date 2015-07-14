@@ -1,8 +1,9 @@
-package com.stone.game.msg;
+package com.stone.game.session.msg;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.stone.core.msg.BaseCGMessage;
 import com.stone.core.msg.MessageParseException;
 import com.stone.core.session.GamePlayerSession;
 

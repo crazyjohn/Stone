@@ -2,8 +2,8 @@ package com.stone.game.human;
 
 import akka.actor.ActorRef;
 
+import com.stone.core.msg.ProtobufMessage;
 import com.stone.db.entity.HumanEntity;
-import com.stone.game.msg.ProtobufMessage;
 import com.stone.game.player.Player;
 
 /**

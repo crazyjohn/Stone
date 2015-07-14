@@ -5,11 +5,11 @@ import java.util.List;
 import akka.actor.ActorRef;
 
 import com.stone.core.msg.MessageParseException;
+import com.stone.core.msg.ProtobufMessage;
 import com.stone.db.entity.HumanEntity;
 import com.stone.db.entity.HumanItemEntity;
 import com.stone.game.human.Human;
 import com.stone.game.human.module.BaseHumanModule;
-import com.stone.game.msg.ProtobufMessage;
 
 /**
  * The human item module;

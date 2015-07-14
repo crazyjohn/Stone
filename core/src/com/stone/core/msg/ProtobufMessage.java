@@ -1,10 +1,7 @@
-package com.stone.game.msg;
+package com.stone.core.msg;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Message.Builder;
-import com.stone.core.msg.IMessage;
-import com.stone.core.msg.IProtobufMessage;
-import com.stone.core.msg.MessageParseException;
 
 /**
  * Protobuf message;
