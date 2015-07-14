@@ -1,4 +1,4 @@
-package com.stone.game.human.module;
+package com.stone.game.module.human;
 
 import com.stone.game.human.Human;
 

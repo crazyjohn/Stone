@@ -4,7 +4,7 @@ import akka.actor.ActorRef;
 
 import com.stone.core.msg.ProtobufMessage;
 import com.stone.db.entity.HumanEntity;
-import com.stone.game.player.Player;
+import com.stone.game.module.player.Player;
 
 /**
  * 游戏角色业务对象;

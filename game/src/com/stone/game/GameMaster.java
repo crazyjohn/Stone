@@ -12,7 +12,7 @@ import akka.actor.UntypedActor;
 import com.stone.core.msg.CGMessage;
 import com.stone.core.msg.MessageParseException;
 import com.stone.core.session.ISession;
-import com.stone.game.player.PlayerActor;
+import com.stone.game.module.player.PlayerActor;
 import com.stone.game.session.msg.GameSessionCloseMessage;
 import com.stone.game.session.msg.GameSessionOpenMessage;
 

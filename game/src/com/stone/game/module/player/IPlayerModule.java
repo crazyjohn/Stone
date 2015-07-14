@@ -1,4 +1,4 @@
-package com.stone.game.player;
+package com.stone.game.module.player;
 
 import com.stone.game.module.IGameModule;
 

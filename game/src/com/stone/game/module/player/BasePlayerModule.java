@@ -1,4 +1,4 @@
-package com.stone.game.player;
+package com.stone.game.module.player;
 
 public abstract class BasePlayerModule implements IPlayerModule {
 	protected Player player;
