@@ -1,6 +1,6 @@
-package com.stone.game.remote.server;
+package com.stone.example.remote.server;
 
-import com.stone.game.remote.RemoteActorSystem;
+import com.stone.example.remote.RemoteActorSystem;
 
 public class RemoteServer {
 

@@ -1,4 +1,4 @@
-package com.stone.game.remote;
+package com.stone.example.remote;
 
 import java.io.IOException;
 
@@ -10,7 +10,7 @@ import akka.actor.ActorSystem;
 import akka.actor.Props;
 
 import com.stone.core.node.service.IStoneActorService;
-import com.stone.game.remote.server.RemoteActor;
+import com.stone.example.remote.server.RemoteActor;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 

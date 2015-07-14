@@ -1,4 +1,4 @@
-package com.stone.game.remote.cluster;
+package com.stone.example.remote.cluster;
 
 import akka.actor.UntypedActor;
 import akka.cluster.Cluster;

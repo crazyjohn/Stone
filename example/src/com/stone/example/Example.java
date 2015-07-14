@@ -1,4 +1,4 @@
-package com.stone.game;
+package com.stone.example;
 
 public class Example {
 
