@@ -11,10 +11,11 @@ import com.stone.core.msg.ISessionMessage;
 import com.stone.core.session.ISession;
 
 /**
- * 基础的io处理器;
+ * Base io handler;
  * 
  * @author crazyjohn
  *
+ * @param <S>
  */
 public abstract class AbstractIoHandler<S extends ISession> extends IoHandlerAdapter {
 	/** game master */
@@ -22,8 +23,8 @@ public abstract class AbstractIoHandler<S extends ISession> extends IoHandlerAda
 	private static final String SESSION_INFO = "SESSION_INFO";
 	protected Logger logger = LoggerFactory.getLogger(AbstractIoHandler.class);
 
-	public AbstractIoHandler(ActorRef processor) {
-		this.gameMaster = processor;
+	public AbstractIoHandler(ActorRef gameMaster) {
+		this.gameMaster = gameMaster;
 	}
 
 	@Override
@@ -31,7 +32,7 @@ public abstract class AbstractIoHandler<S extends ISession> extends IoHandlerAda
 		@SuppressWarnings("unchecked")
 		S sessionInfo = (S) session.getAttribute(SESSION_INFO);
 		if (sessionInfo == null) {
-			// 无回话信息的直接关闭
+			// just close
 			session.close(true);
 		}
 		if (message instanceof ISessionMessage) {
@@ -74,7 +75,7 @@ public abstract class AbstractIoHandler<S extends ISession> extends IoHandlerAda
 	}
 
 	/**
-	 * 创建回话打开消息;
+	 * Create a session open message, when received mina session open event;
 	 * 
 	 * @param sessionInfo
 	 * @return
@@ -82,7 +83,7 @@ public abstract class AbstractIoHandler<S extends ISession> extends IoHandlerAda
 	protected abstract ISessionMessage<S> createSessionOpenMessage(S sessionInfo);
 
 	/**
-	 * 创建回话信息;
+	 * Create the session info;
 	 * 
 	 * @param session
 	 * @return
@@ -90,7 +91,7 @@ public abstract class AbstractIoHandler<S extends ISession> extends IoHandlerAda
 	protected abstract S createSessionInfo(IoSession session);
 
 	/**
-	 * 创建回话关闭消息;
+	 * Create a session close message, when received mina session close event;
 	 * 
 	 * @param sessionInfo
 	 * @return
