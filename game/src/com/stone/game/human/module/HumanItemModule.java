@@ -1,4 +1,4 @@
-package com.stone.game.human.module.item;
+package com.stone.game.human.module;
 
 import java.util.List;
 
@@ -9,7 +9,6 @@ import com.stone.core.msg.ProtobufMessage;
 import com.stone.db.entity.HumanEntity;
 import com.stone.db.entity.HumanItemEntity;
 import com.stone.game.human.Human;
-import com.stone.game.human.module.BaseHumanModule;
 
 /**
  * The human item module;
