@@ -6,7 +6,7 @@ import com.stone.core.codec.IMessageFactory;
 import com.stone.core.config.ServerConfig;
 import com.stone.core.lifecircle.ILifeCircle;
 import com.stone.core.net.ServerIoProcessor;
-import com.stone.core.node.service.IStoneActorService;
+import com.stone.core.node.service.IActorService;
 
 /**
  * The stone node;
@@ -44,7 +44,7 @@ public interface IStoneNode extends ILifeCircle {
 	 * @param name
 	 * @param service
 	 */
-	public void registerService(String name, IStoneActorService service);
+	public void registerService(String name, IActorService service);
 
 	/**
 	 * Unregister the service;
@@ -52,7 +52,7 @@ public interface IStoneNode extends ILifeCircle {
 	 * @param name
 	 * @param service
 	 */
-	public void unRegisterService(String name, IStoneActorService service);
+	public void unRegisterService(String name, IActorService service);
 
 	/**
 	 * Init the node;

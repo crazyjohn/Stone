@@ -6,12 +6,12 @@ import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 
 /**
- * The stone service;
+ * The actor service;
  * 
  * @author crazyjohn
  *
  */
-public interface IStoneActorService extends ILifeCircle {
+public interface IActorService extends ILifeCircle {
 
 	/**
 	 * Get the real actorSystem;

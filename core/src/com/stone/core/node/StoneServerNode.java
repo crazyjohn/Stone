@@ -18,7 +18,7 @@ import com.stone.core.concurrent.annotation.ThreadSafeUnit;
 import com.stone.core.config.ConfigUtil;
 import com.stone.core.config.ServerConfig;
 import com.stone.core.net.ServerIoProcessor;
-import com.stone.core.node.service.IStoneActorService;
+import com.stone.core.node.service.IActorService;
 import com.stone.core.util.OSUtil;
 
 /**
@@ -34,7 +34,7 @@ public class StoneServerNode implements IStoneNode {
 	@GuardedByUnit(whoCareMe = "ConcurrentHashMap")
 	protected Map<String, ServerIoProcessor> ioProcessors = new ConcurrentHashMap<String, ServerIoProcessor>();
 	@GuardedByUnit(whoCareMe = "ConcurrentHashMap")
-	protected Map<String, IStoneActorService> services = new ConcurrentHashMap<String, IStoneActorService>();
+	protected Map<String, IActorService> services = new ConcurrentHashMap<String, IActorService>();
 	/** main io processor */
 	protected ServerIoProcessor mainIoProcessor;
 	/** server config */
@@ -95,12 +95,12 @@ public class StoneServerNode implements IStoneNode {
 	}
 
 	@Override
-	public void registerService(String name, IStoneActorService service) {
+	public void registerService(String name, IActorService service) {
 		services.put(name, service);
 	}
 
 	@Override
-	public void unRegisterService(String name, IStoneActorService service) {
+	public void unRegisterService(String name, IActorService service) {
 		services.remove(name);
 	}
 
@@ -130,7 +130,7 @@ public class StoneServerNode implements IStoneNode {
 		}
 		this.ioProcessors.clear();
 		// shutdown the service
-		for (Entry<String, IStoneActorService> serviceEntry : this.services.entrySet()) {
+		for (Entry<String, IActorService> serviceEntry : this.services.entrySet()) {
 			serviceEntry.getValue().shutdown();
 			logger.info("IStoneService: " + serviceEntry.getKey() + " shutdown.");
 		}

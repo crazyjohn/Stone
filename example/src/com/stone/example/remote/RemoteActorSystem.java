@@ -9,7 +9,7 @@ import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
 
-import com.stone.core.node.service.IStoneActorService;
+import com.stone.core.node.service.IActorService;
 import com.stone.example.remote.server.RemoteActor;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
@@ -20,7 +20,7 @@ import com.typesafe.config.ConfigFactory;
  * @author crazyjohn
  *
  */
-public class RemoteActorSystem implements IStoneActorService {
+public class RemoteActorSystem implements IActorService {
 	/** loggers */
 	protected static Logger logger = LoggerFactory.getLogger(RemoteActorSystem.class);
 	/** ActorSystem */
