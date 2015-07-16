@@ -3,12 +3,15 @@ package com.stone.bot.handler
 import com.stone.core.msg.IMessage
 import com.stone.bot.CrazyBot
 import com.stone.proto.MessageTypes.MessageType
-import com.stone.game.msg.ProtobufMessage
 import com.stone.proto.Auths.LoginResult
 import com.stone.proto.Auths.RoleList
 import com.stone.proto.Auths.CreateRole
 import com.stone.proto.Auths.SelectRole
 import com.stone.proto.Auths.EnterScene
+import com.stone.core.msg.ProtobufMessage
+import com.stone.core.msg.IMessage
+import com.stone.core.msg.ProtobufMessage
+import com.stone.core.msg.IMessage
 /**
  * Bot login message handler;
  *
