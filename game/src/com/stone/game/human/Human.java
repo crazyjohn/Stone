@@ -7,7 +7,7 @@ import com.stone.db.entity.HumanEntity;
 import com.stone.game.module.player.Player;
 
 /**
- * 游戏角色业务对象;
+ * The human;
  * 
  * @author crazyjohn
  *
@@ -16,7 +16,6 @@ public class Human {
 	/** human guid */
 	private long guid;
 	private String name;
-
 	/** player */
 	private Player player;
 
