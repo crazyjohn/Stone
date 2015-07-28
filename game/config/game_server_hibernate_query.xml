@@ -2,9 +2,9 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="com.mop.webzt.db.model">
 	<!-- 根据用户名和密码查询账户信息 -->
-	<query name="queryPlayerByNameAndPassword">
+	<query name="queryPlayerByPuid">
 	<![CDATA[
-		from PlayerEntity where userName = :userName and password = :password
+		from PlayerEntity where puid = :puid
 	]]>
 	</query>
 	

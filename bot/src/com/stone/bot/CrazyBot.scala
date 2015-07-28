@@ -26,11 +26,10 @@ import com.stone.core.msg.ProtobufMessageFactory
  * bot Actor;
  * @author crazyjohn
  */
-class CrazyBot(userName: String, password: String) extends Actor {
+class CrazyBot(platformId: String) extends Actor {
   private val tasks = new MutableList[BotTask]
   private var session: IoSession = null
-  val name: String = userName
-  val pwd: String = password
+  val puid: String = platformId
 
   def setSession(session: IoSession) {
     this.session = session
@@ -88,7 +87,7 @@ class CrazyBot(userName: String, password: String) extends Actor {
   }
 
   def doLogin() {
-    sendMessage(MessageType.CG_PLAYER_LOGIN_VALUE, Login.newBuilder().setUserName(userName).setPassword(password))
+    sendMessage(MessageType.CG_PLAYER_LOGIN_VALUE, Login.newBuilder().setPuid(puid))
   }
 
 }

@@ -13,25 +13,15 @@ public class PlayerEntity implements IEntity {
 	@Id
 	@Column(name = "id")
 	private long id;
-	@Column(name = "userName")
-	private String userName;
-	@Column(name = "password")
-	private String password;
+	@Column(name = "puid")
+	private String puid;
 
-	public String getUserName() {
-		return userName;
+	public String getPuid() {
+		return puid;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPuid(String puid) {
+		this.puid = puid;
 	}
 
 	public void setId(long id) {

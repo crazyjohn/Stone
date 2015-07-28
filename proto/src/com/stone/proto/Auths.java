@@ -13,32 +13,18 @@ public final class Auths {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required string userName = 1;</code>
+     * <code>required string puid = 1;</code>
      */
-    boolean hasUserName();
+    boolean hasPuid();
     /**
-     * <code>required string userName = 1;</code>
+     * <code>required string puid = 1;</code>
      */
-    java.lang.String getUserName();
+    java.lang.String getPuid();
     /**
-     * <code>required string userName = 1;</code>
+     * <code>required string puid = 1;</code>
      */
     com.google.protobuf.ByteString
-        getUserNameBytes();
-
-    /**
-     * <code>required string password = 2;</code>
-     */
-    boolean hasPassword();
-    /**
-     * <code>required string password = 2;</code>
-     */
-    java.lang.String getPassword();
-    /**
-     * <code>required string password = 2;</code>
-     */
-    com.google.protobuf.ByteString
-        getPasswordBytes();
+        getPuidBytes();
   }
   /**
    * Protobuf type {@code Login}
@@ -99,13 +85,7 @@ public final class Auths {
             case 10: {
               com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000001;
-              userName_ = bs;
-              break;
-            }
-            case 18: {
-              com.google.protobuf.ByteString bs = input.readBytes();
-              bitField0_ |= 0x00000002;
-              password_ = bs;
+              puid_ = bs;
               break;
             }
           }
@@ -148,19 +128,19 @@ public final class Auths {
     }
 
     private int bitField0_;
-    public static final int USERNAME_FIELD_NUMBER = 1;
-    private java.lang.Object userName_;
+    public static final int PUID_FIELD_NUMBER = 1;
+    private java.lang.Object puid_;
     /**
-     * <code>required string userName = 1;</code>
+     * <code>required string puid = 1;</code>
      */
-    public boolean hasUserName() {
+    public boolean hasPuid() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required string userName = 1;</code>
+     * <code>required string puid = 1;</code>
      */
-    public java.lang.String getUserName() {
-      java.lang.Object ref = userName_;
+    public java.lang.String getPuid() {
+      java.lang.Object ref = puid_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
@@ -168,64 +148,22 @@ public final class Auths {
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
         if (bs.isValidUtf8()) {
-          userName_ = s;
+          puid_ = s;
         }
         return s;
       }
     }
     /**
-     * <code>required string userName = 1;</code>
+     * <code>required string puid = 1;</code>
      */
     public com.google.protobuf.ByteString
-        getUserNameBytes() {
-      java.lang.Object ref = userName_;
+        getPuidBytes() {
+      java.lang.Object ref = puid_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        userName_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int PASSWORD_FIELD_NUMBER = 2;
-    private java.lang.Object password_;
-    /**
-     * <code>required string password = 2;</code>
-     */
-    public boolean hasPassword() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
-    }
-    /**
-     * <code>required string password = 2;</code>
-     */
-    public java.lang.String getPassword() {
-      java.lang.Object ref = password_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          password_ = s;
-        }
-        return s;
-      }
-    }
-    /**
-     * <code>required string password = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getPasswordBytes() {
-      java.lang.Object ref = password_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        password_ = b;
+        puid_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -233,8 +171,7 @@ public final class Auths {
     }
 
     private void initFields() {
-      userName_ = "";
-      password_ = "";
+      puid_ = "";
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -242,11 +179,7 @@ public final class Auths {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasUserName()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasPassword()) {
+      if (!hasPuid()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -258,10 +191,7 @@ public final class Auths {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getUserNameBytes());
-      }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeBytes(2, getPasswordBytes());
+        output.writeBytes(1, getPuidBytes());
       }
       getUnknownFields().writeTo(output);
     }
@@ -274,11 +204,7 @@ public final class Auths {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getUserNameBytes());
-      }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(2, getPasswordBytes());
+          .computeBytesSize(1, getPuidBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -401,10 +327,8 @@ public final class Auths {
 
       public Builder clear() {
         super.clear();
-        userName_ = "";
+        puid_ = "";
         bitField0_ = (bitField0_ & ~0x00000001);
-        password_ = "";
-        bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
 
@@ -436,11 +360,7 @@ public final class Auths {
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
           to_bitField0_ |= 0x00000001;
         }
-        result.userName_ = userName_;
-        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-          to_bitField0_ |= 0x00000002;
-        }
-        result.password_ = password_;
+        result.puid_ = puid_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -457,14 +377,9 @@ public final class Auths {
 
       public Builder mergeFrom(com.stone.proto.Auths.Login other) {
         if (other == com.stone.proto.Auths.Login.getDefaultInstance()) return this;
-        if (other.hasUserName()) {
+        if (other.hasPuid()) {
           bitField0_ |= 0x00000001;
-          userName_ = other.userName_;
-          onChanged();
-        }
-        if (other.hasPassword()) {
-          bitField0_ |= 0x00000002;
-          password_ = other.password_;
+          puid_ = other.puid_;
           onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
@@ -472,11 +387,7 @@ public final class Auths {
       }
 
       public final boolean isInitialized() {
-        if (!hasUserName()) {
-          
-          return false;
-        }
-        if (!hasPassword()) {
+        if (!hasPuid()) {
           
           return false;
         }
@@ -502,24 +413,24 @@ public final class Auths {
       }
       private int bitField0_;
 
-      private java.lang.Object userName_ = "";
+      private java.lang.Object puid_ = "";
       /**
-       * <code>required string userName = 1;</code>
+       * <code>required string puid = 1;</code>
        */
-      public boolean hasUserName() {
+      public boolean hasPuid() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required string userName = 1;</code>
+       * <code>required string puid = 1;</code>
        */
-      public java.lang.String getUserName() {
-        java.lang.Object ref = userName_;
+      public java.lang.String getPuid() {
+        java.lang.Object ref = puid_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
           if (bs.isValidUtf8()) {
-            userName_ = s;
+            puid_ = s;
           }
           return s;
         } else {
@@ -527,129 +438,53 @@ public final class Auths {
         }
       }
       /**
-       * <code>required string userName = 1;</code>
+       * <code>required string puid = 1;</code>
        */
       public com.google.protobuf.ByteString
-          getUserNameBytes() {
-        java.lang.Object ref = userName_;
+          getPuidBytes() {
+        java.lang.Object ref = puid_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          userName_ = b;
+          puid_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>required string userName = 1;</code>
+       * <code>required string puid = 1;</code>
        */
-      public Builder setUserName(
+      public Builder setPuid(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   bitField0_ |= 0x00000001;
-        userName_ = value;
+        puid_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string userName = 1;</code>
+       * <code>required string puid = 1;</code>
        */
-      public Builder clearUserName() {
+      public Builder clearPuid() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        userName_ = getDefaultInstance().getUserName();
+        puid_ = getDefaultInstance().getPuid();
         onChanged();
         return this;
       }
       /**
-       * <code>required string userName = 1;</code>
+       * <code>required string puid = 1;</code>
        */
-      public Builder setUserNameBytes(
+      public Builder setPuidBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   bitField0_ |= 0x00000001;
-        userName_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object password_ = "";
-      /**
-       * <code>required string password = 2;</code>
-       */
-      public boolean hasPassword() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
-      }
-      /**
-       * <code>required string password = 2;</code>
-       */
-      public java.lang.String getPassword() {
-        java.lang.Object ref = password_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            password_ = s;
-          }
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>required string password = 2;</code>
-       */
-      public com.google.protobuf.ByteString
-          getPasswordBytes() {
-        java.lang.Object ref = password_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          password_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>required string password = 2;</code>
-       */
-      public Builder setPassword(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
-        password_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required string password = 2;</code>
-       */
-      public Builder clearPassword() {
-        bitField0_ = (bitField0_ & ~0x00000002);
-        password_ = getDefaultInstance().getPassword();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required string password = 2;</code>
-       */
-      public Builder setPasswordBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
-        password_ = value;
+        puid_ = value;
         onChanged();
         return this;
       }
@@ -4666,16 +4501,16 @@ public final class Auths {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\nAuth.proto\032\013Human.proto\"+\n\005Login\022\020\n\010us" +
-      "erName\030\001 \002(\t\022\020\n\010password\030\002 \002(\t\"1\n\013LoginR" +
-      "esult\022\017\n\007succeed\030\001 \002(\010\022\021\n\terrorCode\030\002 \001(" +
-      "\005\"$\n\004Role\022\016\n\006roleId\030\001 \002(\003\022\014\n\004name\030\002 \002(\t\"" +
-      "#\n\010RoleList\022\027\n\010roleList\030\001 \003(\0132\005.Role\".\n\n" +
-      "CreateRole\022\022\n\ntemplateId\030\001 \002(\005\022\014\n\004name\030\002" +
-      " \002(\t\"7\n\010RoleInfo\022\016\n\006roleId\030\001 \002(\003\022\014\n\004name" +
-      "\030\002 \002(\t\022\r\n\005level\030\003 \002(\005\"\034\n\nSelectRole\022\016\n\006r" +
-      "oleId\030\001 \002(\003\"#\n\nEnterScene\022\025\n\005human\030\001 \002(\013" +
-      "2\006.HumanB\030\n\017com.stone.protoB\005Auths"
+      "\n\nAuth.proto\032\013Human.proto\"\025\n\005Login\022\014\n\004pu" +
+      "id\030\001 \002(\t\"1\n\013LoginResult\022\017\n\007succeed\030\001 \002(\010" +
+      "\022\021\n\terrorCode\030\002 \001(\005\"$\n\004Role\022\016\n\006roleId\030\001 " +
+      "\002(\003\022\014\n\004name\030\002 \002(\t\"#\n\010RoleList\022\027\n\010roleLis" +
+      "t\030\001 \003(\0132\005.Role\".\n\nCreateRole\022\022\n\ntemplate" +
+      "Id\030\001 \002(\005\022\014\n\004name\030\002 \002(\t\"7\n\010RoleInfo\022\016\n\006ro" +
+      "leId\030\001 \002(\003\022\014\n\004name\030\002 \002(\t\022\r\n\005level\030\003 \002(\005\"" +
+      "\034\n\nSelectRole\022\016\n\006roleId\030\001 \002(\003\"#\n\nEnterSc" +
+      "ene\022\025\n\005human\030\001 \002(\0132\006.HumanB\030\n\017com.stone." +
+      "protoB\005Auths"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -4695,7 +4530,7 @@ public final class Auths {
     internal_static_Login_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Login_descriptor,
-        new java.lang.String[] { "UserName", "Password", });
+        new java.lang.String[] { "Puid", });
     internal_static_LoginResult_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_LoginResult_fieldAccessorTable = new

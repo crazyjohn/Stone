@@ -5,8 +5,7 @@ import "Human.proto";
 
 // login message
 message Login {
-	required string userName = 1;
-	required string password = 2;
+	required string puid = 1;
 }
 
 // login result

@@ -98,7 +98,7 @@ public class PlayerLoginModule extends BasePlayerModule {
 			// if (player.canTransferStateTo(PlayerState.AUTHORIZED)) {
 			// player.transferStateTo(PlayerState.AUTHORIZED);
 			// }
-			logger.info(String.format("Player login, userName: %s", playerEntity.getUserName()));
+			logger.info(String.format("Player login, puid: %s", playerEntity.getPuid()));
 			// send login result
 			player.sendMessage(MessageType.GC_PLAYER_LOGIN_RESULT_VALUE, LoginResult.newBuilder().setSucceed(true));
 

@@ -27,13 +27,12 @@ public class DBLoginActor extends UntypedActor {
 	public void onReceive(Object msg) throws Exception {
 		if (msg instanceof Login.Builder) {
 			Login.Builder login = (Login.Builder) msg;
-			List<PlayerEntity> entities = dbService.queryByNameAndParams(DBQueryConstants.QUERY_PLAYER_BY_NAME_AND_PASSWORD, new String[] { "userName", "password" },
-					new Object[] { login.getUserName(), login.getPassword() });
+			List<PlayerEntity> entities = dbService.queryByNameAndParams(DBQueryConstants.QUERY_PLAYER_BY_PUID, new String[] { "puid" },
+					new Object[] { login.getPuid() });
 			// if not exits this account, just create it
 			if (entities == null || entities.size() == 0) {
 				PlayerEntity playerEntity = new PlayerEntity();
-				playerEntity.setUserName(login.getUserName());
-				playerEntity.setPassword(login.getPassword());
+				playerEntity.setPuid(login.getPuid());
 				dbService.insert(playerEntity);
 				entities.add(playerEntity);
 			}

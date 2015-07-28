@@ -12,7 +12,7 @@ object BotApp extends App {
   val end = 0
   // create robot
   for (i <- begin to end) {
-    val bot = new CrazyBot("bot" + i, "bot" + i)
+    val bot = new CrazyBot("bot" + i)
     val connectFuture = bot.connect("0.0.0.0", 8081)
     connectFuture.awaitUninterruptibly()
     bot.start()
