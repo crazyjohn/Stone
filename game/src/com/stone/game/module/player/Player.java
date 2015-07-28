@@ -59,10 +59,6 @@ public class Player {
 		this.human = human;
 	}
 
-	public IoSession getSession() {
-		return session;
-	}
-
 	public void setSession(IoSession session) {
 		this.session = session;
 	}
