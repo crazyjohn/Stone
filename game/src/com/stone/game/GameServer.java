@@ -52,8 +52,8 @@ public class GameServer {
 			gameServerNode.startup();
 			logger.info("Stone engine started.");
 			// test shutdown
-			Thread.sleep(5 * 60 * 1000);
-			gameServerNode.shutdown();
+			// Thread.sleep(5 * 60 * 1000);
+			// gameServerNode.shutdown();
 		} catch (Exception e) {
 			logger.error("Start Stone engine failed.");
 			// exit
