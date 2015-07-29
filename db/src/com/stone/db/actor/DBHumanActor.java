@@ -46,7 +46,7 @@ public class DBHumanActor extends UntypedActor {
 	/** logger */
 	private Logger logger = LoggerFactory.getLogger(DBHumanActor.class);
 	/** schudule task */
-	final Cancellable scheduleTask;
+	final Cancellable scheduleUpdateTask;
 
 	public DBHumanActor(int cacheSize, IDBService dbService) {
 		cache = new LRUHashMap<Long, HumanCache>(cacheSize, null);
@@ -54,7 +54,7 @@ public class DBHumanActor extends UntypedActor {
 		// converter
 		converter = new HumanConverter();
 		// schedule
-		scheduleTask = this
+		scheduleUpdateTask = this
 				.getContext()
 				.system()
 				.scheduler()
@@ -64,7 +64,7 @@ public class DBHumanActor extends UntypedActor {
 
 	@Override
 	public void postStop() throws Exception {
-		scheduleTask.cancel();
+		scheduleUpdateTask.cancel();
 	}
 
 	@Override

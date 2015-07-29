@@ -36,13 +36,13 @@ public class PlayerActor extends UntypedActor {
 	/** logger */
 	protected Logger logger = LoggerFactory.getLogger(PlayerActor.class);
 	/** mock task, just for test */
-	final Cancellable mockTask;
+	final Cancellable mockUpdateTask;
 
 	public PlayerActor(Player player, ActorRef dbMaster) {
 		this.player = player;
 		this.dbMaster = dbMaster;
 		// schedule
-		mockTask = this
+		mockUpdateTask = this
 				.getContext()
 				.system()
 				.scheduler()
@@ -74,7 +74,7 @@ public class PlayerActor extends UntypedActor {
 			if (msg instanceof GameSessionCloseMessage) {
 				getContext().become(DISCONNECTED);
 				// cancel task
-				mockTask.cancel();
+				mockUpdateTask.cancel();
 			} else if (msg instanceof ProtobufMessage) {
 				// net message use self execute
 				ProtobufMessage netMessage = (ProtobufMessage) msg;
