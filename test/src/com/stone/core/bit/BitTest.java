@@ -8,7 +8,7 @@ public class BitTest {
 		System.out.println("i & j:" + (i & j));
 		System.out.println("3 & 5:" + (3 & 5));
 		System.out.println("i | j:" + (i | j));
-		System.out.println(i << 2);
+		System.out.println("1<<1: " + (1 << 1));
 		System.out.println(i >> 2);
 		System.out.println(0x0110);
 		// byte

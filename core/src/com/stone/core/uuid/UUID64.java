@@ -73,10 +73,10 @@ public class UUID64 {
 			throw new IllegalArgumentException("The initOid must   must be >= 0 ");
 		}
 
-		checkBitsMaxNum(ridBits, rid);
-		checkBitsMaxNum(sidBits, sid);
-		checkBitsMaxNum(lidBits, lid);
-		checkBitsMaxNum(oidBits, initOid);
+		checkBitsMaxValue(ridBits, rid);
+		checkBitsMaxValue(sidBits, sid);
+		checkBitsMaxValue(lidBits, lid);
+		checkBitsMaxValue(oidBits, initOid);
 
 		this.ridBits = ridBits;
 		this.sidBits = sidBits;
@@ -110,7 +110,7 @@ public class UUID64 {
 	}
 
 	/**
-	 * 取得一个递增的UUID
+	 * Get the next UUID value;
 	 * 
 	 * @return
 	 * @exception IllegalStateException
@@ -126,7 +126,7 @@ public class UUID64 {
 	}
 
 	/**
-	 * 取得当前的UUID
+	 * Get the current UUID value;
 	 * 
 	 * @return
 	 */
@@ -144,7 +144,7 @@ public class UUID64 {
 	}
 
 	/**
-	 * 获取指定UUID的大区ID
+	 * Get the regionId part from the UUID;
 	 * 
 	 * @param uuid
 	 * @return
@@ -158,7 +158,7 @@ public class UUID64 {
 	}
 
 	/**
-	 * 获取指定UUID的服ID
+	 * Get the serverId part from the UUID;
 	 * 
 	 * @param uuid
 	 * @return
@@ -172,7 +172,7 @@ public class UUID64 {
 	}
 
 	/**
-	 * 获取指定UUID的线ID
+	 * Get the lineId part from the UUID;
 	 * 
 	 * @param uuid
 	 * @return
@@ -182,7 +182,7 @@ public class UUID64 {
 	}
 
 	/**
-	 * 获取指定UUID的oid部分
+	 * Get the objectID part from the UUID;
 	 * 
 	 * @param uuid
 	 * @return
@@ -192,14 +192,18 @@ public class UUID64 {
 	}
 
 	/**
-	 * @return the maxUUID
+	 * Get the max UUID;
+	 * 
+	 * @return
 	 */
 	public long getMaxUUID() {
 		return maxUUID;
 	}
 
 	/**
-	 * @return the minUUID
+	 * Get the min UUID;
+	 * 
+	 * @return
 	 */
 	public long getMinUUID() {
 		return minUUID;
@@ -210,13 +214,13 @@ public class UUID64 {
 	 * 构建一个系统默认的UUID64实例,5位rid,10位sid,6位lid,38位oid,在oid之前保留4位
 	 * 
 	 * @param rid
-	 *            大区的ID
+	 *            regionId
 	 * @param sid
-	 *            服的ID
+	 *            serverId
 	 * @param lid
-	 *            线的ID
+	 *            lineId
 	 * @param initOid
-	 *            初始的对象id
+	 *            initial object id
 	 * @return
 	 */
 	public static UUID64 buildDefaultUUID(final int rid, final int sid, final int lid, final long initOid) {
@@ -229,9 +233,9 @@ public class UUID64 {
 	 * @param bits
 	 * @param value
 	 */
-	private void checkBitsMaxNum(int bits, long value) {
-		long _bitMax = (1L << bits);
-		if (value >= _bitMax) {
+	private void checkBitsMaxValue(int bits, long value) {
+		long bitMaxValue = getBitsMaxValue(bits);
+		if (value > bitMaxValue) {
 			throw new IllegalArgumentException("Can't represent value [" + value + "] with " + bits + " bits");
 		}
 	}
@@ -245,10 +249,20 @@ public class UUID64 {
 	 * @exception IllegalArgumentException
 	 */
 	private long getMaskBits(int bits, int leftShiftBits) {
-		long _max = (1L << bits) - 1;
-		if (_max <= 0) {
+		long bitMaxValue = getBitsMaxValue(bits);
+		if (bitMaxValue <= 0) {
 			throw new IllegalArgumentException("Bad bits [" + bits + "]");
 		}
-		return Long.MAX_VALUE & (_max << leftShiftBits);
+		return Long.MAX_VALUE & (bitMaxValue << leftShiftBits);
+	}
+
+	/**
+	 * Get the bits max value;
+	 * 
+	 * @param bits
+	 * @return
+	 */
+	private long getBitsMaxValue(int bits) {
+		return (1L << bits) - 1;
 	}
 }
