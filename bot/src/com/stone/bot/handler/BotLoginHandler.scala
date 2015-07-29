@@ -26,6 +26,7 @@ object BotLoginHandler {
     val protobufMessage = msg.asInstanceOf[ProtobufMessage]
     val login = protobufMessage.parseBuilder(LoginResult.newBuilder());
     if (login.getSucceed) {
+      println(String.format("Login success, puid: %s", bot.puid))
       bot.sendMessage(MessageType.CG_GET_ROLE_LIST_VALUE)
     }
   })
@@ -38,10 +39,11 @@ object BotLoginHandler {
     val roleList = protobufMessage.parseBuilder(RoleList.newBuilder())
     if (roleList.getRoleListCount > 0) {
       val role = roleList.getRoleList(0)
-      println(String.format("Get role, name: %s", role.getName))
+      println(String.format("Select role, name: %s", role.getName))
       // get role where index = 0
       bot.sendMessage(MessageType.CG_SELECT_ROLE_VALUE, SelectRole.newBuilder().setRoleId(role.getRoleId))
     } else {
+      println(String.format("Create role, puid: %s", bot.puid))
       bot.sendMessage(MessageType.CG_CREATE_ROLE_VALUE, CreateRole.newBuilder().setTemplateId(1).setName(bot.puid + "_" + "role"))
     }
   })

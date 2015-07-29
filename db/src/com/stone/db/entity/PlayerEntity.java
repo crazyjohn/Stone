@@ -2,8 +2,11 @@ package com.stone.db.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
 
 import com.stone.core.entity.IEntity;
 
@@ -11,6 +14,8 @@ import com.stone.core.entity.IEntity;
 @Table(name = "player")
 public class PlayerEntity implements IEntity {
 	@Id
+	@GenericGenerator(name = "AUTO_INCREMENT", strategy = "native")
+	@GeneratedValue(generator = "AUTO_INCREMENT")
 	@Column(name = "id")
 	private long id;
 	@Column(name = "puid")
