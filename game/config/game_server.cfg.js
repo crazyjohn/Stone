@@ -1,9 +1,7 @@
-// 绑定ip
+// bind ip
 config.bindIp = "0.0.0.0";
-// 绑定的端口
+// bind port 
 config.port = "8081";
-// is debug
-config.isDebug = true;
 // db
 config.dbServiceType = "hibernate";
 config.dbConfigName="game_server_hibernate.cfg.xml"
