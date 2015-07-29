@@ -1,9 +1,7 @@
 package com.stone.core.uuid;
 
-import java.util.List;
-
-import com.stone.core.enums.IndexedEnum;
-import com.stone.core.util.EnumUtil;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The uuid type;
@@ -11,7 +9,7 @@ import com.stone.core.util.EnumUtil;
  * @author crazyjohn
  *
  */
-public enum UUIDType implements IndexedEnum {
+public enum UUIDType {
 	/** Player */
 	PLAYER(0),
 	/** Human */
@@ -19,31 +17,24 @@ public enum UUIDType implements IndexedEnum {
 	/** Item */
 	ITEM(2);
 
-	private final int index;
-	/** 按索引顺序存放的枚举数组 */
-	private static final List<UUIDType> values = IndexedEnumUtil.toIndexes(UUIDType.values());
+	private final int type;
+	private static Map<Integer, UUIDType> types = new HashMap<Integer, UUIDType>();
 
-	/**
-	 * 
-	 * @param index
-	 *            枚举的索引,从0开始
-	 */
-	private UUIDType(int index) {
-		this.index = index;
+	static {
+		for (UUIDType eachType : UUIDType.values()) {
+			types.put(eachType.getType(), eachType);
+		}
 	}
 
-	@Override
-	public int getIndex() {
-		return this.index;
+	private UUIDType(int type) {
+		this.type = type;
 	}
 
-	/**
-	 * 根据指定的索引获取枚举的定义
-	 * 
-	 * @param index
-	 * @return
-	 */
-	public static UUIDType valueOf(final int index) {
-		return EnumUtil.valueOf(values, index);
+	public int getType() {
+		return this.type;
+	}
+
+	public static UUIDType typeOf(int type) {
+		return types.get(type);
 	}
 }

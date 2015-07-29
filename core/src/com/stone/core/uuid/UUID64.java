@@ -3,10 +3,12 @@ package com.stone.core.uuid;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * UUID类,按分区/服/线实现的64位的UUID
+ * The UUID struct;
+ * <p>
+ * region(5) + server(10) + line(6) + objectId(38) + other(4) = 63bits;
  * 
- * 
- * 
+ * @author crazyjohn
+ *
  */
 public class UUID64 {
 	/** 有效的位数 */

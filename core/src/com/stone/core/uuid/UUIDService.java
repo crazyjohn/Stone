@@ -47,7 +47,7 @@ public class UUIDService extends UntypedActor implements IUUIDService {
 	}
 
 	public long getNextUUID(UUIDType uuidType) {
-		return this.uuid64[uuidType.getIndex()].getNextUUID();
+		return this.uuid64[uuidType.getType()].getNextUUID();
 	}
 
 	/**
@@ -64,16 +64,16 @@ public class UUIDService extends UntypedActor implements IUUIDService {
 
 	protected void init() {
 		for (UUIDType _type : types) {
-			long _initOid = queryOId(_type.getIndex());
-			this.uuid64[_type.getIndex()] = UUID64.buildDefaultUUID(regionId, serverId, lineId, _initOid);
-			UUID64 _uuid64 = this.uuid64[_type.getIndex()];
+			long _initOid = queryOId(_type.getType());
+			this.uuid64[_type.getType()] = UUID64.buildDefaultUUID(regionId, serverId, lineId, _initOid);
+			UUID64 _uuid64 = this.uuid64[_type.getType()];
 			logger.info("Get UUID for [rid:" + this.regionId + ",sid:" + this.serverId + ",lid:" + this.lineId + ",type:" + _type + "] initOid["
 					+ _initOid + "] cur uuid[Hex:" + Long.toHexString(_uuid64.getCurUUID()) + " " + _uuid64.getCurUUID() + "]");
 		}
 	}
 
 	private long queryOId(final int typeIndex) {
-		UUIDType _uuidType = UUIDType.valueOf(typeIndex);
+		UUIDType _uuidType = UUIDType.typeOf(typeIndex);
 		UUID64 _uuid64 = UUID64.buildDefaultUUID(this.regionId, this.serverId, this.lineId, 0);
 		final String _queryName = QUERY_PREFIX + "_" + _uuidType.toString();
 		final String[] _paramName = new String[] { "minId", "maxId" };
