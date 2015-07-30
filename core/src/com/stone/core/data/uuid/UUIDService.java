@@ -3,6 +3,8 @@ package com.stone.core.data.uuid;
 import java.util.HashMap;
 import java.util.Map;
 
+import akka.actor.Props;
+
 import com.stone.core.actor.AnnotatedUntypedActor;
 import com.stone.core.db.service.IDBService;
 
@@ -30,5 +32,9 @@ public class UUIDService extends AnnotatedUntypedActor implements IUUIDService {
 	public long getNextId(UUIDType uuidType) {
 		IUUID64 uuid = this.uuids.get(uuidType);
 		return uuid.getNextId();
+	}
+
+	public static Props props(IDBService dbService, UUIDType[] types, int regionId, int serverId) {
+		return Props.create(UUIDService.class, dbService, types, regionId, serverId);
 	}
 }
