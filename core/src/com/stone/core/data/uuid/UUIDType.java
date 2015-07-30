@@ -1,4 +1,4 @@
-package com.stone.core.uuid;
+package com.stone.core.data.uuid;
 
 import java.util.HashMap;
 import java.util.Map;

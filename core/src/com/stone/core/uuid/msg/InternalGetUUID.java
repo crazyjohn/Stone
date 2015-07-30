@@ -1,6 +1,6 @@
 package com.stone.core.uuid.msg;
 
-import com.stone.core.uuid.UUIDType;
+import com.stone.core.data.uuid.UUIDType;
 
 /**
  * Internal get uuid message;
