@@ -11,6 +11,8 @@ import akka.routing.Router;
 
 import com.stone.core.actor.router.RouterFactory;
 import com.stone.core.data.msg.IDBMessage;
+import com.stone.core.data.uuid.UUIDService;
+import com.stone.core.data.uuid.UUIDType;
 import com.stone.core.db.service.IDBService;
 import com.stone.core.entity.IHumanSubEntity;
 import com.stone.db.actor.DBEntityActor;
@@ -42,12 +44,17 @@ public class DBMaster extends UntypedActor {
 	protected final Map<Class<?>, ActorRef> entityActors = new HashMap<Class<?>, ActorRef>();
 	/** human actor */
 	protected final ActorRef humanActor;
+	/** uuid */
+	private ActorRef uuidActor;
 
 	public DBMaster(IDBService dbService) {
 		this.dbService = dbService;
+		// uuid
+		uuidActor = this.getContext().actorOf(UUIDService.props(dbService, UUIDType.values(), 1, 1));
+		this.getContext().watch(uuidActor);
 		// login actor use router
 		loginRouter = RouterFactory.createChildActorRouteeRouter(this.getContext(), new RoundRobinRoutingLogic(), DBLoginActor.class,
-				DEFAULT_ROUTEES_COUNT, dbService);
+				DEFAULT_ROUTEES_COUNT, dbService, uuidActor);
 		// role actor
 		roleActor = this.getContext().actorOf(Props.create(DBRoleActor.class, dbService), "dBRoleActor");
 		this.getContext().watch(roleActor);
@@ -60,6 +67,7 @@ public class DBMaster extends UntypedActor {
 		this.getContext().watch(humanActor);
 		// register
 		this.entityActors.put(HumanEntity.class, humanActor);
+
 	}
 
 	@Override

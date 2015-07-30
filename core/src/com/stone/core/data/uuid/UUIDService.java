@@ -6,6 +6,7 @@ import java.util.Map;
 import akka.actor.Props;
 
 import com.stone.core.actor.AnnotatedUntypedActor;
+import com.stone.core.annotation.ActorMethod;
 import com.stone.core.db.service.IDBService;
 
 public class UUIDService extends AnnotatedUntypedActor implements IUUIDService {
@@ -23,9 +24,14 @@ public class UUIDService extends AnnotatedUntypedActor implements IUUIDService {
 
 	}
 
+	@ActorMethod(messageClassType = Integer.class)
+	protected void handleInt(Object msg) {
+		getSender().tell(msg, getSelf());
+	}
+
 	private int queryMaxIdFromDB(UUIDType eachType) {
 		// TODO Auto-generated method stub
-		return 0;
+		return 100;
 	}
 
 	@Override
