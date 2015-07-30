@@ -36,15 +36,21 @@ public class UUID64 implements IUUID64 {
 		checkValue(regionId, regionBits);
 		checkValue(serverId, serverBits);
 		// high and mask
-		long high = regionId << (TOTAL_BITS - REGION_BITS);
+		long high = getRealValue(regionId, (TOTAL_BITS - regionBits));
 		this.regionIdMask = getMaskValue(regionBits, TOTAL_BITS - regionBits);
-		high = high | serverId << (TOTAL_BITS - regionBits - serverBits);
+		high = high
+				| (getRealValue(serverId,
+						(TOTAL_BITS - regionBits - serverBits)));
 		this.serverIdMask = getMaskValue(serverBits, TOTAL_BITS - regionBits
 				- serverBits);
 		// max value
 		maxValue = Long.MAX_VALUE;
 		// id
 		this.idGenerator = new AtomicLong(high | initValue);
+	}
+
+	private long getRealValue(long value, int bits) {
+		return value << bits;
 	}
 
 	public static IUUID64 buildDefaultUUID(int regionId, int serverId) {
