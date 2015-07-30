@@ -18,7 +18,6 @@ public class UUID64 implements IUUID64 {
 	private static final int SERVER_BITS = 10;
 	private static final int OBJECT_BITS = 45;
 	public static final int OTHER_BITS = TOTAL_BITS - REGION_BITS - SERVER_BITS - OBJECT_BITS;
-	private static final int INIT_VALUE = 1;
 	// bits
 	private int regionBits;
 	private int serverBits;
@@ -34,7 +33,7 @@ public class UUID64 implements IUUID64 {
 	private AtomicLong idGenerator;
 	private long maxValue;
 
-	public UUID64(int regionBits, int serverBits, int objectBits, int regionId, int serverId, int initValue) {
+	public UUID64(int regionBits, int serverBits, int objectBits, int regionId, int serverId, long initValue) {
 		this.regionBits = regionBits;
 		this.serverBits = serverBits;
 		this.objectBits = objectBits;
@@ -65,8 +64,8 @@ public class UUID64 implements IUUID64 {
 	 * @param serverId
 	 * @return
 	 */
-	public static IUUID64 buildDefaultUUID(int regionId, int serverId) {
-		IUUID64 uuid = new UUID64(REGION_BITS, SERVER_BITS, OBJECT_BITS, regionId, serverId, INIT_VALUE);
+	public static IUUID64 buildDefaultUUID(int regionId, int serverId, long initValue) {
+		IUUID64 uuid = new UUID64(REGION_BITS, SERVER_BITS, OBJECT_BITS, regionId, serverId, initValue);
 		return uuid;
 	}
 

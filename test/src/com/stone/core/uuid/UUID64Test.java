@@ -6,7 +6,7 @@ import com.stone.core.data.uuid.UUID64;
 public class UUID64Test {
 
 	public static void main(String[] args) {
-		IUUID64 uuid = UUID64.buildDefaultUUID(1, 2);
+		IUUID64 uuid = UUID64.buildDefaultUUID(1, 2, 1);
 		System.out.println("UUID.id: " + uuid.getCurrentId());
 		System.out.println("UUID.nextId: " + uuid.getNextId());
 		System.out.println("UUID.nextId: " + uuid.getNextId());
@@ -16,7 +16,7 @@ public class UUID64Test {
 		System.out.println("RegionId: " + uuid.getRegionId(currentId));
 		System.out.println("ServerId: " + uuid.getServerId(currentId));
 		// uuid 2
-		IUUID64 uuid2 = UUID64.buildDefaultUUID(2, 101);
+		IUUID64 uuid2 = UUID64.buildDefaultUUID(2, 101, 1);
 		System.out.println("uuid2.id: " + uuid2.getCurrentId());
 		System.out.println("uuid2.nextId: " + uuid2.getNextId());
 		System.out.println("uuid2.nextId: " + uuid2.getNextId());
