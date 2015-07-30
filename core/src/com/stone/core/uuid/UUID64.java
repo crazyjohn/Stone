@@ -87,23 +87,23 @@ public class UUID64 {
 		this.sid = sid;
 		this.lid = lid;
 
-		int _leftShiftBits = MAX_BITS - ridBits;
-		long _high = rid << _leftShiftBits;
-		ridMask = getMaskBits(ridBits, _leftShiftBits);
+		int leftBits = MAX_BITS - ridBits;
+		long high = rid << leftBits;
+		ridMask = getMaskBits(ridBits, leftBits);
 
-		_leftShiftBits -= sidBits;
-		_high = _high | (sid << _leftShiftBits);
-		sidMask = getMaskBits(sidBits, _leftShiftBits);
+		leftBits -= sidBits;
+		high = high | (sid << leftBits);
+		sidMask = getMaskBits(sidBits, leftBits);
 
-		_leftShiftBits -= lidBits;
-		_high = _high | (lid << _leftShiftBits);
-		lidMask = getMaskBits(lidBits, _leftShiftBits);
+		leftBits -= lidBits;
+		high = high | (lid << leftBits);
+		lidMask = getMaskBits(lidBits, leftBits);
 
 		this.oidMask = getMaskBits(this.oidBits, 0);
-		this.minUUID = _high;
-		this.maxUUID = _high | this.oidMask;
+		this.minUUID = high;
+		this.maxUUID = high | this.oidMask;
 
-		this.oid = new AtomicLong(_high | initOid);
+		this.oid = new AtomicLong(high | initOid);
 		if (this.oid.get() >= this.maxUUID) {
 			throw new IllegalArgumentException("The oid [" + this.oid.get() + "] has reach the maxUUID [" + this.maxUUID + "]");
 		}
@@ -117,12 +117,12 @@ public class UUID64 {
 	 *                如果当前取得的UUID大于{@link #maxUUID},表示发生了溢出,会抛出此异常
 	 */
 	public long getNextUUID() {
-		final long _curId = this.oid.incrementAndGet();
-		if (_curId > this.maxUUID) {
+		final long nextId = this.oid.incrementAndGet();
+		if (nextId > this.maxUUID) {
 			this.oid.set(this.maxUUID);
-			throw new IllegalStateException("The uuid has been overflow,curId [" + _curId + "] maxUUID [" + this.maxUUID + "]");
+			throw new IllegalStateException("The uuid has been overflow,curId [" + nextId + "] maxUUID [" + this.maxUUID + "]");
 		}
-		return _curId;
+		return nextId;
 	}
 
 	/**
@@ -131,12 +131,12 @@ public class UUID64 {
 	 * @return
 	 */
 	protected long getCurUUID() {
-		final long _curId = this.oid.get();
-		if (_curId > this.maxUUID) {
+		final long currentId = this.oid.get();
+		if (currentId > this.maxUUID) {
 			this.oid.set(this.maxUUID);
-			throw new IllegalStateException("The uuid has been overflow,curId [" + _curId + "] maxUUID [" + this.maxUUID + "]");
+			throw new IllegalStateException("The uuid has been overflow,curId [" + currentId + "] maxUUID [" + this.maxUUID + "]");
 		}
-		return _curId;
+		return currentId;
 	}
 
 	protected long getRid() {
