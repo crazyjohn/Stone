@@ -43,7 +43,7 @@ object BotLoginHandler {
       // get role where index = 0
       bot.sendMessage(MessageType.CG_SELECT_ROLE_VALUE, SelectRole.newBuilder().setRoleId(role.getRoleId))
     } else {
-      println(String.format("Create role, puid: %s", bot.puid))
+      println(String.format("CCCreate role, puid: %s", bot.puid))
       bot.sendMessage(MessageType.CG_CREATE_ROLE_VALUE, CreateRole.newBuilder().setTemplateId(1).setName(bot.puid + "_" + "role"))
     }
   })

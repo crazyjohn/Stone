@@ -15,8 +15,8 @@ import com.stone.core.msg.IProtobufMessage;
  *
  */
 public class GameDecoder implements ProtocolDecoder {
-	private IoBuffer readBuffer = IoBuffer
-			.allocate(IMessage.DECODE_MESSAGE_LENGTH);
+	private IoBuffer readBuffer = IoBuffer.allocate(
+			IMessage.DECODE_MESSAGE_LENGTH).setAutoExpand(true);
 	private IMessageFactory messageFactory;
 
 	public GameDecoder(IMessageFactory messageFactory) {
@@ -28,6 +28,7 @@ public class GameDecoder implements ProtocolDecoder {
 			throws Exception {
 		// decode
 		readBuffer.put(in);
+		readBuffer.flip();
 		while (true) {
 			// 是否足够消息头的长度?
 			if (readBuffer.remaining() < IMessage.HEADER_SIZE) {
@@ -41,7 +42,7 @@ public class GameDecoder implements ProtocolDecoder {
 			}
 			// 读出消息包
 			byte[] datas = new byte[messageLength];
-			readBuffer.flip();
+			// readBuffer.flip();
 			readBuffer.get(datas);
 			IMessage aMessage = messageFactory.createMessage(messageType);
 			if (aMessage != null) {

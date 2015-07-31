@@ -45,7 +45,7 @@ public class DBRoleActor extends UntypedActor {
 		} else if (msg instanceof InternalCreateRole) {
 			// do create role things
 			InternalCreateRole createRole = (InternalCreateRole) msg;
-			Timeout timeout = new Timeout(Duration.create(60, "seconds"));
+			Timeout timeout = new Timeout(Duration.create(1, "seconds"));
 			Future<Object> future = Patterns.ask(uuidActor, UUIDType.HUMAN, timeout);
 			long id = (long) Await.result(future, timeout.duration());
 			HumanEntity humanEntity = new HumanEntity();
