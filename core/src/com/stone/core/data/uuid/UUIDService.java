@@ -13,23 +13,25 @@ public class UUIDService extends AnnotatedUntypedActor implements IUUIDService {
 	protected IDBService dbService;
 	private Map<UUIDType, IUUID64> uuids;
 
-	public UUIDService(IDBService dbService, UUIDType[] types, int regionId, int serverId) {
+	public UUIDService(IDBService dbService, UUIDType[] types, int regionId,
+			int serverId) {
 		this.dbService = dbService;
 		uuids = new HashMap<UUIDType, IUUID64>();
 		for (UUIDType eachType : types) {
 			// query max id from db
 			int maxId = queryMaxIdFromDB(eachType);
-			uuids.put(eachType, UUID64.buildDefaultUUID(regionId, serverId, maxId));
+			uuids.put(eachType,
+					UUID64.buildDefaultUUID(regionId, serverId, maxId));
 		}
 
 	}
 
 	@ActorMethod(messageClassType = UUIDType.class)
 	protected void handleUUIDRequest(Object msg) {
-		if (msg.equals(UUIDType.PLAYER)) {
-			getSender().tell(getNextId(UUIDType.PLAYER), getSelf());
+		if (msg instanceof UUIDType) {
+			getSender().tell(getNextId((UUIDType) msg), getSelf());
 		}
-		
+
 	}
 
 	private int queryMaxIdFromDB(UUIDType eachType) {
@@ -43,7 +45,9 @@ public class UUIDService extends AnnotatedUntypedActor implements IUUIDService {
 		return uuid.getNextId();
 	}
 
-	public static Props props(IDBService dbService, UUIDType[] types, int regionId, int serverId) {
-		return Props.create(UUIDService.class, dbService, types, regionId, serverId);
+	public static Props props(IDBService dbService, UUIDType[] types,
+			int regionId, int serverId) {
+		return Props.create(UUIDService.class, dbService, types, regionId,
+				serverId);
 	}
 }

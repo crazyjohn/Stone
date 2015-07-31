@@ -3,7 +3,7 @@
 -- ----------------------------
 DROP TABLE IF EXISTS `human`;
 CREATE TABLE `human` (
-  `guid` bigint(20) NOT NULL AUTO_INCREMENT,
+  `guid` bigint(20) NOT NULL,
   `playerId` bigint(20) NOT NULL DEFAULT '0',
   `name` varchar(50) COLLATE utf8_bin DEFAULT NULL,
   `level` int(11) NOT NULL DEFAULT '0',
