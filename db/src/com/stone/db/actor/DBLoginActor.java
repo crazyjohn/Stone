@@ -3,6 +3,7 @@ package com.stone.db.actor;
 import java.util.List;
 
 import scala.concurrent.Future;
+import scala.util.Success;
 import akka.actor.ActorRef;
 import akka.actor.UntypedActor;
 import akka.dispatch.OnSuccess;
@@ -34,26 +35,31 @@ public class DBLoginActor extends UntypedActor {
 	@Override
 	public void onReceive(Object msg) throws Exception {
 		if (msg instanceof Login.Builder) {
-			Login.Builder login = (Login.Builder) msg;
+			final Login.Builder login = (Login.Builder) msg;
 			final List<PlayerEntity> entities = dbService.queryByNameAndParams(DBQueryConstants.QUERY_PLAYER_BY_PUID, new String[] { "puid" },
 					new Object[] { login.getPuid() });
 			// if not exits this account, just create it
 			if (entities == null || entities.size() == 0) {
-				final PlayerEntity playerEntity = new PlayerEntity();
-				playerEntity.setPuid(login.getPuid());
-				Future<?> future = Patterns.ask(uuidActor, UUIDType.PLAYER, 100);
+				
+				Future<?> future = Patterns.ask(uuidActor, UUIDType.PLAYER, 100000);
+				final ActorRef sender = getSender();
 				future.onComplete(new OnSuccess() {
 					@Override
-					public void onSuccess(Object uuid) throws Throwable {
-						playerEntity.setId((long) uuid);
+					public void onSuccess(Object result) throws Throwable {
+						final PlayerEntity playerEntity = new PlayerEntity();
+						playerEntity.setPuid(login.getPuid());
+						playerEntity.setId(((Success<Long>) result).value());
 						dbService.insert(playerEntity);
 						entities.add(playerEntity);
+						sender.tell(new InternalLoginResult(entities), getSelf());
 					}
 
 				}, this.getContext().dispatcher());
 
+			} else {
+				getSender().tell(new InternalLoginResult(entities), getSelf());
 			}
-			getSender().tell(new InternalLoginResult(entities), getSelf());
+			
 		}
 	}
 

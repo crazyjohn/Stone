@@ -20,7 +20,7 @@ CREATE TABLE `human` (
 -- ----------------------------
 DROP TABLE IF EXISTS `player`;
 CREATE TABLE `player` (
-  `id` bigint(11) NOT NULL AUTO_INCREMENT,
+  `id` bigint(11) NOT NULL ,
   `puid` varchar(128) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;

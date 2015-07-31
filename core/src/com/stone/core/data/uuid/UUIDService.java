@@ -24,9 +24,12 @@ public class UUIDService extends AnnotatedUntypedActor implements IUUIDService {
 
 	}
 
-	@ActorMethod(messageClassType = Integer.class)
-	protected void handleInt(Object msg) {
-		getSender().tell(msg, getSelf());
+	@ActorMethod(messageClassType = UUIDType.class)
+	protected void handleUUIDRequest(Object msg) {
+		if (msg.equals(UUIDType.PLAYER)) {
+			getSender().tell(getNextId(UUIDType.PLAYER), getSelf());
+		}
+		
 	}
 
 	private int queryMaxIdFromDB(UUIDType eachType) {
