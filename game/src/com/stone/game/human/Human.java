@@ -4,6 +4,8 @@ import akka.actor.ActorRef;
 
 import com.stone.core.msg.ProtobufMessage;
 import com.stone.db.entity.HumanEntity;
+import com.stone.game.module.human.HumanItemModule;
+import com.stone.game.module.human.IHumanModule;
 import com.stone.game.module.player.Player;
 
 /**
@@ -18,7 +20,9 @@ public class Human {
 	private String name;
 	/** player */
 	private Player player;
-
+	/** itemModule */
+	private IHumanModule itemModule;
+	
 	public Human() {
 		// init
 		initModule();
@@ -26,6 +30,7 @@ public class Human {
 
 	private void initModule() {
 		// init item module
+		itemModule = new HumanItemModule(this);
 	}
 
 	public long getGuid() {
@@ -77,5 +82,7 @@ public class Human {
 	public void onLoad(HumanEntity humanEntity) {
 		this.name = humanEntity.getName();
 		this.guid = humanEntity.getGuid();
+		// load module datas
+		this.itemModule.onLoad(humanEntity);
 	}
 }
