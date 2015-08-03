@@ -1,5 +1,6 @@
 package com.stone.game.module.human;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import akka.actor.ActorRef;
@@ -9,6 +10,7 @@ import com.stone.core.msg.ProtobufMessage;
 import com.stone.db.entity.HumanEntity;
 import com.stone.db.entity.HumanItemEntity;
 import com.stone.game.human.Human;
+import com.stone.proto.entity.Entities.HumanItemData;
 
 /**
  * The human item module;
@@ -18,7 +20,7 @@ import com.stone.game.human.Human;
  */
 public class HumanItemModule extends BaseHumanModule {
 	/** the item entities */
-	protected List<HumanItemEntity> itemEntities;
+	protected List<HumanItemEntity> itemEntities = new ArrayList<HumanItemEntity>();
 
 	public HumanItemModule(Human human) {
 		super(human);
@@ -27,7 +29,11 @@ public class HumanItemModule extends BaseHumanModule {
 	@Override
 	public void onLoad(HumanEntity entity) {
 		// init entities
-		
+		for (HumanItemData eachItemData : entity.getBuilder()
+				.getHumanItemsList()) {
+			itemEntities.add(new HumanItemEntity(eachItemData.toBuilder()));
+		}
+
 	}
 
 	@Override
@@ -43,7 +49,8 @@ public class HumanItemModule extends BaseHumanModule {
 	}
 
 	@Override
-	public void onExternalMessage(ProtobufMessage msg, ActorRef playerActor, ActorRef dbMaster) throws MessageParseException {
+	public void onExternalMessage(ProtobufMessage msg, ActorRef playerActor,
+			ActorRef dbMaster) throws MessageParseException {
 		// TODO Auto-generated method stub
 
 	}
