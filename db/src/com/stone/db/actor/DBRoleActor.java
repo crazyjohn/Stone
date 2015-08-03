@@ -21,7 +21,8 @@ import com.stone.db.query.DBQueryConstants;
 /**
  * DB role actor;
  * <p>
- * Include role create and get role list;
+ * Include role create and get role list. but, maybe i can use
+ * {@link DBHumanActor} to do these things;
  * 
  * @author crazyjohn
  *
@@ -40,7 +41,8 @@ public class DBRoleActor extends UntypedActor {
 		if (msg instanceof InternalGetRoleList) {
 			// get role list
 			InternalGetRoleList roleList = (InternalGetRoleList) msg;
-			List<HumanEntity> humanList = dbService.queryByNameAndParams(DBQueryConstants.QUERY_PLAYER_ROLE_BY_PLAYER_ID, new String[] { "playerId" }, new Object[] { roleList.getPlayerId() });
+			List<HumanEntity> humanList = dbService.queryByNameAndParams(DBQueryConstants.QUERY_PLAYER_ROLE_BY_PLAYER_ID,
+					new String[] { "playerId" }, new Object[] { roleList.getPlayerId() });
 			getSender().tell(new InternalGetRoleListResult(humanList), getSelf());
 		} else if (msg instanceof InternalCreateRole) {
 			// do create role things
