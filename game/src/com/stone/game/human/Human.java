@@ -4,8 +4,8 @@ import akka.actor.ActorRef;
 
 import com.stone.core.msg.ProtobufMessage;
 import com.stone.db.entity.HumanEntity;
-import com.stone.game.module.human.HumanItemModule;
 import com.stone.game.module.human.IHumanModule;
+import com.stone.game.module.human.item.HumanItemModule;
 import com.stone.game.module.player.Player;
 
 /**

@@ -1,4 +1,4 @@
-package com.stone.game.module.human;
+package com.stone.game.module.human.item;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +10,7 @@ import com.stone.core.msg.ProtobufMessage;
 import com.stone.db.entity.HumanEntity;
 import com.stone.db.entity.HumanItemEntity;
 import com.stone.game.human.Human;
+import com.stone.game.module.human.BaseHumanModule;
 import com.stone.proto.entity.Entities.HumanItemData;
 
 /**
