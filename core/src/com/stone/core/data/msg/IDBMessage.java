@@ -1,5 +1,7 @@
 package com.stone.core.data.msg;
 
+import java.io.Serializable;
+
 /**
  * The db message;
  * 
@@ -13,4 +15,6 @@ public interface IDBMessage {
 	 * @return
 	 */
 	public Class<?> getEntityClass();
+	
+	public Serializable getId();
 }

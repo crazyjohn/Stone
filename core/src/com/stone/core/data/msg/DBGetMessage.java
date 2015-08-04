@@ -1,5 +1,7 @@
 package com.stone.core.data.msg;
 
+import java.io.Serializable;
+
 public class DBGetMessage implements IDBMessage {
 	private final long id;
 	private final Class<?> entityClass;
@@ -14,7 +16,7 @@ public class DBGetMessage implements IDBMessage {
 		return entityClass;
 	}
 
-	public long getId() {
+	public Serializable getId() {
 		return id;
 	}
 
