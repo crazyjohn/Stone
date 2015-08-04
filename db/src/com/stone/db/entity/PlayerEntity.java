@@ -29,7 +29,7 @@ public class PlayerEntity implements IEntity {
 	}
 
 	@Override
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 

@@ -165,7 +165,7 @@ public class HumanCache implements ICacheObject, IEntity {
 	}
 
 	@Override
-	public Serializable getId() {
+	public long getId() {
 		return this.getHumanGuid();
 	}
 

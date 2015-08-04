@@ -67,7 +67,7 @@ public class HumanEntity extends BaseProtobufEntity<HumanData.Builder> {
 	}
 
 	@Override
-	public Long getId() {
+	public long getId() {
 		return guid;
 	}
 

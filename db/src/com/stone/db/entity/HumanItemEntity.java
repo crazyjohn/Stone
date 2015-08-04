@@ -35,7 +35,7 @@ public class HumanItemEntity extends BaseProtobufEntity<HumanItemData.Builder> i
 	}
 
 	@Override
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 

@@ -1,6 +1,5 @@
 package com.stone.core.entity;
 
-import java.io.Serializable;
 
 /**
  * The db entity;
@@ -9,5 +8,5 @@ import java.io.Serializable;
  *
  */
 public interface IEntity {
-	public Serializable getId();
+	public long getId();
 }
