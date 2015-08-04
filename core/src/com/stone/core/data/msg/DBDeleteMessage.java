@@ -1,7 +1,5 @@
 package com.stone.core.data.msg;
 
-import java.io.Serializable;
-
 import com.stone.core.entity.IEntity;
 
 public class DBDeleteMessage implements IDBMessage, IDBEntityMessage {
@@ -23,7 +21,7 @@ public class DBDeleteMessage implements IDBMessage, IDBEntityMessage {
 	}
 
 	@Override
-	public Serializable getId() {
+	public long getId() {
 		return entity.getId();
 	}
 
