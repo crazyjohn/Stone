@@ -7,7 +7,13 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
-public class HttpApi {
+/**
+ * Test sun's http server;
+ * 
+ * @author crazyjohn
+ *
+ */
+public class HttpServerApi {
 
 	public static void main(String[] args) throws IOException {
 		// create server
