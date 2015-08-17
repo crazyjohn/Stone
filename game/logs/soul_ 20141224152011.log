@@ -1,3 +1,0 @@
-[INFO] 15:20:11,136 - GameServer.main - Begin to start Game Server
-[INFO] 15:20:11,142 - ConfigUtil.loadJsConfig - Load js config, file: game_server.cfg.js
-[INFO] 15:20:11,251 - GameServer.main - Game Server started

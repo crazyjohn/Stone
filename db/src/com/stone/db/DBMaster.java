@@ -11,6 +11,7 @@ import akka.routing.Router;
 
 import com.stone.core.actor.router.RouterFactory;
 import com.stone.core.data.msg.IDBMessage;
+import com.stone.core.data.uuid.IUUIDService;
 import com.stone.core.data.uuid.UUIDService;
 import com.stone.core.data.uuid.UUIDType;
 import com.stone.core.db.service.IDBService;
@@ -46,31 +47,27 @@ public class DBMaster extends UntypedActor {
 	/** human actor */
 	protected final Router humanRouter;
 	/** uuid */
-	private ActorRef uuidActor;
+	private IUUIDService uuidActor;
 
 	public DBMaster(IDBService dbService) {
 		this.dbService = dbService;
 		// uuid
 		int regionId = 1;
 		int serverId = 1;
-		uuidActor = this.getContext().actorOf(
-				UUIDService.props(dbService, UUIDType.values(), regionId,
-						serverId));
-		this.getContext().watch(uuidActor);
+		// FIXME: crazyjohn actor or singleton?
+		uuidActor = UUIDService.buildUUIDService(dbService,UUIDType.values(), regionId, serverId);
+		// this.getContext().actorOf(UUIDService.props(dbService,
+		// UUIDType.values(), regionId, serverId));
+		// this.getContext().watch(uuidActor);
 		// login actor use router
-		loginRouter = RouterFactory
-				.createChildActorRouteeRouter(this.getContext(),
-						new RoundRobinRoutingLogic(), DBLoginActor.class,
-						DEFAULT_ROUTEES_COUNT, dbService, uuidActor);
+		loginRouter = RouterFactory.createChildActorRouteeRouter(this.getContext(), new RoundRobinRoutingLogic(), DBLoginActor.class,
+				DEFAULT_ROUTEES_COUNT, dbService, uuidActor);
 		// role actor
-		roleActor = this.getContext().actorOf(
-				Props.create(DBRoleActor.class, dbService, uuidActor),
-				"dBRoleActor");
+		roleActor = this.getContext().actorOf(Props.create(DBRoleActor.class, dbService, uuidActor), "dBRoleActor");
 		this.getContext().watch(roleActor);
 		// human actor
-		humanRouter = RouterFactory.createChildActorRouteeRouter(
-				this.getContext(), new BoundedHumanRoutingLogic(),
-				DBHumanActor.class, DEFAULT_ROUTEES_COUNT, 10000/**
+		humanRouter = RouterFactory.createChildActorRouteeRouter(this.getContext(), new BoundedHumanRoutingLogic(), DBHumanActor.class,
+				DEFAULT_ROUTEES_COUNT, 10000/**
 				 * config this
 				 */
 				, dbService);
@@ -116,8 +113,7 @@ public class DBMaster extends UntypedActor {
 		ActorRef entityActor = this.entityActors.get(msg.getEntityClass());
 		if (entityActor == null) {
 			// create actor
-			entityActor = this.getContext().actorOf(
-					DBEntityActor.props(msg.getClass(), dbService));
+			entityActor = this.getContext().actorOf(DBEntityActor.props(msg.getClass(), dbService));
 			// watch this
 			this.getContext().watch(entityActor);
 			this.entityActors.put(msg.getClass(), entityActor);

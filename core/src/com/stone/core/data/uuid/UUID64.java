@@ -1,6 +1,7 @@
 package com.stone.core.data.uuid;
 
 import java.util.concurrent.atomic.AtomicLong;
+import com.stone.core.concurrent.annotation.ThreadSafeUnit;
 
 /**
  * The UUID64 struct;
@@ -11,6 +12,7 @@ import java.util.concurrent.atomic.AtomicLong;
  * @author crazyjohn
  *
  */
+@ThreadSafeUnit
 public class UUID64 implements IUUID64 {
 	// constants
 	private static final int TOTAL_BITS = 63;

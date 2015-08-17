@@ -2,14 +2,9 @@ package com.stone.db.actor;
 
 import java.util.List;
 
-import scala.concurrent.Await;
-import scala.concurrent.Future;
-import scala.concurrent.duration.Duration;
-import akka.actor.ActorRef;
 import akka.actor.UntypedActor;
-import akka.pattern.Patterns;
-import akka.util.Timeout;
 
+import com.stone.core.data.uuid.IUUIDService;
 import com.stone.core.data.uuid.UUIDType;
 import com.stone.core.db.service.IDBService;
 import com.stone.db.entity.HumanEntity;
@@ -29,9 +24,9 @@ import com.stone.db.query.DBQueryConstants;
  */
 public class DBRoleActor extends UntypedActor {
 	private final IDBService dbService;
-	private final ActorRef uuidActor;
+	private final IUUIDService uuidActor;
 
-	public DBRoleActor(IDBService dbService, ActorRef uuidActor) {
+	public DBRoleActor(IDBService dbService, IUUIDService uuidActor) {
 		this.dbService = dbService;
 		this.uuidActor = uuidActor;
 	}
@@ -47,9 +42,10 @@ public class DBRoleActor extends UntypedActor {
 		} else if (msg instanceof InternalCreateRole) {
 			// do create role things
 			InternalCreateRole createRole = (InternalCreateRole) msg;
-			Timeout timeout = new Timeout(Duration.create(1, "seconds"));
-			Future<Object> future = Patterns.ask(uuidActor, UUIDType.HUMAN, timeout);
-			long id = (long) Await.result(future, timeout.duration());
+			// Timeout timeout = new Timeout(Duration.create(1, "seconds"));
+			// Future<Object> future = Patterns.ask(uuidActor, UUIDType.HUMAN,
+			// timeout);
+			long id = this.uuidActor.getNextId(UUIDType.HUMAN);
 			HumanEntity humanEntity = new HumanEntity();
 			humanEntity.setGuid(id);
 			humanEntity.setLevel(1);
