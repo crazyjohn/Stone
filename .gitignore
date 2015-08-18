@@ -63,3 +63,5 @@ db/bin/
 test/.cache
 test/.cache
 example/logs/
+*.as
+proto/build/as/CreateRole.as
