@@ -24,7 +24,7 @@ import com.stone.core.entity.IEntity;
  *
  */
 public class HibernateDBService implements IDBService {
-	private Logger logger = LoggerFactory.getLogger(HibernateDBService.class);
+	private Logger logger = LoggerFactory.getLogger("error");
 	/** session factory */
 	private SessionFactory sessionFactory;
 	/** template */

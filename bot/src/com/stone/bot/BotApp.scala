@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory
 object BotApp extends App {
   private val logger = LoggerFactory.getLogger("ClientIoHandler")
   val begin = 0
-  val end = 500
+  val end = 1000
   // create robot
   for (i <- begin to end) {
     val bot = new CrazyBot("bot" + i)
