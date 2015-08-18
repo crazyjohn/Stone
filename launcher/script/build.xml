@@ -85,7 +85,7 @@
 	</target>
 	
 	<!-- to jar  -->
-	<target name="pack" depends="compile.aspect">
+	<target name="pack" depends="compile">
 		<copy todir="${class.dir}">
 			<!--
 			<fileset dir="${core.dir}/config"/>
