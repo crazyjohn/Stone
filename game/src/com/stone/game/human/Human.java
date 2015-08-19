@@ -22,7 +22,8 @@ public class Human {
 	private Player player;
 	/** itemModule */
 	private IHumanModule itemModule;
-	
+	private HumanEntity humanEntity;
+
 	public Human() {
 		// init
 		initModule();
@@ -82,7 +83,12 @@ public class Human {
 	public void onLoad(HumanEntity humanEntity) {
 		this.name = humanEntity.getName();
 		this.guid = humanEntity.getGuid();
+		this.humanEntity = humanEntity;
 		// load module datas
 		this.itemModule.onLoad(humanEntity);
+	}
+
+	public int getLevel() {
+		return humanEntity.getLevel();
 	}
 }

@@ -17,6 +17,7 @@ import com.stone.core.data.DataEventBus;
 import com.stone.core.msg.ProtobufMessage;
 import com.stone.db.annotation.PlayerInternalMessage;
 import com.stone.db.entity.HumanItemEntity;
+import com.stone.game.service.GamePlayerService;
 import com.stone.game.session.msg.GameSessionCloseMessage;
 import com.stone.game.session.msg.GameSessionOpenMessage;
 import com.stone.proto.common.Commons.Item;
@@ -33,14 +34,16 @@ public class PlayerActor extends UntypedActor {
 	protected final Player player;
 	/** db master */
 	protected final ActorRef dbMaster;
+	protected final GamePlayerService playerService;
 	/** logger */
 	protected Logger logger = LoggerFactory.getLogger(PlayerActor.class);
 	/** mock task, just for test */
 	final Cancellable mockUpdateTask;
 
-	public PlayerActor(Player player, ActorRef dbMaster) {
+	public PlayerActor(Player player, ActorRef dbMaster, GamePlayerService playerService) {
 		this.player = player;
 		this.dbMaster = dbMaster;
+		this.playerService = playerService;
 		// schedule
 		mockUpdateTask = this
 				.getContext()
@@ -75,6 +78,8 @@ public class PlayerActor extends UntypedActor {
 				getContext().become(DISCONNECTED);
 				// cancel task
 				mockUpdateTask.cancel();
+				// remove from playerService
+				playerService.removePlayer(player);
 			} else if (msg instanceof ProtobufMessage) {
 				// net message use self execute
 				ProtobufMessage netMessage = (ProtobufMessage) msg;
@@ -108,10 +113,10 @@ public class PlayerActor extends UntypedActor {
 		}
 	};
 
-	public static Props props(IoSession session, ActorRef dbMaster) {
-		Player player = new Player();
+	public static Props props(IoSession session, ActorRef dbMaster, GamePlayerService playerService) {
+		Player player = new Player(playerService);
 		player.setSession(session);
-		return Props.create(PlayerActor.class, player, dbMaster);
+		return Props.create(PlayerActor.class, player, dbMaster, playerService);
 	}
 
 }

@@ -23,7 +23,7 @@ class ClientIoHandler extends IoHandlerAdapter {
   }
 
   override def exceptionCaught(session: IoSession, cause: Throwable) {
-
+    logger.info("Exception caught: " + session + ", e: " + cause)
   }
 
 }

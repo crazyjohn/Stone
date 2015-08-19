@@ -23,4 +23,8 @@ enum MessageType {
 	GC_ENTER_SCENE = 1009;
 	// enter scene ready
 	CG_ENTER_SCENE_READY = 1010;
+	// sync
+	CG_SYNC = 1011;
+	// sync
+	GC_SYNC = 1012;
 }

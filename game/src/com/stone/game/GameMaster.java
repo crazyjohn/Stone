@@ -13,6 +13,7 @@ import com.stone.core.msg.CGMessage;
 import com.stone.core.msg.MessageParseException;
 import com.stone.core.session.ISession;
 import com.stone.game.module.player.PlayerActor;
+import com.stone.game.service.GamePlayerService;
 import com.stone.game.session.msg.GameSessionCloseMessage;
 import com.stone.game.session.msg.GameSessionOpenMessage;
 
@@ -27,6 +28,7 @@ public class GameMaster extends UntypedActor {
 	private Logger logger = LoggerFactory.getLogger(GameMaster.class);
 	/** dbMaster */
 	private final ActorRef dbMaster;
+	protected final GamePlayerService playerService = new GamePlayerService();
 	/** counter */
 	private AtomicLong counter = new AtomicLong(0);
 
@@ -77,6 +79,7 @@ public class GameMaster extends UntypedActor {
 	 * @throws MessageParseException
 	 */
 	private void onGameSessionClosed(GameSessionCloseMessage sessionClose) throws MessageParseException {
+		// remove
 		sessionClose.execute();
 		// forward
 		sessionClose.getPlayerActor().forward(sessionClose, getContext());
@@ -92,7 +95,7 @@ public class GameMaster extends UntypedActor {
 	 */
 	private void onGameSessionOpened(GameSessionOpenMessage sessionOpenMsg) {
 		if (sessionOpenMsg.getSession().getPlayerActor() == null) {
-			ActorRef playerActor = getContext().actorOf(PlayerActor.props(sessionOpenMsg.getSession().getSession(), dbMaster), "playerActor" + counter.incrementAndGet());
+			ActorRef playerActor = getContext().actorOf(PlayerActor.props(sessionOpenMsg.getSession().getSession(), dbMaster, playerService), "playerActor" + counter.incrementAndGet());
 			// watch this player actor
 			getContext().watch(playerActor);
 			sessionOpenMsg.getSession().setPlayerActor(playerActor);

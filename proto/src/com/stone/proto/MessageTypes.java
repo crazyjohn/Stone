@@ -97,6 +97,22 @@ public final class MessageTypes {
      * </pre>
      */
     CG_ENTER_SCENE_READY(9, 1010),
+    /**
+     * <code>CG_SYNC = 1011;</code>
+     *
+     * <pre>
+     * sync
+     * </pre>
+     */
+    CG_SYNC(10, 1011),
+    /**
+     * <code>GC_SYNC = 1012;</code>
+     *
+     * <pre>
+     * sync
+     * </pre>
+     */
+    GC_SYNC(11, 1012),
     ;
 
     /**
@@ -179,6 +195,22 @@ public final class MessageTypes {
      * </pre>
      */
     public static final int CG_ENTER_SCENE_READY_VALUE = 1010;
+    /**
+     * <code>CG_SYNC = 1011;</code>
+     *
+     * <pre>
+     * sync
+     * </pre>
+     */
+    public static final int CG_SYNC_VALUE = 1011;
+    /**
+     * <code>GC_SYNC = 1012;</code>
+     *
+     * <pre>
+     * sync
+     * </pre>
+     */
+    public static final int GC_SYNC_VALUE = 1012;
 
 
     public final int getNumber() { return value; }
@@ -195,6 +227,8 @@ public final class MessageTypes {
         case 1008: return GC_CREATE_ROLE_RESULT;
         case 1009: return GC_ENTER_SCENE;
         case 1010: return CG_ENTER_SCENE_READY;
+        case 1011: return CG_SYNC;
+        case 1012: return GC_SYNC;
         default: return null;
       }
     }
@@ -255,14 +289,15 @@ public final class MessageTypes {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\021MessageType.proto*\367\001\n\013MessageType\022\024\n\017C" +
+      "\n\021MessageType.proto*\223\002\n\013MessageType\022\024\n\017C" +
       "G_PLAYER_LOGIN\020\351\007\022\033\n\026GC_PLAYER_LOGIN_RES" +
       "ULT\020\352\007\022\025\n\020CG_GET_ROLE_LIST\020\353\007\022\025\n\020GC_GET_" +
       "ROLE_LIST\020\354\007\022\023\n\016CG_SELECT_ROLE\020\355\007\022\021\n\014GC_" +
       "ROLE_INFO\020\356\007\022\023\n\016CG_CREATE_ROLE\020\357\007\022\032\n\025GC_" +
       "CREATE_ROLE_RESULT\020\360\007\022\023\n\016GC_ENTER_SCENE\020" +
-      "\361\007\022\031\n\024CG_ENTER_SCENE_READY\020\362\007B\037\n\017com.sto" +
-      "ne.protoB\014MessageTypes"
+      "\361\007\022\031\n\024CG_ENTER_SCENE_READY\020\362\007\022\014\n\007CG_SYNC" +
+      "\020\363\007\022\014\n\007GC_SYNC\020\364\007B\037\n\017com.stone.protoB\014Me" +
+      "ssageTypes"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

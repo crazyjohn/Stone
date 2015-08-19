@@ -1,0 +1,10 @@
+option java_package = "com.stone.proto";
+option java_outer_classname = "Syncs";
+
+import "Human.proto";
+
+// sync
+message Sync {
+	required int64 syncTime = 1;
+	repeated Human humans = 2;
+}

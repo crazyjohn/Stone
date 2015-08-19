@@ -11,11 +11,12 @@ import org.apache.mina.core.future.ConnectFuture
 object BotApp extends App {
   private val logger = LoggerFactory.getLogger("ClientIoHandler")
   val begin = 0
-  val end = 5000
+  val end = 10
   // create robot
   for (i <- begin to end) {
     val bot = new CrazyBot("bot" + i)
-    val connectFuture = bot.connect("203.195.218.172", 8081)
+    // 203.195.218.172
+    val connectFuture = bot.connect("127.0.0.1", 8081)
     connectFuture.awaitUninterruptibly()
     connectFuture.addListener(new ConnectListener(bot))
   }

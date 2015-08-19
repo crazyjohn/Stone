@@ -31,12 +31,10 @@ public class GameIoHandler extends AbstractIoHandler<GamePlayerSession> {
 		return sessionInfo;
 	}
 
-	// @Override
-	// public void exceptionCaught(IoSession session, Throwable cause) throws
-	// Exception {
-	// logger.error(String.format("Exception caught, session: %s", session),
-	// cause);
-	// }
+	@Override
+	public void exceptionCaught(IoSession session, Throwable cause) throws Exception {
+		logger.error(String.format("Exception caught, session: %s", session), cause);
+	}
 
 	@Override
 	protected ISessionMessage<GamePlayerSession> createSessionCloseMessage(GamePlayerSession sessionInfo) {
