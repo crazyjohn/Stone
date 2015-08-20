@@ -13,11 +13,13 @@ import akka.actor.Props;
 import akka.actor.UntypedActor;
 import akka.japi.Procedure;
 
+import com.stone.core.actor.msg.ActorSendMessage;
 import com.stone.core.data.DataEventBus;
 import com.stone.core.msg.ProtobufMessage;
 import com.stone.db.annotation.PlayerInternalMessage;
 import com.stone.db.entity.HumanItemEntity;
-import com.stone.game.service.GamePlayerService;
+import com.stone.game.service.GamePlayerService.UnRegisterPlayer;
+import com.stone.game.service.GamePlayerService.UnRegisterPlayerActor;
 import com.stone.game.session.msg.GameSessionCloseMessage;
 import com.stone.game.session.msg.GameSessionOpenMessage;
 import com.stone.proto.common.Commons.Item;
@@ -34,13 +36,13 @@ public class PlayerActor extends UntypedActor {
 	protected final Player player;
 	/** db master */
 	protected final ActorRef dbMaster;
-	protected final GamePlayerService playerService;
+	protected final ActorRef playerService;
 	/** logger */
 	protected Logger logger = LoggerFactory.getLogger(PlayerActor.class);
 	/** mock task, just for test */
 	final Cancellable mockUpdateTask;
 
-	public PlayerActor(Player player, ActorRef dbMaster, GamePlayerService playerService) {
+	public PlayerActor(Player player, ActorRef dbMaster, ActorRef playerService) {
 		this.player = player;
 		this.dbMaster = dbMaster;
 		this.playerService = playerService;
@@ -83,7 +85,8 @@ public class PlayerActor extends UntypedActor {
 			if (msg instanceof GameSessionCloseMessage) {
 				getContext().become(DISCONNECTED);
 				// remove from playerService
-				playerService.removePlayer(player);
+				playerService.tell(new UnRegisterPlayer(player), ActorRef.noSender());
+				playerService.tell(new UnRegisterPlayerActor(player.getPlayerId()), ActorRef.noSender());
 			} else if (msg instanceof ProtobufMessage) {
 				// net message use self execute
 				ProtobufMessage netMessage = (ProtobufMessage) msg;
@@ -101,6 +104,9 @@ public class PlayerActor extends UntypedActor {
 				itemEntity.setHumanGuid(player.getHuman().getGuid());
 				itemEntity.getBuilder().setHumanGuid(player.getHuman().getGuid()).setItem(Item.newBuilder().setCount(1).setTemplateId(8888));
 				DataEventBus.fireUpdate(dbMaster, getSelf(), itemEntity);
+			} else if (msg instanceof ActorSendMessage) {
+				ActorSendMessage actorMessage = (ActorSendMessage) msg;
+				player.sendMessage(actorMessage.getType(), actorMessage.getBuilder());
 			}
 		}
 	};
@@ -117,7 +123,7 @@ public class PlayerActor extends UntypedActor {
 		}
 	};
 
-	public static Props props(IoSession session, ActorRef dbMaster, GamePlayerService playerService) {
+	public static Props props(IoSession session, ActorRef dbMaster, ActorRef playerService) {
 		Player player = new Player(playerService);
 		player.setSession(session);
 		return Props.create(PlayerActor.class, player, dbMaster, playerService);

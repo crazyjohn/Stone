@@ -29,7 +29,7 @@ public class GameMaster extends UntypedActor {
 	private Logger logger = LoggerFactory.getLogger(GameMaster.class);
 	/** dbMaster */
 	private final ActorRef dbMaster;
-	protected final GamePlayerService playerService = new GamePlayerService();
+	protected final ActorRef playerService = getContext().actorOf(Props.create(GamePlayerService.class));
 	/** counter */
 	private AtomicLong counter = new AtomicLong(0);
 

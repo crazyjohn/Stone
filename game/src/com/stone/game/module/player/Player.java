@@ -12,7 +12,6 @@ import com.stone.core.msg.MessageParseException;
 import com.stone.core.msg.ProtobufMessage;
 import com.stone.game.human.Human;
 import com.stone.game.player.module.PlayerLoginModule;
-import com.stone.game.service.GamePlayerService;
 
 /**
  * Game player object;
@@ -28,9 +27,9 @@ public class Player {
 	private long playerId;
 	/** player modules */
 	private List<IPlayerModule> modules = new ArrayList<IPlayerModule>();
-	protected GamePlayerService playerService;
+	protected ActorRef playerService;
 
-	public Player(GamePlayerService playerService) {
+	public Player(ActorRef playerService) {
 		// register loginModule
 		registerModule(new PlayerLoginModule(this, playerService));
 	}

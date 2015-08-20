@@ -17,7 +17,9 @@ import com.stone.db.msg.internal.player.InternalLoginResult;
 import com.stone.db.msg.internal.player.InternalSelectRoleResult;
 import com.stone.game.module.player.BasePlayerModule;
 import com.stone.game.module.player.Player;
-import com.stone.game.service.GamePlayerService;
+import com.stone.game.service.GamePlayerService.RegisterPlayer;
+import com.stone.game.service.GamePlayerService.RegisterPlayerActor;
+import com.stone.game.service.GamePlayerService.SyncPlayers;
 import com.stone.proto.Auths.CreateRole;
 import com.stone.proto.Auths.EnterScene;
 import com.stone.proto.Auths.Login;
@@ -37,9 +39,9 @@ import com.stone.proto.MessageTypes.MessageType;
 public class PlayerLoginModule extends BasePlayerModule {
 	/** logger */
 	protected Logger logger = LoggerFactory.getLogger(PlayerLoginModule.class);
-	protected GamePlayerService playerService;
+	protected ActorRef playerService;
 
-	public PlayerLoginModule(Player player, GamePlayerService playerService) {
+	public PlayerLoginModule(Player player, ActorRef playerService) {
 		super(player);
 		this.playerService = playerService;
 	}
@@ -133,12 +135,12 @@ public class PlayerLoginModule extends BasePlayerModule {
 		} else if (msg.getType() == MessageType.CG_ENTER_SCENE_READY_VALUE) {
 			logger.info(String.format("%s enter scene ready.", player.getHuman().getName()));
 			// add to playerService
-			playerService.addPlayer(this.player);
+			playerService.tell(new RegisterPlayer(this.player), ActorRef.noSender());
+			playerService.tell(new RegisterPlayerActor(this.player.getPlayerId(), playerActor), ActorRef.noSender());
 
 		} else if (msg.getType() == MessageType.CG_SYNC_VALUE) {
 			// sync
-			logger.info(String.format("%s request sync.", player.getHuman().getName()));
-			player.sendMessage(MessageType.GC_SYNC_VALUE, this.playerService.buildSync(this.player.getPlayerId()));
+			playerService.tell(new SyncPlayers(this.player.getPlayerId()), ActorRef.noSender());
 		}
 	}
 
