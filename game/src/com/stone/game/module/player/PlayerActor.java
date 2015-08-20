@@ -67,6 +67,12 @@ public class PlayerActor extends UntypedActor {
 		}
 	}
 
+	@Override
+	public void postStop() throws Exception {
+		// cancel task
+		mockUpdateTask.cancel();
+	}
+
 	/**
 	 * Connected state;
 	 */
@@ -76,8 +82,6 @@ public class PlayerActor extends UntypedActor {
 		public void apply(Object msg) throws Exception {
 			if (msg instanceof GameSessionCloseMessage) {
 				getContext().become(DISCONNECTED);
-				// cancel task
-				mockUpdateTask.cancel();
 				// remove from playerService
 				playerService.removePlayer(player);
 			} else if (msg instanceof ProtobufMessage) {

@@ -5,18 +5,18 @@ import org.apache.mina.core.session.IoSession;
 import akka.actor.ActorRef;
 
 /**
- * 游戏玩家回话信息;
+ * The game actor session;
  * 
  * @author crazyjohn
  *
  */
-public class GamePlayerSession extends BaseSession implements IPlayerSession {
+public class GameActorSession extends BaseSession implements IPlayerSession {
 	protected ActorRef playerActor;
 
-	public GamePlayerSession(IoSession session) {
+	public GameActorSession(IoSession session) {
 		super(session);
 	}
-	
+
 	public void setPlayerActor(ActorRef playerActor) {
 		this.playerActor = playerActor;
 	}

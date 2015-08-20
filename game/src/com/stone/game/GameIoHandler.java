@@ -6,7 +6,7 @@ import akka.actor.ActorRef;
 
 import com.stone.core.msg.ISessionMessage;
 import com.stone.core.net.AbstractIoHandler;
-import com.stone.core.session.GamePlayerSession;
+import com.stone.core.session.GameActorSession;
 import com.stone.game.session.msg.GameSessionCloseMessage;
 import com.stone.game.session.msg.GameSessionOpenMessage;
 
@@ -16,7 +16,7 @@ import com.stone.game.session.msg.GameSessionOpenMessage;
  * @author crazyjohn
  *
  */
-public class GameIoHandler extends AbstractIoHandler<GamePlayerSession> {
+public class GameIoHandler extends AbstractIoHandler<GameActorSession> {
 	/** the db master */
 	protected final ActorRef dbMaster;
 
@@ -26,8 +26,8 @@ public class GameIoHandler extends AbstractIoHandler<GamePlayerSession> {
 	}
 
 	@Override
-	protected GamePlayerSession createSessionInfo(IoSession session) {
-		GamePlayerSession sessionInfo = new GamePlayerSession(session);
+	protected GameActorSession createSessionInfo(IoSession session) {
+		GameActorSession sessionInfo = new GameActorSession(session);
 		return sessionInfo;
 	}
 
@@ -37,12 +37,12 @@ public class GameIoHandler extends AbstractIoHandler<GamePlayerSession> {
 	}
 
 	@Override
-	protected ISessionMessage<GamePlayerSession> createSessionCloseMessage(GamePlayerSession sessionInfo) {
+	protected ISessionMessage<GameActorSession> createSessionCloseMessage(GameActorSession sessionInfo) {
 		return new GameSessionCloseMessage(sessionInfo);
 	}
 
 	@Override
-	protected ISessionMessage<GamePlayerSession> createSessionOpenMessage(GamePlayerSession sessionInfo) {
+	protected ISessionMessage<GameActorSession> createSessionOpenMessage(GameActorSession sessionInfo) {
 		return new GameSessionOpenMessage(sessionInfo);
 	}
 

@@ -2,7 +2,7 @@ package com.stone.core.msg;
 
 import akka.actor.ActorRef;
 
-import com.stone.core.session.GamePlayerSession;
+import com.stone.core.session.GameActorSession;
 
 /**
  * 基础CG消息;
@@ -11,15 +11,15 @@ import com.stone.core.session.GamePlayerSession;
  *
  */
 public abstract class BaseCGMessage extends BaseMessage implements CGMessage {
-	protected GamePlayerSession session;
+	protected GameActorSession session;
 
 	@Override
-	public GamePlayerSession getSession() {
+	public GameActorSession getSession() {
 		return session;
 	}
 
 	@Override
-	public void setSession(GamePlayerSession session) {
+	public void setSession(GameActorSession session) {
 		this.session = session;
 	}
 

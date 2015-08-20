@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import akka.actor.ActorRef;
+import akka.actor.PoisonPill;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
 
@@ -84,7 +85,9 @@ public class GameMaster extends UntypedActor {
 		// forward
 		sessionClose.getPlayerActor().forward(sessionClose, getContext());
 		// stop the actor
-		getContext().stop(sessionClose.getPlayerActor());
+		// FIXME: crazyjohn at first i use the 'context().stop(subActor)' way,
+		// but it's not work, so i change to poision way
+		sessionClose.getPlayerActor().tell(PoisonPill.getInstance(), getSender());
 		getContext().unwatch(sessionClose.getPlayerActor());
 	}
 
@@ -95,7 +98,8 @@ public class GameMaster extends UntypedActor {
 	 */
 	private void onGameSessionOpened(GameSessionOpenMessage sessionOpenMsg) {
 		if (sessionOpenMsg.getSession().getPlayerActor() == null) {
-			ActorRef playerActor = getContext().actorOf(PlayerActor.props(sessionOpenMsg.getSession().getSession(), dbMaster, playerService), "playerActor" + counter.incrementAndGet());
+			ActorRef playerActor = getContext().actorOf(PlayerActor.props(sessionOpenMsg.getSession().getSession(), dbMaster, playerService),
+					"playerActor" + counter.incrementAndGet());
 			// watch this player actor
 			getContext().watch(playerActor);
 			sessionOpenMsg.getSession().setPlayerActor(playerActor);
