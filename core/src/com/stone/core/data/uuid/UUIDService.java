@@ -12,7 +12,7 @@ import com.stone.core.db.service.IDBService;
 /**
  * The uuidService;
  * <p>
- * Maybe a singletone or just a actor?
+ * Maybe a singletone or just an actor?
  * 
  * @author crazyjohn
  *
