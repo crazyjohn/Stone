@@ -27,11 +27,10 @@ public class Player {
 	private long playerId;
 	/** player modules */
 	private List<IPlayerModule> modules = new ArrayList<IPlayerModule>();
-	protected ActorRef playerService;
 
-	public Player(ActorRef playerService) {
+	public Player() {
 		// register loginModule
-		registerModule(new PlayerLoginModule(this, playerService));
+		registerModule(new PlayerLoginModule(this));
 	}
 
 	/**

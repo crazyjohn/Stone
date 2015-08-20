@@ -1,5 +1,7 @@
 package com.stone.game;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.slf4j.Logger;
@@ -14,7 +16,8 @@ import com.stone.core.msg.CGMessage;
 import com.stone.core.msg.MessageParseException;
 import com.stone.core.session.ISession;
 import com.stone.game.module.player.PlayerActor;
-import com.stone.game.service.GamePlayerService;
+import com.stone.game.scene.SceneActor;
+import com.stone.game.service.ActorService;
 import com.stone.game.session.msg.GameSessionCloseMessage;
 import com.stone.game.session.msg.GameSessionOpenMessage;
 
@@ -29,12 +32,24 @@ public class GameMaster extends UntypedActor {
 	private Logger logger = LoggerFactory.getLogger(GameMaster.class);
 	/** dbMaster */
 	private final ActorRef dbMaster;
-	protected final ActorRef playerService = getContext().actorOf(Props.create(GamePlayerService.class));
+	/** mock scene data */
+	private List<Integer> sceneDatas = new ArrayList<Integer>();
+	
 	/** counter */
 	private AtomicLong counter = new AtomicLong(0);
 
 	public GameMaster(ActorRef dbMaster) {
 		this.dbMaster = dbMaster;
+		// init scene
+		initScene();
+	}
+
+	private void initScene() {
+		int defatultSceneId = 1;
+		sceneDatas.add(defatultSceneId);
+		for (int eachSceneId : sceneDatas) {
+			ActorService.registerSceneActor(eachSceneId, getContext().actorOf(Props.create(SceneActor.class), "sceneActor"));
+		}
 	}
 
 	@Override
@@ -98,7 +113,7 @@ public class GameMaster extends UntypedActor {
 	 */
 	private void onGameSessionOpened(GameSessionOpenMessage sessionOpenMsg) {
 		if (sessionOpenMsg.getSession().getPlayerActor() == null) {
-			ActorRef playerActor = getContext().actorOf(PlayerActor.props(sessionOpenMsg.getSession().getSession(), dbMaster, playerService),
+			ActorRef playerActor = getContext().actorOf(PlayerActor.props(sessionOpenMsg.getSession().getSession(), dbMaster),
 					"playerActor" + counter.incrementAndGet());
 			// watch this player actor
 			getContext().watch(playerActor);

@@ -18,8 +18,9 @@ import com.stone.core.data.DataEventBus;
 import com.stone.core.msg.ProtobufMessage;
 import com.stone.db.annotation.PlayerInternalMessage;
 import com.stone.db.entity.HumanItemEntity;
-import com.stone.game.service.GamePlayerService.UnRegisterPlayer;
-import com.stone.game.service.GamePlayerService.UnRegisterPlayerActor;
+import com.stone.game.scene.GamePlayerService.UnRegisterPlayer;
+import com.stone.game.scene.GamePlayerService.UnRegisterPlayerActor;
+import com.stone.game.service.ActorService;
 import com.stone.game.session.msg.GameSessionCloseMessage;
 import com.stone.game.session.msg.GameSessionOpenMessage;
 import com.stone.proto.common.Commons.Item;
@@ -36,16 +37,14 @@ public class PlayerActor extends UntypedActor {
 	protected final Player player;
 	/** db master */
 	protected final ActorRef dbMaster;
-	protected final ActorRef playerService;
 	/** logger */
 	protected Logger logger = LoggerFactory.getLogger(PlayerActor.class);
 	/** mock task, just for test */
 	final Cancellable mockUpdateTask;
 
-	public PlayerActor(Player player, ActorRef dbMaster, ActorRef playerService) {
+	public PlayerActor(Player player, ActorRef dbMaster) {
 		this.player = player;
 		this.dbMaster = dbMaster;
-		this.playerService = playerService;
 		// schedule
 		mockUpdateTask = this
 				.getContext()
@@ -85,8 +84,9 @@ public class PlayerActor extends UntypedActor {
 			if (msg instanceof GameSessionCloseMessage) {
 				getContext().become(DISCONNECTED);
 				// remove from playerService
-				playerService.tell(new UnRegisterPlayer(player), ActorRef.noSender());
-				playerService.tell(new UnRegisterPlayerActor(player.getPlayerId()), ActorRef.noSender());
+				ActorRef sceneActor = ActorService.getSceneActor(player.getHuman().getSceneId());
+				sceneActor.tell(new UnRegisterPlayer(player), ActorRef.noSender());
+				sceneActor.tell(new UnRegisterPlayerActor(player.getPlayerId()), ActorRef.noSender());
 			} else if (msg instanceof ProtobufMessage) {
 				// net message use self execute
 				ProtobufMessage netMessage = (ProtobufMessage) msg;
@@ -109,6 +109,7 @@ public class PlayerActor extends UntypedActor {
 				player.sendMessage(actorMessage.getType(), actorMessage.getBuilder());
 			}
 		}
+
 	};
 
 	/**
@@ -123,10 +124,10 @@ public class PlayerActor extends UntypedActor {
 		}
 	};
 
-	public static Props props(IoSession session, ActorRef dbMaster, ActorRef playerService) {
-		Player player = new Player(playerService);
+	public static Props props(IoSession session, ActorRef dbMaster) {
+		Player player = new Player();
 		player.setSession(session);
-		return Props.create(PlayerActor.class, player, dbMaster, playerService);
+		return Props.create(PlayerActor.class, player, dbMaster);
 	}
 
 }

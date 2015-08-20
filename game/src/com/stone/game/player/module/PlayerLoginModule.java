@@ -17,9 +17,10 @@ import com.stone.db.msg.internal.player.InternalLoginResult;
 import com.stone.db.msg.internal.player.InternalSelectRoleResult;
 import com.stone.game.module.player.BasePlayerModule;
 import com.stone.game.module.player.Player;
-import com.stone.game.service.GamePlayerService.RegisterPlayer;
-import com.stone.game.service.GamePlayerService.RegisterPlayerActor;
-import com.stone.game.service.GamePlayerService.SyncPlayers;
+import com.stone.game.scene.GamePlayerService.RegisterPlayer;
+import com.stone.game.scene.GamePlayerService.RegisterPlayerActor;
+import com.stone.game.scene.GamePlayerService.SyncPlayers;
+import com.stone.game.service.ActorService;
 import com.stone.proto.Auths.CreateRole;
 import com.stone.proto.Auths.EnterScene;
 import com.stone.proto.Auths.Login;
@@ -39,11 +40,9 @@ import com.stone.proto.MessageTypes.MessageType;
 public class PlayerLoginModule extends BasePlayerModule {
 	/** logger */
 	protected Logger logger = LoggerFactory.getLogger(PlayerLoginModule.class);
-	protected ActorRef playerService;
 
-	public PlayerLoginModule(Player player, ActorRef playerService) {
+	public PlayerLoginModule(Player player) {
 		super(player);
-		this.playerService = playerService;
 	}
 
 	@Override
@@ -134,14 +133,20 @@ public class PlayerLoginModule extends BasePlayerModule {
 			dbMaster.tell(new DBGetMessage(selectRole.getRoleId(), HumanEntity.class), playerActor);
 		} else if (msg.getType() == MessageType.CG_ENTER_SCENE_READY_VALUE) {
 			logger.info(String.format("%s enter scene ready.", player.getHuman().getName()));
-			// add to playerService
-			playerService.tell(new RegisterPlayer(this.player), ActorRef.noSender());
-			playerService.tell(new RegisterPlayerActor(this.player.getPlayerId(), playerActor), ActorRef.noSender());
+			// enter scene
+			ActorRef sceneActor = getCurrentScene(player.getHuman().getSceneId());
+			sceneActor.tell(new RegisterPlayer(this.player), ActorRef.noSender());
+			sceneActor.tell(new RegisterPlayerActor(this.player.getPlayerId(), playerActor), ActorRef.noSender());
 
 		} else if (msg.getType() == MessageType.CG_SYNC_VALUE) {
 			// sync
-			playerService.tell(new SyncPlayers(this.player.getPlayerId()), ActorRef.noSender());
+			ActorRef sceneActor = getCurrentScene(player.getHuman().getSceneId());
+			sceneActor.tell(new SyncPlayers(this.player.getPlayerId()), ActorRef.noSender());
 		}
+	}
+
+	private ActorRef getCurrentScene(int sceneId) {
+		return ActorService.getSceneActor(sceneId);
 	}
 
 }

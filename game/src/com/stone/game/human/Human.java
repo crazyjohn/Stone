@@ -91,4 +91,9 @@ public class Human {
 	public int getLevel() {
 		return humanEntity.getLevel();
 	}
+
+	public int getSceneId() {
+		// TODO Auto-generated method stub
+		return 1;
+	}
 }

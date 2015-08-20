@@ -1,4 +1,4 @@
-package com.stone.game.service;
+package com.stone.game.scene;
 
 import java.util.HashMap;
 import java.util.Map;
