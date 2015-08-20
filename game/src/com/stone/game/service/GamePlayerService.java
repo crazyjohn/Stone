@@ -12,6 +12,7 @@ import akka.actor.UntypedActor;
 
 import com.google.protobuf.Message.Builder;
 import com.stone.core.actor.msg.ActorSendMessage;
+import com.stone.core.concurrent.annotation.GuardedByUnit;
 import com.stone.game.module.player.Player;
 import com.stone.proto.Humans.Human;
 import com.stone.proto.MessageTypes.MessageType;
@@ -31,9 +32,10 @@ import com.stone.proto.Syncs.Sync;
  */
 public class GamePlayerService extends UntypedActor {
 	/**
-	 * must use concurrentHashMap, because we hold players datas which would be
-	 * wirte by another thread
+	 * must use ConcurrentHashMap, because we hold the player datas which would
+	 * be write by another thread
 	 */
+	@GuardedByUnit(whoCareMe = "ConcurrentHashMap")
 	private Map<Long, Player> players = new ConcurrentHashMap<Long, Player>();
 	private Map<Long, ActorRef> playerActors = new HashMap<Long, ActorRef>();
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -92,7 +94,7 @@ public class GamePlayerService extends UntypedActor {
 			this.removePlayerActor(unRegister.getPlayerId());
 		} else if (msg instanceof SyncPlayers) {
 			SyncPlayers sync = (SyncPlayers) msg;
-			logger.info(String.format("%d request sync.", sync.getPlayerId()));
+			logger.debug(String.format("%d request sync.", sync.getPlayerId()));
 			ActorRef playerActor = this.playerActors.get(sync.getPlayerId());
 			if (playerActor == null) {
 				return;
