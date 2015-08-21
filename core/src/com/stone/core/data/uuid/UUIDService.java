@@ -7,6 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import akka.actor.Props;
 
 import com.stone.core.annotation.ActorMethod;
+import com.stone.core.concurrent.annotation.GuardedByUnit;
 import com.stone.core.concurrent.annotation.ThreadSafeUnit;
 import com.stone.core.db.service.IDBService;
 
@@ -21,6 +22,7 @@ import com.stone.core.db.service.IDBService;
 @ThreadSafeUnit
 public class UUIDService implements IUUIDService {
 	protected IDBService dbService;
+	@GuardedByUnit(whoCareMe = "ConcurrentHashMap")
 	private Map<UUIDType, IUUID64> uuids;
 
 	public static IUUIDService buildUUIDService(IDBService dbService, UUIDType[] types, int regionId, int serverId) {

@@ -11,7 +11,7 @@ import org.apache.mina.core.future.ConnectFuture
 object BotApp extends App {
   private val logger = LoggerFactory.getLogger("ClientIoHandler")
   val begin = 0
-  val end = 1
+  val end = 5
   // create robot
   for (i <- begin to end) {
     val bot = new CrazyBot("bot" + i)
