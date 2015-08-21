@@ -17,7 +17,7 @@ import com.stone.core.msg.MessageParseException;
 import com.stone.core.session.ISession;
 import com.stone.game.module.player.PlayerActor;
 import com.stone.game.scene.SceneActor;
-import com.stone.game.service.ActorService;
+import com.stone.game.service.SceneActorRegistry;
 import com.stone.game.session.msg.GameSessionCloseMessage;
 import com.stone.game.session.msg.GameSessionOpenMessage;
 
@@ -34,7 +34,7 @@ public class GameMaster extends UntypedActor {
 	private final ActorRef dbMaster;
 	/** mock scene data */
 	private List<Integer> sceneDatas = new ArrayList<Integer>();
-	
+
 	/** counter */
 	private AtomicLong counter = new AtomicLong(0);
 
@@ -48,7 +48,7 @@ public class GameMaster extends UntypedActor {
 		int defatultSceneId = 1;
 		sceneDatas.add(defatultSceneId);
 		for (int eachSceneId : sceneDatas) {
-			ActorService.registerSceneActor(eachSceneId, getContext().actorOf(Props.create(SceneActor.class), "sceneActor"));
+			SceneActorRegistry.getInstance().registerSceneActor(eachSceneId, getContext().actorOf(Props.create(SceneActor.class), "sceneActor"));
 		}
 	}
 

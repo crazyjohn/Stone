@@ -20,7 +20,7 @@ import com.stone.game.module.player.Player;
 import com.stone.game.scene.GamePlayerService.RegisterPlayer;
 import com.stone.game.scene.GamePlayerService.RegisterPlayerActor;
 import com.stone.game.scene.GamePlayerService.SyncPlayers;
-import com.stone.game.service.ActorService;
+import com.stone.game.service.SceneActorRegistry;
 import com.stone.proto.Auths.CreateRole;
 import com.stone.proto.Auths.EnterScene;
 import com.stone.proto.Auths.Login;
@@ -146,7 +146,7 @@ public class PlayerLoginModule extends BasePlayerModule {
 	}
 
 	private ActorRef getCurrentScene(int sceneId) {
-		return ActorService.getSceneActor(sceneId);
+		return SceneActorRegistry.getInstance().getSceneActor(sceneId);
 	}
 
 }

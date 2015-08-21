@@ -14,4 +14,15 @@
 		from HumanEntity where playerId = :playerId
 	]]>
 	</query>
+	
+	<query name="QUERY_HUMAN_MAX_ID">
+	<![CDATA[
+		select max(guid) from HumanEntity
+	]]>
+	</query>
+	<query name="QUERY_PLAYER_MAX_ID">
+	<![CDATA[
+		select max(id) from PlayerEntity
+	]]>
+	</query>
 </hibernate-mapping>

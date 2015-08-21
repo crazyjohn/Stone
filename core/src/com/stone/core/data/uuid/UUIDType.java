@@ -13,9 +13,7 @@ public enum UUIDType {
 	/** Player */
 	PLAYER(0),
 	/** Human */
-	HUMAN(1),
-	/** Item */
-	ITEM(2);
+	HUMAN(1), ;
 
 	private final int type;
 	private static Map<Integer, UUIDType> types = new HashMap<Integer, UUIDType>();

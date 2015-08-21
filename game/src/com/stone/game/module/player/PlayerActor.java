@@ -20,7 +20,7 @@ import com.stone.db.annotation.PlayerInternalMessage;
 import com.stone.db.entity.HumanItemEntity;
 import com.stone.game.scene.GamePlayerService.UnRegisterPlayer;
 import com.stone.game.scene.GamePlayerService.UnRegisterPlayerActor;
-import com.stone.game.service.ActorService;
+import com.stone.game.service.SceneActorRegistry;
 import com.stone.game.session.msg.GameSessionCloseMessage;
 import com.stone.game.session.msg.GameSessionOpenMessage;
 import com.stone.proto.common.Commons.Item;
@@ -84,7 +84,7 @@ public class PlayerActor extends UntypedActor {
 			if (msg instanceof GameSessionCloseMessage) {
 				getContext().become(DISCONNECTED);
 				// remove from playerService
-				ActorRef sceneActor = ActorService.getSceneActor(player.getHuman().getSceneId());
+				ActorRef sceneActor = SceneActorRegistry.getInstance().getSceneActor(player.getHuman().getSceneId());
 				sceneActor.tell(new UnRegisterPlayer(player), ActorRef.noSender());
 				sceneActor.tell(new UnRegisterPlayerActor(player.getPlayerId()), ActorRef.noSender());
 			} else if (msg instanceof ProtobufMessage) {

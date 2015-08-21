@@ -1,5 +1,6 @@
 package com.stone.core.data.uuid;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -32,7 +33,7 @@ public class UUIDService implements IUUIDService {
 		uuids = new ConcurrentHashMap<UUIDType, IUUID64>();
 		for (UUIDType eachType : types) {
 			// query max id from db
-			int maxId = queryMaxIdFromDB(eachType);
+			long maxId = queryMaxIdFromDB(eachType);
 			uuids.put(eachType, UUID64.buildDefaultUUID(regionId, serverId, maxId));
 		}
 
@@ -46,9 +47,13 @@ public class UUIDService implements IUUIDService {
 
 	}
 
-	private int queryMaxIdFromDB(UUIDType eachType) {
-		// TODO Auto-generated method stub
-		return 100;
+	private long queryMaxIdFromDB(UUIDType uuidType) {
+		List<Long> result = dbService.queryByNameAndParams(getQueryName(uuidType), new String[0], new Object[0]);
+		return result.get(0);
+	}
+
+	private String getQueryName(UUIDType uuidType) {
+		return "QUERY_" + uuidType + "_MAX_ID";
 	}
 
 	@Override
