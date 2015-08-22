@@ -2,6 +2,12 @@ package com.stone.core.actor.msg;
 
 import com.google.protobuf.Message.Builder;
 
+/**
+ * The business actor need send this message to client peer;
+ * 
+ * @author crazyjohn
+ *
+ */
 public class ActorSendMessage {
 	private final int type;
 
