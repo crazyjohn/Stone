@@ -6,7 +6,7 @@ import akka.event.japi.ScanningEventBus;
 import com.stone.game.scene.Scene.SceneDispatchEvent;
 
 public class Scene extends ScanningEventBus<SceneDispatchEvent, ActorRef, Integer> {
-	private int sceneId;
+	private final int sceneId;
 
 	public Scene(int sceneId) {
 		this.sceneId = sceneId;
