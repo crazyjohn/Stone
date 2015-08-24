@@ -16,8 +16,7 @@ import com.stone.core.msg.CGMessage;
 import com.stone.core.msg.MessageParseException;
 import com.stone.core.session.ISession;
 import com.stone.game.module.player.PlayerActor;
-import com.stone.game.scene.SceneActor;
-import com.stone.game.service.SceneActorRegistry;
+import com.stone.game.scene.dispatch.SceneDispatcher;
 import com.stone.game.session.msg.GameSessionCloseMessage;
 import com.stone.game.session.msg.GameSessionOpenMessage;
 
@@ -48,7 +47,7 @@ public class GameMaster extends UntypedActor {
 		int defatultSceneId = 1;
 		sceneDatas.add(defatultSceneId);
 		for (int eachSceneId : sceneDatas) {
-			SceneActorRegistry.getInstance().registerSceneActor(eachSceneId, getContext().actorOf(Props.create(SceneActor.class), "sceneActor"));
+			SceneDispatcher.getInstance().registerSceneEventBus(eachSceneId);
 		}
 	}
 

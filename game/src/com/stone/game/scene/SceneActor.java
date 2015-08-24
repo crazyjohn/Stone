@@ -30,6 +30,7 @@ import com.stone.proto.Syncs.Sync;
  * @author crazyjohn
  *
  */
+@Deprecated
 public class SceneActor extends UntypedActor {
 	/**
 	 * must use ConcurrentHashMap, because we hold the player datas which would

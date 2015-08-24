@@ -18,6 +18,7 @@ import com.stone.core.data.DataEventBus;
 import com.stone.core.msg.ProtobufMessage;
 import com.stone.db.annotation.PlayerInternalMessage;
 import com.stone.db.entity.HumanItemEntity;
+import com.stone.game.scene.dispatch.SceneDispatcher.SceneDispatchEvent;
 import com.stone.game.session.msg.GameSessionCloseMessage;
 import com.stone.game.session.msg.GameSessionOpenMessage;
 import com.stone.proto.common.Commons.Item;
@@ -102,6 +103,12 @@ public class PlayerActor extends UntypedActor {
 			} else if (msg instanceof ActorSendMessage) {
 				ActorSendMessage actorMessage = (ActorSendMessage) msg;
 				player.sendMessage(actorMessage.getType(), actorMessage.getBuilder());
+			} else if (msg instanceof SceneDispatchEvent) {
+				// scene event
+				player.onInternalMessage(msg, getSelf());
+			} else {
+				// unhandled msg
+				unhandled(msg);
 			}
 		}
 

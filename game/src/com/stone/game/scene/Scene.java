@@ -3,7 +3,7 @@ package com.stone.game.scene;
 import akka.actor.ActorRef;
 import akka.event.japi.ScanningEventBus;
 
-import com.stone.game.scene.Scene.SceneDispatchEvent;
+import com.stone.game.scene.dispatch.SceneDispatcher.SceneDispatchEvent;
 
 public class Scene extends ScanningEventBus<SceneDispatchEvent, ActorRef, Integer> {
 	private final int sceneId;
@@ -12,17 +12,7 @@ public class Scene extends ScanningEventBus<SceneDispatchEvent, ActorRef, Intege
 		this.sceneId = sceneId;
 	}
 
-	public static class SceneDispatchEvent {
-		private final int sceneId;
-
-		public SceneDispatchEvent(int sceneId) {
-			this.sceneId = sceneId;
-		}
-
-		public int getSceneId() {
-			return this.sceneId;
-		}
-	}
+	
 
 	@Override
 	public int compareClassifiers(Integer oneClassifier, Integer anotherClassifier) {
