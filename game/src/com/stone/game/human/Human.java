@@ -49,7 +49,6 @@ public class Human {
 		return player;
 	}
 
-
 	/**
 	 * Handle the system internal message;
 	 * 
@@ -57,6 +56,9 @@ public class Human {
 	 * @param playerActor
 	 */
 	public void onInternalMessage(Object message, ActorRef playerActor) {
+		// dispatch internal message
+		this.sceneModule.onInternalMessage(message, playerActor);
+		this.itemModule.onInternalMessage(message, playerActor);
 	}
 
 	/**

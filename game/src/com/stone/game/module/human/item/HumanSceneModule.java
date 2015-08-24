@@ -9,7 +9,10 @@ import com.stone.game.module.human.BaseHumanModule;
 import com.stone.game.scene.SceneActor.RegisterPlayer;
 import com.stone.game.scene.SceneActor.RegisterPlayerActor;
 import com.stone.game.scene.SceneActor.SyncPlayers;
+import com.stone.game.scene.SceneActor.UnRegisterPlayer;
+import com.stone.game.scene.SceneActor.UnRegisterPlayerActor;
 import com.stone.game.service.SceneActorRegistry;
+import com.stone.game.session.msg.GameSessionCloseMessage;
 import com.stone.proto.MessageTypes.MessageType;
 
 /**
@@ -26,8 +29,12 @@ public class HumanSceneModule extends BaseHumanModule {
 
 	@Override
 	public void onInternalMessage(Object msg, ActorRef playerActor) {
-		// TODO Auto-generated method stub
-
+		if (msg instanceof GameSessionCloseMessage) {
+			// leave scene
+			ActorRef sceneActor = SceneActorRegistry.getInstance().getSceneActor(player.getHuman().getSceneId());
+			sceneActor.tell(new UnRegisterPlayer(player), ActorRef.noSender());
+			sceneActor.tell(new UnRegisterPlayerActor(player.getPlayerId()), ActorRef.noSender());
+		}
 	}
 
 	@Override

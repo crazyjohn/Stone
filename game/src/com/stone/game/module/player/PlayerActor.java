@@ -18,9 +18,6 @@ import com.stone.core.data.DataEventBus;
 import com.stone.core.msg.ProtobufMessage;
 import com.stone.db.annotation.PlayerInternalMessage;
 import com.stone.db.entity.HumanItemEntity;
-import com.stone.game.scene.SceneActor.UnRegisterPlayer;
-import com.stone.game.scene.SceneActor.UnRegisterPlayerActor;
-import com.stone.game.service.SceneActorRegistry;
 import com.stone.game.session.msg.GameSessionCloseMessage;
 import com.stone.game.session.msg.GameSessionOpenMessage;
 import com.stone.proto.common.Commons.Item;
@@ -83,10 +80,8 @@ public class PlayerActor extends UntypedActor {
 		public void apply(Object msg) throws Exception {
 			if (msg instanceof GameSessionCloseMessage) {
 				getContext().become(DISCONNECTED);
-				// remove from playerService
-				ActorRef sceneActor = SceneActorRegistry.getInstance().getSceneActor(player.getHuman().getSceneId());
-				sceneActor.tell(new UnRegisterPlayer(player), ActorRef.noSender());
-				sceneActor.tell(new UnRegisterPlayerActor(player.getPlayerId()), ActorRef.noSender());
+				// forward to player internal modules
+				player.onInternalMessage(msg, PlayerActor.this.getSelf());
 			} else if (msg instanceof ProtobufMessage) {
 				// net message use self execute
 				ProtobufMessage netMessage = (ProtobufMessage) msg;
