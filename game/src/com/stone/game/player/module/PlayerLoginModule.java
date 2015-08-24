@@ -1,8 +1,5 @@
 package com.stone.game.player.module;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import akka.actor.ActorRef;
 
 import com.stone.core.data.msg.DBGetMessage;
@@ -17,10 +14,6 @@ import com.stone.db.msg.internal.player.InternalLoginResult;
 import com.stone.db.msg.internal.player.InternalSelectRoleResult;
 import com.stone.game.module.player.BasePlayerModule;
 import com.stone.game.module.player.Player;
-import com.stone.game.scene.SceneActor.RegisterPlayer;
-import com.stone.game.scene.SceneActor.RegisterPlayerActor;
-import com.stone.game.scene.SceneActor.SyncPlayers;
-import com.stone.game.service.SceneActorRegistry;
 import com.stone.proto.Auths.CreateRole;
 import com.stone.proto.Auths.EnterScene;
 import com.stone.proto.Auths.Login;
@@ -38,8 +31,7 @@ import com.stone.proto.MessageTypes.MessageType;
  *
  */
 public class PlayerLoginModule extends BasePlayerModule {
-	/** logger */
-	protected Logger logger = LoggerFactory.getLogger(PlayerLoginModule.class);
+	
 
 	public PlayerLoginModule(Player player) {
 		super(player);
@@ -58,9 +50,8 @@ public class PlayerLoginModule extends BasePlayerModule {
 			// send enter scene
 			Human.Builder humanBuilder = Human.newBuilder();
 			// bind player and human for each other
-			com.stone.game.human.Human human = new com.stone.game.human.Human();
+			com.stone.game.human.Human human = new com.stone.game.human.Human(player);
 			player.setHuman(human);
-			human.setPlayer(player);
 			HumanEntity humanEntity = ((InternalSelectRoleResult) msg).getEntity();
 			// load
 			human.onLoad(humanEntity);
@@ -131,22 +122,8 @@ public class PlayerLoginModule extends BasePlayerModule {
 			// select role
 			SelectRole.Builder selectRole = msg.parseBuilder(SelectRole.newBuilder());
 			dbMaster.tell(new DBGetMessage(selectRole.getRoleId(), HumanEntity.class), playerActor);
-		} else if (msg.getType() == MessageType.CG_ENTER_SCENE_READY_VALUE) {
-			logger.info(String.format("%s enter scene ready.", player.getHuman().getName()));
-			// enter scene
-			ActorRef sceneActor = getCurrentScene(player.getHuman().getSceneId());
-			sceneActor.tell(new RegisterPlayer(this.player), ActorRef.noSender());
-			sceneActor.tell(new RegisterPlayerActor(this.player.getPlayerId(), playerActor), ActorRef.noSender());
-
-		} else if (msg.getType() == MessageType.CG_SYNC_VALUE) {
-			// sync
-			ActorRef sceneActor = getCurrentScene(player.getHuman().getSceneId());
-			sceneActor.tell(new SyncPlayers(this.player.getPlayerId()), ActorRef.noSender());
 		}
 	}
 
-	private ActorRef getCurrentScene(int sceneId) {
-		return SceneActorRegistry.getInstance().getSceneActor(sceneId);
-	}
-
+	
 }

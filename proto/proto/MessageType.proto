@@ -27,4 +27,8 @@ enum MessageType {
 	CG_SYNC = 1011;
 	// sync
 	GC_SYNC = 1012;
+	// CG_REQUEST_MOVE
+	CG_REQUEST_MOVE = 1013;
+	// GC_BROADCAST_MOVE
+	GC_BROADCAST_MOVE = 1014;
 }

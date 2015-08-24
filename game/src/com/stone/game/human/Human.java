@@ -2,10 +2,12 @@ package com.stone.game.human;
 
 import akka.actor.ActorRef;
 
+import com.stone.core.msg.MessageParseException;
 import com.stone.core.msg.ProtobufMessage;
 import com.stone.db.entity.HumanEntity;
 import com.stone.game.module.human.IHumanModule;
 import com.stone.game.module.human.item.HumanItemModule;
+import com.stone.game.module.human.item.HumanSceneModule;
 import com.stone.game.module.player.Player;
 
 /**
@@ -19,17 +21,22 @@ public class Human {
 	private long guid;
 	private String name;
 	/** player */
-	private Player player;
+	private final Player player;
 	/** itemModule */
 	private IHumanModule itemModule;
+	/** scenModule */
+	private IHumanModule sceneModule;
 	private HumanEntity humanEntity;
 
-	public Human() {
+	public Human(Player player) {
+		this.player = player;
 		// init
 		initModule();
 	}
 
 	private void initModule() {
+		// scene module
+		sceneModule = new HumanSceneModule(this);
 		// init item module
 		itemModule = new HumanItemModule(this);
 	}
@@ -42,9 +49,6 @@ public class Human {
 		return player;
 	}
 
-	public void setPlayer(Player player) {
-		this.player = player;
-	}
 
 	/**
 	 * Handle the system internal message;
@@ -61,10 +65,12 @@ public class Human {
 	 * @param msg
 	 * @param playerActor
 	 * @param dbMaster
+	 * @throws MessageParseException
 	 */
-	public void onExternalMessage(ProtobufMessage msg, ActorRef playerActor, ActorRef dbMaster) {
-		// TODO Auto-generated method stub
-
+	public void onExternalMessage(ProtobufMessage msg, ActorRef playerActor, ActorRef dbMaster) throws MessageParseException {
+		// dispatch external message
+		this.sceneModule.onExternalMessage(msg, playerActor, dbMaster);
+		this.itemModule.onExternalMessage(msg, playerActor, dbMaster);
 	}
 
 	public String getName() {
@@ -85,6 +91,7 @@ public class Human {
 		this.guid = humanEntity.getGuid();
 		this.humanEntity = humanEntity;
 		// load module datas
+		this.sceneModule.onLoad(humanEntity);
 		this.itemModule.onLoad(humanEntity);
 	}
 
