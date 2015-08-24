@@ -18,7 +18,7 @@ import com.stone.core.data.DataEventBus;
 import com.stone.core.msg.ProtobufMessage;
 import com.stone.db.annotation.PlayerInternalMessage;
 import com.stone.db.entity.HumanItemEntity;
-import com.stone.game.scene.dispatch.SceneDispatcher.SceneDispatchEvent;
+import com.stone.game.scene.dispatch.SceneDispatchEvent;
 import com.stone.game.session.msg.GameSessionCloseMessage;
 import com.stone.game.session.msg.GameSessionOpenMessage;
 import com.stone.proto.common.Commons.Item;

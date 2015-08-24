@@ -4,6 +4,10 @@ import com.stone.proto.Auths.Login
 import org.slf4j.LoggerFactory
 import org.apache.mina.core.future.IoFutureListener
 import org.apache.mina.core.future.ConnectFuture
+import com.stone.proto.MessageTypes.MessageType
+import com.stone.proto.Syncs.Move
+import com.stone.proto.Humans.SceneObjectType
+import com.stone.bot.task.LoopTask
 /**
  * BotApp;
  * @author crazyjohn
@@ -11,7 +15,7 @@ import org.apache.mina.core.future.ConnectFuture
 object BotApp extends App {
   private val logger = LoggerFactory.getLogger("ClientIoHandler")
   val begin = 0
-  val end = 5
+  val end = 0
   // create robot
   for (i <- begin to end) {
     val bot = new CrazyBot("bot" + i)
@@ -19,6 +23,22 @@ object BotApp extends App {
     val connectFuture = bot.connect("127.0.0.1", 8081)
     connectFuture.awaitUninterruptibly()
     connectFuture.addListener(new ConnectListener(bot))
+    // add task
+    addTask(bot)
+  }
+  
+  private def addTask(bot:CrazyBot) = {
+    // add move task
+    bot.addTask(new LoopTask(1000 * 5){
+      override def runOnceTime(bot:CrazyBot):Unit = {
+        if (bot.botState != BotState.GAMEING) {
+          return
+        }
+        val move = Move.newBuilder()
+        move.setId(bot.id).setObjectType(SceneObjectType.HUMAN).setSceneId(1).setX(300).setY(300)
+        bot.sendMessage(MessageType.CG_REQUEST_MOVE_VALUE, move)
+      }
+    })
   }
 
   /**

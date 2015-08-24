@@ -6,8 +6,8 @@ import com.stone.core.msg.MessageParseException;
 import com.stone.core.msg.ProtobufMessage;
 import com.stone.game.human.Human;
 import com.stone.game.module.human.BaseHumanModule;
+import com.stone.game.scene.dispatch.SceneDispatchEvent;
 import com.stone.game.scene.dispatch.SceneDispatcher;
-import com.stone.game.scene.dispatch.SceneDispatcher.SceneDispatchEvent;
 import com.stone.game.session.msg.GameSessionCloseMessage;
 import com.stone.proto.MessageTypes.MessageType;
 import com.stone.proto.Syncs.Move;
@@ -37,6 +37,11 @@ public class HumanSceneModule extends BaseHumanModule {
 		}
 	}
 
+	/**
+	 * Handle the sceneEvent;
+	 * 
+	 * @param sceneEvent
+	 */
 	private void handleSceneEvent(SceneDispatchEvent sceneEvent) {
 		if (sceneEvent.getBuilder() instanceof Move.Builder) {
 			// move

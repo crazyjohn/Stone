@@ -3,7 +3,7 @@ package com.stone.game.scene;
 import akka.actor.ActorRef;
 import akka.event.japi.ScanningEventBus;
 
-import com.stone.game.scene.dispatch.SceneDispatcher.SceneDispatchEvent;
+import com.stone.game.scene.dispatch.SceneDispatchEvent;
 
 public class Scene extends ScanningEventBus<SceneDispatchEvent, ActorRef, Integer> {
 	private final int sceneId;

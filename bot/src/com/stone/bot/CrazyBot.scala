@@ -21,18 +21,27 @@ import com.stone.core.codec.GameCodecFactory
 import com.stone.core.msg.IProtobufMessage
 import com.stone.core.msg.ProtobufMessage
 import com.stone.core.msg.ProtobufMessageFactory
+import scala.collection.mutable.ListBuffer
+import com.stone.bot.task.OnceTask
+import com.stone.bot.task.LoopTask
 
 /**
  * bot Actor;
  * @author crazyjohn
  */
 class CrazyBot(platformId: String) extends Actor {
-  private val tasks = new MutableList[BotTask]
+  private val tasks = new ListBuffer[BotTask]
   private var session: IoSession = null
   val puid: String = platformId
+  var id: Long = 0
+  var botState = BotState.INIT
 
   def setSession(session: IoSession) {
     this.session = session
+  }
+
+  def setId(id: Long) = {
+    this.id = id
   }
   /**
    * add task;
@@ -57,7 +66,21 @@ class CrazyBot(platformId: String) extends Actor {
       // 1. run tasks
       try {
         if (!tasks.isEmpty) {
-          tasks.foreach(_.runOnceTime(this))
+          tasks.foreach { task =>
+            {
+              if (task.isInstanceOf[OnceTask]) {
+                task.runOnceTime(this)
+                tasks -= task
+              } else if (task.isInstanceOf[LoopTask]) {
+                var loopTask = task.asInstanceOf[LoopTask]
+                if ((System.currentTimeMillis() - loopTask.lastRunTime) >= loopTask.interval) {
+                  loopTask.runOnceTime(this)
+                  loopTask.lastRunTime = System.currentTimeMillis()
+                }
+              }
+
+            }
+          }
         }
       } catch {
         case e: Exception => {

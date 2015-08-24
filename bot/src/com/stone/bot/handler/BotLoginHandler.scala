@@ -12,6 +12,7 @@ import com.stone.core.msg.ProtobufMessage
 import com.stone.core.msg.IMessage
 import com.stone.core.msg.ProtobufMessage
 import com.stone.core.msg.IMessage
+import com.stone.bot.BotState
 /**
  * Bot login message handler;
  *
@@ -54,6 +55,8 @@ object BotLoginHandler {
   Handlers.registHandler(MessageType.GC_ENTER_SCENE_VALUE, (msg: IMessage, bot: CrazyBot) => {
     val protobufMessage = msg.asInstanceOf[ProtobufMessage]
     val enterScene = protobufMessage.parseBuilder(EnterScene.newBuilder())
+    bot.setId(enterScene.getHuman.getGuid)
+    bot.botState = BotState.GAMEING
     println(String.format("%s enter scene", enterScene.getHuman.getName))
     // enter scene ready
     bot.sendMessage(MessageType.CG_ENTER_SCENE_READY_VALUE)

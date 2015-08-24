@@ -1,7 +1,9 @@
 package com.stone.bot
 
-class BotTask {
-  def runOnceTime(bot: CrazyBot) {
-    
-  }
+abstract class BotTask() {
+  
+  /**
+   * Run strategy;
+   */
+  def runOnceTime(bot: CrazyBot)
 }

@@ -1,6 +1,5 @@
 package com.stone.game.scene.dispatch;
 
-import com.google.protobuf.Message.Builder;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -42,24 +41,7 @@ public class SceneDispatcher {
 		return instance;
 	}
 
-	public static class SceneDispatchEvent {
-		private final int sceneId;
-		private final Builder builder;
-
-		public SceneDispatchEvent(int sceneId, Builder builder) {
-			this.sceneId = sceneId;
-			this.builder = builder;
-		}
-
-		public int getSceneId() {
-			return this.sceneId;
-		}
-
-		public Builder getBuilder() {
-			return builder;
-		}
-	}
-
+	
 	/**
 	 * Enter scene;
 	 * <p>
