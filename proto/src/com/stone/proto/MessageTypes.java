@@ -129,6 +129,14 @@ public final class MessageTypes {
      * </pre>
      */
     GC_BROADCAST_MOVE(13, 1014),
+    /**
+     * <code>GC_SCENE_OBJECT_APPEAR = 1015;</code>
+     *
+     * <pre>
+     * Scene object appear
+     * </pre>
+     */
+    GC_SCENE_OBJECT_APPEAR(14, 1015),
     ;
 
     /**
@@ -243,6 +251,14 @@ public final class MessageTypes {
      * </pre>
      */
     public static final int GC_BROADCAST_MOVE_VALUE = 1014;
+    /**
+     * <code>GC_SCENE_OBJECT_APPEAR = 1015;</code>
+     *
+     * <pre>
+     * Scene object appear
+     * </pre>
+     */
+    public static final int GC_SCENE_OBJECT_APPEAR_VALUE = 1015;
 
 
     public final int getNumber() { return value; }
@@ -263,6 +279,7 @@ public final class MessageTypes {
         case 1012: return GC_SYNC;
         case 1013: return CG_REQUEST_MOVE;
         case 1014: return GC_BROADCAST_MOVE;
+        case 1015: return GC_SCENE_OBJECT_APPEAR;
         default: return null;
       }
     }
@@ -323,7 +340,7 @@ public final class MessageTypes {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\021MessageType.proto*\301\002\n\013MessageType\022\024\n\017C" +
+      "\n\021MessageType.proto*\336\002\n\013MessageType\022\024\n\017C" +
       "G_PLAYER_LOGIN\020\351\007\022\033\n\026GC_PLAYER_LOGIN_RES" +
       "ULT\020\352\007\022\025\n\020CG_GET_ROLE_LIST\020\353\007\022\025\n\020GC_GET_" +
       "ROLE_LIST\020\354\007\022\023\n\016CG_SELECT_ROLE\020\355\007\022\021\n\014GC_" +
@@ -331,8 +348,9 @@ public final class MessageTypes {
       "CREATE_ROLE_RESULT\020\360\007\022\023\n\016GC_ENTER_SCENE\020" +
       "\361\007\022\031\n\024CG_ENTER_SCENE_READY\020\362\007\022\014\n\007CG_SYNC" +
       "\020\363\007\022\014\n\007GC_SYNC\020\364\007\022\024\n\017CG_REQUEST_MOVE\020\365\007\022" +
-      "\026\n\021GC_BROADCAST_MOVE\020\366\007B\037\n\017com.stone.pro" +
-      "toB\014MessageTypes"
+      "\026\n\021GC_BROADCAST_MOVE\020\366\007\022\033\n\026GC_SCENE_OBJE" +
+      "CT_APPEAR\020\367\007B\037\n\017com.stone.protoB\014Message",
+      "Types"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

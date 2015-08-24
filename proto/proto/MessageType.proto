@@ -31,4 +31,6 @@ enum MessageType {
 	CG_REQUEST_MOVE = 1013;
 	// GC_BROADCAST_MOVE
 	GC_BROADCAST_MOVE = 1014;
+	// Scene object appear
+	GC_SCENE_OBJECT_APPEAR = 1015;
 }

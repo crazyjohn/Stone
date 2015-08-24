@@ -1559,6 +1559,743 @@ public final class Syncs {
     // @@protoc_insertion_point(class_scope:Move)
   }
 
+  public interface SceneObjectAppearOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:SceneObjectAppear)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required .Human human = 1;</code>
+     */
+    boolean hasHuman();
+    /**
+     * <code>required .Human human = 1;</code>
+     */
+    com.stone.proto.Humans.Human getHuman();
+    /**
+     * <code>required .Human human = 1;</code>
+     */
+    com.stone.proto.Humans.HumanOrBuilder getHumanOrBuilder();
+
+    /**
+     * <code>required .Move pos = 2;</code>
+     */
+    boolean hasPos();
+    /**
+     * <code>required .Move pos = 2;</code>
+     */
+    com.stone.proto.Syncs.Move getPos();
+    /**
+     * <code>required .Move pos = 2;</code>
+     */
+    com.stone.proto.Syncs.MoveOrBuilder getPosOrBuilder();
+  }
+  /**
+   * Protobuf type {@code SceneObjectAppear}
+   *
+   * <pre>
+   * new object appear
+   * </pre>
+   */
+  public static final class SceneObjectAppear extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:SceneObjectAppear)
+      SceneObjectAppearOrBuilder {
+    // Use SceneObjectAppear.newBuilder() to construct.
+    private SceneObjectAppear(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private SceneObjectAppear(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final SceneObjectAppear defaultInstance;
+    public static SceneObjectAppear getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public SceneObjectAppear getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private SceneObjectAppear(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              com.stone.proto.Humans.Human.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000001) == 0x00000001)) {
+                subBuilder = human_.toBuilder();
+              }
+              human_ = input.readMessage(com.stone.proto.Humans.Human.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(human_);
+                human_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000001;
+              break;
+            }
+            case 18: {
+              com.stone.proto.Syncs.Move.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000002) == 0x00000002)) {
+                subBuilder = pos_.toBuilder();
+              }
+              pos_ = input.readMessage(com.stone.proto.Syncs.Move.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(pos_);
+                pos_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000002;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.stone.proto.Syncs.internal_static_SceneObjectAppear_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.stone.proto.Syncs.internal_static_SceneObjectAppear_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.stone.proto.Syncs.SceneObjectAppear.class, com.stone.proto.Syncs.SceneObjectAppear.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<SceneObjectAppear> PARSER =
+        new com.google.protobuf.AbstractParser<SceneObjectAppear>() {
+      public SceneObjectAppear parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new SceneObjectAppear(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SceneObjectAppear> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    public static final int HUMAN_FIELD_NUMBER = 1;
+    private com.stone.proto.Humans.Human human_;
+    /**
+     * <code>required .Human human = 1;</code>
+     */
+    public boolean hasHuman() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required .Human human = 1;</code>
+     */
+    public com.stone.proto.Humans.Human getHuman() {
+      return human_;
+    }
+    /**
+     * <code>required .Human human = 1;</code>
+     */
+    public com.stone.proto.Humans.HumanOrBuilder getHumanOrBuilder() {
+      return human_;
+    }
+
+    public static final int POS_FIELD_NUMBER = 2;
+    private com.stone.proto.Syncs.Move pos_;
+    /**
+     * <code>required .Move pos = 2;</code>
+     */
+    public boolean hasPos() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required .Move pos = 2;</code>
+     */
+    public com.stone.proto.Syncs.Move getPos() {
+      return pos_;
+    }
+    /**
+     * <code>required .Move pos = 2;</code>
+     */
+    public com.stone.proto.Syncs.MoveOrBuilder getPosOrBuilder() {
+      return pos_;
+    }
+
+    private void initFields() {
+      human_ = com.stone.proto.Humans.Human.getDefaultInstance();
+      pos_ = com.stone.proto.Syncs.Move.getDefaultInstance();
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasHuman()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasPos()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!getHuman().isInitialized()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!getPos().isInitialized()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeMessage(1, human_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeMessage(2, pos_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, human_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, pos_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static com.stone.proto.Syncs.SceneObjectAppear parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.stone.proto.Syncs.SceneObjectAppear parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.stone.proto.Syncs.SceneObjectAppear parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.stone.proto.Syncs.SceneObjectAppear parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.stone.proto.Syncs.SceneObjectAppear parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.stone.proto.Syncs.SceneObjectAppear parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.stone.proto.Syncs.SceneObjectAppear parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.stone.proto.Syncs.SceneObjectAppear parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.stone.proto.Syncs.SceneObjectAppear parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.stone.proto.Syncs.SceneObjectAppear parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.stone.proto.Syncs.SceneObjectAppear prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code SceneObjectAppear}
+     *
+     * <pre>
+     * new object appear
+     * </pre>
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:SceneObjectAppear)
+        com.stone.proto.Syncs.SceneObjectAppearOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.stone.proto.Syncs.internal_static_SceneObjectAppear_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.stone.proto.Syncs.internal_static_SceneObjectAppear_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.stone.proto.Syncs.SceneObjectAppear.class, com.stone.proto.Syncs.SceneObjectAppear.Builder.class);
+      }
+
+      // Construct using com.stone.proto.Syncs.SceneObjectAppear.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getHumanFieldBuilder();
+          getPosFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        if (humanBuilder_ == null) {
+          human_ = com.stone.proto.Humans.Human.getDefaultInstance();
+        } else {
+          humanBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        if (posBuilder_ == null) {
+          pos_ = com.stone.proto.Syncs.Move.getDefaultInstance();
+        } else {
+          posBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.stone.proto.Syncs.internal_static_SceneObjectAppear_descriptor;
+      }
+
+      public com.stone.proto.Syncs.SceneObjectAppear getDefaultInstanceForType() {
+        return com.stone.proto.Syncs.SceneObjectAppear.getDefaultInstance();
+      }
+
+      public com.stone.proto.Syncs.SceneObjectAppear build() {
+        com.stone.proto.Syncs.SceneObjectAppear result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.stone.proto.Syncs.SceneObjectAppear buildPartial() {
+        com.stone.proto.Syncs.SceneObjectAppear result = new com.stone.proto.Syncs.SceneObjectAppear(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        if (humanBuilder_ == null) {
+          result.human_ = human_;
+        } else {
+          result.human_ = humanBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        if (posBuilder_ == null) {
+          result.pos_ = pos_;
+        } else {
+          result.pos_ = posBuilder_.build();
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.stone.proto.Syncs.SceneObjectAppear) {
+          return mergeFrom((com.stone.proto.Syncs.SceneObjectAppear)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.stone.proto.Syncs.SceneObjectAppear other) {
+        if (other == com.stone.proto.Syncs.SceneObjectAppear.getDefaultInstance()) return this;
+        if (other.hasHuman()) {
+          mergeHuman(other.getHuman());
+        }
+        if (other.hasPos()) {
+          mergePos(other.getPos());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasHuman()) {
+          
+          return false;
+        }
+        if (!hasPos()) {
+          
+          return false;
+        }
+        if (!getHuman().isInitialized()) {
+          
+          return false;
+        }
+        if (!getPos().isInitialized()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.stone.proto.Syncs.SceneObjectAppear parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.stone.proto.Syncs.SceneObjectAppear) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private com.stone.proto.Humans.Human human_ = com.stone.proto.Humans.Human.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.stone.proto.Humans.Human, com.stone.proto.Humans.Human.Builder, com.stone.proto.Humans.HumanOrBuilder> humanBuilder_;
+      /**
+       * <code>required .Human human = 1;</code>
+       */
+      public boolean hasHuman() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required .Human human = 1;</code>
+       */
+      public com.stone.proto.Humans.Human getHuman() {
+        if (humanBuilder_ == null) {
+          return human_;
+        } else {
+          return humanBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>required .Human human = 1;</code>
+       */
+      public Builder setHuman(com.stone.proto.Humans.Human value) {
+        if (humanBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          human_ = value;
+          onChanged();
+        } else {
+          humanBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>required .Human human = 1;</code>
+       */
+      public Builder setHuman(
+          com.stone.proto.Humans.Human.Builder builderForValue) {
+        if (humanBuilder_ == null) {
+          human_ = builderForValue.build();
+          onChanged();
+        } else {
+          humanBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>required .Human human = 1;</code>
+       */
+      public Builder mergeHuman(com.stone.proto.Humans.Human value) {
+        if (humanBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001) &&
+              human_ != com.stone.proto.Humans.Human.getDefaultInstance()) {
+            human_ =
+              com.stone.proto.Humans.Human.newBuilder(human_).mergeFrom(value).buildPartial();
+          } else {
+            human_ = value;
+          }
+          onChanged();
+        } else {
+          humanBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>required .Human human = 1;</code>
+       */
+      public Builder clearHuman() {
+        if (humanBuilder_ == null) {
+          human_ = com.stone.proto.Humans.Human.getDefaultInstance();
+          onChanged();
+        } else {
+          humanBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+      /**
+       * <code>required .Human human = 1;</code>
+       */
+      public com.stone.proto.Humans.Human.Builder getHumanBuilder() {
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return getHumanFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>required .Human human = 1;</code>
+       */
+      public com.stone.proto.Humans.HumanOrBuilder getHumanOrBuilder() {
+        if (humanBuilder_ != null) {
+          return humanBuilder_.getMessageOrBuilder();
+        } else {
+          return human_;
+        }
+      }
+      /**
+       * <code>required .Human human = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.stone.proto.Humans.Human, com.stone.proto.Humans.Human.Builder, com.stone.proto.Humans.HumanOrBuilder> 
+          getHumanFieldBuilder() {
+        if (humanBuilder_ == null) {
+          humanBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.stone.proto.Humans.Human, com.stone.proto.Humans.Human.Builder, com.stone.proto.Humans.HumanOrBuilder>(
+                  getHuman(),
+                  getParentForChildren(),
+                  isClean());
+          human_ = null;
+        }
+        return humanBuilder_;
+      }
+
+      private com.stone.proto.Syncs.Move pos_ = com.stone.proto.Syncs.Move.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.stone.proto.Syncs.Move, com.stone.proto.Syncs.Move.Builder, com.stone.proto.Syncs.MoveOrBuilder> posBuilder_;
+      /**
+       * <code>required .Move pos = 2;</code>
+       */
+      public boolean hasPos() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required .Move pos = 2;</code>
+       */
+      public com.stone.proto.Syncs.Move getPos() {
+        if (posBuilder_ == null) {
+          return pos_;
+        } else {
+          return posBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>required .Move pos = 2;</code>
+       */
+      public Builder setPos(com.stone.proto.Syncs.Move value) {
+        if (posBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          pos_ = value;
+          onChanged();
+        } else {
+          posBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      /**
+       * <code>required .Move pos = 2;</code>
+       */
+      public Builder setPos(
+          com.stone.proto.Syncs.Move.Builder builderForValue) {
+        if (posBuilder_ == null) {
+          pos_ = builderForValue.build();
+          onChanged();
+        } else {
+          posBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      /**
+       * <code>required .Move pos = 2;</code>
+       */
+      public Builder mergePos(com.stone.proto.Syncs.Move value) {
+        if (posBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) == 0x00000002) &&
+              pos_ != com.stone.proto.Syncs.Move.getDefaultInstance()) {
+            pos_ =
+              com.stone.proto.Syncs.Move.newBuilder(pos_).mergeFrom(value).buildPartial();
+          } else {
+            pos_ = value;
+          }
+          onChanged();
+        } else {
+          posBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      /**
+       * <code>required .Move pos = 2;</code>
+       */
+      public Builder clearPos() {
+        if (posBuilder_ == null) {
+          pos_ = com.stone.proto.Syncs.Move.getDefaultInstance();
+          onChanged();
+        } else {
+          posBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+      /**
+       * <code>required .Move pos = 2;</code>
+       */
+      public com.stone.proto.Syncs.Move.Builder getPosBuilder() {
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return getPosFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>required .Move pos = 2;</code>
+       */
+      public com.stone.proto.Syncs.MoveOrBuilder getPosOrBuilder() {
+        if (posBuilder_ != null) {
+          return posBuilder_.getMessageOrBuilder();
+        } else {
+          return pos_;
+        }
+      }
+      /**
+       * <code>required .Move pos = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.stone.proto.Syncs.Move, com.stone.proto.Syncs.Move.Builder, com.stone.proto.Syncs.MoveOrBuilder> 
+          getPosFieldBuilder() {
+        if (posBuilder_ == null) {
+          posBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.stone.proto.Syncs.Move, com.stone.proto.Syncs.Move.Builder, com.stone.proto.Syncs.MoveOrBuilder>(
+                  getPos(),
+                  getParentForChildren(),
+                  isClean());
+          pos_ = null;
+        }
+        return posBuilder_;
+      }
+
+      // @@protoc_insertion_point(builder_scope:SceneObjectAppear)
+    }
+
+    static {
+      defaultInstance = new SceneObjectAppear(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:SceneObjectAppear)
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_Sync_descriptor;
   private static
@@ -1569,6 +2306,11 @@ public final class Syncs {
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_Move_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_SceneObjectAppear_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_SceneObjectAppear_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -1582,7 +2324,9 @@ public final class Syncs {
       "cTime\030\001 \002(\003\022\026\n\006humans\030\002 \003(\0132\006.Human\"_\n\004M" +
       "ove\022\n\n\002id\030\001 \002(\003\022$\n\nobjectType\030\002 \002(\0162\020.Sc" +
       "eneObjectType\022\t\n\001x\030\003 \002(\005\022\t\n\001y\030\004 \002(\005\022\017\n\007s" +
-      "ceneId\030\005 \002(\005B\030\n\017com.stone.protoB\005Syncs"
+      "ceneId\030\005 \002(\005\">\n\021SceneObjectAppear\022\025\n\005hum" +
+      "an\030\001 \002(\0132\006.Human\022\022\n\003pos\030\002 \002(\0132\005.MoveB\030\n\017" +
+      "com.stone.protoB\005Syncs"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1609,6 +2353,12 @@ public final class Syncs {
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Move_descriptor,
         new java.lang.String[] { "Id", "ObjectType", "X", "Y", "SceneId", });
+    internal_static_SceneObjectAppear_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_SceneObjectAppear_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_SceneObjectAppear_descriptor,
+        new java.lang.String[] { "Human", "Pos", });
     com.stone.proto.Humans.getDescriptor();
   }
 

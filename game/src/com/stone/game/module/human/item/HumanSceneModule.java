@@ -60,7 +60,9 @@ public class HumanSceneModule extends BaseHumanModule {
 			logger.info(String.format("%s enter scene ready.", human.getName()));
 			// enter scene
 			SceneDispatcher.getInstance().enterScene(human.getSceneId(), playerActor);
-
+			// new human appear
+			
+			// SceneDispatcher.getInstance().dispatchSceneEvent(new SceneDispatchEvent(human.getSceneId(), builder));
 		} else if (msg.getType() == MessageType.CG_SYNC_VALUE) {
 			// not support
 			throw new UnsupportedOperationException("Do not support CG_SYNC_VALUE request");
