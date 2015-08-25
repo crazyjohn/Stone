@@ -39,20 +39,20 @@ public interface IStoneNode extends ILifeCircle {
 	public void addIoProcessor(String name, ServerIoProcessor ioProcessor);
 
 	/**
-	 * Register a service;
+	 * Register a actor system;
 	 * 
 	 * @param name
-	 * @param service
+	 * @param system
 	 */
-	public void registerService(String name, IActorSystem service);
+	public void registerSystem(String name, IActorSystem system);
 
 	/**
 	 * Unregister the service;
 	 * 
 	 * @param name
-	 * @param service
+	 * @param system
 	 */
-	public void unRegisterService(String name, IActorSystem service);
+	public void unRegisterSystem(String name, IActorSystem system);
 
 	/**
 	 * Init the node;

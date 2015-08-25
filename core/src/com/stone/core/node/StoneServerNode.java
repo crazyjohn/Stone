@@ -95,12 +95,12 @@ public class StoneServerNode implements IStoneNode {
 	}
 
 	@Override
-	public void registerService(String name, IActorSystem service) {
+	public void registerSystem(String name, IActorSystem service) {
 		services.put(name, service);
 	}
 
 	@Override
-	public void unRegisterService(String name, IActorSystem service) {
+	public void unRegisterSystem(String name, IActorSystem service) {
 		services.remove(name);
 	}
 
