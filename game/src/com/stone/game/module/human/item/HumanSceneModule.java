@@ -9,9 +9,11 @@ import com.stone.game.module.human.BaseHumanModule;
 import com.stone.game.scene.dispatch.SceneDispatchEvent;
 import com.stone.game.scene.dispatch.SceneDispatcher;
 import com.stone.game.session.msg.GameSessionCloseMessage;
+import com.stone.proto.Humans.SceneObjectType;
 import com.stone.proto.MessageTypes.MessageType;
 import com.stone.proto.Syncs.Move;
 import com.stone.proto.Syncs.Move.Builder;
+import com.stone.proto.Syncs.SceneObjectAppear;
 
 /**
  * The human's scene module;
@@ -43,14 +45,22 @@ public class HumanSceneModule extends BaseHumanModule {
 	 * @param sceneEvent
 	 */
 	private void handleSceneEvent(SceneDispatchEvent sceneEvent) {
-		if (sceneEvent.getBuilder() instanceof Move.Builder) {
+		if (sceneEvent.getMessage() instanceof Move.Builder) {
 			// move
-			Move.Builder move = (Builder) sceneEvent.getBuilder();
+			Move.Builder move = (Builder) sceneEvent.getMessage();
 			if (human.getGuid() == move.getId()) {
 				return;
 			}
 			// send to player
 			player.sendMessage(MessageType.GC_BROADCAST_MOVE_VALUE, move);
+		} else if (sceneEvent.getMessage() instanceof SceneObjectAppear.Builder) {
+			// new human appear
+			SceneObjectAppear.Builder appear = (com.stone.proto.Syncs.SceneObjectAppear.Builder) sceneEvent.getMessage();
+			if (human.getGuid() == appear.getHuman().getGuid()) {
+				return;
+			}
+			// send to player
+			player.sendMessage(MessageType.GC_SCENE_OBJECT_APPEAR_VALUE, appear);
 		}
 	}
 
@@ -61,8 +71,10 @@ public class HumanSceneModule extends BaseHumanModule {
 			// enter scene
 			SceneDispatcher.getInstance().enterScene(human.getSceneId(), playerActor);
 			// new human appear
-			
-			// SceneDispatcher.getInstance().dispatchSceneEvent(new SceneDispatchEvent(human.getSceneId(), builder));
+			SceneObjectAppear.Builder appear = SceneObjectAppear.newBuilder();
+			appear.setHuman(generateHumanBuilder());
+			appear.setPos(generatePosBuilder());
+			SceneDispatcher.getInstance().dispatchSceneEvent(new SceneDispatchEvent(human.getSceneId(), appear));
 		} else if (msg.getType() == MessageType.CG_SYNC_VALUE) {
 			// not support
 			throw new UnsupportedOperationException("Do not support CG_SYNC_VALUE request");
@@ -73,6 +85,18 @@ public class HumanSceneModule extends BaseHumanModule {
 			SceneDispatcher.getInstance().dispatchSceneEvent(new SceneDispatchEvent(move.getSceneId(), move));
 			logger.info(String.format("%s request moveTo (x: %d, y: %d)", human.getName(), move.getX(), move.getY()));
 		}
+	}
+
+	private Move generatePosBuilder() {
+		Move.Builder result = Move.newBuilder();
+		result.setId(human.getGuid()).setObjectType(SceneObjectType.HUMAN).setSceneId(human.getSceneId()).setX(300).setY(300);
+		return result.build();
+	}
+
+	private com.stone.proto.Humans.Human generateHumanBuilder() {
+		com.stone.proto.Humans.Human.Builder result = com.stone.proto.Humans.Human.newBuilder();
+		result.setGuid(human.getGuid()).setLevel(human.getLevel()).setName(human.getName()).setPlayerId(player.getPlayerId());
+		return result.build();
 	}
 
 }

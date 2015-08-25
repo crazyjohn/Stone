@@ -35,7 +35,7 @@ object BotApp extends App {
           return
         }
         val move = Move.newBuilder()
-        move.setId(bot.id).setObjectType(SceneObjectType.HUMAN).setSceneId(1).setX(300).setY(300)
+        move.setId(bot.id).setObjectType(SceneObjectType.HUMAN).setSceneId(1).setX(500).setY(300)
         bot.sendMessage(MessageType.CG_REQUEST_MOVE_VALUE, move)
       }
     })

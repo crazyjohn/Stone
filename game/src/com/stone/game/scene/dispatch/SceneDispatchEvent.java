@@ -1,22 +1,21 @@
 package com.stone.game.scene.dispatch;
 
-import com.google.protobuf.Message.Builder;
 
 public class SceneDispatchEvent {
 	private final int sceneId;
-	private final Builder builder;
+	private final Object message;
 
-	public SceneDispatchEvent(int sceneId, Builder builder) {
+	public SceneDispatchEvent(int sceneId, Object message) {
 		this.sceneId = sceneId;
-		this.builder = builder;
+		this.message = message;
 	}
 
 	public int getSceneId() {
 		return this.sceneId;
 	}
 
-	public Builder getBuilder() {
-		return builder;
+	public Object getMessage() {
+		return message;
 	}
 }
 
