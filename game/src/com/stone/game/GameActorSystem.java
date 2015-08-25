@@ -6,7 +6,7 @@ import akka.actor.DeadLetter;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
 
-import com.stone.core.node.service.BaseActorService;
+import com.stone.core.node.service.BaseActorSystem;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 
@@ -16,7 +16,7 @@ import com.typesafe.config.ConfigFactory;
  * @author crazyjohn
  *
  */
-public class GameActorSystem extends BaseActorService {
+public class GameActorSystem extends BaseActorSystem {
 
 	/**
 	 * DeadLetter actor;

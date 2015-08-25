@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import com.stone.core.msg.ProtobufMessageFactory;
 import com.stone.core.node.StoneServerNode;
-import com.stone.core.node.service.IActorService;
+import com.stone.core.node.service.IActorSystem;
 import com.stone.db.DBActorSystem;
 
 /**
@@ -24,7 +24,7 @@ public class GameServer {
 	 * @param config
 	 * @return
 	 */
-	private static IActorService buildDBSystem(GameServerConfig config) {
+	private static IActorSystem buildDBSystem(GameServerConfig config) {
 		DBActorSystem dbActorSystem = new DBActorSystem();
 		// init db service
 		dbActorSystem.initDBService(config.getDbServiceType(), config.getDbConfigName(), config.getDataServiceProperties());
@@ -39,9 +39,9 @@ public class GameServer {
 			// load config
 			GameServerConfig config = gameServerNode.loadConfig(GameServerConfig.class, "game_server.cfg.js");
 			// db actor system
-			IActorService dbActorSystem = buildDBSystem(config);
+			IActorSystem dbActorSystem = buildDBSystem(config);
 			// game actor system
-			IActorService gameActorSystem = new GameActorSystem(dbActorSystem.getMasterActor());
+			IActorSystem gameActorSystem = new GameActorSystem(dbActorSystem.getMasterActor());
 			// register service
 			gameServerNode.registerService("GameActorSystem", gameActorSystem);
 			gameServerNode.registerService("DBActorSystem", dbActorSystem);

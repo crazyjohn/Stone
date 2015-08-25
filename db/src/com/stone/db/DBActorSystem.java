@@ -5,7 +5,7 @@ import java.util.Properties;
 import akka.actor.ActorSystem;
 
 import com.stone.core.db.service.IDBService;
-import com.stone.core.node.service.BaseActorService;
+import com.stone.core.node.service.BaseActorSystem;
 import com.stone.db.service.DBConfiguration;
 import com.stone.db.service.DBServiceFactory;
 import com.typesafe.config.Config;
@@ -17,7 +17,7 @@ import com.typesafe.config.ConfigFactory;
  * @author crazyjohn
  *
  */
-public class DBActorSystem extends BaseActorService {
+public class DBActorSystem extends BaseActorSystem {
 	/** dbService */
 	private IDBService dbService;
 

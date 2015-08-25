@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 
-public class BaseActorService implements IActorService {
+public class BaseActorSystem implements IActorSystem {
 	/** ActorSystem */
 	protected ActorSystem system;
 	/** game master */
@@ -16,7 +16,7 @@ public class BaseActorService implements IActorService {
 	/** loggers */
 	protected static Logger logger;
 
-	protected BaseActorService() {
+	protected BaseActorSystem() {
 
 		logger = LoggerFactory.getLogger(this.getClass());
 	}
