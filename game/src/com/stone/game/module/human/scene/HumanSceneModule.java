@@ -1,4 +1,4 @@
-package com.stone.game.module.human.item;
+package com.stone.game.module.human.scene;
 
 import akka.actor.ActorRef;
 

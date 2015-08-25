@@ -31,7 +31,6 @@ import com.stone.proto.MessageTypes.MessageType;
  *
  */
 public class PlayerLoginModule extends BasePlayerModule {
-	
 
 	public PlayerLoginModule(Player player) {
 		super(player);
@@ -125,5 +124,4 @@ public class PlayerLoginModule extends BasePlayerModule {
 		}
 	}
 
-	
 }
