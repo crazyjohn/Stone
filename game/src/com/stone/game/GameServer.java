@@ -43,8 +43,8 @@ public class GameServer {
 			// game actor system
 			IActorSystem gameActorSystem = new GameActorSystem(dbActorSystem.getMasterActor());
 			// register service
-			gameServerNode.registerSystem("GameActorSystem", gameActorSystem);
-			gameServerNode.registerSystem("DBActorSystem", dbActorSystem);
+			gameServerNode.registerActorSystem("GameActorSystem", gameActorSystem);
+			gameServerNode.registerActorSystem("DBActorSystem", dbActorSystem);
 			// init game node
 			gameServerNode.init(config, new GameIoHandler(gameActorSystem.getMasterActor(), dbActorSystem.getMasterActor()),
 					new ProtobufMessageFactory());

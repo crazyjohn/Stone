@@ -23,6 +23,8 @@ import com.stone.core.util.OSUtil;
 
 /**
  * The base stone node;
+ * <p>
+ * This node contains an main {@link ServerIoProcessor} for node's net service;
  * 
  * @author crazyjohn
  *
@@ -34,7 +36,7 @@ public class StoneServerNode implements IStoneNode {
 	@GuardedByUnit(whoCareMe = "ConcurrentHashMap")
 	protected Map<String, ServerIoProcessor> ioProcessors = new ConcurrentHashMap<String, ServerIoProcessor>();
 	@GuardedByUnit(whoCareMe = "ConcurrentHashMap")
-	protected Map<String, IActorSystem> services = new ConcurrentHashMap<String, IActorSystem>();
+	protected Map<String, IActorSystem> systems = new ConcurrentHashMap<String, IActorSystem>();
 	/** main io processor */
 	protected ServerIoProcessor mainIoProcessor;
 	/** server config */
@@ -53,7 +55,7 @@ public class StoneServerNode implements IStoneNode {
 				shutdown();
 			}
 		});
-	}
+	};
 
 	@Override
 	public void setNodeName(String nodeName) {
@@ -95,13 +97,13 @@ public class StoneServerNode implements IStoneNode {
 	}
 
 	@Override
-	public void registerSystem(String name, IActorSystem service) {
-		services.put(name, service);
+	public void registerActorSystem(String name, IActorSystem system) {
+		systems.put(name, system);
 	}
 
 	@Override
-	public void unRegisterSystem(String name, IActorSystem service) {
-		services.remove(name);
+	public void unRegisterActorSystem(String name, IActorSystem system) {
+		systems.remove(name);
 	}
 
 	@Override
@@ -130,11 +132,11 @@ public class StoneServerNode implements IStoneNode {
 		}
 		this.ioProcessors.clear();
 		// shutdown the service
-		for (Entry<String, IActorSystem> serviceEntry : this.services.entrySet()) {
-			serviceEntry.getValue().shutdown();
-			logger.info("IStoneService: " + serviceEntry.getKey() + " shutdown.");
+		for (Entry<String, IActorSystem> systemEntry : this.systems.entrySet()) {
+			systemEntry.getValue().shutdown();
+			logger.info("IStoneSystem: " + systemEntry.getKey() + " shutdown.");
 		}
-		this.services.clear();
+		this.systems.clear();
 		terminated = true;
 	}
 
@@ -155,7 +157,7 @@ public class StoneServerNode implements IStoneNode {
 		}
 	}
 
-	public void addShutdownHook(IShutdownHook hook) {
+	protected void addShutdownHook(IShutdownHook hook) {
 		hooks.add(hook);
 	}
 
@@ -167,6 +169,7 @@ public class StoneServerNode implements IStoneNode {
 	 * @return
 	 * @throws Exception
 	 */
+	@Override
 	public <T extends ServerConfig> T loadConfig(Class<?> configClass, String configPath) throws Exception {
 		@SuppressWarnings("unchecked")
 		T config = (T) configClass.newInstance();

@@ -44,7 +44,7 @@ public interface IStoneNode extends ILifeCircle {
 	 * @param name
 	 * @param system
 	 */
-	public void registerSystem(String name, IActorSystem system);
+	public void registerActorSystem(String name, IActorSystem system);
 
 	/**
 	 * Unregister the service;
@@ -52,7 +52,7 @@ public interface IStoneNode extends ILifeCircle {
 	 * @param name
 	 * @param system
 	 */
-	public void unRegisterSystem(String name, IActorSystem system);
+	public void unRegisterActorSystem(String name, IActorSystem system);
 
 	/**
 	 * Init the node;
@@ -65,5 +65,15 @@ public interface IStoneNode extends ILifeCircle {
 	 * @throws Exception
 	 */
 	public void init(ServerConfig config, IoHandler ioHandler, IMessageFactory messageFactory) throws Exception;
+
+	/**
+	 * Load the config;
+	 * 
+	 * @param configClass
+	 * @param configPath
+	 * @return
+	 * @throws Exception
+	 */
+	public <T extends ServerConfig> T loadConfig(Class<?> configClass, String configPath) throws Exception;
 
 }
