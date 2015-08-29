@@ -5,13 +5,13 @@ import org.apache.mina.core.session.IoSession;
 import com.stone.core.msg.IMessage;
 
 /**
- * 基础会话实现;
+ * Base session;
  * 
  * @author crazyjohn
  *
  */
 public abstract class BaseSession implements ISession {
-	/** 绑定的回话 */
+	/** bound session */
 	protected IoSession session;
 
 	public BaseSession(IoSession session) {

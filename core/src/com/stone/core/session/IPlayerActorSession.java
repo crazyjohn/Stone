@@ -3,12 +3,12 @@ package com.stone.core.session;
 import akka.actor.ActorRef;
 
 /**
- * 玩家回话信息接口;
+ * The player actor session;
  * 
  * @author crazyjohn
  *
  */
-public interface IPlayerSession extends ISession {
+public interface IPlayerActorSession extends ISession {
 
 	/**
 	 * Get player actor;

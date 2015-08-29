@@ -26,6 +26,7 @@ public class Human {
 	private IHumanModule itemModule;
 	/** scenModule */
 	private IHumanModule sceneModule;
+	/** human entity */
 	private HumanEntity humanEntity;
 
 	public Human(Player player) {

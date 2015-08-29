@@ -12,8 +12,6 @@ public class Scene extends ScanningEventBus<SceneDispatchEvent, ActorRef, Intege
 		this.sceneId = sceneId;
 	}
 
-	
-
 	@Override
 	public int compareClassifiers(Integer oneClassifier, Integer anotherClassifier) {
 		return oneClassifier.compareTo(anotherClassifier);

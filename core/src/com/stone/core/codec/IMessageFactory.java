@@ -3,12 +3,18 @@ package com.stone.core.codec;
 import com.stone.core.msg.IMessage;
 
 /**
- * 消息工厂;
+ * The message factory;
  * 
  * @author crazyjohn
  *
- * @param <Message>
  */
 public interface IMessageFactory {
+
+	/**
+	 * Create the message by type;
+	 * 
+	 * @param type
+	 * @return
+	 */
 	public IMessage createMessage(short type);
 }

@@ -10,7 +10,7 @@ import akka.actor.ActorRef;
  * @author crazyjohn
  *
  */
-public class GameActorSession extends BaseSession implements IPlayerSession {
+public class GameActorSession extends BaseSession implements IPlayerActorSession {
 	protected ActorRef playerActor;
 
 	public GameActorSession(IoSession session) {
