@@ -23,8 +23,13 @@ public abstract class AbstractIoHandler<S extends ISession> extends IoHandlerAda
 	private static final String SESSION_INFO = "SESSION_INFO";
 	protected Logger logger = LoggerFactory.getLogger(AbstractIoHandler.class);
 
-	public AbstractIoHandler(ActorRef gameMaster) {
-		this.gameMaster = gameMaster;
+	/**
+	 * You should give the main master actor;
+	 * 
+	 * @param mainMasterActor
+	 */
+	public AbstractIoHandler(ActorRef mainMasterActor) {
+		this.gameMaster = mainMasterActor;
 	}
 
 	@Override

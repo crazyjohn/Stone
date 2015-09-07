@@ -33,7 +33,7 @@ public class GameServer {
 
 	public static void main(String[] args) {
 		try {
-			logger.info("Begin to start Stone engine...");
+			logger.info("Begin to start GameServer...");
 			// new node
 			final StoneServerNode gameServerNode = new StoneServerNode();
 			// load config
@@ -50,12 +50,12 @@ public class GameServer {
 					new ProtobufMessageFactory());
 			// start the game node
 			gameServerNode.startup();
-			logger.info("Stone engine started.");
+			logger.info("GameServer started.");
 			// test shutdown
 			// Thread.sleep(5 * 60 * 1000);
 			// gameServerNode.shutdown();
 		} catch (Exception e) {
-			logger.error("Start Stone engine failed.", e);
+			logger.error("Start GameServer failed.", e);
 			// exit
 			System.exit(0);
 		}

@@ -1,0 +1,13 @@
+[INFO] 14:27:59,713 - WorldServer.main - Begin to start WorldServer...
+[INFO] 14:27:59,724 - ConfigUtil.loadJsConfig - Load js config, file: game_server.cfg.js
+[ERROR] 14:27:59,725 - ConfigUtil.loadJsConfig - Load js config error, file: game_server.cfg.js
+[ERROR] 14:27:59,726 - WorldServer.main - Start WorldServer failed.
+java.io.FileNotFoundException: E:\git\Stone\world\game_server.cfg.js (系统找不到指定的文件。)
+	at java.io.FileInputStream.open(Native Method)
+	at java.io.FileInputStream.<init>(FileInputStream.java:146)
+	at java.io.FileInputStream.<init>(FileInputStream.java:101)
+	at java.io.FileReader.<init>(FileReader.java:58)
+	at com.stone.core.config.ConfigUtil.loadJsConfig(ConfigUtil.java:160)
+	at com.stone.core.config.ConfigUtil.loadJsConfig(ConfigUtil.java:189)
+	at com.stone.core.node.StoneServerNode.loadConfig(StoneServerNode.java:176)
+	at com.stone.world.WorldServer.main(WorldServer.java:25)

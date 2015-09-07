@@ -1,0 +1,13 @@
+[INFO] 14:28:11,727 - WorldServer.main - Begin to start WorldServer...
+[INFO] 14:28:11,736 - ConfigUtil.loadJsConfig - Load js config, file: world_server.cfg.js
+[ERROR] 14:28:11,902 - WorldServer.main - Start WorldServer failed.
+com.typesafe.config.ConfigException$Missing: No configuration setting found for key 'WORLD'
+	at com.typesafe.config.impl.SimpleConfig.findKey(SimpleConfig.java:124)
+	at com.typesafe.config.impl.SimpleConfig.find(SimpleConfig.java:145)
+	at com.typesafe.config.impl.SimpleConfig.find(SimpleConfig.java:159)
+	at com.typesafe.config.impl.SimpleConfig.find(SimpleConfig.java:164)
+	at com.typesafe.config.impl.SimpleConfig.getObject(SimpleConfig.java:218)
+	at com.typesafe.config.impl.SimpleConfig.getConfig(SimpleConfig.java:224)
+	at com.typesafe.config.impl.SimpleConfig.getConfig(SimpleConfig.java:33)
+	at com.stone.world.WorldActorSystem.<init>(WorldActorSystem.java:14)
+	at com.stone.world.WorldServer.main(WorldServer.java:27)
