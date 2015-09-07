@@ -8,6 +8,12 @@ import com.stone.core.msg.ISessionMessage;
 import com.stone.core.net.AbstractIoHandler;
 import com.stone.world.actor.WorldSession;
 
+/**
+ * The world io handler;
+ * 
+ * @author crazyjohn
+ *
+ */
 public class WorldIoHandler extends AbstractIoHandler<WorldSession> {
 
 	public WorldIoHandler(ActorRef gameMaster) {

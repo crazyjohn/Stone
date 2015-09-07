@@ -2,3 +2,4 @@
 [INFO] 14:28:29,272 - ConfigUtil.loadJsConfig - Load js config, file: world_server.cfg.js
 [INFO] 14:28:30,016 - StoneServerNode.startup - ServerIoProcessor: mainProcessor started.
 [INFO] 14:28:30,017 - WorldServer.main - WorldServer started.
+[INFO] 14:33:25,785 - StoneServerNode.shutdown - ServerIoProcessor: mainProcessor shutdown.

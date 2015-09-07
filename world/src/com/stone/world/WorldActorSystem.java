@@ -8,6 +8,12 @@ import com.stone.world.actor.WorldMaster;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 
+/**
+ * The world actor system;
+ * 
+ * @author crazyjohn
+ *
+ */
 public class WorldActorSystem extends BaseActorSystem {
 
 	public WorldActorSystem() {

@@ -5,6 +5,12 @@ import org.slf4j.LoggerFactory;
 
 import akka.actor.UntypedActor;
 
+/**
+ * The world master actor;
+ * 
+ * @author crazyjohn
+ *
+ */
 public class WorldMaster extends UntypedActor {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
