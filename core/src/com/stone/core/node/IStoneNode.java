@@ -58,10 +58,11 @@ public interface IStoneNode extends ILifeCircle {
 	 * Init the node;
 	 * 
 	 * @param config
-	 *            the node config;
+	 *            the server node config;
 	 * @param ioHandler
-	 *            io handler;
+	 *            the io handler;
 	 * @param messageFactory
+	 *            the message factory;
 	 * @throws Exception
 	 */
 	public void init(ServerConfig config, IoHandler ioHandler, IMessageFactory messageFactory) throws Exception;
