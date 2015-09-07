@@ -63,18 +63,18 @@ public class GameMaster extends UntypedActor {
 			GameSessionCloseMessage sessionClose = (GameSessionCloseMessage) msg;
 			onGameSessionClosed(sessionClose);
 		} else if (msg instanceof CGMessage) {
-			routeToTargetPlayerActor(msg);
+			dispatchToTargetPlayerActor(msg);
 		} else {
 			unhandled(msg);
 		}
 	}
 
 	/**
-	 * Route the msg to target playerActor;
+	 * Dispatch the msg to target playerActor;
 	 * 
 	 * @param msg
 	 */
-	private void routeToTargetPlayerActor(Object msg) {
+	private void dispatchToTargetPlayerActor(Object msg) {
 		ActorRef playerActor = ((CGMessage) msg).getPlayerActor();
 		if (playerActor == null) {
 			ISession sessionInfo = ((CGMessage) msg).getSession();
@@ -100,7 +100,7 @@ public class GameMaster extends UntypedActor {
 		sessionClose.getPlayerActor().forward(sessionClose, getContext());
 		// stop the actor
 		// FIXME: crazyjohn at first i use the 'context().stop(subActor)' way,
-		// but it's not work, so i change to poision way
+		// but it's not work, so i change to poison way
 		sessionClose.getPlayerActor().tell(PoisonPill.getInstance(), getSender());
 		getContext().unwatch(sessionClose.getPlayerActor());
 	}
