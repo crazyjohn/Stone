@@ -17,7 +17,7 @@ public class BaseActorSystem implements IActorSystem {
 	protected static Logger logger;
 
 	protected BaseActorSystem() {
-
+		// create logger
 		logger = LoggerFactory.getLogger(this.getClass());
 	}
 
