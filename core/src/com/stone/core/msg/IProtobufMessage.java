@@ -3,11 +3,10 @@ package com.stone.core.msg;
 import com.google.protobuf.Message.Builder;
 
 /**
- * protobuf实体;
+ * The protobuf message;
  * 
  * @author crazyjohn
  *
- * @param <B>
  */
 public interface IProtobufMessage extends IMessage {
 
