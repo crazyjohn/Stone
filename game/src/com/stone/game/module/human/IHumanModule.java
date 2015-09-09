@@ -10,7 +10,7 @@ import com.stone.game.module.IGameModule;
  * @author crazyjohn
  *
  */
-public interface IHumanModule extends IGameModule{
+public interface IHumanModule extends IGameModule, IStatefulModule{
 	/**
 	 * Load module data;
 	 * 

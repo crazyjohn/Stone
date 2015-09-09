@@ -1,5 +1,8 @@
 package com.stone.game.human;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import akka.actor.ActorRef;
 
 import com.stone.core.msg.MessageParseException;
@@ -22,12 +25,13 @@ public class Human {
 	private String name;
 	/** player */
 	private final Player player;
+	/** modules */
+	private Map<Class<? extends IHumanModule>, IHumanModule> modules;
 	/** itemModule */
 	private IHumanModule itemModule;
 	/** scenModule */
 	private IHumanModule sceneModule;
-	/** human entity */
-	private HumanEntity humanEntity;
+	private int level;
 
 	public Human(Player player) {
 		this.player = player;
@@ -36,10 +40,13 @@ public class Human {
 	}
 
 	private void initModule() {
+		modules = new LinkedHashMap<Class<? extends IHumanModule>, IHumanModule>();
 		// scene module
 		sceneModule = new HumanSceneModule(this);
+		modules.put(sceneModule.getClass(), sceneModule);
 		// init item module
 		itemModule = new HumanItemModule(this);
+		modules.put(itemModule.getClass(), itemModule);
 	}
 
 	public long getGuid() {
@@ -58,8 +65,12 @@ public class Human {
 	 */
 	public void onInternalMessage(Object message, ActorRef playerActor) {
 		// dispatch internal message
-		this.sceneModule.onInternalMessage(message, playerActor);
-		this.itemModule.onInternalMessage(message, playerActor);
+		for (IHumanModule module : modules.values()) {
+			if (!module.isOpen()) {
+				continue;
+			}
+			module.onInternalMessage(message, playerActor);
+		}
 	}
 
 	/**
@@ -72,8 +83,12 @@ public class Human {
 	 */
 	public void onExternalMessage(ProtobufMessage msg, ActorRef playerActor, ActorRef dbMaster) throws MessageParseException {
 		// dispatch external message
-		this.sceneModule.onExternalMessage(msg, playerActor, dbMaster);
-		this.itemModule.onExternalMessage(msg, playerActor, dbMaster);
+		for (IHumanModule module : modules.values()) {
+			if (!module.isOpen()) {
+				continue;
+			}
+			module.onExternalMessage(msg, playerActor, dbMaster);
+		}
 	}
 
 	public String getName() {
@@ -92,14 +107,18 @@ public class Human {
 	public void onLoad(HumanEntity humanEntity) {
 		this.name = humanEntity.getName();
 		this.guid = humanEntity.getGuid();
-		this.humanEntity = humanEntity;
+		this.level = humanEntity.getLevel();
 		// load module datas
-		this.sceneModule.onLoad(humanEntity);
-		this.itemModule.onLoad(humanEntity);
+		for (IHumanModule module : modules.values()) {
+			if (!module.isOpen()) {
+				continue;
+			}
+			module.onLoad(humanEntity);
+		}
 	}
 
 	public int getLevel() {
-		return humanEntity.getLevel();
+		return level;
 	}
 
 	public int getSceneId() {

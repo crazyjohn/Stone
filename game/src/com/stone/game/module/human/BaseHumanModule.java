@@ -19,6 +19,7 @@ public abstract class BaseHumanModule implements IHumanModule {
 	protected Player player;
 	/** logger */
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
+	protected boolean open = true;
 
 	public BaseHumanModule(Human human) {
 		this.human = human;
@@ -32,14 +33,29 @@ public abstract class BaseHumanModule implements IHumanModule {
 
 	@Override
 	public void onLoad(HumanEntity humanEntity) {
-		// TODO do nothing
+		// do nothing
 
 	}
 
 	@Override
 	public void onPersistence(HumanEntity humanEntity) {
-		// TODO do nothing
+		// do nothing
 
+	}
+
+	@Override
+	public void close() {
+		this.open = false;
+	}
+
+	@Override
+	public boolean isOpen() {
+		return this.open;
+	}
+
+	@Override
+	public void open() {
+		this.open = true;
 	}
 
 }
