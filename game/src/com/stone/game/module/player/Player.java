@@ -47,7 +47,7 @@ public class Player {
 	 * 
 	 * @param module
 	 */
-	public void removeModule(IPlayerModule module) {
+	public void unRegisterModule(IPlayerModule module) {
 		this.modules.remove(module);
 	}
 

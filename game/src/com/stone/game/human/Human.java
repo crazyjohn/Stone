@@ -95,10 +95,6 @@ public class Human {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	/**
 	 * Init from human entity;
 	 * 

@@ -1,0 +1,22 @@
+<project name="smc" default="gen">
+  <description>SMC</description>
+  <property name="sm.dir" location="sm" />
+  <property name="bin.dir" location="./" />
+  <property name="smc.jar" location="${bin.dir}/Smc.jar" />
+  <property name="gen.dir" location="../src/com/stone/sm" />
+	
+  <target name="gen" description="Generate state support code (smc)">
+    <java dir="${bin.dir}" jar="${smc.jar}" fork="true">
+     	<arg line="-java -d ${gen.dir} .\sm\*.sm" />
+    </java>
+  </target>
+  <target name="pic" description="Generate state support code (smc)">
+    <java dir="${bin.dir}" jar="${smc.jar}" fork="true">
+     	<arg line="-graph -glevel 1 ${TreasureBox.file}" />
+    </java>
+    <java dir="${bin.dir}" jar="${smc.jar}" fork="true">
+     	<arg line="-graph -glevel 1 ${Creature.file}" />
+    </java>
+  </target>
+</project>
+

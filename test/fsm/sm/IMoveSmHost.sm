@@ -1,0 +1,69 @@
+%class IMoveSmHost
+%start MapIMove::Default
+%package com.stone.sm
+%import com.stone.sm.host.EventType
+%import com.stone.sm.host.IEvent
+%import com.stone.sm.host.StateMachineMessages
+%import com.stone.sm.host.IMoveSmHost
+%map MapIMove
+%%
+// State
+//	Transition		
+//		End State	Action(s)
+
+Stand
+Entry
+{
+	addListener(EventType.START_MOVE);
+}
+Exit
+{
+	removeListener();
+}
+{
+	onEvent(event:IEvent)
+	[event.getType() == EventType.START_MOVE]
+		Move
+			{
+				setState(StateMachineMessages.MoveState.MOVE_MOVING);
+				startMove(event);
+			}
+}
+
+Move
+Entry
+{
+	addListener(EventType.STOP_MOVE,EventType.SKILL_USE_START,EventType.CAST_SPELL_START,EventType.START_MOVE,EventType.DEAD,EventType.SLEEPED,EventType.STUN,EventType.MONSTER_START_SERVICE,EventType.CHANGE_PROPERTY,EventType.IMMOBILIZED);
+}
+Exit
+{
+	removeListener();
+}
+{
+	onEvent(event:IEvent)
+	[event.getType() == EventType.STOP_MOVE || event.getType() == EventType.DEAD || event.getType() == EventType.SKILL_USE_START || event.getType() == EventType.CAST_SPELL_START || event.getType() == EventType.SLEEPED || event.getType() == EventType.STUN || event.getType() == EventType.IMMOBILIZED || event.getType() == EventType.MONSTER_START_SERVICE]
+		Stand
+			{
+				setState(StateMachineMessages.MoveState.MOVE_STAND);
+				stopMove();
+			}
+
+	onEvent(event:IEvent)
+	[event.getType() == EventType.START_MOVE]
+		nil
+			{
+				startMove(event);
+			}
+	onEvent(event:IEvent)
+	[event.getType() == EventType.CHANGE_PROPERTY]
+		nil
+			{
+				speedChange(event);
+			}
+}
+Default
+{
+	start 
+		Stand		{setState(StateMachineMessages.MoveState.MOVE_STAND);}
+}
+%%

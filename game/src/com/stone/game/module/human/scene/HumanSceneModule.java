@@ -32,6 +32,7 @@ public class HumanSceneModule extends BaseHumanModule {
 		if (msg instanceof GameSessionCloseMessage) {
 			// leave scene
 			SceneDispatcher.getInstance().leaveScene(human.getSceneId(), playerActor);
+			logger.info(String.format("%s leave scene.", human.getName()));
 		} else if (msg instanceof SceneDispatchEvent) {
 			// handle event
 			SceneDispatchEvent sceneEvent = (SceneDispatchEvent) msg;
@@ -83,7 +84,7 @@ public class HumanSceneModule extends BaseHumanModule {
 			Move.Builder move = msg.parseBuilder(Move.newBuilder());
 			// publish to scene humans
 			SceneDispatcher.getInstance().dispatchSceneEvent(new SceneDispatchEvent(move.getSceneId(), move));
-			logger.info(String.format("%s request moveTo (x: %d, y: %d)", human.getName(), move.getX(), move.getY()));
+			logger.debug(String.format("%s request moveTo (x: %d, y: %d)", human.getName(), move.getX(), move.getY()));
 		}
 	}
 

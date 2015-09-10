@@ -1,0 +1,46 @@
+%class ClientSmHost
+%start MapClient::Default
+%package com.stone.sm
+%import com.stone.sm.host.ClientSmHost
+%map MapClient
+%%
+// State
+//	Transition		
+//		End State	Action(s)
+
+None
+{
+	connect(host:String, port:int)
+		Connected {}
+}
+
+Connected
+{
+	login(puid:String)
+		Authed {}
+}
+
+Authed
+{
+	enterScene(puid:String, sceneId:int)
+		Game {}
+}
+
+Game
+{
+	battle()
+		Battle {}
+}
+
+Battle
+{
+	battleEnd()
+		Game {}
+}
+ 
+Default
+{
+	start 
+		None		{}
+}
+%%
