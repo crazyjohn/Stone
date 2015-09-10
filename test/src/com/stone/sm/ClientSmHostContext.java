@@ -251,11 +251,20 @@ public class ClientSmHostContext
 
         protected void connect(ClientSmHostContext context, String host, int port)
         {
+            ClientSmHost ctxt = context.getOwner();
 
 
             (context.getState()).Exit(context);
-            context.setState(MapClient.Connected);
-            (context.getState()).Entry(context);
+            context.clearState();
+            try
+            {
+                ctxt.log(host + ":" + port);
+            }
+            finally
+            {
+                context.setState(MapClient.Connected);
+                (context.getState()).Entry(context);
+            }
             return;
         }
 
@@ -278,11 +287,20 @@ public class ClientSmHostContext
 
         protected void login(ClientSmHostContext context, String puid)
         {
+            ClientSmHost ctxt = context.getOwner();
 
 
             (context.getState()).Exit(context);
-            context.setState(MapClient.Authed);
-            (context.getState()).Entry(context);
+            context.clearState();
+            try
+            {
+                ctxt.log(String.format("%s login.", puid));
+            }
+            finally
+            {
+                context.setState(MapClient.Authed);
+                (context.getState()).Entry(context);
+            }
             return;
         }
 
@@ -305,11 +323,20 @@ public class ClientSmHostContext
 
         protected void enterScene(ClientSmHostContext context, String puid, int sceneId)
         {
+            ClientSmHost ctxt = context.getOwner();
 
 
             (context.getState()).Exit(context);
-            context.setState(MapClient.Game);
-            (context.getState()).Entry(context);
+            context.clearState();
+            try
+            {
+                ctxt.log(String.format("%s enterScene %d.", puid, sceneId));
+            }
+            finally
+            {
+                context.setState(MapClient.Game);
+                (context.getState()).Entry(context);
+            }
             return;
         }
 
@@ -332,11 +359,20 @@ public class ClientSmHostContext
 
         protected void battle(ClientSmHostContext context)
         {
+            ClientSmHost ctxt = context.getOwner();
 
 
             (context.getState()).Exit(context);
-            context.setState(MapClient.Battle);
-            (context.getState()).Entry(context);
+            context.clearState();
+            try
+            {
+                ctxt.log("battle state.");
+            }
+            finally
+            {
+                context.setState(MapClient.Battle);
+                (context.getState()).Entry(context);
+            }
             return;
         }
 
@@ -359,11 +395,20 @@ public class ClientSmHostContext
 
         protected void battleEnd(ClientSmHostContext context)
         {
+            ClientSmHost ctxt = context.getOwner();
 
 
             (context.getState()).Exit(context);
-            context.setState(MapClient.Game);
-            (context.getState()).Entry(context);
+            context.clearState();
+            try
+            {
+                ctxt.log("battle end.");
+            }
+            finally
+            {
+                context.setState(MapClient.Game);
+                (context.getState()).Entry(context);
+            }
             return;
         }
 

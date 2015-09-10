@@ -11,31 +11,31 @@
 None
 {
 	connect(host:String, port:int)
-		Connected {}
+		Connected {log(host + ":" + port);}
 }
 
 Connected
 {
 	login(puid:String)
-		Authed {}
+		Authed {log(String.format("%s login.", puid));}
 }
 
 Authed
 {
 	enterScene(puid:String, sceneId:int)
-		Game {}
+		Game {log(String.format("%s enterScene %d.", puid, sceneId));}
 }
 
 Game
 {
 	battle()
-		Battle {}
+		Battle {log("battle state.");}
 }
 
 Battle
 {
 	battleEnd()
-		Game {}
+		Game {log("battle end.");}
 }
  
 Default
