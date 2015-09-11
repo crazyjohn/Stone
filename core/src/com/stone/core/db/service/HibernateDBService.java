@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 import com.stone.core.entity.IEntity;
 
 /**
- * 基于hibernate的db服务实现;
+ * The hibernate dbService;
  * 
  * @author crazyjohn
  *
@@ -102,7 +102,8 @@ public class HibernateDBService implements IDBService {
 	}
 
 	@Override
-	public <T> List<T> queryByNameAndParams(final String queryName, final String[] params, final Object[] values, final int maxResults, final int firstResult) {
+	public <T> List<T> queryByNameAndParams(final String queryName, final String[] params, final Object[] values, final int maxResults,
+			final int firstResult) {
 		List<T> result = this.template.doCallback(new IHibernateOperationCallback<List<T>>() {
 			@SuppressWarnings("unchecked")
 			@Override
