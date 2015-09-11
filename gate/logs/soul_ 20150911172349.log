@@ -1,0 +1,4 @@
+[INFO] 17:23:49,356 - GateServer.main - Begin to start GateServer...
+[INFO] 17:23:49,367 - ConfigUtil.loadJsConfig - Load js config, file: gate_server.cfg.js
+[INFO] 17:23:50,089 - StoneServerNode.startup - ServerIoProcessor: mainProcessor started.
+[INFO] 17:23:50,090 - GateServer.main - GateServer started.

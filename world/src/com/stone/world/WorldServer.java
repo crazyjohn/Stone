@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import com.stone.core.config.ServerConfig;
 import com.stone.core.msg.ProtobufMessageFactory;
 import com.stone.core.node.StoneServerNode;
+import com.stone.world.actor.WorldActorSystem;
 
 /**
  * The world server;

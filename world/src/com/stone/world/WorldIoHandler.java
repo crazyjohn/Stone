@@ -6,7 +6,7 @@ import akka.actor.ActorRef;
 
 import com.stone.core.msg.ISessionMessage;
 import com.stone.core.net.AbstractIoHandler;
-import com.stone.world.actor.WorldSession;
+import com.stone.world.session.WorldSession;
 
 /**
  * The world io handler;

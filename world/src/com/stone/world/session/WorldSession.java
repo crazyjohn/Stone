@@ -1,4 +1,4 @@
-package com.stone.world.actor;
+package com.stone.world.session;
 
 import org.apache.mina.core.session.IoSession;
 
