@@ -5,7 +5,8 @@ import org.slf4j.LoggerFactory;
 
 import com.stone.core.config.ServerConfig;
 import com.stone.core.msg.ProtobufMessageFactory;
-import com.stone.core.node.StoneServerNode;
+import com.stone.core.node.NodeBuilder;
+import com.stone.core.node.info.IMasterServerNode;
 import com.stone.gate.actor.GateActorSystem;
 
 /**
@@ -23,7 +24,7 @@ public class GateServer {
 		try {
 			logger.info("Begin to start GateServer...");
 			// new node
-			final StoneServerNode gateServerNode = new StoneServerNode();
+			final IMasterServerNode gateServerNode = NodeBuilder.buildMasterNode();
 			// load config
 			ServerConfig config = gateServerNode.loadConfig(ServerConfig.class, "gate_server.cfg.js");
 			// init game node
@@ -40,5 +41,4 @@ public class GateServer {
 			System.exit(0);
 		}
 	}
-
 }

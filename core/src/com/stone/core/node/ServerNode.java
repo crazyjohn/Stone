@@ -30,8 +30,8 @@ import com.stone.core.util.OSUtil;
  *
  */
 @ThreadSafeUnit
-public class StoneServerNode implements IStoneNode {
-	private Logger logger = LoggerFactory.getLogger(StoneServerNode.class);
+public class ServerNode implements IStoneNode {
+	private Logger logger = LoggerFactory.getLogger(ServerNode.class);
 	protected String nodeName;
 	@GuardedByUnit(whoCareMe = "ConcurrentHashMap")
 	protected Map<String, ServerIoProcessor> ioProcessors = new ConcurrentHashMap<String, ServerIoProcessor>();
@@ -47,7 +47,7 @@ public class StoneServerNode implements IStoneNode {
 	@GuardedByUnit(whoCareMe = "volatile")
 	protected volatile boolean terminated = true;
 
-	public StoneServerNode() {
+	protected ServerNode() {
 		// shutdown hook
 		this.addShutdownHook(new IShutdownHook() {
 			@Override

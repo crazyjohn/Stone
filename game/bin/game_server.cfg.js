@@ -2,6 +2,8 @@
 config.bindIp = "0.0.0.0";
 // bind port 
 config.port = "8081";
+// allMasterServers
+config.addMasterAddress("Gate", "0.0.0.0", 8080);
 // db
 config.dbServiceType = "hibernate";
 config.dbConfigName="game_server_hibernate.cfg.xml"

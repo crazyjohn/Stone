@@ -5,7 +5,8 @@ import org.slf4j.LoggerFactory;
 
 import com.stone.core.config.ServerConfig;
 import com.stone.core.msg.ProtobufMessageFactory;
-import com.stone.core.node.StoneServerNode;
+import com.stone.core.node.NodeBuilder;
+import com.stone.core.node.ServerNode;
 import com.stone.world.actor.WorldActorSystem;
 
 /**
@@ -21,7 +22,7 @@ public class WorldServer {
 		try {
 			logger.info("Begin to start WorldServer...");
 			// new node
-			final StoneServerNode worldServerNode = new StoneServerNode();
+			final ServerNode worldServerNode = NodeBuilder.buildCommonNode();
 			// load config
 			ServerConfig config = worldServerNode.loadConfig(ServerConfig.class, "world_server.cfg.js");
 			// init game node

@@ -4,7 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.stone.core.msg.ProtobufMessageFactory;
-import com.stone.core.node.StoneServerNode;
+import com.stone.core.node.NodeBuilder;
+import com.stone.core.node.info.ISlaveServerNode;
 import com.stone.core.node.service.IActorSystem;
 import com.stone.db.DBActorSystem;
 
@@ -35,7 +36,7 @@ public class GameServer {
 		try {
 			logger.info("Begin to start GameServer...");
 			// new node
-			final StoneServerNode gameServerNode = new StoneServerNode();
+			final ISlaveServerNode gameServerNode = NodeBuilder.buildSlaveNode();
 			// load config
 			GameServerConfig config = gameServerNode.loadConfig(GameServerConfig.class, "game_server.cfg.js");
 			// db actor system
@@ -60,5 +61,4 @@ public class GameServer {
 			System.exit(0);
 		}
 	}
-
 }
