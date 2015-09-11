@@ -10,7 +10,7 @@ import com.stone.core.msg.IMessage;
  * @author crazyjohn
  *
  */
-public abstract class BaseSession implements ISession {
+public class BaseSession implements ISession {
 	/** bound session */
 	protected IoSession session;
 

@@ -6,7 +6,7 @@ import java.util.Map;
 import com.stone.core.node.info.CommonServerInfo;
 import com.stone.core.node.info.IMasterServerNode;
 
-public class StoneMasterServerNode extends ServerNode implements IMasterServerNode {
+public class MasterServerNode extends ServerNode implements IMasterServerNode {
 	protected Map<String, CommonServerInfo> slaveServers = new HashMap<String, CommonServerInfo>();
 
 	@Override

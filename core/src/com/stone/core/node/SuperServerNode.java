@@ -3,6 +3,7 @@ package com.stone.core.node;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.stone.core.config.SlaveServerConfig;
 import com.stone.core.node.info.CommonServerInfo;
 import com.stone.core.node.info.ISuperServerNode;
 
@@ -18,6 +19,12 @@ public class SuperServerNode extends ServerNode implements ISuperServerNode {
 	@Override
 	public CommonServerInfo getMasterServerInfo(String serverName) {
 		return masterServers.get(serverName);
+	}
+
+	@Override
+	public boolean connectToMasters(SlaveServerConfig config) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

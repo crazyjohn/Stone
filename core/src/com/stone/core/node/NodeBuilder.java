@@ -17,7 +17,7 @@ public class NodeBuilder {
 	}
 
 	public static IMasterServerNode buildMasterNode() {
-		IMasterServerNode node = new StoneMasterServerNode();
+		IMasterServerNode node = new MasterServerNode();
 		return node;
 	}
 
