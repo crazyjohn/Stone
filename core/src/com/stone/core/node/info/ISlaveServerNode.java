@@ -1,9 +1,9 @@
 package com.stone.core.node.info;
 
 import com.stone.core.config.SlaveServerConfig;
-import com.stone.core.node.IStoneNode;
+import com.stone.core.node.IServerNode;
 
-public interface ISlaveServerNode extends IStoneNode{
+public interface ISlaveServerNode extends IServerNode{
 
 	public CommonServerInfo getMasterServerInfo(String serverName);
 	

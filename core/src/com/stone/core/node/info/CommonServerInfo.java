@@ -2,6 +2,8 @@ package com.stone.core.node.info;
 
 import org.apache.mina.core.session.IoSession;
 
+import com.google.protobuf.Message.Builder;
+import com.stone.core.msg.ProtobufMessage;
 import com.stone.core.session.BaseSession;
 import com.stone.core.session.ISession;
 import com.stone.proto.Servers.ServerInfo;
@@ -21,5 +23,11 @@ public class CommonServerInfo {
 
 	public ServerInfo getServerInfo() {
 		return serverInfo;
+	}
+
+	public void sendMessage(int messageType, Builder builder) {
+		ProtobufMessage message = new ProtobufMessage(messageType);
+		message.setBuilder(builder);
+		this.session.writeMessage(message);
 	}
 }

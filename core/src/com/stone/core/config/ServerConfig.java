@@ -1,5 +1,8 @@
 package com.stone.core.config;
 
+import com.stone.proto.Servers.ServerInfo;
+import com.stone.proto.Servers.ServerType;
+
 /**
  * The base server config;
  * 
@@ -9,6 +12,7 @@ package com.stone.core.config;
 public class ServerConfig implements IConfig {
 	private String bindIp;
 	private int port;
+	private ServerInfo.Builder serverInfo = ServerInfo.newBuilder();
 
 	public String getBindIp() {
 		return bindIp;
@@ -36,6 +40,10 @@ public class ServerConfig implements IConfig {
 	public void validate() {
 		// TODO Auto-generated method stub
 
+	}
+
+	public ServerInfo.Builder getServerInfo() {
+		return serverInfo.setType(ServerType.GAME);
 	}
 
 }

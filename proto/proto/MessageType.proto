@@ -3,6 +3,9 @@ option java_outer_classname = "MessageTypes";
 
 // 消息类型;
 enum MessageType {
+	// server
+	SERVER_REGISTER_REQUEST = 100;
+
 	// request login
 	CG_PLAYER_LOGIN = 1001;
 	// login result

@@ -20,6 +20,7 @@ import com.stone.core.config.ServerConfig;
 import com.stone.core.net.ServerIoProcessor;
 import com.stone.core.node.service.IActorSystem;
 import com.stone.core.util.OSUtil;
+import com.stone.proto.Servers.ServerInfo;
 
 /**
  * The base stone node;
@@ -30,7 +31,7 @@ import com.stone.core.util.OSUtil;
  *
  */
 @ThreadSafeUnit
-public class ServerNode implements IStoneNode {
+public class ServerNode implements IServerNode {
 	private Logger logger = LoggerFactory.getLogger(ServerNode.class);
 	protected String nodeName;
 	@GuardedByUnit(whoCareMe = "ConcurrentHashMap")
@@ -46,6 +47,7 @@ public class ServerNode implements IStoneNode {
 	private List<IShutdownHook> hooks = new CopyOnWriteArrayList<IShutdownHook>();
 	@GuardedByUnit(whoCareMe = "volatile")
 	protected volatile boolean terminated = true;
+	private ServerInfo serverInfo;
 
 	protected ServerNode() {
 		// shutdown hook
@@ -56,11 +58,6 @@ public class ServerNode implements IStoneNode {
 			}
 		});
 	};
-
-	@Override
-	public void setNodeName(String nodeName) {
-		this.nodeName = nodeName;
-	}
 
 	/**
 	 * Add safe debug work follow;
@@ -143,6 +140,7 @@ public class ServerNode implements IStoneNode {
 	@Override
 	public void init(ServerConfig config, IoHandler ioHandler, IMessageFactory messageFactory) throws Exception {
 		this.config = config;
+		this.serverInfo = config.getServerInfo().build();
 		mainIoProcessor = new ServerIoProcessor(config.getBindIp(), config.getPort(), ioHandler, new GameCodecFactory(messageFactory));
 		// add processor
 		this.addIoProcessor("mainProcessor", mainIoProcessor);
@@ -175,5 +173,10 @@ public class ServerNode implements IStoneNode {
 		T config = (T) configClass.newInstance();
 		ConfigUtil.loadJsConfig(config, configPath);
 		return config;
+	}
+
+	@Override
+	public ServerInfo getServerInfo() {
+		return serverInfo;
 	}
 }

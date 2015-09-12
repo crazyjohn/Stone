@@ -13,6 +13,8 @@ import com.stone.core.config.MasterAddress;
 import com.stone.core.config.SlaveServerConfig;
 import com.stone.core.node.info.CommonServerInfo;
 import com.stone.core.node.info.ISlaveServerNode;
+import com.stone.proto.MessageTypes.MessageType;
+import com.stone.proto.Servers.Register;
 
 public class SlaveServerNode extends ServerNode implements ISlaveServerNode {
 	protected Map<String, CommonServerInfo> masterServers = new HashMap<String, CommonServerInfo>();
@@ -33,9 +35,9 @@ public class SlaveServerNode extends ServerNode implements ISlaveServerNode {
 			IoSession session = future.getSession();
 			// register
 			CommonServerInfo serverInfo = new CommonServerInfo(session, address.getMasterName());
+			serverInfo.sendMessage(MessageType.SERVER_REGISTER_REQUEST_VALUE, Register.newBuilder().setInfo(this.getServerInfo()));
 			masterServers.put(address.getMasterName(), serverInfo);
 		}
 		return true;
 	}
-
 }
