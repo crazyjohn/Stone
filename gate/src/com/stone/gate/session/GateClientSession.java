@@ -4,9 +4,9 @@ import org.apache.mina.core.session.IoSession;
 
 import com.stone.core.session.BaseSession;
 
-public class GateSession extends BaseSession {
+public class GateClientSession extends BaseSession {
 
-	public GateSession(IoSession session) {
+	public GateClientSession(IoSession session) {
 		super(session);
 	}
 

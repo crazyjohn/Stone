@@ -6,7 +6,7 @@ import org.apache.mina.filter.codec.ProtocolDecoder;
 import org.apache.mina.filter.codec.ProtocolEncoder;
 
 /**
- * 游戏编解码工厂;
+ * The game codec factory;
  * 
  * @author crazyjohn
  *

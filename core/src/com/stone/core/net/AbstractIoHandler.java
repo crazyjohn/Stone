@@ -76,6 +76,7 @@ public abstract class AbstractIoHandler<S extends ISession> extends IoHandlerAda
 	@Override
 	public void exceptionCaught(IoSession session, Throwable cause) throws Exception {
 		// close session
+		logger.error(String.format("Exception caught, session: %s", session), cause);
 		session.close(true);
 	}
 

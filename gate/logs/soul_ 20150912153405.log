@@ -1,0 +1,8 @@
+[INFO] 15:34:05,185 - GateServer.main - Begin to start GateServer...
+[INFO] 15:34:05,819 - ConfigUtil.loadJsConfig - Load js config, file: gate_server.cfg.js
+[INFO] 15:34:05,959 - ServerNode.startup - ServerIoProcessor: gateInternalProcessor started.
+[INFO] 15:34:05,970 - ServerNode.startup - ServerIoProcessor: mainProcessor started.
+[INFO] 15:34:05,971 - GateServer.main - GateServer started.
+[INFO] 15:34:25,022 - SlaveMaster.onReceive - Received msg:ProtobufMessage[builder=<null>]100
+[INFO] 15:34:32,927 - ServerNode.shutdown - ServerIoProcessor: gateInternalProcessor shutdown.
+[INFO] 15:34:32,930 - ServerNode.shutdown - ServerIoProcessor: mainProcessor shutdown.

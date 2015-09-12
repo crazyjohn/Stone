@@ -28,7 +28,7 @@ public class GateServer {
 			// load config
 			MasterConfig config = gateServerNode.loadConfig(MasterConfig.class, "gate_server.cfg.js");
 			// init game node
-			gateServerNode.init(config, new GateIoHandler(new GateActorSystem().getMasterActor()), new ProtobufMessageFactory());
+			gateServerNode.init(config, new GateClientIoHandler(new GateActorSystem().getMasterActor()), new ProtobufMessageFactory());
 			// start the world node
 			gateServerNode.startup();
 			logger.info("GateServer started.");

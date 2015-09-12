@@ -9,14 +9,13 @@ import com.stone.core.msg.IMessage;
 import com.stone.core.msg.IProtobufMessage;
 
 /**
- * 游戏解码器;
+ * The game decoder;
  * 
  * @author crazyjohn
  *
  */
 public class GameDecoder implements ProtocolDecoder {
-	private IoBuffer readBuffer = IoBuffer.allocate(
-			IMessage.DECODE_MESSAGE_LENGTH).setAutoExpand(true);
+	private IoBuffer readBuffer = IoBuffer.allocate(IMessage.DECODE_MESSAGE_LENGTH).setAutoExpand(true);
 	private IMessageFactory messageFactory;
 
 	public GameDecoder(IMessageFactory messageFactory) {
@@ -24,8 +23,7 @@ public class GameDecoder implements ProtocolDecoder {
 	}
 
 	@Override
-	public void decode(IoSession session, IoBuffer in, ProtocolDecoderOutput out)
-			throws Exception {
+	public void decode(IoSession session, IoBuffer in, ProtocolDecoderOutput out) throws Exception {
 		// decode
 		readBuffer.put(in);
 		readBuffer.flip();
@@ -61,8 +59,7 @@ public class GameDecoder implements ProtocolDecoder {
 	}
 
 	@Override
-	public void finishDecode(IoSession session, ProtocolDecoderOutput out)
-			throws Exception {
+	public void finishDecode(IoSession session, ProtocolDecoderOutput out) throws Exception {
 		// do nothing
 
 	}

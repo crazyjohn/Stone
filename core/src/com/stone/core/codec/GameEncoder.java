@@ -9,7 +9,7 @@ import com.stone.core.msg.IMessage;
 import com.stone.core.msg.IProtobufMessage;
 
 /**
- * 游戏编码器;
+ * The game encoder;
  * 
  * @author crazyjohn
  *
@@ -17,8 +17,7 @@ import com.stone.core.msg.IProtobufMessage;
 public class GameEncoder implements ProtocolEncoder {
 
 	@Override
-	public void encode(IoSession session, Object message,
-			ProtocolEncoderOutput out) throws Exception {
+	public void encode(IoSession session, Object message, ProtocolEncoderOutput out) throws Exception {
 		IMessage msg = (IMessage) message;
 		if (msg instanceof IProtobufMessage) {
 			IoBuffer writeBuffer = IoBuffer.allocate(IMessage.ENCODE_MESSAGE_LENGTH);

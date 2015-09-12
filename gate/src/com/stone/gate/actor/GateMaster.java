@@ -10,6 +10,7 @@ public class GateMaster extends UntypedActor {
 
 	@Override
 	public void onReceive(Object msg) throws Exception {
+		// FIXME: crazyjohn forward the msg to game
 		logger.info("Received msg:" + msg);
 	}
 
