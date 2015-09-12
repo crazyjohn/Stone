@@ -1,4 +1,4 @@
-package com.stone.core.node.info;
+package com.stone.core.node;
 
 import org.apache.mina.core.session.IoSession;
 

@@ -1,4 +1,4 @@
-package com.stone.core.config;
+package com.stone.core.config.slave;
 
 import com.stone.proto.Servers.ServerType;
 

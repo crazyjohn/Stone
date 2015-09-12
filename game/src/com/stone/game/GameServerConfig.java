@@ -2,7 +2,7 @@ package com.stone.game;
 
 import java.util.Properties;
 
-import com.stone.core.config.SlaveServerConfig;
+import com.stone.core.config.slave.SlaveServerConfig;
 
 /**
  * The game server config;

@@ -5,8 +5,8 @@ import org.slf4j.LoggerFactory;
 
 import com.stone.core.msg.ProtobufMessageFactory;
 import com.stone.core.node.NodeBuilder;
-import com.stone.core.node.info.ISlaveServerNode;
 import com.stone.core.node.service.IActorSystem;
+import com.stone.core.node.slave.ISlaveServerNode;
 import com.stone.db.DBActorSystem;
 
 /**
@@ -54,9 +54,6 @@ public class GameServer {
 			// connect to master
 			gameServerNode.connectToMasters(config);
 			logger.info("GameServer started.");
-			// test shutdown
-			// Thread.sleep(5 * 60 * 1000);
-			// gameServerNode.shutdown();
 		} catch (Exception e) {
 			logger.error("Start GameServer failed.", e);
 			// exit

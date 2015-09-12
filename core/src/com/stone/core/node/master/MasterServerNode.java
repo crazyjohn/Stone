@@ -1,10 +1,10 @@
-package com.stone.core.node;
+package com.stone.core.node.master;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import com.stone.core.node.info.CommonServerInfo;
-import com.stone.core.node.info.IMasterServerNode;
+import com.stone.core.node.CommonServerInfo;
+import com.stone.core.node.ServerNode;
 
 public class MasterServerNode extends ServerNode implements IMasterServerNode {
 	protected Map<String, CommonServerInfo> slaveServers = new HashMap<String, CommonServerInfo>();

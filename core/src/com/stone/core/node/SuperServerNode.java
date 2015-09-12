@@ -3,9 +3,7 @@ package com.stone.core.node;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.stone.core.config.SlaveServerConfig;
-import com.stone.core.node.info.CommonServerInfo;
-import com.stone.core.node.info.ISuperServerNode;
+import com.stone.core.config.slave.SlaveServerConfig;
 
 public class SuperServerNode extends ServerNode implements ISuperServerNode {
 	protected Map<String, CommonServerInfo> masterServers = new HashMap<String, CommonServerInfo>();

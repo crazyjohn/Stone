@@ -17,12 +17,11 @@ import akka.actor.ActorSystem;
 import akka.actor.Props;
 
 import com.stone.core.codec.GameCodecFactory;
-import com.stone.core.config.MasterAddress;
-import com.stone.core.config.SlaveServerConfig;
+import com.stone.core.config.slave.MasterAddress;
+import com.stone.core.config.slave.SlaveServerConfig;
 import com.stone.core.msg.ProtobufMessageFactory;
+import com.stone.core.node.CommonServerInfo;
 import com.stone.core.node.ServerNode;
-import com.stone.core.node.info.CommonServerInfo;
-import com.stone.core.node.info.ISlaveServerNode;
 import com.stone.proto.MessageTypes.MessageType;
 import com.stone.proto.Servers.Register;
 

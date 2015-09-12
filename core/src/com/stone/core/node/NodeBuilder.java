@@ -1,8 +1,8 @@
 package com.stone.core.node;
 
-import com.stone.core.node.info.IMasterServerNode;
-import com.stone.core.node.info.ISlaveServerNode;
-import com.stone.core.node.info.ISuperServerNode;
+import com.stone.core.node.master.IMasterServerNode;
+import com.stone.core.node.master.MasterServerNode;
+import com.stone.core.node.slave.ISlaveServerNode;
 import com.stone.core.node.slave.SlaveServerNode;
 
 public class NodeBuilder {

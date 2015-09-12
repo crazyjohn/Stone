@@ -1,8 +1,10 @@
-package com.stone.core.config;
+package com.stone.core.config.slave;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import com.stone.core.config.ServerConfig;
 import com.stone.proto.Servers.ServerType;
 
 public class SlaveServerConfig extends ServerConfig implements ISlaveServerConfig {
@@ -10,11 +12,7 @@ public class SlaveServerConfig extends ServerConfig implements ISlaveServerConfi
 
 	@Override
 	public List<MasterAddress> getAllMasterAddresses() {
-		return allMasterAddresses;
-	}
-
-	public void setAllMasterAddresses(List<MasterAddress> allMasterAddresses) {
-		this.allMasterAddresses = allMasterAddresses;
+		return Collections.unmodifiableList(allMasterAddresses);
 	}
 
 	@Override

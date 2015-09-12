@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import com.stone.core.config.ServerConfig;
 import com.stone.core.msg.ProtobufMessageFactory;
 import com.stone.core.node.NodeBuilder;
-import com.stone.core.node.info.IMasterServerNode;
+import com.stone.core.node.master.IMasterServerNode;
 import com.stone.gate.actor.GateActorSystem;
 
 /**
