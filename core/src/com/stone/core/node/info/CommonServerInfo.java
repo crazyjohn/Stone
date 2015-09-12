@@ -7,14 +7,15 @@ import com.stone.core.msg.ProtobufMessage;
 import com.stone.core.session.BaseSession;
 import com.stone.core.session.ISession;
 import com.stone.proto.Servers.ServerInfo;
+import com.stone.proto.Servers.ServerType;
 
 public class CommonServerInfo {
 	private final ISession session;
 	private final ServerInfo serverInfo;
 
-	public CommonServerInfo(IoSession ioSession, String serverName) {
+	public CommonServerInfo(IoSession ioSession, String serverName, ServerType serverType) {
 		this.session = new BaseSession(ioSession);
-		this.serverInfo = ServerInfo.newBuilder().setName(serverName).build();
+		this.serverInfo = ServerInfo.newBuilder().setName(serverName).setType(serverType).build();
 	}
 
 	public ISession getSession() {

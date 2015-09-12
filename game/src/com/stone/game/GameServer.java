@@ -51,6 +51,8 @@ public class GameServer {
 					new ProtobufMessageFactory());
 			// start the game node
 			gameServerNode.startup();
+			// connect to master
+			gameServerNode.connectToMasters(config);
 			logger.info("GameServer started.");
 			// test shutdown
 			// Thread.sleep(5 * 60 * 1000);
