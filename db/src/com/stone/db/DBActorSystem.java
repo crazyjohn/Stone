@@ -5,7 +5,7 @@ import java.util.Properties;
 import akka.actor.ActorSystem;
 
 import com.stone.core.db.service.IDBService;
-import com.stone.core.node.service.BaseActorSystem;
+import com.stone.core.node.system.BaseActorSystem;
 import com.stone.db.service.DBConfiguration;
 import com.stone.db.service.DBServiceFactory;
 import com.typesafe.config.Config;

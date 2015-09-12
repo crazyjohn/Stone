@@ -3,7 +3,7 @@ package com.stone.gate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.stone.core.config.ServerConfig;
+import com.stone.core.config.master.MasterConfig;
 import com.stone.core.msg.ProtobufMessageFactory;
 import com.stone.core.node.NodeBuilder;
 import com.stone.core.node.master.IMasterServerNode;
@@ -26,15 +26,12 @@ public class GateServer {
 			// new node
 			final IMasterServerNode gateServerNode = NodeBuilder.buildMasterNode();
 			// load config
-			ServerConfig config = gateServerNode.loadConfig(ServerConfig.class, "gate_server.cfg.js");
+			MasterConfig config = gateServerNode.loadConfig(MasterConfig.class, "gate_server.cfg.js");
 			// init game node
 			gateServerNode.init(config, new GateIoHandler(new GateActorSystem().getMasterActor()), new ProtobufMessageFactory());
 			// start the world node
 			gateServerNode.startup();
 			logger.info("GateServer started.");
-			// test shutdown
-			// Thread.sleep(5 * 60 * 1000);
-			// gameServerNode.shutdown();
 		} catch (Exception e) {
 			logger.error("Start GateServer failed.", e);
 			// exit

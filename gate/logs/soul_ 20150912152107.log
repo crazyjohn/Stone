@@ -1,0 +1,14 @@
+[INFO] 15:21:07,839 - GateServer.main - Begin to start GateServer...
+[INFO] 15:21:08,482 - ConfigUtil.loadJsConfig - Load js config, file: gate_server.cfg.js
+[ERROR] 15:21:28,171 - GateServer.main - Start GateServer failed.
+akka.actor.InvalidActorNameException: actor name [SlaveMaster-GateExternal] is not unique!
+	at akka.actor.dungeon.ChildrenContainer$NormalChildrenContainer.reserve(ChildrenContainer.scala:130)
+	at akka.actor.dungeon.Children$class.reserveChild(Children.scala:76)
+	at akka.actor.ActorCell.reserveChild(ActorCell.scala:369)
+	at akka.actor.dungeon.Children$class.makeChild(Children.scala:201)
+	at akka.actor.dungeon.Children$class.attachChild(Children.scala:41)
+	at akka.actor.ActorCell.attachChild(ActorCell.scala:369)
+	at akka.actor.ActorSystemImpl.actorOf(ActorSystem.scala:553)
+	at com.stone.core.node.master.MasterServerNode.initMasterIoProcessor(MasterServerNode.java:49)
+	at com.stone.core.node.master.MasterServerNode.init(MasterServerNode.java:37)
+	at com.stone.gate.GateServer.main(GateServer.java:31)

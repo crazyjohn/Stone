@@ -6,7 +6,7 @@ import akka.actor.DeadLetter;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
 
-import com.stone.core.node.service.BaseActorSystem;
+import com.stone.core.node.system.BaseActorSystem;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 

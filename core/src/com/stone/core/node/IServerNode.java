@@ -6,8 +6,7 @@ import com.stone.core.codec.IMessageFactory;
 import com.stone.core.config.ServerConfig;
 import com.stone.core.lifecircle.ILifeCircle;
 import com.stone.core.net.ServerIoProcessor;
-import com.stone.core.node.service.IActorSystem;
-import com.stone.proto.Servers.ServerInfo;
+import com.stone.core.node.system.IActorSystem;
 
 /**
  * The stone node;
@@ -16,13 +15,6 @@ import com.stone.proto.Servers.ServerInfo;
  *
  */
 public interface IServerNode extends ILifeCircle {
-
-	/**
-	 * Get the serverInfo;
-	 * 
-	 * @return
-	 */
-	public ServerInfo getServerInfo();
 
 	/**
 	 * Get node name;

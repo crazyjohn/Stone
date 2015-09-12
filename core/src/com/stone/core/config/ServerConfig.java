@@ -10,6 +10,7 @@ import com.stone.proto.Servers.ServerType;
  *
  */
 public class ServerConfig implements IConfig {
+	private String name;
 	private String bindIp;
 	private int port;
 	private ServerInfo.Builder serverInfo = ServerInfo.newBuilder();
@@ -44,6 +45,14 @@ public class ServerConfig implements IConfig {
 
 	public ServerInfo.Builder getServerInfo() {
 		return serverInfo.setType(ServerType.GAME);
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

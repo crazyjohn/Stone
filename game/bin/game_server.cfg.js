@@ -1,14 +1,15 @@
 // ===== do js import begin =====//
 var ServerType = com.stone.proto.Servers.ServerType;
 //=====  do js import end   =====//
+config.name = "game";
 // serverInfo
-config.getServerInfo().setName("Game").setType(ServerType.GAME);
+config.getServerInfo().setName(config.name).setType(ServerType.GAME);
 // bind ip
 config.bindIp = "0.0.0.0";
 // bind port 
 config.port = "8081";
 // allMasterServers
-config.addMasterAddress("Gate", "0.0.0.0", 8080, ServerType.GATE);
+config.addMasterAddress("Gate", "0.0.0.0", 8421, ServerType.GATE);
 // db
 config.dbServiceType = "hibernate";
 config.dbConfigName="game_server_hibernate.cfg.xml"

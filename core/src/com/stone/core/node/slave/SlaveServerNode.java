@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.mina.core.future.ConnectFuture;
+import org.apache.mina.core.service.IoHandler;
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.codec.ProtocolCodecFilter;
 import org.apache.mina.transport.socket.nio.NioSocketConnector;
@@ -17,6 +18,8 @@ import akka.actor.ActorSystem;
 import akka.actor.Props;
 
 import com.stone.core.codec.GameCodecFactory;
+import com.stone.core.codec.IMessageFactory;
+import com.stone.core.config.ServerConfig;
 import com.stone.core.config.slave.MasterAddress;
 import com.stone.core.config.slave.SlaveServerConfig;
 import com.stone.core.msg.ProtobufMessageFactory;
@@ -25,6 +28,12 @@ import com.stone.core.node.ServerNode;
 import com.stone.proto.MessageTypes.MessageType;
 import com.stone.proto.Servers.Register;
 
+/**
+ * The slave server node;
+ * 
+ * @author crazyjohn
+ *
+ */
 public class SlaveServerNode extends ServerNode implements ISlaveServerNode {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	protected Map<String, CommonServerInfo> masterServers = new HashMap<String, CommonServerInfo>();
@@ -37,7 +46,17 @@ public class SlaveServerNode extends ServerNode implements ISlaveServerNode {
 	}
 
 	@Override
-	public boolean connectToMasters(SlaveServerConfig config) {
+	public void init(ServerConfig config, IoHandler ioHandler, IMessageFactory messageFactory) throws Exception {
+		if (config instanceof SlaveServerConfig) {
+			boolean result = connectToMasters((SlaveServerConfig) config);
+			if (!result) {
+				throw new IllegalStateException("Connect to masters failed");
+			}
+		}
+		super.init(config, ioHandler, messageFactory);
+	}
+
+	protected boolean connectToMasters(SlaveServerConfig config) {
 		List<MasterAddress> addresses = config.getAllMasterAddresses();
 		for (MasterAddress address : addresses) {
 			// create connector
@@ -55,7 +74,7 @@ public class SlaveServerNode extends ServerNode implements ISlaveServerNode {
 			// register
 			CommonServerInfo serverInfo = new CommonServerInfo(session, address.getMasterName(), address.getServerType());
 			logger.info(String.format("Start to register on %s master node...", address.getMasterName()));
-			serverInfo.sendMessage(MessageType.SERVER_REGISTER_REQUEST_VALUE, Register.newBuilder().setInfo(this.getServerInfo()));
+			serverInfo.sendMessage(MessageType.SERVER_REGISTER_REQUEST_VALUE, Register.newBuilder().setInfo(config.getServerInfo()));
 			masterServers.put(address.getMasterName(), serverInfo);
 		}
 		return true;

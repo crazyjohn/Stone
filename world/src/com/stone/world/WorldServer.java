@@ -30,9 +30,6 @@ public class WorldServer {
 			// start the world node
 			worldServerNode.startup();
 			logger.info("WorldServer started.");
-			// test shutdown
-			// Thread.sleep(5 * 60 * 1000);
-			// gameServerNode.shutdown();
 		} catch (Exception e) {
 			logger.error("Start WorldServer failed.", e);
 			// exit

@@ -18,9 +18,8 @@ import com.stone.core.concurrent.annotation.ThreadSafeUnit;
 import com.stone.core.config.ConfigUtil;
 import com.stone.core.config.ServerConfig;
 import com.stone.core.net.ServerIoProcessor;
-import com.stone.core.node.service.IActorSystem;
+import com.stone.core.node.system.IActorSystem;
 import com.stone.core.util.OSUtil;
-import com.stone.proto.Servers.ServerInfo;
 
 /**
  * The base stone node;
@@ -47,7 +46,6 @@ public class ServerNode implements IServerNode {
 	private List<IShutdownHook> hooks = new CopyOnWriteArrayList<IShutdownHook>();
 	@GuardedByUnit(whoCareMe = "volatile")
 	protected volatile boolean terminated = true;
-	private ServerInfo serverInfo;
 
 	protected ServerNode() {
 		// shutdown hook
@@ -140,7 +138,7 @@ public class ServerNode implements IServerNode {
 	@Override
 	public void init(ServerConfig config, IoHandler ioHandler, IMessageFactory messageFactory) throws Exception {
 		this.config = config;
-		this.serverInfo = config.getServerInfo().build();
+		this.nodeName = config.getName();
 		mainIoProcessor = new ServerIoProcessor(config.getBindIp(), config.getPort(), ioHandler, new GameCodecFactory(messageFactory));
 		// add processor
 		this.addIoProcessor("mainProcessor", mainIoProcessor);
@@ -175,8 +173,4 @@ public class ServerNode implements IServerNode {
 		return config;
 	}
 
-	@Override
-	public ServerInfo getServerInfo() {
-		return serverInfo;
-	}
 }

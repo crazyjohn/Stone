@@ -5,8 +5,8 @@ import org.slf4j.LoggerFactory;
 
 import com.stone.core.msg.ProtobufMessageFactory;
 import com.stone.core.node.NodeBuilder;
-import com.stone.core.node.service.IActorSystem;
 import com.stone.core.node.slave.ISlaveServerNode;
+import com.stone.core.node.system.IActorSystem;
 import com.stone.db.DBActorSystem;
 
 /**
@@ -51,8 +51,6 @@ public class GameServer {
 					new ProtobufMessageFactory());
 			// start the game node
 			gameServerNode.startup();
-			// connect to master
-			gameServerNode.connectToMasters(config);
 			logger.info("GameServer started.");
 		} catch (Exception e) {
 			logger.error("Start GameServer failed.", e);
