@@ -1,8 +1,8 @@
-package com.stone.gate;
+package com.stone.agent;
 
 import com.stone.core.config.ServerConfig;
 
-public class GateServerConfig extends ServerConfig {
+public class AgentServerConfig extends ServerConfig {
 	private int internalPort;
 
 	public int getInternalPort() {

@@ -1,16 +1,16 @@
-package com.stone.gate;
+package com.stone.agent;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import akka.actor.ActorRef;
 
+import com.stone.agent.actor.AgentActorSystem;
 import com.stone.core.codec.GameCodecFactory;
 import com.stone.core.msg.ProtobufMessageFactory;
 import com.stone.core.net.ServerIoProcessor;
 import com.stone.core.node.NodeBuilder;
 import com.stone.core.node.ServerNode;
-import com.stone.gate.actor.GateActorSystem;
 
 /**
  * The gate server;
@@ -20,8 +20,8 @@ import com.stone.gate.actor.GateActorSystem;
  * @author crazyjohn
  *
  */
-public class GateServer {
-	private static Logger logger = LoggerFactory.getLogger(GateServer.class);
+public class AgentServer {
+	private static Logger logger = LoggerFactory.getLogger(AgentServer.class);
 
 	/**
 	 * Build the internal processor;
@@ -29,8 +29,8 @@ public class GateServer {
 	 * @param gateServerNode
 	 * @param config
 	 */
-	private static void buildInternalProcessor(ServerNode gateServerNode, GateServerConfig config, ActorRef gateMaster) {
-		ServerIoProcessor ioProcessor = new ServerIoProcessor(config.getBindIp(), config.getInternalPort(), new GateInternalIoHandler(gateMaster),
+	private static void buildInternalProcessor(ServerNode gateServerNode, AgentServerConfig config, ActorRef gateMaster) {
+		ServerIoProcessor ioProcessor = new ServerIoProcessor(config.getBindIp(), config.getInternalPort(), new AgentInternalIoHandler(gateMaster),
 				new GameCodecFactory(new ProtobufMessageFactory()));
 		gateServerNode.addIoProcessor("internalProcessor", ioProcessor);
 	}
@@ -41,10 +41,10 @@ public class GateServer {
 			// new node
 			final ServerNode gateServerNode = NodeBuilder.buildCommonNode();
 			// load config
-			GateServerConfig config = gateServerNode.loadConfig(GateServerConfig.class, "gate_server.cfg.js");
+			AgentServerConfig config = gateServerNode.loadConfig(AgentServerConfig.class, "gate_server.cfg.js");
 			// init game node
-			GateActorSystem gateSystem = new GateActorSystem();
-			gateServerNode.init(config, new GateExternalIoHandler(gateSystem.getMasterActor()), new ProtobufMessageFactory());
+			AgentActorSystem gateSystem = new AgentActorSystem();
+			gateServerNode.init(config, new AgentExternalIoHandler(gateSystem.getMasterActor()), new ProtobufMessageFactory());
 			// build internal processor
 			buildInternalProcessor(gateServerNode, config, gateSystem.getMasterActor());
 			// start the gate node

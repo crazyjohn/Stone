@@ -1,8 +1,8 @@
-package com.stone.gate.actor;
+package com.stone.agent.actor;
 
 import akka.actor.UntypedActor;
 
-public class GatePlayerActor extends UntypedActor {
+public class AgentPlayerActor extends UntypedActor {
 
 	@Override
 	public void onReceive(Object arg0) throws Exception {

@@ -1,14 +1,14 @@
-package com.stone.gate;
+package com.stone.agent;
 
 import org.apache.mina.core.session.IoSession;
 
 import akka.actor.ActorRef;
 
+import com.stone.agent.msg.AgentSessionCloseMessage;
+import com.stone.agent.msg.AgentSessionOpenMessage;
 import com.stone.core.msg.ISessionMessage;
 import com.stone.core.net.AbstractIoHandler;
 import com.stone.core.session.BaseActorSession;
-import com.stone.gate.msg.GateSessionCloseMessage;
-import com.stone.gate.msg.GateSessionOpenMessage;
 
 /**
  * The gate client io handler;
@@ -16,15 +16,15 @@ import com.stone.gate.msg.GateSessionOpenMessage;
  * @author crazyjohn
  *
  */
-public class GateExternalIoHandler extends AbstractIoHandler<BaseActorSession> {
+public class AgentExternalIoHandler extends AbstractIoHandler<BaseActorSession> {
 
-	public GateExternalIoHandler(ActorRef mainMasterActor) {
+	public AgentExternalIoHandler(ActorRef mainMasterActor) {
 		super(mainMasterActor);
 	}
 
 	@Override
 	protected ISessionMessage<BaseActorSession> createSessionOpenMessage(BaseActorSession sessionInfo) {
-		return new GateSessionOpenMessage(sessionInfo);
+		return new AgentSessionOpenMessage(sessionInfo);
 	}
 
 	@Override
@@ -35,7 +35,7 @@ public class GateExternalIoHandler extends AbstractIoHandler<BaseActorSession> {
 
 	@Override
 	protected ISessionMessage<BaseActorSession> createSessionCloseMessage(BaseActorSession sessionInfo) {
-		return new GateSessionCloseMessage(sessionInfo);
+		return new AgentSessionCloseMessage(sessionInfo);
 	}
 
 }

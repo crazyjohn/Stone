@@ -1,12 +1,12 @@
-package com.stone.gate.msg;
+package com.stone.agent.msg;
 
 import com.stone.core.msg.BaseCGMessage;
 import com.stone.core.msg.MessageParseException;
 import com.stone.core.session.BaseActorSession;
 
-public class GateSessionCloseMessage extends BaseCGMessage {
+public class AgentSessionOpenMessage extends BaseCGMessage {
 
-	public GateSessionCloseMessage(BaseActorSession sessionInfo) {
+	public AgentSessionOpenMessage(BaseActorSession sessionInfo) {
 		this.session = sessionInfo;
 	}
 

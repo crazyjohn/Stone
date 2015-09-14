@@ -1,4 +1,4 @@
-package com.stone.gate.actor;
+package com.stone.agent.actor;
 
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -11,29 +11,29 @@ import akka.actor.Props;
 import akka.actor.UntypedActor;
 
 import com.googlecode.protobuf.format.JsonFormat;
+import com.stone.agent.msg.AgentSessionCloseMessage;
+import com.stone.agent.msg.AgentSessionOpenMessage;
 import com.stone.core.msg.CGMessage;
 import com.stone.core.msg.MessageParseException;
 import com.stone.core.msg.ProtobufMessage;
 import com.stone.core.msg.server.ServerInternalMessage;
-import com.stone.gate.msg.GateSessionCloseMessage;
-import com.stone.gate.msg.GateSessionOpenMessage;
 import com.stone.proto.MessageTypes.MessageType;
 import com.stone.proto.Servers.Register;
 
-public class GateMaster extends UntypedActor {
+public class AgentMaster extends UntypedActor {
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 	/** counter */
 	private AtomicLong counter = new AtomicLong(0);
 
 	@Override
 	public void onReceive(Object msg) throws Exception {
-		if (msg instanceof GateSessionOpenMessage) {
+		if (msg instanceof AgentSessionOpenMessage) {
 			// open session
-			GateSessionOpenMessage sessionOpenMsg = (GateSessionOpenMessage) msg;
+			AgentSessionOpenMessage sessionOpenMsg = (AgentSessionOpenMessage) msg;
 			onGateSessionOpened(sessionOpenMsg);
-		} else if (msg instanceof GateSessionCloseMessage) {
+		} else if (msg instanceof AgentSessionCloseMessage) {
 			// close session
-			GateSessionCloseMessage sessionClose = (GateSessionCloseMessage) msg;
+			AgentSessionCloseMessage sessionClose = (AgentSessionCloseMessage) msg;
 			onGateSessionClosed(sessionClose);
 		} else if (msg instanceof CGMessage) {
 			// dispatchToTargetPlayerActor(msg);
@@ -52,7 +52,7 @@ public class GateMaster extends UntypedActor {
 		}
 	}
 
-	private void onGateSessionClosed(GateSessionCloseMessage sessionClose) throws MessageParseException {
+	private void onGateSessionClosed(AgentSessionCloseMessage sessionClose) throws MessageParseException {
 		// remove
 		sessionClose.execute();
 		// forward
@@ -65,9 +65,9 @@ public class GateMaster extends UntypedActor {
 
 	}
 
-	private void onGateSessionOpened(GateSessionOpenMessage sessionOpenMsg) {
+	private void onGateSessionOpened(AgentSessionOpenMessage sessionOpenMsg) {
 		if (sessionOpenMsg.getSession().getActor() == null) {
-			ActorRef gatePlayerActor = getContext().actorOf(Props.create(GatePlayerActor.class), "gatePlayerActor" + counter.incrementAndGet());
+			ActorRef gatePlayerActor = getContext().actorOf(Props.create(AgentPlayerActor.class), "gatePlayerActor" + counter.incrementAndGet());
 			// watch this player actor
 			getContext().watch(gatePlayerActor);
 			sessionOpenMsg.getSession().setActor(gatePlayerActor);

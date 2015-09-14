@@ -1,4 +1,4 @@
-package com.stone.gate;
+package com.stone.agent;
 
 import org.apache.mina.core.session.IoSession;
 
@@ -10,9 +10,9 @@ import com.stone.core.msg.server.ServerInternalMessage;
 import com.stone.core.net.AbstractIoHandler;
 import com.stone.core.session.BaseActorSession;
 
-public class GateInternalIoHandler extends AbstractIoHandler<BaseActorSession> {
+public class AgentInternalIoHandler extends AbstractIoHandler<BaseActorSession> {
 
-	public GateInternalIoHandler(ActorRef mainMasterActor) {
+	public AgentInternalIoHandler(ActorRef mainMasterActor) {
 		super(mainMasterActor);
 	}
 
