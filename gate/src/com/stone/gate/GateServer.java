@@ -11,7 +11,6 @@ import com.stone.core.net.ServerIoProcessor;
 import com.stone.core.node.NodeBuilder;
 import com.stone.core.node.ServerNode;
 import com.stone.gate.actor.GateActorSystem;
-import com.stone.gate.actor.GateProxyActorSystem;
 
 /**
  * The gate server;
@@ -31,9 +30,8 @@ public class GateServer {
 	 * @param config
 	 */
 	private static void buildInternalProcessor(ServerNode gateServerNode, GateServerConfig config, ActorRef gateMaster) {
-		GateProxyActorSystem system = new GateProxyActorSystem(gateMaster);
-		ServerIoProcessor ioProcessor = new ServerIoProcessor(config.getBindIp(), config.getInternalPort(), new GateInternalIoHandler(
-				system.getMasterActor()), new GameCodecFactory(new ProtobufMessageFactory()));
+		ServerIoProcessor ioProcessor = new ServerIoProcessor(config.getBindIp(), config.getInternalPort(), new GateInternalIoHandler(gateMaster),
+				new GameCodecFactory(new ProtobufMessageFactory()));
 		gateServerNode.addIoProcessor("internalProcessor", ioProcessor);
 	}
 

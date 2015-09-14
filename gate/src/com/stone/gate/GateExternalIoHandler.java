@@ -6,7 +6,9 @@ import akka.actor.ActorRef;
 
 import com.stone.core.msg.ISessionMessage;
 import com.stone.core.net.AbstractIoHandler;
-import com.stone.core.session.GameActorSession;
+import com.stone.core.session.BaseActorSession;
+import com.stone.gate.msg.GateSessionCloseMessage;
+import com.stone.gate.msg.GateSessionOpenMessage;
 
 /**
  * The gate client io handler;
@@ -14,28 +16,26 @@ import com.stone.core.session.GameActorSession;
  * @author crazyjohn
  *
  */
-public class GateExternalIoHandler extends AbstractIoHandler<GameActorSession> {
+public class GateExternalIoHandler extends AbstractIoHandler<BaseActorSession> {
 
 	public GateExternalIoHandler(ActorRef mainMasterActor) {
 		super(mainMasterActor);
 	}
 
 	@Override
-	protected ISessionMessage<GameActorSession> createSessionOpenMessage(GameActorSession sessionInfo) {
-		// TODO Auto-generated method stub
-		return null;
+	protected ISessionMessage<BaseActorSession> createSessionOpenMessage(BaseActorSession sessionInfo) {
+		return new GateSessionOpenMessage(sessionInfo);
 	}
 
 	@Override
-	protected GameActorSession createSessionInfo(IoSession session) {
-		GameActorSession sessionInfo = new GameActorSession(session);
+	protected BaseActorSession createSessionInfo(IoSession session) {
+		BaseActorSession sessionInfo = new BaseActorSession(session);
 		return sessionInfo;
 	}
 
 	@Override
-	protected ISessionMessage<GameActorSession> createSessionCloseMessage(GameActorSession sessionInfo) {
-		// TODO Auto-generated method stub
-		return null;
+	protected ISessionMessage<BaseActorSession> createSessionCloseMessage(BaseActorSession sessionInfo) {
+		return new GateSessionCloseMessage(sessionInfo);
 	}
 
 }

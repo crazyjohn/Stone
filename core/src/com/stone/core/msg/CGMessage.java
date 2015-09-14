@@ -2,7 +2,7 @@ package com.stone.core.msg;
 
 import akka.actor.ActorRef;
 
-import com.stone.core.session.GameActorSession;
+import com.stone.core.session.BaseActorSession;
 
 /**
  * client和GameServer通信消息接口;
@@ -10,7 +10,7 @@ import com.stone.core.session.GameActorSession;
  * @author crazyjohn
  *
  */
-public interface CGMessage extends ISessionMessage<GameActorSession> {
+public interface CGMessage extends ISessionMessage<BaseActorSession> {
 
 	/**
 	 * Get the player actor;

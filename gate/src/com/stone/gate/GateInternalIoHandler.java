@@ -5,29 +5,36 @@ import org.apache.mina.core.session.IoSession;
 import akka.actor.ActorRef;
 
 import com.stone.core.msg.ISessionMessage;
+import com.stone.core.msg.ProtobufMessage;
+import com.stone.core.msg.server.ServerInternalMessage;
 import com.stone.core.net.AbstractIoHandler;
-import com.stone.gate.session.GateInternalSession;
+import com.stone.core.session.BaseActorSession;
 
-public class GateInternalIoHandler extends AbstractIoHandler<GateInternalSession> {
+public class GateInternalIoHandler extends AbstractIoHandler<BaseActorSession> {
 
 	public GateInternalIoHandler(ActorRef mainMasterActor) {
 		super(mainMasterActor);
 	}
 
 	@Override
-	protected ISessionMessage<GateInternalSession> createSessionOpenMessage(GateInternalSession sessionInfo) {
+	protected ISessionMessage<BaseActorSession> createSessionOpenMessage(BaseActorSession sessionInfo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	protected GateInternalSession createSessionInfo(IoSession session) {
+	protected Object doMessageWrapper(ISessionMessage<BaseActorSession> msg) {
+		return new ServerInternalMessage(((ProtobufMessage) msg));
+	}
+
+	@Override
+	protected BaseActorSession createSessionInfo(IoSession session) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	protected ISessionMessage<GateInternalSession> createSessionCloseMessage(GateInternalSession sessionInfo) {
+	protected ISessionMessage<BaseActorSession> createSessionCloseMessage(BaseActorSession sessionInfo) {
 		// TODO Auto-generated method stub
 		return null;
 	}

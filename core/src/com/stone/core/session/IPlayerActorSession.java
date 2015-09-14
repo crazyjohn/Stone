@@ -15,5 +15,5 @@ public interface IPlayerActorSession extends ISession {
 	 * 
 	 * @return
 	 */
-	public ActorRef getPlayerActor();
+	public ActorRef getActor();
 }

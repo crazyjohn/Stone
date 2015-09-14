@@ -9,3 +9,4 @@
   name: "game"
 }
 
+[INFO] 14:32:43,516 - GateMaster.onReceive - GateMaster received msg: [type: CG_PLAYER_LOGIN, builder: null]

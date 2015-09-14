@@ -111,12 +111,12 @@ public class GameMaster extends UntypedActor {
 	 * @param sessionOpenMsg
 	 */
 	private void onGameSessionOpened(GameSessionOpenMessage sessionOpenMsg) {
-		if (sessionOpenMsg.getSession().getPlayerActor() == null) {
+		if (sessionOpenMsg.getSession().getActor() == null) {
 			ActorRef playerActor = getContext().actorOf(PlayerActor.props(sessionOpenMsg.getSession().getSession(), dbMaster),
 					"playerActor" + counter.incrementAndGet());
 			// watch this player actor
 			getContext().watch(playerActor);
-			sessionOpenMsg.getSession().setPlayerActor(playerActor);
+			sessionOpenMsg.getSession().setActor(playerActor);
 			playerActor.forward(sessionOpenMsg, getContext());
 		} else {
 			// invalid, close session

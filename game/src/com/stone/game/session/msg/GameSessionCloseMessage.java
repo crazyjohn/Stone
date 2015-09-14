@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import com.stone.core.msg.BaseCGMessage;
 import com.stone.core.msg.MessageParseException;
-import com.stone.core.session.GameActorSession;
+import com.stone.core.session.BaseActorSession;
 
 /**
  * Game session close message;
@@ -16,7 +16,7 @@ import com.stone.core.session.GameActorSession;
 public class GameSessionCloseMessage extends BaseCGMessage {
 	private Logger logger = LoggerFactory.getLogger(GameSessionCloseMessage.class);
 
-	public GameSessionCloseMessage(GameActorSession sessionInfo) {
+	public GameSessionCloseMessage(BaseActorSession sessionInfo) {
 		this.session = sessionInfo;
 	}
 

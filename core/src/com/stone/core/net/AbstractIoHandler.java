@@ -19,7 +19,7 @@ import com.stone.core.session.ISession;
  */
 public abstract class AbstractIoHandler<S extends ISession> extends IoHandlerAdapter {
 	/** game master */
-	protected ActorRef gameMaster;
+	protected ActorRef mainMasterActor;
 	private static final String SESSION_INFO = "SESSION_INFO";
 	protected Logger logger = LoggerFactory.getLogger(AbstractIoHandler.class);
 
@@ -29,7 +29,7 @@ public abstract class AbstractIoHandler<S extends ISession> extends IoHandlerAda
 	 * @param mainMasterActor
 	 */
 	public AbstractIoHandler(ActorRef mainMasterActor) {
-		this.gameMaster = mainMasterActor;
+		this.mainMasterActor = mainMasterActor;
 	}
 
 	@Override
@@ -44,8 +44,15 @@ public abstract class AbstractIoHandler<S extends ISession> extends IoHandlerAda
 			@SuppressWarnings("unchecked")
 			ISessionMessage<S> msg = (ISessionMessage<S>) message;
 			msg.setSession(sessionInfo);
-			gameMaster.tell(msg, ActorRef.noSender());
+			// do message wrapper
+			Object wrapperMessage = doMessageWrapper(msg);
+			mainMasterActor.tell(wrapperMessage, ActorRef.noSender());
 		}
+	}
+
+	protected Object doMessageWrapper(ISessionMessage<S> msg) {
+		// just retun self
+		return msg;
 	}
 
 	@Override
@@ -59,7 +66,7 @@ public abstract class AbstractIoHandler<S extends ISession> extends IoHandlerAda
 		if (sessionCloseMessage == null) {
 			return;
 		}
-		this.gameMaster.tell(sessionCloseMessage, ActorRef.noSender());
+		this.mainMasterActor.tell(sessionCloseMessage, ActorRef.noSender());
 	}
 
 	@Override
@@ -70,7 +77,7 @@ public abstract class AbstractIoHandler<S extends ISession> extends IoHandlerAda
 		if (sessionOpenMessage == null) {
 			return;
 		}
-		this.gameMaster.tell(sessionOpenMessage, ActorRef.noSender());
+		this.mainMasterActor.tell(sessionOpenMessage, ActorRef.noSender());
 	}
 
 	@Override
