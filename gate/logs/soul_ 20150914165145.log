@@ -4,3 +4,5 @@
 [INFO] 16:51:45,895 - ServerNode.startup - ServerIoProcessor: mainProcessor started.
 [INFO] 16:51:45,896 - GateServer.main - GateServer started.
 [INFO] 16:52:08,007 - GateMaster.onServerInternalMessage - {"info": {"type": "GAME","name": "game"}}
+[INFO] 18:42:57,871 - ServerNode.shutdown - ServerIoProcessor: internalProcessor shutdown.
+[INFO] 18:42:57,871 - ServerNode.shutdown - ServerIoProcessor: mainProcessor shutdown.

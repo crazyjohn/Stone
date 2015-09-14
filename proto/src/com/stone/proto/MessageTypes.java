@@ -26,13 +26,21 @@ public final class MessageTypes {
      */
     SERVER_REGISTER_REQUEST(0, 100),
     /**
+     * <code>GAME_REGISTER_TO_AGENT = 101;</code>
+     *
+     * <pre>
+     * game register to agent
+     * </pre>
+     */
+    GAME_REGISTER_TO_AGENT(1, 101),
+    /**
      * <code>CG_PLAYER_LOGIN = 1001;</code>
      *
      * <pre>
      * request login
      * </pre>
      */
-    CG_PLAYER_LOGIN(1, 1001),
+    CG_PLAYER_LOGIN(2, 1001),
     /**
      * <code>GC_PLAYER_LOGIN_RESULT = 1002;</code>
      *
@@ -40,7 +48,7 @@ public final class MessageTypes {
      * login result
      * </pre>
      */
-    GC_PLAYER_LOGIN_RESULT(2, 1002),
+    GC_PLAYER_LOGIN_RESULT(3, 1002),
     /**
      * <code>CG_GET_ROLE_LIST = 1003;</code>
      *
@@ -48,7 +56,7 @@ public final class MessageTypes {
      * get role list
      * </pre>
      */
-    CG_GET_ROLE_LIST(3, 1003),
+    CG_GET_ROLE_LIST(4, 1003),
     /**
      * <code>GC_GET_ROLE_LIST = 1004;</code>
      *
@@ -56,7 +64,7 @@ public final class MessageTypes {
      * return role list
      * </pre>
      */
-    GC_GET_ROLE_LIST(4, 1004),
+    GC_GET_ROLE_LIST(5, 1004),
     /**
      * <code>CG_SELECT_ROLE = 1005;</code>
      *
@@ -64,7 +72,7 @@ public final class MessageTypes {
      * select role
      * </pre>
      */
-    CG_SELECT_ROLE(5, 1005),
+    CG_SELECT_ROLE(6, 1005),
     /**
      * <code>GC_ROLE_INFO = 1006;</code>
      *
@@ -72,7 +80,7 @@ public final class MessageTypes {
      * role info
      * </pre>
      */
-    GC_ROLE_INFO(6, 1006),
+    GC_ROLE_INFO(7, 1006),
     /**
      * <code>CG_CREATE_ROLE = 1007;</code>
      *
@@ -80,7 +88,7 @@ public final class MessageTypes {
      * create role
      * </pre>
      */
-    CG_CREATE_ROLE(7, 1007),
+    CG_CREATE_ROLE(8, 1007),
     /**
      * <code>GC_CREATE_ROLE_RESULT = 1008;</code>
      *
@@ -88,7 +96,7 @@ public final class MessageTypes {
      * create role result
      * </pre>
      */
-    GC_CREATE_ROLE_RESULT(8, 1008),
+    GC_CREATE_ROLE_RESULT(9, 1008),
     /**
      * <code>GC_ENTER_SCENE = 1009;</code>
      *
@@ -96,7 +104,7 @@ public final class MessageTypes {
      * enter scene
      * </pre>
      */
-    GC_ENTER_SCENE(9, 1009),
+    GC_ENTER_SCENE(10, 1009),
     /**
      * <code>CG_ENTER_SCENE_READY = 1010;</code>
      *
@@ -104,7 +112,7 @@ public final class MessageTypes {
      * enter scene ready
      * </pre>
      */
-    CG_ENTER_SCENE_READY(10, 1010),
+    CG_ENTER_SCENE_READY(11, 1010),
     /**
      * <code>CG_SYNC = 1011;</code>
      *
@@ -112,7 +120,7 @@ public final class MessageTypes {
      * sync
      * </pre>
      */
-    CG_SYNC(11, 1011),
+    CG_SYNC(12, 1011),
     /**
      * <code>GC_SYNC = 1012;</code>
      *
@@ -120,7 +128,7 @@ public final class MessageTypes {
      * sync
      * </pre>
      */
-    GC_SYNC(12, 1012),
+    GC_SYNC(13, 1012),
     /**
      * <code>CG_REQUEST_MOVE = 1013;</code>
      *
@@ -128,7 +136,7 @@ public final class MessageTypes {
      * CG_REQUEST_MOVE
      * </pre>
      */
-    CG_REQUEST_MOVE(13, 1013),
+    CG_REQUEST_MOVE(14, 1013),
     /**
      * <code>GC_BROADCAST_MOVE = 1014;</code>
      *
@@ -136,7 +144,7 @@ public final class MessageTypes {
      * GC_BROADCAST_MOVE
      * </pre>
      */
-    GC_BROADCAST_MOVE(14, 1014),
+    GC_BROADCAST_MOVE(15, 1014),
     /**
      * <code>GC_SCENE_OBJECT_APPEAR = 1015;</code>
      *
@@ -144,7 +152,7 @@ public final class MessageTypes {
      * Scene object appear
      * </pre>
      */
-    GC_SCENE_OBJECT_APPEAR(15, 1015),
+    GC_SCENE_OBJECT_APPEAR(16, 1015),
     ;
 
     /**
@@ -155,6 +163,14 @@ public final class MessageTypes {
      * </pre>
      */
     public static final int SERVER_REGISTER_REQUEST_VALUE = 100;
+    /**
+     * <code>GAME_REGISTER_TO_AGENT = 101;</code>
+     *
+     * <pre>
+     * game register to agent
+     * </pre>
+     */
+    public static final int GAME_REGISTER_TO_AGENT_VALUE = 101;
     /**
      * <code>CG_PLAYER_LOGIN = 1001;</code>
      *
@@ -282,6 +298,7 @@ public final class MessageTypes {
     public static MessageType valueOf(int value) {
       switch (value) {
         case 100: return SERVER_REGISTER_REQUEST;
+        case 101: return GAME_REGISTER_TO_AGENT;
         case 1001: return CG_PLAYER_LOGIN;
         case 1002: return GC_PLAYER_LOGIN_RESULT;
         case 1003: return CG_GET_ROLE_LIST;
@@ -357,17 +374,18 @@ public final class MessageTypes {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\021MessageType.proto*\373\002\n\013MessageType\022\033\n\027S" +
-      "ERVER_REGISTER_REQUEST\020d\022\024\n\017CG_PLAYER_LO" +
-      "GIN\020\351\007\022\033\n\026GC_PLAYER_LOGIN_RESULT\020\352\007\022\025\n\020C" +
-      "G_GET_ROLE_LIST\020\353\007\022\025\n\020GC_GET_ROLE_LIST\020\354" +
-      "\007\022\023\n\016CG_SELECT_ROLE\020\355\007\022\021\n\014GC_ROLE_INFO\020\356" +
-      "\007\022\023\n\016CG_CREATE_ROLE\020\357\007\022\032\n\025GC_CREATE_ROLE" +
-      "_RESULT\020\360\007\022\023\n\016GC_ENTER_SCENE\020\361\007\022\031\n\024CG_EN" +
-      "TER_SCENE_READY\020\362\007\022\014\n\007CG_SYNC\020\363\007\022\014\n\007GC_S" +
-      "YNC\020\364\007\022\024\n\017CG_REQUEST_MOVE\020\365\007\022\026\n\021GC_BROAD" +
-      "CAST_MOVE\020\366\007\022\033\n\026GC_SCENE_OBJECT_APPEAR\020\367",
-      "\007B\037\n\017com.stone.protoB\014MessageTypes"
+      "\n\021MessageType.proto*\227\003\n\013MessageType\022\033\n\027S" +
+      "ERVER_REGISTER_REQUEST\020d\022\032\n\026GAME_REGISTE" +
+      "R_TO_AGENT\020e\022\024\n\017CG_PLAYER_LOGIN\020\351\007\022\033\n\026GC" +
+      "_PLAYER_LOGIN_RESULT\020\352\007\022\025\n\020CG_GET_ROLE_L" +
+      "IST\020\353\007\022\025\n\020GC_GET_ROLE_LIST\020\354\007\022\023\n\016CG_SELE" +
+      "CT_ROLE\020\355\007\022\021\n\014GC_ROLE_INFO\020\356\007\022\023\n\016CG_CREA" +
+      "TE_ROLE\020\357\007\022\032\n\025GC_CREATE_ROLE_RESULT\020\360\007\022\023" +
+      "\n\016GC_ENTER_SCENE\020\361\007\022\031\n\024CG_ENTER_SCENE_RE" +
+      "ADY\020\362\007\022\014\n\007CG_SYNC\020\363\007\022\014\n\007GC_SYNC\020\364\007\022\024\n\017CG" +
+      "_REQUEST_MOVE\020\365\007\022\026\n\021GC_BROADCAST_MOVE\020\366\007",
+      "\022\033\n\026GC_SCENE_OBJECT_APPEAR\020\367\007B\037\n\017com.sto" +
+      "ne.protoB\014MessageTypes"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

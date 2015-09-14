@@ -1,5 +1,7 @@
 package com.stone.agent.actor;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.slf4j.Logger;
@@ -17,13 +19,16 @@ import com.stone.core.msg.CGMessage;
 import com.stone.core.msg.MessageParseException;
 import com.stone.core.msg.ProtobufMessage;
 import com.stone.core.msg.server.ServerInternalMessage;
+import com.stone.core.session.BaseActorSession;
 import com.stone.proto.MessageTypes.MessageType;
-import com.stone.proto.Servers.Register;
+import com.stone.proto.Servers.GameRegisterToAgent;
 
 public class AgentMaster extends UntypedActor {
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 	/** counter */
 	private AtomicLong counter = new AtomicLong(0);
+	/** the game server sessions */
+	private Map<Integer, BaseActorSession> gameServerSessions = new HashMap<Integer, BaseActorSession>();
 
 	@Override
 	public void onReceive(Object msg) throws Exception {
@@ -46,8 +51,12 @@ public class AgentMaster extends UntypedActor {
 
 	private void onServerInternalMessage(ServerInternalMessage msg) throws MessageParseException {
 		ProtobufMessage protoMessage = msg.getRealMessage();
-		if (protoMessage.getType() == MessageType.SERVER_REGISTER_REQUEST_VALUE) {
-			Register.Builder register = protoMessage.parseBuilder(Register.newBuilder());
+		if (protoMessage.getType() == MessageType.GAME_REGISTER_TO_AGENT_VALUE) {
+			BaseActorSession gameProxySession = protoMessage.getSession();
+			GameRegisterToAgent.Builder register = protoMessage.parseBuilder(GameRegisterToAgent.newBuilder());
+			for (int sceneId : register.getSceneIdsList()) {
+				this.gameServerSessions.put(sceneId, gameProxySession);
+			}
 			logger.info(JsonFormat.printToString(register.build()));
 		}
 	}

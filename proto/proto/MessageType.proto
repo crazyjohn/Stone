@@ -5,6 +5,8 @@ option java_outer_classname = "MessageTypes";
 enum MessageType {
 	// server
 	SERVER_REGISTER_REQUEST = 100;
+	// game register to agent
+	GAME_REGISTER_TO_AGENT = 101;
 
 	// request login
 	CG_PLAYER_LOGIN = 1001;

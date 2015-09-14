@@ -26,3 +26,9 @@ message Register {
 message UnRegister {
 	required ServerInfo info = 2;
 }
+
+// game register to agent
+message GameRegisterToAgent {
+	repeated int32 sceneIds = 1;
+	required ServerInfo serverInfo = 2;
+}

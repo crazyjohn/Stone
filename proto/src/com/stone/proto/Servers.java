@@ -1772,6 +1772,693 @@ public final class Servers {
     // @@protoc_insertion_point(class_scope:UnRegister)
   }
 
+  public interface GameRegisterToAgentOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:GameRegisterToAgent)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated int32 sceneIds = 1;</code>
+     */
+    java.util.List<java.lang.Integer> getSceneIdsList();
+    /**
+     * <code>repeated int32 sceneIds = 1;</code>
+     */
+    int getSceneIdsCount();
+    /**
+     * <code>repeated int32 sceneIds = 1;</code>
+     */
+    int getSceneIds(int index);
+
+    /**
+     * <code>required .ServerInfo serverInfo = 2;</code>
+     */
+    boolean hasServerInfo();
+    /**
+     * <code>required .ServerInfo serverInfo = 2;</code>
+     */
+    com.stone.proto.Servers.ServerInfo getServerInfo();
+    /**
+     * <code>required .ServerInfo serverInfo = 2;</code>
+     */
+    com.stone.proto.Servers.ServerInfoOrBuilder getServerInfoOrBuilder();
+  }
+  /**
+   * Protobuf type {@code GameRegisterToAgent}
+   *
+   * <pre>
+   * game register to agent
+   * </pre>
+   */
+  public static final class GameRegisterToAgent extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:GameRegisterToAgent)
+      GameRegisterToAgentOrBuilder {
+    // Use GameRegisterToAgent.newBuilder() to construct.
+    private GameRegisterToAgent(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private GameRegisterToAgent(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final GameRegisterToAgent defaultInstance;
+    public static GameRegisterToAgent getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public GameRegisterToAgent getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GameRegisterToAgent(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                sceneIds_ = new java.util.ArrayList<java.lang.Integer>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              sceneIds_.add(input.readInt32());
+              break;
+            }
+            case 10: {
+              int length = input.readRawVarint32();
+              int limit = input.pushLimit(length);
+              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001) && input.getBytesUntilLimit() > 0) {
+                sceneIds_ = new java.util.ArrayList<java.lang.Integer>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              while (input.getBytesUntilLimit() > 0) {
+                sceneIds_.add(input.readInt32());
+              }
+              input.popLimit(limit);
+              break;
+            }
+            case 18: {
+              com.stone.proto.Servers.ServerInfo.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000001) == 0x00000001)) {
+                subBuilder = serverInfo_.toBuilder();
+              }
+              serverInfo_ = input.readMessage(com.stone.proto.Servers.ServerInfo.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(serverInfo_);
+                serverInfo_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000001;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+          sceneIds_ = java.util.Collections.unmodifiableList(sceneIds_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.stone.proto.Servers.internal_static_GameRegisterToAgent_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.stone.proto.Servers.internal_static_GameRegisterToAgent_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.stone.proto.Servers.GameRegisterToAgent.class, com.stone.proto.Servers.GameRegisterToAgent.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<GameRegisterToAgent> PARSER =
+        new com.google.protobuf.AbstractParser<GameRegisterToAgent>() {
+      public GameRegisterToAgent parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GameRegisterToAgent(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GameRegisterToAgent> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    public static final int SCENEIDS_FIELD_NUMBER = 1;
+    private java.util.List<java.lang.Integer> sceneIds_;
+    /**
+     * <code>repeated int32 sceneIds = 1;</code>
+     */
+    public java.util.List<java.lang.Integer>
+        getSceneIdsList() {
+      return sceneIds_;
+    }
+    /**
+     * <code>repeated int32 sceneIds = 1;</code>
+     */
+    public int getSceneIdsCount() {
+      return sceneIds_.size();
+    }
+    /**
+     * <code>repeated int32 sceneIds = 1;</code>
+     */
+    public int getSceneIds(int index) {
+      return sceneIds_.get(index);
+    }
+
+    public static final int SERVERINFO_FIELD_NUMBER = 2;
+    private com.stone.proto.Servers.ServerInfo serverInfo_;
+    /**
+     * <code>required .ServerInfo serverInfo = 2;</code>
+     */
+    public boolean hasServerInfo() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required .ServerInfo serverInfo = 2;</code>
+     */
+    public com.stone.proto.Servers.ServerInfo getServerInfo() {
+      return serverInfo_;
+    }
+    /**
+     * <code>required .ServerInfo serverInfo = 2;</code>
+     */
+    public com.stone.proto.Servers.ServerInfoOrBuilder getServerInfoOrBuilder() {
+      return serverInfo_;
+    }
+
+    private void initFields() {
+      sceneIds_ = java.util.Collections.emptyList();
+      serverInfo_ = com.stone.proto.Servers.ServerInfo.getDefaultInstance();
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasServerInfo()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!getServerInfo().isInitialized()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      for (int i = 0; i < sceneIds_.size(); i++) {
+        output.writeInt32(1, sceneIds_.get(i));
+      }
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeMessage(2, serverInfo_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      {
+        int dataSize = 0;
+        for (int i = 0; i < sceneIds_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeInt32SizeNoTag(sceneIds_.get(i));
+        }
+        size += dataSize;
+        size += 1 * getSceneIdsList().size();
+      }
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, serverInfo_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static com.stone.proto.Servers.GameRegisterToAgent parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.stone.proto.Servers.GameRegisterToAgent parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.stone.proto.Servers.GameRegisterToAgent parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.stone.proto.Servers.GameRegisterToAgent parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.stone.proto.Servers.GameRegisterToAgent parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.stone.proto.Servers.GameRegisterToAgent parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.stone.proto.Servers.GameRegisterToAgent parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.stone.proto.Servers.GameRegisterToAgent parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.stone.proto.Servers.GameRegisterToAgent parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.stone.proto.Servers.GameRegisterToAgent parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.stone.proto.Servers.GameRegisterToAgent prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code GameRegisterToAgent}
+     *
+     * <pre>
+     * game register to agent
+     * </pre>
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:GameRegisterToAgent)
+        com.stone.proto.Servers.GameRegisterToAgentOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.stone.proto.Servers.internal_static_GameRegisterToAgent_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.stone.proto.Servers.internal_static_GameRegisterToAgent_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.stone.proto.Servers.GameRegisterToAgent.class, com.stone.proto.Servers.GameRegisterToAgent.Builder.class);
+      }
+
+      // Construct using com.stone.proto.Servers.GameRegisterToAgent.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getServerInfoFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        sceneIds_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        if (serverInfoBuilder_ == null) {
+          serverInfo_ = com.stone.proto.Servers.ServerInfo.getDefaultInstance();
+        } else {
+          serverInfoBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.stone.proto.Servers.internal_static_GameRegisterToAgent_descriptor;
+      }
+
+      public com.stone.proto.Servers.GameRegisterToAgent getDefaultInstanceForType() {
+        return com.stone.proto.Servers.GameRegisterToAgent.getDefaultInstance();
+      }
+
+      public com.stone.proto.Servers.GameRegisterToAgent build() {
+        com.stone.proto.Servers.GameRegisterToAgent result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.stone.proto.Servers.GameRegisterToAgent buildPartial() {
+        com.stone.proto.Servers.GameRegisterToAgent result = new com.stone.proto.Servers.GameRegisterToAgent(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          sceneIds_ = java.util.Collections.unmodifiableList(sceneIds_);
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.sceneIds_ = sceneIds_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        if (serverInfoBuilder_ == null) {
+          result.serverInfo_ = serverInfo_;
+        } else {
+          result.serverInfo_ = serverInfoBuilder_.build();
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.stone.proto.Servers.GameRegisterToAgent) {
+          return mergeFrom((com.stone.proto.Servers.GameRegisterToAgent)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.stone.proto.Servers.GameRegisterToAgent other) {
+        if (other == com.stone.proto.Servers.GameRegisterToAgent.getDefaultInstance()) return this;
+        if (!other.sceneIds_.isEmpty()) {
+          if (sceneIds_.isEmpty()) {
+            sceneIds_ = other.sceneIds_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureSceneIdsIsMutable();
+            sceneIds_.addAll(other.sceneIds_);
+          }
+          onChanged();
+        }
+        if (other.hasServerInfo()) {
+          mergeServerInfo(other.getServerInfo());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasServerInfo()) {
+          
+          return false;
+        }
+        if (!getServerInfo().isInitialized()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.stone.proto.Servers.GameRegisterToAgent parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.stone.proto.Servers.GameRegisterToAgent) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<java.lang.Integer> sceneIds_ = java.util.Collections.emptyList();
+      private void ensureSceneIdsIsMutable() {
+        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+          sceneIds_ = new java.util.ArrayList<java.lang.Integer>(sceneIds_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+      /**
+       * <code>repeated int32 sceneIds = 1;</code>
+       */
+      public java.util.List<java.lang.Integer>
+          getSceneIdsList() {
+        return java.util.Collections.unmodifiableList(sceneIds_);
+      }
+      /**
+       * <code>repeated int32 sceneIds = 1;</code>
+       */
+      public int getSceneIdsCount() {
+        return sceneIds_.size();
+      }
+      /**
+       * <code>repeated int32 sceneIds = 1;</code>
+       */
+      public int getSceneIds(int index) {
+        return sceneIds_.get(index);
+      }
+      /**
+       * <code>repeated int32 sceneIds = 1;</code>
+       */
+      public Builder setSceneIds(
+          int index, int value) {
+        ensureSceneIdsIsMutable();
+        sceneIds_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated int32 sceneIds = 1;</code>
+       */
+      public Builder addSceneIds(int value) {
+        ensureSceneIdsIsMutable();
+        sceneIds_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated int32 sceneIds = 1;</code>
+       */
+      public Builder addAllSceneIds(
+          java.lang.Iterable<? extends java.lang.Integer> values) {
+        ensureSceneIdsIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, sceneIds_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated int32 sceneIds = 1;</code>
+       */
+      public Builder clearSceneIds() {
+        sceneIds_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+
+      private com.stone.proto.Servers.ServerInfo serverInfo_ = com.stone.proto.Servers.ServerInfo.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.stone.proto.Servers.ServerInfo, com.stone.proto.Servers.ServerInfo.Builder, com.stone.proto.Servers.ServerInfoOrBuilder> serverInfoBuilder_;
+      /**
+       * <code>required .ServerInfo serverInfo = 2;</code>
+       */
+      public boolean hasServerInfo() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required .ServerInfo serverInfo = 2;</code>
+       */
+      public com.stone.proto.Servers.ServerInfo getServerInfo() {
+        if (serverInfoBuilder_ == null) {
+          return serverInfo_;
+        } else {
+          return serverInfoBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>required .ServerInfo serverInfo = 2;</code>
+       */
+      public Builder setServerInfo(com.stone.proto.Servers.ServerInfo value) {
+        if (serverInfoBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          serverInfo_ = value;
+          onChanged();
+        } else {
+          serverInfoBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      /**
+       * <code>required .ServerInfo serverInfo = 2;</code>
+       */
+      public Builder setServerInfo(
+          com.stone.proto.Servers.ServerInfo.Builder builderForValue) {
+        if (serverInfoBuilder_ == null) {
+          serverInfo_ = builderForValue.build();
+          onChanged();
+        } else {
+          serverInfoBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      /**
+       * <code>required .ServerInfo serverInfo = 2;</code>
+       */
+      public Builder mergeServerInfo(com.stone.proto.Servers.ServerInfo value) {
+        if (serverInfoBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) == 0x00000002) &&
+              serverInfo_ != com.stone.proto.Servers.ServerInfo.getDefaultInstance()) {
+            serverInfo_ =
+              com.stone.proto.Servers.ServerInfo.newBuilder(serverInfo_).mergeFrom(value).buildPartial();
+          } else {
+            serverInfo_ = value;
+          }
+          onChanged();
+        } else {
+          serverInfoBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      /**
+       * <code>required .ServerInfo serverInfo = 2;</code>
+       */
+      public Builder clearServerInfo() {
+        if (serverInfoBuilder_ == null) {
+          serverInfo_ = com.stone.proto.Servers.ServerInfo.getDefaultInstance();
+          onChanged();
+        } else {
+          serverInfoBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+      /**
+       * <code>required .ServerInfo serverInfo = 2;</code>
+       */
+      public com.stone.proto.Servers.ServerInfo.Builder getServerInfoBuilder() {
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return getServerInfoFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>required .ServerInfo serverInfo = 2;</code>
+       */
+      public com.stone.proto.Servers.ServerInfoOrBuilder getServerInfoOrBuilder() {
+        if (serverInfoBuilder_ != null) {
+          return serverInfoBuilder_.getMessageOrBuilder();
+        } else {
+          return serverInfo_;
+        }
+      }
+      /**
+       * <code>required .ServerInfo serverInfo = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.stone.proto.Servers.ServerInfo, com.stone.proto.Servers.ServerInfo.Builder, com.stone.proto.Servers.ServerInfoOrBuilder> 
+          getServerInfoFieldBuilder() {
+        if (serverInfoBuilder_ == null) {
+          serverInfoBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.stone.proto.Servers.ServerInfo, com.stone.proto.Servers.ServerInfo.Builder, com.stone.proto.Servers.ServerInfoOrBuilder>(
+                  getServerInfo(),
+                  getParentForChildren(),
+                  isClean());
+          serverInfo_ = null;
+        }
+        return serverInfoBuilder_;
+      }
+
+      // @@protoc_insertion_point(builder_scope:GameRegisterToAgent)
+    }
+
+    static {
+      defaultInstance = new GameRegisterToAgent(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:GameRegisterToAgent)
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_ServerInfo_descriptor;
   private static
@@ -1787,6 +2474,11 @@ public final class Servers {
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_UnRegister_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_GameRegisterToAgent_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_GameRegisterToAgent_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -1799,10 +2491,11 @@ public final class Servers {
       "\n\014Server.proto\"5\n\nServerInfo\022\031\n\004type\030\001 \002" +
       "(\0162\013.ServerType\022\014\n\004name\030\002 \002(\t\"%\n\010Registe" +
       "r\022\031\n\004info\030\001 \002(\0132\013.ServerInfo\"\'\n\nUnRegist" +
-      "er\022\031\n\004info\030\002 \002(\0132\013.ServerInfo*>\n\nServerT" +
-      "ype\022\010\n\004GATE\020\001\022\010\n\004GAME\020\002\022\t\n\005WORLD\020\003\022\006\n\002DB" +
-      "\020\004\022\t\n\005CROSS\020\005B\032\n\017com.stone.protoB\007Server" +
-      "s"
+      "er\022\031\n\004info\030\002 \002(\0132\013.ServerInfo\"H\n\023GameReg" +
+      "isterToAgent\022\020\n\010sceneIds\030\001 \003(\005\022\037\n\nserver" +
+      "Info\030\002 \002(\0132\013.ServerInfo*>\n\nServerType\022\010\n" +
+      "\004GATE\020\001\022\010\n\004GAME\020\002\022\t\n\005WORLD\020\003\022\006\n\002DB\020\004\022\t\n\005" +
+      "CROSS\020\005B\032\n\017com.stone.protoB\007Servers"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1834,6 +2527,12 @@ public final class Servers {
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_UnRegister_descriptor,
         new java.lang.String[] { "Info", });
+    internal_static_GameRegisterToAgent_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_GameRegisterToAgent_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_GameRegisterToAgent_descriptor,
+        new java.lang.String[] { "SceneIds", "ServerInfo", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -26,7 +26,7 @@ import com.stone.core.msg.ProtobufMessageFactory;
 import com.stone.core.node.CommonServerInfo;
 import com.stone.core.node.ServerNode;
 import com.stone.proto.MessageTypes.MessageType;
-import com.stone.proto.Servers.Register;
+import com.stone.proto.Servers.GameRegisterToAgent;
 
 /**
  * The slave server node;
@@ -74,7 +74,9 @@ public class SlaveServerNode extends ServerNode implements ISlaveServerNode {
 			// register
 			CommonServerInfo serverInfo = new CommonServerInfo(session, address.getMasterName(), address.getServerType());
 			logger.info(String.format("Start to register on %s master node...", address.getMasterName()));
-			serverInfo.sendMessage(MessageType.SERVER_REGISTER_REQUEST_VALUE, Register.newBuilder().setInfo(config.getServerInfo()));
+			serverInfo.sendMessage(MessageType.GAME_REGISTER_TO_AGENT_VALUE, GameRegisterToAgent.newBuilder().setServerInfo(config.getServerInfo())
+					.addSceneIds(1/** config this value */
+					));
 			masterServers.put(address.getMasterName(), serverInfo);
 		}
 		return true;
