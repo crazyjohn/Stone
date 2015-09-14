@@ -1,0 +1,5 @@
+[INFO] 22:05:41,413 - AgentServer.main - Begin to start AgentServer...
+[INFO] 22:05:41,429 - ConfigUtil.loadJsConfig - Load js config, file: agent_server.cfg.js
+[INFO] 22:05:42,131 - ServerNode.startup - ServerIoProcessor: internalProcessor started.
+[INFO] 22:05:42,146 - ServerNode.startup - ServerIoProcessor: mainProcessor started.
+[INFO] 22:05:42,146 - AgentServer.main - AgentServer started.

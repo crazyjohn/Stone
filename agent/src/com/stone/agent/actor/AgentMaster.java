@@ -15,6 +15,7 @@ import akka.actor.UntypedActor;
 import com.googlecode.protobuf.format.JsonFormat;
 import com.stone.agent.msg.AgentSessionCloseMessage;
 import com.stone.agent.msg.AgentSessionOpenMessage;
+import com.stone.agent.player.AgentPlayer;
 import com.stone.core.msg.CGMessage;
 import com.stone.core.msg.MessageParseException;
 import com.stone.core.msg.ProtobufMessage;
@@ -24,11 +25,16 @@ import com.stone.proto.MessageTypes.MessageType;
 import com.stone.proto.Servers.GameRegisterToAgent;
 
 public class AgentMaster extends UntypedActor {
+	private final ActorRef dbMaster;
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 	/** counter */
 	private AtomicLong counter = new AtomicLong(0);
 	/** the game server sessions */
 	private Map<Integer, BaseActorSession> gameServerSessions = new HashMap<Integer, BaseActorSession>();
+
+	public AgentMaster(ActorRef dbMaster) {
+		this.dbMaster = dbMaster;
+	}
 
 	@Override
 	public void onReceive(Object msg) throws Exception {
@@ -41,7 +47,7 @@ public class AgentMaster extends UntypedActor {
 			AgentSessionCloseMessage sessionClose = (AgentSessionCloseMessage) msg;
 			onGateSessionClosed(sessionClose);
 		} else if (msg instanceof CGMessage) {
-			// dispatchToTargetPlayerActor(msg);
+			dispatchToTargetPlayerActor((CGMessage)msg);
 		} else if (msg instanceof ServerInternalMessage) {
 			onServerInternalMessage((ServerInternalMessage) msg);
 		} else {
@@ -49,6 +55,16 @@ public class AgentMaster extends UntypedActor {
 		}
 	}
 
+	private void dispatchToTargetPlayerActor(CGMessage msg) {
+		msg.getPlayerActor().forward(msg, this.getContext());
+	}
+
+	/**
+	 * Handle server internal message;
+	 * 
+	 * @param msg
+	 * @throws MessageParseException
+	 */
 	private void onServerInternalMessage(ServerInternalMessage msg) throws MessageParseException {
 		ProtobufMessage protoMessage = msg.getRealMessage();
 		if (protoMessage.getType() == MessageType.GAME_REGISTER_TO_AGENT_VALUE) {
@@ -76,7 +92,9 @@ public class AgentMaster extends UntypedActor {
 
 	private void onGateSessionOpened(AgentSessionOpenMessage sessionOpenMsg) {
 		if (sessionOpenMsg.getSession().getActor() == null) {
-			ActorRef gatePlayerActor = getContext().actorOf(Props.create(AgentPlayerActor.class), "gatePlayerActor" + counter.incrementAndGet());
+			ActorRef gatePlayerActor = getContext().actorOf(
+					Props.create(AgentPlayerActor.class, this.dbMaster, new AgentPlayer(sessionOpenMsg.getSession().getSession())),
+					"gatePlayerActor" + counter.incrementAndGet());
 			// watch this player actor
 			getContext().watch(gatePlayerActor);
 			sessionOpenMsg.getSession().setActor(gatePlayerActor);

@@ -11,6 +11,8 @@ import com.stone.core.msg.ProtobufMessageFactory;
 import com.stone.core.net.ServerIoProcessor;
 import com.stone.core.node.NodeBuilder;
 import com.stone.core.node.ServerNode;
+import com.stone.core.node.system.IActorSystem;
+import com.stone.db.DBActorSystem;
 
 /**
  * The gate server;
@@ -35,21 +37,31 @@ public class AgentServer {
 		gateServerNode.addIoProcessor("internalProcessor", ioProcessor);
 	}
 
+	private static IActorSystem buildDBSystem(AgentServerConfig config) {
+		DBActorSystem dbActorSystem = new DBActorSystem();
+		// init db service
+		dbActorSystem.initDBService(config.getDbServiceType(), config.getDbConfigName(), config.getDataServiceProperties());
+		return dbActorSystem;
+	}
+
 	public static void main(String[] args) {
 		try {
-			logger.info("Begin to start GateServer...");
+			logger.info("Begin to start AgentServer...");
 			// new node
 			final ServerNode gateServerNode = NodeBuilder.buildCommonNode();
 			// load config
-			AgentServerConfig config = gateServerNode.loadConfig(AgentServerConfig.class, "gate_server.cfg.js");
+			AgentServerConfig config = gateServerNode.loadConfig(AgentServerConfig.class, "agent_server.cfg.js");
+			// db actor system
+			IActorSystem dbActorSystem = buildDBSystem(config);
 			// init game node
-			AgentActorSystem gateSystem = new AgentActorSystem();
+			AgentActorSystem gateSystem = new AgentActorSystem(dbActorSystem.getMasterActor());
 			gateServerNode.init(config, new AgentExternalIoHandler(gateSystem.getMasterActor()), new ProtobufMessageFactory());
 			// build internal processor
 			buildInternalProcessor(gateServerNode, config, gateSystem.getMasterActor());
+
 			// start the gate node
 			gateServerNode.startup();
-			logger.info("GateServer started.");
+			logger.info("AgentServer started.");
 		} catch (Exception e) {
 			logger.error("Start GateServer failed.", e);
 			// exit
