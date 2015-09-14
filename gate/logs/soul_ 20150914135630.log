@@ -1,0 +1,7 @@
+[INFO] 13:56:30,440 - GateServer.main - Begin to start GateServer...
+[INFO] 13:56:30,465 - ConfigUtil.loadJsConfig - Load js config, file: gate_server.cfg.js
+[INFO] 13:56:31,251 - ServerNode.startup - ServerIoProcessor: internalProcessor started.
+[INFO] 13:56:31,262 - ServerNode.startup - ServerIoProcessor: mainProcessor started.
+[INFO] 13:56:31,263 - GateServer.main - GateServer started.
+[INFO] 13:56:54,163 - GateProxyMaster.onReceive - GateProxyMaster received msg:SERVER_REGISTER_REQUEST = > 
+[INFO] 13:57:56,525 - GateMaster.onReceive - GateMaster received msg: CG_PLAYER_LOGIN = > 

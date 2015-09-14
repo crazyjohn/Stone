@@ -1,0 +1,6 @@
+[INFO] 14:18:40,695 - GateServer.main - Begin to start GateServer...
+[INFO] 14:18:40,715 - ConfigUtil.loadJsConfig - Load js config, file: gate_server.cfg.js
+[INFO] 14:18:41,449 - ServerNode.startup - ServerIoProcessor: internalProcessor started.
+[INFO] 14:18:41,459 - ServerNode.startup - ServerIoProcessor: mainProcessor started.
+[INFO] 14:18:41,459 - GateServer.main - GateServer started.
+[INFO] 14:18:55,359 - GateProxyMaster.onReceive - GateProxyMaster received msg: [type: SERVER_REGISTER_REQUEST, builder: {"info": {"type": "GAME","name": "game"}}]

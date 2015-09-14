@@ -2,6 +2,8 @@ package com.stone.core.msg;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Message.Builder;
+import com.googlecode.protobuf.format.JsonFormat;
+import com.stone.proto.MessageTypes.MessageType;
 
 /**
  * Protobuf message;
@@ -61,6 +63,12 @@ public class ProtobufMessage extends BaseCGMessage implements IProtobufMessage {
 		this.builder = newBuilder;
 		this.read();
 		return (B) builder;
+	}
+
+	@Override
+	public String toString() {
+		return "[type: " + MessageType.valueOf(this.type).toString() + ", builder: "
+				+ (this.builder == null ? "null]" : JsonFormat.printToString(this.builder.clone().build()) + "]");
 	}
 
 }

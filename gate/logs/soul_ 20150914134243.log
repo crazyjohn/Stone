@@ -1,0 +1,33 @@
+[INFO] 13:42:43,566 - GateServer.main - Begin to start GateServer...
+[INFO] 13:42:43,596 - ConfigUtil.loadJsConfig - Load js config, file: gate_server.cfg.js
+[INFO] 13:42:44,302 - ServerNode.startup - ServerIoProcessor: internalProcessor started.
+[INFO] 13:42:44,312 - ServerNode.startup - ServerIoProcessor: mainProcessor started.
+[INFO] 13:42:44,312 - GateServer.main - GateServer started.
+[INFO] 13:42:58,216 - GateProxyMaster.onReceive - Received msg:ProtobufMessage[builder=<null>]100
+[ERROR] 13:43:44,262 - AbstractIoHandler.exceptionCaught - Exception caught, session: (0x00000002: nio socket, server, /127.0.0.1:30551 => /127.0.0.1:8080)
+java.lang.ClassCastException: com.stone.gate.session.GateClientSession cannot be cast to com.stone.core.session.GameActorSession
+	at com.stone.core.msg.BaseCGMessage.setSession(BaseCGMessage.java:1)
+	at com.stone.core.net.AbstractIoHandler.messageReceived(AbstractIoHandler.java:46)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain$TailFilter.messageReceived(DefaultIoFilterChain.java:854)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:542)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain.access$1300(DefaultIoFilterChain.java:48)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain$EntryImpl$1.messageReceived(DefaultIoFilterChain.java:943)
+	at org.apache.mina.filter.codec.ProtocolCodecFilter$ProtocolDecoderOutputImpl.flush(ProtocolCodecFilter.java:405)
+	at org.apache.mina.filter.codec.ProtocolCodecFilter.messageReceived(ProtocolCodecFilter.java:235)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:542)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain.access$1300(DefaultIoFilterChain.java:48)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain$EntryImpl$1.messageReceived(DefaultIoFilterChain.java:943)
+	at org.apache.mina.core.filterchain.IoFilterAdapter.messageReceived(IoFilterAdapter.java:109)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:542)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain.fireMessageReceived(DefaultIoFilterChain.java:535)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.read(AbstractPollingIoProcessor.java:714)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:668)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:657)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.access$600(AbstractPollingIoProcessor.java:67)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor$Processor.run(AbstractPollingIoProcessor.java:1121)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+[INFO] 13:48:14,321 - ServerNode.shutdown - ServerIoProcessor: internalProcessor shutdown.
+[INFO] 13:48:14,331 - ServerNode.shutdown - ServerIoProcessor: mainProcessor shutdown.
