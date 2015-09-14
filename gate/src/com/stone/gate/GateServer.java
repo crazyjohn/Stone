@@ -3,11 +3,13 @@ package com.stone.gate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.stone.core.config.master.MasterConfig;
+import com.stone.core.codec.GameCodecFactory;
 import com.stone.core.msg.ProtobufMessageFactory;
+import com.stone.core.net.ServerIoProcessor;
 import com.stone.core.node.NodeBuilder;
-import com.stone.core.node.master.IMasterServerNode;
+import com.stone.core.node.ServerNode;
 import com.stone.gate.actor.GateActorSystem;
+import com.stone.gate.actor.GateProxyActorSystem;
 
 /**
  * The gate server;
@@ -24,12 +26,14 @@ public class GateServer {
 		try {
 			logger.info("Begin to start GateServer...");
 			// new node
-			final IMasterServerNode gateServerNode = NodeBuilder.buildMasterNode();
+			final ServerNode gateServerNode = NodeBuilder.buildCommonNode();
 			// load config
-			MasterConfig config = gateServerNode.loadConfig(MasterConfig.class, "gate_server.cfg.js");
+			GateServerConfig config = gateServerNode.loadConfig(GateServerConfig.class, "gate_server.cfg.js");
 			// init game node
 			gateServerNode.init(config, new GateClientIoHandler(new GateActorSystem().getMasterActor()), new ProtobufMessageFactory());
-			// start the world node
+			// build internal processor
+			buildInternalProcessor(gateServerNode, config);
+			// start the gate node
 			gateServerNode.startup();
 			logger.info("GateServer started.");
 		} catch (Exception e) {
@@ -37,5 +41,12 @@ public class GateServer {
 			// exit
 			System.exit(0);
 		}
+	}
+
+	private static void buildInternalProcessor(ServerNode gateServerNode, GateServerConfig config) {
+		GateProxyActorSystem system = new GateProxyActorSystem();
+		ServerIoProcessor ioProcessor = new ServerIoProcessor(config.getBindIp(), config.getInternalPort(), new GateInternalIoHandler(
+				system.getMasterActor()), new GameCodecFactory(new ProtobufMessageFactory()));
+		gateServerNode.addIoProcessor("internalProcessor", ioProcessor);
 	}
 }

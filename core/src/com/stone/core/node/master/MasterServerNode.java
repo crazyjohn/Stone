@@ -24,7 +24,7 @@ import com.stone.core.node.slave.SlaveMaster;
 
 public class MasterServerNode extends ServerNode implements IMasterServerNode {
 	protected Map<String, CommonServerInfo> slaveServers = new HashMap<String, CommonServerInfo>();
-	protected ActorSystem slaveSystem = ActorSystem.create("SlaveSystem");
+	protected ActorSystem proxySystem = ActorSystem.create("SlaveSystem");
 
 	@Override
 	public CommonServerInfo getSlaveServer(String serverName) {
@@ -46,8 +46,8 @@ public class MasterServerNode extends ServerNode implements IMasterServerNode {
 		List<MasterAddress> addresses = config.getAllMasterAddresses();
 
 		for (MasterAddress address : addresses) {
-			ActorRef slaveMaster = slaveSystem.actorOf(Props.create(SlaveMaster.class), "SlaveMaster-" + address.getMasterName());
-			ServerIoProcessor ioProcessor = new ServerIoProcessor(address.getHost(), address.getPort(), new SlaveIoHandler(slaveMaster),
+			ActorRef slaveProxy = proxySystem.actorOf(Props.create(SlaveMaster.class), "SlaveProxy-" + address.getMasterName());
+			ServerIoProcessor ioProcessor = new ServerIoProcessor(address.getHost(), address.getPort(), new SlaveIoHandler(slaveProxy),
 					new GameCodecFactory(new ProtobufMessageFactory()));
 			this.addIoProcessor(address.getMasterName(), ioProcessor);
 		}

@@ -9,4 +9,4 @@ config.bindIp = "0.0.0.0";
 // bind port 
 config.port = "8080";
 // external port for other server node to connect
-config.addMasterPort("gateInternalProcessor", 6001);
+config.internalPort = 6001;
