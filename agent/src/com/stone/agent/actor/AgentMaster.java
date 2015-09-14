@@ -13,8 +13,9 @@ import akka.actor.Props;
 import akka.actor.UntypedActor;
 
 import com.googlecode.protobuf.format.JsonFormat;
-import com.stone.agent.msg.AgentSessionCloseMessage;
-import com.stone.agent.msg.AgentSessionOpenMessage;
+import com.stone.agent.msg.internal.AgentSessionCloseMessage;
+import com.stone.agent.msg.internal.AgentSessionOpenMessage;
+import com.stone.agent.msg.internal.SelectRoleFromGame;
 import com.stone.agent.player.AgentPlayer;
 import com.stone.core.msg.CGMessage;
 import com.stone.core.msg.MessageParseException;
@@ -47,16 +48,25 @@ public class AgentMaster extends UntypedActor {
 			AgentSessionCloseMessage sessionClose = (AgentSessionCloseMessage) msg;
 			onGateSessionClosed(sessionClose);
 		} else if (msg instanceof CGMessage) {
-			dispatchToTargetPlayerActor((CGMessage)msg);
+			// dispatch to player actor
+			dispatchToTargetPlayerActor((CGMessage) msg);
 		} else if (msg instanceof ServerInternalMessage) {
+			// handle server internal msg
 			onServerInternalMessage((ServerInternalMessage) msg);
+		} else if (msg instanceof SelectRoleFromGame) {
+			SelectRoleFromGame select = (SelectRoleFromGame) msg;
+			BaseActorSession session = this.gameServerSessions.get(select.getSceneId());
+			if (session == null) {
+				return;
+			}
+			session.getSession().write(select.getProtobufMessage());
 		} else {
 			unhandled(msg);
 		}
 	}
 
 	private void dispatchToTargetPlayerActor(CGMessage msg) {
-		msg.getPlayerActor().forward(msg, this.getContext());
+		msg.getPlayerActor().tell(msg, getSelf());
 	}
 
 	/**

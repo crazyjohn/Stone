@@ -30,7 +30,7 @@ public class AgentInternalIoHandler extends AbstractIoHandler<BaseActorSession> 
 	@Override
 	protected BaseActorSession createSessionInfo(IoSession session) {
 		// TODO Auto-generated method stub
-		return null;
+		return new BaseActorSession(session);
 	}
 
 	@Override

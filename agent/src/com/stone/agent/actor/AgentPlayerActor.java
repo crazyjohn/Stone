@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import akka.actor.ActorRef;
 import akka.actor.UntypedActor;
 
+import com.stone.agent.msg.internal.SelectRoleFromGame;
 import com.stone.agent.player.AgentPlayer;
 import com.stone.core.data.msg.DBGetMessage;
 import com.stone.core.msg.MessageParseException;
@@ -121,6 +122,9 @@ public class AgentPlayerActor extends UntypedActor {
 			// select role
 			SelectRole.Builder selectRole = msg.parseBuilder(SelectRole.newBuilder());
 			dbMaster.tell(new DBGetMessage(selectRole.getRoleId(), HumanEntity.class), playerActor);
+			// FIXME: crazyjohn forward this msg to game server, first get the sceneId
+			int sceneId = 1;
+			this.getContext().parent().tell(new SelectRoleFromGame(sceneId, msg), getSelf());
 		}
 	}
 

@@ -4,8 +4,8 @@ import org.apache.mina.core.session.IoSession;
 
 import akka.actor.ActorRef;
 
-import com.stone.agent.msg.AgentSessionCloseMessage;
-import com.stone.agent.msg.AgentSessionOpenMessage;
+import com.stone.agent.msg.internal.AgentSessionCloseMessage;
+import com.stone.agent.msg.internal.AgentSessionOpenMessage;
 import com.stone.core.msg.ISessionMessage;
 import com.stone.core.net.AbstractIoHandler;
 import com.stone.core.session.BaseActorSession;

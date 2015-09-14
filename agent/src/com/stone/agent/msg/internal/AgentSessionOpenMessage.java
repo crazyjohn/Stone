@@ -1,4 +1,4 @@
-package com.stone.agent.msg;
+package com.stone.agent.msg.internal;
 
 import com.stone.core.msg.BaseCGMessage;
 import com.stone.core.msg.MessageParseException;
