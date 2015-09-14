@@ -1,13 +1,25 @@
 package com.stone.game;
 
+import java.net.InetSocketAddress;
+
+import org.apache.mina.core.future.ConnectFuture;
+import org.apache.mina.core.session.IoSession;
+import org.apache.mina.filter.codec.ProtocolCodecFilter;
+import org.apache.mina.transport.socket.nio.NioSocketConnector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import akka.actor.ActorRef;
+
+import com.stone.core.codec.GameCodecFactory;
+import com.stone.core.msg.ProtobufMessage;
 import com.stone.core.msg.ProtobufMessageFactory;
 import com.stone.core.node.NodeBuilder;
-import com.stone.core.node.slave.ISlaveServerNode;
+import com.stone.core.node.ServerNode;
 import com.stone.core.node.system.IActorSystem;
 import com.stone.db.DBActorSystem;
+import com.stone.proto.MessageTypes.MessageType;
+import com.stone.proto.Servers.GameRegisterToAgent;
 
 /**
  * The mmo game server, use stone engine;
@@ -36,7 +48,7 @@ public class GameServer {
 		try {
 			logger.info("Begin to start GameServer...");
 			// new node
-			final ISlaveServerNode gameServerNode = NodeBuilder.buildSlaveNode();
+			final ServerNode gameServerNode = NodeBuilder.buildCommonNode();
 			// load config
 			GameServerConfig config = gameServerNode.loadConfig(GameServerConfig.class, "game_server.cfg.js");
 			// db actor system
@@ -46,6 +58,8 @@ public class GameServer {
 			// register service
 			gameServerNode.registerActorSystem("GameActorSystem", gameActorSystem);
 			gameServerNode.registerActorSystem("DBActorSystem", dbActorSystem);
+			// connect to agent server
+			connectToAgentServer(config, gameActorSystem.getMasterActor());
 			// init game node
 			gameServerNode.init(config, new GameIoHandler(gameActorSystem.getMasterActor(), dbActorSystem.getMasterActor()),
 					new ProtobufMessageFactory());
@@ -57,5 +71,30 @@ public class GameServer {
 			// exit
 			System.exit(0);
 		}
+	}
+
+	private static void connectToAgentServer(GameServerConfig config, ActorRef masterActor) {
+		NioSocketConnector connector = new NioSocketConnector();
+		connector.setHandler(new AgentIoHandler(masterActor));
+		connector.getFilterChain().addLast("codec", new ProtocolCodecFilter(new GameCodecFactory(new ProtobufMessageFactory())));
+		// connect to master
+		ConnectFuture future = connector.connect(new InetSocketAddress(config.getAgentHost(), config.getAgentPort()));
+		logger.info("Start to connect to agent server...");
+		// crazy?
+		future.awaitUninterruptibly();
+		logger.info("Connect to agent server succeed.");
+		IoSession session = future.getSession();
+		// send register
+		logger.info("Start to register on agent server...");
+		ProtobufMessage message = new ProtobufMessage(MessageType.GAME_REGISTER_TO_AGENT_VALUE);
+		message.setBuilder(GameRegisterToAgent.newBuilder().setServerInfo(config.getServerInfo()).addSceneIds(1/**
+		 * 
+		 * 
+		 * 
+		 * 
+		 * config this value
+		 */
+		));
+		session.write(message);
 	}
 }

@@ -8,8 +8,9 @@ config.getServerInfo().setName(config.name).setType(ServerType.GAME);
 config.bindIp = "0.0.0.0";
 // bind port 
 config.port = "8081";
-// allMasterServers
-config.addMasterAddress("Gate", "0.0.0.0", 6001, ServerType.GATE);
+// agent server
+config.agentHost = "0.0.0.0";
+config.agentPort = 6001;
 // db
 config.dbServiceType = "hibernate";
 config.dbConfigName="game_server_hibernate.cfg.xml"

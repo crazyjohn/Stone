@@ -58,7 +58,6 @@ public class AgentServer {
 			gateServerNode.init(config, new AgentExternalIoHandler(gateSystem.getMasterActor()), new ProtobufMessageFactory());
 			// build internal processor
 			buildInternalProcessor(gateServerNode, config, gateSystem.getMasterActor());
-
 			// start the gate node
 			gateServerNode.startup();
 			logger.info("AgentServer started.");

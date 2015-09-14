@@ -20,7 +20,6 @@ import com.stone.db.annotation.PlayerInternalMessage;
 import com.stone.db.entity.HumanItemEntity;
 import com.stone.game.scene.dispatch.SceneDispatchEvent;
 import com.stone.game.session.msg.GameSessionCloseMessage;
-import com.stone.game.session.msg.GameSessionOpenMessage;
 import com.stone.proto.common.Commons.Item;
 
 /**
@@ -54,16 +53,47 @@ public class PlayerActor extends UntypedActor {
 
 	@Override
 	public void onReceive(Object msg) throws Exception {
-		if (msg instanceof GameSessionOpenMessage) {
-			// open session
-			GameSessionOpenMessage sessionOpen = (GameSessionOpenMessage) msg;
-			sessionOpen.execute();
-			// change state
-			getContext().become(CONNECTED);
+		if (msg instanceof GameSessionCloseMessage) {
+			getContext().become(DISCONNECTED);
+			// forward to player internal modules
+			player.onInternalMessage(msg, PlayerActor.this.getSelf());
+		} else if (msg instanceof ProtobufMessage) {
+			// net message use self execute
+			ProtobufMessage netMessage = (ProtobufMessage) msg;
+			player.onExternalMessage(netMessage, getSelf(), dbMaster);
+		} else if (msg.getClass().getAnnotation(PlayerInternalMessage.class) != null) {
+			// handle player internal message
+			player.onInternalMessage(msg, getSelf());
+		} else if (msg.equals(MOCK)) {
+			// FIXME: crazyjohn test code
+			// mock update human data
+			if (player.getHuman() == null) {
+				return;
+			}
+			HumanItemEntity itemEntity = new HumanItemEntity();
+			itemEntity.setHumanGuid(player.getHuman().getGuid());
+			itemEntity.getBuilder().setHumanGuid(player.getHuman().getGuid()).setItem(Item.newBuilder().setCount(1).setTemplateId(8888));
+			DataEventBus.fireUpdate(dbMaster, getSelf(), itemEntity);
+		} else if (msg instanceof ActorSendMessage) {
+			ActorSendMessage actorMessage = (ActorSendMessage) msg;
+			player.sendMessage(actorMessage.getType(), actorMessage.getBuilder());
+		} else if (msg instanceof SceneDispatchEvent) {
+			// scene event
+			player.onInternalMessage(msg, getSelf());
 		} else {
-			// unhandle msg
+			// unhandled msg
 			unhandled(msg);
 		}
+		// if (msg instanceof GameSessionOpenMessage) {
+		// // open session
+		// GameSessionOpenMessage sessionOpen = (GameSessionOpenMessage) msg;
+		// sessionOpen.execute();
+		// // change state
+		// getContext().become(CONNECTED);
+		// } else {
+		// // unhandle msg
+		// unhandled(msg);
+		// }
 	}
 
 	@Override
@@ -75,41 +105,11 @@ public class PlayerActor extends UntypedActor {
 	/**
 	 * Connected state;
 	 */
-	private Procedure<Object> CONNECTED = new Procedure<Object>() {
+	protected Procedure<Object> CONNECTED = new Procedure<Object>() {
 
 		@Override
 		public void apply(Object msg) throws Exception {
-			if (msg instanceof GameSessionCloseMessage) {
-				getContext().become(DISCONNECTED);
-				// forward to player internal modules
-				player.onInternalMessage(msg, PlayerActor.this.getSelf());
-			} else if (msg instanceof ProtobufMessage) {
-				// net message use self execute
-				ProtobufMessage netMessage = (ProtobufMessage) msg;
-				player.onExternalMessage(netMessage, getSelf(), dbMaster);
-			} else if (msg.getClass().getAnnotation(PlayerInternalMessage.class) != null) {
-				// handle player internal message
-				player.onInternalMessage(msg, getSelf());
-			} else if (msg.equals(MOCK)) {
-				// FIXME: crazyjohn test code
-				// mock update human data
-				if (player.getHuman() == null) {
-					return;
-				}
-				HumanItemEntity itemEntity = new HumanItemEntity();
-				itemEntity.setHumanGuid(player.getHuman().getGuid());
-				itemEntity.getBuilder().setHumanGuid(player.getHuman().getGuid()).setItem(Item.newBuilder().setCount(1).setTemplateId(8888));
-				DataEventBus.fireUpdate(dbMaster, getSelf(), itemEntity);
-			} else if (msg instanceof ActorSendMessage) {
-				ActorSendMessage actorMessage = (ActorSendMessage) msg;
-				player.sendMessage(actorMessage.getType(), actorMessage.getBuilder());
-			} else if (msg instanceof SceneDispatchEvent) {
-				// scene event
-				player.onInternalMessage(msg, getSelf());
-			} else {
-				// unhandled msg
-				unhandled(msg);
-			}
+			
 		}
 
 	};

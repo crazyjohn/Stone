@@ -14,11 +14,14 @@ import akka.actor.UntypedActor;
 
 import com.stone.core.msg.CGMessage;
 import com.stone.core.msg.MessageParseException;
+import com.stone.core.msg.ProtobufMessage;
 import com.stone.core.session.ISession;
 import com.stone.game.module.player.PlayerActor;
+import com.stone.game.msg.AgentServerInternalMessage;
 import com.stone.game.scene.dispatch.SceneDispatcher;
 import com.stone.game.session.msg.GameSessionCloseMessage;
 import com.stone.game.session.msg.GameSessionOpenMessage;
+import com.stone.proto.MessageTypes.MessageType;
 
 /**
  * The master actor;
@@ -64,8 +67,22 @@ public class GameMaster extends UntypedActor {
 			onGameSessionClosed(sessionClose);
 		} else if (msg instanceof CGMessage) {
 			dispatchToTargetPlayerActor(msg);
+		} else if (msg instanceof AgentServerInternalMessage) {
+			// msg from agent
+			onAgentInternalMessage((AgentServerInternalMessage) msg);
 		} else {
 			unhandled(msg);
+		}
+	}
+
+	private void onAgentInternalMessage(AgentServerInternalMessage msg) {
+		ProtobufMessage protoMessage = msg.getRealMessage();
+		if (protoMessage.getType() == MessageType.CG_SELECT_ROLE_VALUE) {
+			ActorRef playerActor = getContext().actorOf(PlayerActor.props(protoMessage.getSession().getSession(), dbMaster),
+					"playerActor" + counter.incrementAndGet());
+			// watch this player actor
+			getContext().watch(playerActor);
+			playerActor.forward(protoMessage, getContext());
 		}
 	}
 

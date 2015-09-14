@@ -2,7 +2,7 @@ package com.stone.game;
 
 import java.util.Properties;
 
-import com.stone.core.config.slave.SlaveServerConfig;
+import com.stone.core.config.ServerConfig;
 
 /**
  * The game server config;
@@ -10,11 +10,29 @@ import com.stone.core.config.slave.SlaveServerConfig;
  * @author crazyjohn
  *
  */
-public class GameServerConfig extends SlaveServerConfig {
+public class GameServerConfig extends ServerConfig {
 	/** the dbSerive type */
 	private String dbServiceType = "hibernate";
 	private Properties dataServiceProperties = new Properties();
 	private String dbConfigName;
+	private String agentHost;
+	private int agentPort;
+
+	public String getAgentHost() {
+		return agentHost;
+	}
+
+	public void setAgentHost(String agentHost) {
+		this.agentHost = agentHost;
+	}
+
+	public int getAgentPort() {
+		return agentPort;
+	}
+
+	public void setAgentPort(int agentPort) {
+		this.agentPort = agentPort;
+	}
 
 	public Properties getDataServiceProperties() {
 		return dataServiceProperties;

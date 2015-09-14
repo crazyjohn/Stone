@@ -1,4 +1,4 @@
-package com.stone.agent;
+package com.stone.game;
 
 import org.apache.mina.core.session.IoSession;
 
@@ -6,13 +6,13 @@ import akka.actor.ActorRef;
 
 import com.stone.core.msg.ISessionMessage;
 import com.stone.core.msg.ProtobufMessage;
-import com.stone.core.msg.server.ServerInternalMessage;
 import com.stone.core.net.AbstractIoHandler;
 import com.stone.core.session.BaseActorSession;
+import com.stone.game.msg.AgentServerInternalMessage;
 
-public class AgentInternalIoHandler extends AbstractIoHandler<BaseActorSession> {
+public class AgentIoHandler extends AbstractIoHandler<BaseActorSession> {
 
-	public AgentInternalIoHandler(ActorRef mainMasterActor) {
+	public AgentIoHandler(ActorRef mainMasterActor) {
 		super(mainMasterActor);
 	}
 
@@ -24,7 +24,7 @@ public class AgentInternalIoHandler extends AbstractIoHandler<BaseActorSession> 
 
 	@Override
 	protected Object doMessageWrapper(ISessionMessage<BaseActorSession> msg) {
-		return new ServerInternalMessage(((ProtobufMessage) msg));
+		return new AgentServerInternalMessage(((ProtobufMessage) msg));
 	}
 
 	@Override
