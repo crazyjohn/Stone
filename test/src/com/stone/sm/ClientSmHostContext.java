@@ -18,7 +18,7 @@ public class ClientSmHostContext
 
     public ClientSmHostContext(ClientSmHost owner)
     {
-        super (MapClient.Default);
+        super (ClientStateMap.Default);
 
         _owner = owner;
     }
@@ -183,7 +183,7 @@ public class ClientSmHostContext
     //
     }
 
-    /* package */ static abstract class MapClient
+    /* package */ static abstract class ClientStateMap
     {
     //-----------------------------------------------------------
     // Member methods.
@@ -196,29 +196,29 @@ public class ClientSmHostContext
         //-------------------------------------------------------
         // Constants.
         //
-        public static final MapClient_None None =
-            new MapClient_None("MapClient.None", 0);
-        public static final MapClient_Connected Connected =
-            new MapClient_Connected("MapClient.Connected", 1);
-        public static final MapClient_Authed Authed =
-            new MapClient_Authed("MapClient.Authed", 2);
-        public static final MapClient_Game Game =
-            new MapClient_Game("MapClient.Game", 3);
-        public static final MapClient_Battle Battle =
-            new MapClient_Battle("MapClient.Battle", 4);
-        private static final MapClient_Default Default =
-            new MapClient_Default("MapClient.Default", -1);
+        public static final ClientStateMap_None None =
+            new ClientStateMap_None("ClientStateMap.None", 0);
+        public static final ClientStateMap_Connected Connected =
+            new ClientStateMap_Connected("ClientStateMap.Connected", 1);
+        public static final ClientStateMap_Authed Authed =
+            new ClientStateMap_Authed("ClientStateMap.Authed", 2);
+        public static final ClientStateMap_Game Game =
+            new ClientStateMap_Game("ClientStateMap.Game", 3);
+        public static final ClientStateMap_Battle Battle =
+            new ClientStateMap_Battle("ClientStateMap.Battle", 4);
+        private static final ClientStateMap_Default Default =
+            new ClientStateMap_Default("ClientStateMap.Default", -1);
 
     }
 
-    protected static class MapClient_Default
+    protected static class ClientStateMap_Default
         extends ClientSmHostState
     {
     //-----------------------------------------------------------
     // Member methods.
     //
 
-        protected MapClient_Default(String name, int id)
+        protected ClientStateMap_Default(String name, int id)
         {
             super (name, id);
         }
@@ -228,7 +228,7 @@ public class ClientSmHostContext
 
 
             (context.getState()).Exit(context);
-            context.setState(MapClient.None);
+            context.setState(ClientStateMap.None);
             (context.getState()).Entry(context);
             return;
         }
@@ -237,14 +237,14 @@ public class ClientSmHostContext
     //
     }
 
-    private static final class MapClient_None
-        extends MapClient_Default
+    private static final class ClientStateMap_None
+        extends ClientStateMap_Default
     {
     //-------------------------------------------------------
     // Member methods.
     //
 
-        private MapClient_None(String name, int id)
+        private ClientStateMap_None(String name, int id)
         {
             super (name, id);
         }
@@ -262,7 +262,7 @@ public class ClientSmHostContext
             }
             finally
             {
-                context.setState(MapClient.Connected);
+                context.setState(ClientStateMap.Connected);
                 (context.getState()).Entry(context);
             }
             return;
@@ -273,14 +273,14 @@ public class ClientSmHostContext
     //
     }
 
-    private static final class MapClient_Connected
-        extends MapClient_Default
+    private static final class ClientStateMap_Connected
+        extends ClientStateMap_Default
     {
     //-------------------------------------------------------
     // Member methods.
     //
 
-        private MapClient_Connected(String name, int id)
+        private ClientStateMap_Connected(String name, int id)
         {
             super (name, id);
         }
@@ -298,7 +298,7 @@ public class ClientSmHostContext
             }
             finally
             {
-                context.setState(MapClient.Authed);
+                context.setState(ClientStateMap.Authed);
                 (context.getState()).Entry(context);
             }
             return;
@@ -309,14 +309,14 @@ public class ClientSmHostContext
     //
     }
 
-    private static final class MapClient_Authed
-        extends MapClient_Default
+    private static final class ClientStateMap_Authed
+        extends ClientStateMap_Default
     {
     //-------------------------------------------------------
     // Member methods.
     //
 
-        private MapClient_Authed(String name, int id)
+        private ClientStateMap_Authed(String name, int id)
         {
             super (name, id);
         }
@@ -334,7 +334,7 @@ public class ClientSmHostContext
             }
             finally
             {
-                context.setState(MapClient.Game);
+                context.setState(ClientStateMap.Game);
                 (context.getState()).Entry(context);
             }
             return;
@@ -345,14 +345,14 @@ public class ClientSmHostContext
     //
     }
 
-    private static final class MapClient_Game
-        extends MapClient_Default
+    private static final class ClientStateMap_Game
+        extends ClientStateMap_Default
     {
     //-------------------------------------------------------
     // Member methods.
     //
 
-        private MapClient_Game(String name, int id)
+        private ClientStateMap_Game(String name, int id)
         {
             super (name, id);
         }
@@ -370,7 +370,7 @@ public class ClientSmHostContext
             }
             finally
             {
-                context.setState(MapClient.Battle);
+                context.setState(ClientStateMap.Battle);
                 (context.getState()).Entry(context);
             }
             return;
@@ -381,14 +381,14 @@ public class ClientSmHostContext
     //
     }
 
-    private static final class MapClient_Battle
-        extends MapClient_Default
+    private static final class ClientStateMap_Battle
+        extends ClientStateMap_Default
     {
     //-------------------------------------------------------
     // Member methods.
     //
 
-        private MapClient_Battle(String name, int id)
+        private ClientStateMap_Battle(String name, int id)
         {
             super (name, id);
         }
@@ -406,7 +406,7 @@ public class ClientSmHostContext
             }
             finally
             {
-                context.setState(MapClient.Game);
+                context.setState(ClientStateMap.Game);
                 (context.getState()).Entry(context);
             }
             return;

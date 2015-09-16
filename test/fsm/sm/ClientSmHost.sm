@@ -1,8 +1,8 @@
 %class ClientSmHost
-%start MapClient::Default
+%start ClientStateMap::Default
 %package com.stone.sm
 %import com.stone.sm.host.ClientSmHost
-%map MapClient
+%map ClientStateMap
 %%
 // State
 //	Transition		
