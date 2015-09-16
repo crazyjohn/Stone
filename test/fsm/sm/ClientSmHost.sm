@@ -8,6 +8,23 @@
 //	Transition		
 //		End State	Action(s)
 
+// skeleton
+/*
+State
+Entry{}
+Exit{}
+{
+	Transition
+		[Condition]
+		EndState 
+		{
+			// actions
+			Action1();
+			Action2();
+		}
+}
+*/
+
 None
 {
 	connect(host:String, port:int)
