@@ -34,7 +34,7 @@ public class AgentServer {
 	private static void buildInternalProcessor(ServerNode gateServerNode, AgentServerConfig config, ActorRef gateMaster) {
 		ServerIoProcessor ioProcessor = new ServerIoProcessor(config.getBindIp(), config.getInternalPort(), new AgentInternalIoHandler(gateMaster),
 				new GameCodecFactory(new ProtobufMessageFactory()));
-		gateServerNode.addIoProcessor("internalProcessor", ioProcessor);
+		gateServerNode.registerIoProcessor("internalProcessor", ioProcessor);
 	}
 
 	private static IActorSystem buildDBSystem(AgentServerConfig config) {

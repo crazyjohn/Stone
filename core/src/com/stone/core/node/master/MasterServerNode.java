@@ -49,7 +49,7 @@ public class MasterServerNode extends ServerNode implements IMasterServerNode {
 			ActorRef slaveProxy = proxySystem.actorOf(Props.create(SlaveMaster.class), "SlaveProxy-" + address.getMasterName());
 			ServerIoProcessor ioProcessor = new ServerIoProcessor(address.getHost(), address.getPort(), new SlaveIoHandler(slaveProxy),
 					new GameCodecFactory(new ProtobufMessageFactory()));
-			this.addIoProcessor(address.getMasterName(), ioProcessor);
+			this.registerIoProcessor(address.getMasterName(), ioProcessor);
 		}
 		return true;
 	}

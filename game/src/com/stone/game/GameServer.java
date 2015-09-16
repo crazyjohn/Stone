@@ -60,9 +60,6 @@ public class GameServer {
 			gameServerNode.registerActorSystem("DBActorSystem", dbActorSystem);
 			// connect to agent server
 			connectToAgentServer(config, gameActorSystem.getMasterActor());
-			// init game node
-			gameServerNode.init(config, new GameIoHandler(gameActorSystem.getMasterActor(), dbActorSystem.getMasterActor()),
-					new ProtobufMessageFactory());
 			// start the game node
 			gameServerNode.startup();
 			logger.info("GameServer started.");
@@ -88,6 +85,7 @@ public class GameServer {
 		logger.info("Start to register on agent server...");
 		ProtobufMessage message = new ProtobufMessage(MessageType.GAME_REGISTER_TO_AGENT_VALUE);
 		message.setBuilder(GameRegisterToAgent.newBuilder().setServerInfo(config.getServerInfo()).addSceneIds(1/**
+		 * 
 		 * 
 		 * 
 		 * 

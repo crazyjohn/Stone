@@ -8,19 +8,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import akka.actor.ActorRef;
-import akka.actor.PoisonPill;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
 
 import com.stone.core.msg.CGMessage;
-import com.stone.core.msg.MessageParseException;
 import com.stone.core.msg.ProtobufMessage;
 import com.stone.core.session.ISession;
 import com.stone.game.module.player.PlayerActor;
 import com.stone.game.msg.AgentServerInternalMessage;
 import com.stone.game.scene.dispatch.SceneDispatcher;
-import com.stone.game.session.msg.GameSessionCloseMessage;
-import com.stone.game.session.msg.GameSessionOpenMessage;
 import com.stone.proto.MessageTypes.MessageType;
 
 /**
@@ -57,15 +53,7 @@ public class GameMaster extends UntypedActor {
 	@Override
 	public void onReceive(Object msg) throws Exception {
 		// dispatch cg msg
-		if (msg instanceof GameSessionOpenMessage) {
-			// open session
-			GameSessionOpenMessage sessionOpenMsg = (GameSessionOpenMessage) msg;
-			onGameSessionOpened(sessionOpenMsg);
-		} else if (msg instanceof GameSessionCloseMessage) {
-			// close session
-			GameSessionCloseMessage sessionClose = (GameSessionCloseMessage) msg;
-			onGameSessionClosed(sessionClose);
-		} else if (msg instanceof CGMessage) {
+		if (msg instanceof CGMessage) {
 			dispatchToTargetPlayerActor(msg);
 		} else if (msg instanceof AgentServerInternalMessage) {
 			// msg from agent
@@ -102,43 +90,6 @@ public class GameMaster extends UntypedActor {
 		// put to player actor
 		playerActor.tell(msg, ActorRef.noSender());
 
-	}
-
-	/**
-	 * On session closed;
-	 * 
-	 * @param sessionClose
-	 * @throws MessageParseException
-	 */
-	private void onGameSessionClosed(GameSessionCloseMessage sessionClose) throws MessageParseException {
-		// remove
-		sessionClose.execute();
-		// forward
-		sessionClose.getPlayerActor().forward(sessionClose, getContext());
-		// stop the actor
-		// FIXME: crazyjohn at first i use the 'context().stop(subActor)' way,
-		// but it's not work, so i change to poison way
-		sessionClose.getPlayerActor().tell(PoisonPill.getInstance(), getSender());
-		getContext().unwatch(sessionClose.getPlayerActor());
-	}
-
-	/**
-	 * On game session opened;
-	 * 
-	 * @param sessionOpenMsg
-	 */
-	private void onGameSessionOpened(GameSessionOpenMessage sessionOpenMsg) {
-		if (sessionOpenMsg.getSession().getActor() == null) {
-			ActorRef playerActor = getContext().actorOf(PlayerActor.props(sessionOpenMsg.getSession().getSession(), dbMaster),
-					"playerActor" + counter.incrementAndGet());
-			// watch this player actor
-			getContext().watch(playerActor);
-			sessionOpenMsg.getSession().setActor(playerActor);
-			playerActor.forward(sessionOpenMsg, getContext());
-		} else {
-			// invalid, close session
-			sessionOpenMsg.getSession().close();
-		}
 	}
 
 	public static Props props(ActorRef dbMaster) {

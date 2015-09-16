@@ -87,7 +87,7 @@ public class ServerNode implements IServerNode {
 	}
 
 	@Override
-	public void addIoProcessor(String name, ServerIoProcessor ioProcessor) {
+	public void registerIoProcessor(String name, ServerIoProcessor ioProcessor) {
 		this.ioProcessors.put(name, ioProcessor);
 	}
 
@@ -141,7 +141,7 @@ public class ServerNode implements IServerNode {
 		this.nodeName = config.getName();
 		mainIoProcessor = new ServerIoProcessor(config.getBindIp(), config.getPort(), ioHandler, new GameCodecFactory(messageFactory));
 		// add processor
-		this.addIoProcessor("mainProcessor", mainIoProcessor);
+		this.registerIoProcessor("mainProcessor", mainIoProcessor);
 		// add hook
 		for (final IShutdownHook eachHook : this.hooks) {
 			Runtime.getRuntime().addShutdownHook(new Thread() {

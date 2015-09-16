@@ -29,7 +29,7 @@ public interface IServerNode extends ILifeCircle {
 	 * @param name
 	 * @param ioProcessor
 	 */
-	public void addIoProcessor(String name, ServerIoProcessor ioProcessor);
+	public void registerIoProcessor(String name, ServerIoProcessor ioProcessor);
 
 	/**
 	 * Register a actor system;

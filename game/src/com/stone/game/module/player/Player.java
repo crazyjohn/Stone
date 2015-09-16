@@ -11,7 +11,7 @@ import com.google.protobuf.Message.Builder;
 import com.stone.core.msg.MessageParseException;
 import com.stone.core.msg.ProtobufMessage;
 import com.stone.game.human.Human;
-import com.stone.game.player.module.PlayerLoginModule;
+import com.stone.game.player.module.PlayerNewLoginModule;
 
 /**
  * Game player object;
@@ -30,7 +30,7 @@ public class Player {
 
 	public Player() {
 		// register loginModule
-		registerModule(new PlayerLoginModule(this));
+		registerModule(new PlayerNewLoginModule(this));
 	}
 
 	/**

@@ -16,6 +16,7 @@ import com.stone.game.session.msg.GameSessionOpenMessage;
  * @author crazyjohn
  *
  */
+@Deprecated
 public class GameIoHandler extends AbstractIoHandler<BaseActorSession> {
 	/** the db master */
 	protected final ActorRef dbMaster;
@@ -31,7 +32,6 @@ public class GameIoHandler extends AbstractIoHandler<BaseActorSession> {
 		return sessionInfo;
 	}
 
-	
 	@Override
 	protected ISessionMessage<BaseActorSession> createSessionCloseMessage(BaseActorSession sessionInfo) {
 		return new GameSessionCloseMessage(sessionInfo);
