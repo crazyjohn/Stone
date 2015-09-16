@@ -11,13 +11,16 @@ import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
 
-import com.stone.core.msg.CGMessage;
 import com.stone.core.msg.ProtobufMessage;
-import com.stone.core.session.ISession;
+import com.stone.core.session.BaseActorSession;
 import com.stone.game.module.player.PlayerActor;
-import com.stone.game.msg.AgentServerInternalMessage;
 import com.stone.game.scene.dispatch.SceneDispatcher;
+import com.stone.game.server.msg.AgentServerForwardMessage;
+import com.stone.game.server.msg.AgentSessionOpenMessage;
 import com.stone.proto.MessageTypes.MessageType;
+import com.stone.proto.Servers.GameRegisterToAgent;
+import com.stone.proto.Servers.ServerInfo;
+import com.stone.proto.Servers.ServerType;
 
 /**
  * The master actor;
@@ -35,6 +38,7 @@ public class GameMaster extends UntypedActor {
 
 	/** counter */
 	private AtomicLong counter = new AtomicLong(0);
+	protected BaseActorSession agentSession;
 
 	public GameMaster(ActorRef dbMaster) {
 		this.dbMaster = dbMaster;
@@ -53,43 +57,45 @@ public class GameMaster extends UntypedActor {
 	@Override
 	public void onReceive(Object msg) throws Exception {
 		// dispatch cg msg
-		if (msg instanceof CGMessage) {
-			dispatchToTargetPlayerActor(msg);
-		} else if (msg instanceof AgentServerInternalMessage) {
+		if (msg instanceof AgentServerForwardMessage) {
 			// msg from agent
-			onAgentInternalMessage((AgentServerInternalMessage) msg);
+			onAgentInternalMessage((AgentServerForwardMessage) msg);
+		} else if (msg instanceof AgentSessionOpenMessage) {
+			// agent session opend
+			onAgentSessionOpened((AgentSessionOpenMessage) msg);
 		} else {
 			unhandled(msg);
 		}
 	}
 
-	private void onAgentInternalMessage(AgentServerInternalMessage msg) {
+	private void onAgentSessionOpened(AgentSessionOpenMessage msg) {
+		this.agentSession = msg.getSession();
+		logger.info("Start to register on agent server...");
+		ProtobufMessage message = new ProtobufMessage(MessageType.GAME_REGISTER_TO_AGENT_VALUE);
+		message.setBuilder(GameRegisterToAgent.newBuilder().setServerInfo(ServerInfo.newBuilder().setName("game").setType(ServerType.GAME))
+				.addSceneIds(1));
+		msg.getSession().writeMessage(message);
+	}
+
+	private void onAgentInternalMessage(AgentServerForwardMessage msg) {
 		ProtobufMessage protoMessage = msg.getRealMessage();
 		if (protoMessage.getType() == MessageType.CG_SELECT_ROLE_VALUE) {
+			// create player actor when received select char msg
 			ActorRef playerActor = getContext().actorOf(PlayerActor.props(protoMessage.getSession().getSession(), dbMaster),
 					"playerActor" + counter.incrementAndGet());
 			// watch this player actor
 			getContext().watch(playerActor);
 			playerActor.forward(protoMessage, getContext());
+		} else {
+			ActorRef playerActor = getPlayerActor(msg);
+			// put to player actor
+			playerActor.tell(msg, ActorRef.noSender());
 		}
 	}
 
-	/**
-	 * Dispatch the msg to target playerActor;
-	 * 
-	 * @param msg
-	 */
-	private void dispatchToTargetPlayerActor(Object msg) {
-		ActorRef playerActor = ((CGMessage) msg).getPlayerActor();
-		if (playerActor == null) {
-			ISession sessionInfo = ((CGMessage) msg).getSession();
-			logger.info(String.format("Player null, close this session: %s", sessionInfo));
-			sessionInfo.close();
-			return;
-		}
-		// put to player actor
-		playerActor.tell(msg, ActorRef.noSender());
-
+	private ActorRef getPlayerActor(AgentServerForwardMessage msg) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	public static Props props(ActorRef dbMaster) {

@@ -13,6 +13,7 @@ import com.stone.core.session.BaseActorSession;
  * @author crazyjohn
  *
  */
+@Deprecated
 public class GameSessionOpenMessage extends BaseCGMessage {
 	private Logger logger = LoggerFactory.getLogger(GameSessionCloseMessage.class);
 

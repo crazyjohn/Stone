@@ -3,7 +3,6 @@ package com.stone.game;
 import java.net.InetSocketAddress;
 
 import org.apache.mina.core.future.ConnectFuture;
-import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.codec.ProtocolCodecFilter;
 import org.apache.mina.transport.socket.nio.NioSocketConnector;
 import org.slf4j.Logger;
@@ -12,14 +11,11 @@ import org.slf4j.LoggerFactory;
 import akka.actor.ActorRef;
 
 import com.stone.core.codec.GameCodecFactory;
-import com.stone.core.msg.ProtobufMessage;
 import com.stone.core.msg.ProtobufMessageFactory;
 import com.stone.core.node.NodeBuilder;
 import com.stone.core.node.ServerNode;
 import com.stone.core.node.system.IActorSystem;
 import com.stone.db.DBActorSystem;
-import com.stone.proto.MessageTypes.MessageType;
-import com.stone.proto.Servers.GameRegisterToAgent;
 
 /**
  * The mmo game server, use stone engine;
@@ -80,19 +76,5 @@ public class GameServer {
 		// crazy?
 		future.awaitUninterruptibly();
 		logger.info("Connect to agent server succeed.");
-		IoSession session = future.getSession();
-		// send register
-		logger.info("Start to register on agent server...");
-		ProtobufMessage message = new ProtobufMessage(MessageType.GAME_REGISTER_TO_AGENT_VALUE);
-		message.setBuilder(GameRegisterToAgent.newBuilder().setServerInfo(config.getServerInfo()).addSceneIds(1/**
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * config this value
-		 */
-		));
-		session.write(message);
 	}
 }
