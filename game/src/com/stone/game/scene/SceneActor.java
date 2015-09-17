@@ -13,7 +13,7 @@ import akka.actor.UntypedActor;
 import com.google.protobuf.Message.Builder;
 import com.stone.core.actor.msg.ActorSendMessage;
 import com.stone.core.concurrent.annotation.GuardedByUnit;
-import com.stone.game.module.player.Player;
+import com.stone.game.module.player.GamePlayer;
 import com.stone.proto.Humans.Human;
 import com.stone.proto.MessageTypes.MessageType;
 import com.stone.proto.Syncs.Sync;
@@ -37,13 +37,13 @@ public class SceneActor extends UntypedActor {
 	 * be write by another thread
 	 */
 	@GuardedByUnit(whoCareMe = "ConcurrentHashMap")
-	private Map<Long, Player> players = new ConcurrentHashMap<Long, Player>();
+	private Map<Long, GamePlayer> players = new ConcurrentHashMap<Long, GamePlayer>();
 	private Map<Long, ActorRef> playerActors = new HashMap<Long, ActorRef>();
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	private Builder buildSync(long playerId) {
 		Sync.Builder result = Sync.newBuilder();
-		for (Player eachPlayer : players.values()) {
+		for (GamePlayer eachPlayer : players.values()) {
 			if (eachPlayer.getPlayerId() == playerId) {
 				continue;
 			}
@@ -56,12 +56,12 @@ public class SceneActor extends UntypedActor {
 		return result;
 	}
 
-	private void addPlayer(Player player) {
+	private void addPlayer(GamePlayer player) {
 		logger.info("Add player: " + player.getPlayerId());
 		players.put(player.getPlayerId(), player);
 	}
 
-	private void removePlayer(Player player) {
+	private void removePlayer(GamePlayer player) {
 		players.remove(player.getPlayerId());
 		logger.info("Remove player: " + player.getPlayerId());
 
@@ -105,25 +105,25 @@ public class SceneActor extends UntypedActor {
 	}
 
 	public static class RegisterPlayer {
-		private final Player player;
+		private final GamePlayer player;
 
-		public RegisterPlayer(Player player) {
+		public RegisterPlayer(GamePlayer player) {
 			this.player = player;
 		}
 
-		public Player getPlayer() {
+		public GamePlayer getPlayer() {
 			return player;
 		}
 	}
 
 	public static class UnRegisterPlayer {
-		private final Player player;
+		private final GamePlayer player;
 
-		public UnRegisterPlayer(Player player) {
+		public UnRegisterPlayer(GamePlayer player) {
 			this.player = player;
 		}
 
-		public Player getPlayer() {
+		public GamePlayer getPlayer() {
 			return player;
 		}
 	}

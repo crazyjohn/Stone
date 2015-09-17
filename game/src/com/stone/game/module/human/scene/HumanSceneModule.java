@@ -8,7 +8,6 @@ import com.stone.game.human.Human;
 import com.stone.game.module.human.BaseHumanModule;
 import com.stone.game.scene.dispatch.SceneDispatchEvent;
 import com.stone.game.scene.dispatch.SceneDispatcher;
-import com.stone.game.session.msg.GameSessionCloseMessage;
 import com.stone.proto.Humans.SceneObjectType;
 import com.stone.proto.MessageTypes.MessageType;
 import com.stone.proto.Syncs.Move;
@@ -29,15 +28,16 @@ public class HumanSceneModule extends BaseHumanModule {
 
 	@Override
 	public void onInternalMessage(Object msg, ActorRef playerActor) {
-		if (msg instanceof GameSessionCloseMessage) {
-			// leave scene
-			SceneDispatcher.getInstance().leaveScene(human.getSceneId(), playerActor);
-			logger.info(String.format("%s leave scene.", human.getName()));
-		} else if (msg instanceof SceneDispatchEvent) {
-			// handle event
-			SceneDispatchEvent sceneEvent = (SceneDispatchEvent) msg;
-			handleSceneEvent(sceneEvent);
-		}
+		// if (msg instanceof GameSessionCloseMessage) {
+		// // leave scene
+		// SceneDispatcher.getInstance().leaveScene(human.getSceneId(),
+		// playerActor);
+		// logger.info(String.format("%s leave scene.", human.getName()));
+		// } else if (msg instanceof SceneDispatchEvent) {
+		// // handle event
+		// SceneDispatchEvent sceneEvent = (SceneDispatchEvent) msg;
+		// handleSceneEvent(sceneEvent);
+		// }
 	}
 
 	/**
@@ -45,7 +45,7 @@ public class HumanSceneModule extends BaseHumanModule {
 	 * 
 	 * @param sceneEvent
 	 */
-	private void handleSceneEvent(SceneDispatchEvent sceneEvent) {
+	protected void handleSceneEvent(SceneDispatchEvent sceneEvent) {
 		if (sceneEvent.getMessage() instanceof Move.Builder) {
 			// move
 			Move.Builder move = (Builder) sceneEvent.getMessage();
@@ -81,10 +81,10 @@ public class HumanSceneModule extends BaseHumanModule {
 			throw new UnsupportedOperationException("Do not support CG_SYNC_VALUE request");
 		} else if (msg.getType() == MessageType.CG_REQUEST_MOVE_VALUE) {
 			// move
-			Move.Builder move = msg.getBuilder();
-			// publish to scene humans
-			SceneDispatcher.getInstance().dispatchSceneEvent(new SceneDispatchEvent(move.getSceneId(), move));
-			logger.debug(String.format("%s request moveTo (x: %d, y: %d)", human.getName(), move.getX(), move.getY()));
+//			Move.Builder move = msg.getBuilder();
+//			// publish to scene humans
+//			SceneDispatcher.getInstance().dispatchSceneEvent(new SceneDispatchEvent(move.getSceneId(), move));
+//			logger.debug(String.format("%s request moveTo (x: %d, y: %d)", human.getName(), move.getX(), move.getY()));
 		}
 	}
 

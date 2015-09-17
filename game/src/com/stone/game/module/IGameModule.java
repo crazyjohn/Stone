@@ -28,5 +28,5 @@ public interface IGameModule {
 	 * @param dbMaster
 	 * @throws MessageParseException
 	 */
-	public void onExternalMessage(AGForwardMessage msg, ActorRef playerActor, ActorRef dbMaster) throws MessageParseException;
+	public void onExternalMessage(AGForwardMessage msg, ActorRef playerActor, ActorRef dbMaster) throws Exception;
 }

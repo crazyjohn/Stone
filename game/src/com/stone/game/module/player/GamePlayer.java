@@ -9,8 +9,8 @@ import akka.actor.ActorRef;
 
 import com.google.protobuf.Message.Builder;
 import com.stone.core.msg.MessageParseException;
-import com.stone.core.msg.ProtobufMessage;
 import com.stone.core.msg.server.AGForwardMessage;
+import com.stone.core.msg.server.GAForwardMessage;
 import com.stone.game.human.Human;
 import com.stone.game.player.module.PlayerLoginModule;
 
@@ -20,16 +20,17 @@ import com.stone.game.player.module.PlayerLoginModule;
  * @author crazyjohn
  *
  */
-public class Player {
+public class GamePlayer {
 	/** binded human */
 	private Human human;
 	/** binded io session */
 	private IoSession session;
-	private long playerId;
+	private final long playerId;
 	/** player modules */
 	private List<IPlayerModule> modules = new ArrayList<IPlayerModule>();
 
-	public Player() {
+	public GamePlayer(long playerId) {
+		this.playerId = playerId;
 		// register loginModule
 		registerModule(new PlayerLoginModule(this));
 	}
@@ -68,9 +69,6 @@ public class Player {
 		return playerId;
 	}
 
-	public void setPlayerId(long playerId) {
-		this.playerId = playerId;
-	}
 
 	/**
 	 * Send message;
@@ -79,8 +77,7 @@ public class Player {
 	 * @param builder
 	 */
 	public void sendMessage(int messageType, Builder builder) {
-		ProtobufMessage message = new ProtobufMessage(messageType);
-		message.setBuilder(builder);
+		GAForwardMessage message = new GAForwardMessage(messageType, builder, this.playerId, 1, this.session.getRemoteAddress().toString());
 		this.session.write(message);
 	}
 
@@ -111,7 +108,7 @@ public class Player {
 	 * @param dbMaster
 	 * @throws MessageParseException
 	 */
-	public void onExternalMessage(AGForwardMessage msg, ActorRef playerActor, ActorRef dbMaster) throws MessageParseException {
+	public void onExternalMessage(AGForwardMessage msg, ActorRef playerActor, ActorRef dbMaster) throws Exception {
 		// player module
 		for (IPlayerModule eachModule : this.modules) {
 			eachModule.onExternalMessage(msg, playerActor, dbMaster);

@@ -15,5 +15,5 @@ public interface IPlayerModule extends IGameModule{
 	 * 
 	 * @return
 	 */
-	public Player getPlayer();
+	public GamePlayer getPlayer();
 }

@@ -33,7 +33,7 @@ public class GameDecoder implements ProtocolDecoder {
 			}
 			// 读出消息包的长度
 			short messageLength = readBuffer.getShort(0);
-			int messageType = readBuffer.getInt(2);
+			short messageType = readBuffer.getShort(2);
 			if (readBuffer.remaining() < messageLength) {
 				break;
 			}

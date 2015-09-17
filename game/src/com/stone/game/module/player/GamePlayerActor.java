@@ -29,7 +29,7 @@ import com.stone.proto.common.Commons.Item;
 public class GamePlayerActor extends UntypedActor {
 	private static final String MOCK = "mock";
 	/** real player */
-	protected final Player player;
+	protected final GamePlayer player;
 	/** db master */
 	protected final ActorRef dbMaster;
 	/** logger */
@@ -37,7 +37,7 @@ public class GamePlayerActor extends UntypedActor {
 	/** mock task, just for test */
 	final Cancellable mockUpdateTask;
 
-	public GamePlayerActor(Player player, ActorRef dbMaster) {
+	public GamePlayerActor(GamePlayer player, ActorRef dbMaster) {
 		this.player = player;
 		this.dbMaster = dbMaster;
 		// schedule
@@ -88,8 +88,8 @@ public class GamePlayerActor extends UntypedActor {
 
 	
 
-	public static Props props(IoSession session, ActorRef dbMaster) {
-		Player player = new Player();
+	public static Props props(IoSession session, ActorRef dbMaster, long playerId) {
+		GamePlayer player = new GamePlayer(playerId);
 		player.setSession(session);
 		return Props.create(GamePlayerActor.class, player, dbMaster);
 	}

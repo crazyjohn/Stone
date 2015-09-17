@@ -39,13 +39,24 @@ public class ProtobufMessage extends BaseSessionMessage<BaseActorSession> implem
 		if (builder == null) {
 			return true;
 		}
-		
+
 		return true;
+	}
+
+	public byte[] getBuilderDatas() {
+		return builderDatas;
+	}
+
+	public void setBuilderDatas(byte[] builderDatas) {
+		this.builderDatas = builderDatas;
 	}
 
 	@Override
 	protected boolean writeBody() {
 		if (builder == null) {
+			if (this.builderDatas != null) {
+				writeBuilderBytes();
+			}
 			return true;
 		}
 		this.buf.put(builder.build().toByteArray());
@@ -56,10 +67,10 @@ public class ProtobufMessage extends BaseSessionMessage<BaseActorSession> implem
 	public void setBuilder(Builder builder) {
 		this.builder = builder;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	protected <B extends Builder> B parseBuilder(Builder builder) throws InvalidProtocolBufferException {
-		if (this.alreadyParsed ) {
+		if (this.alreadyParsed) {
 			throw new IllegalStateException(String.format("This %s builder already parsed.", builder.getClass().getSimpleName()));
 		}
 		this.builder = builder;
@@ -81,6 +92,10 @@ public class ProtobufMessage extends BaseSessionMessage<BaseActorSession> implem
 			this.parseBuilder(builder);
 		}
 		return (B) this.builder;
+	}
+
+	protected void writeBuilderBytes() {
+		this.writeBytes(this.builderDatas);
 	}
 
 }

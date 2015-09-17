@@ -9,7 +9,7 @@ import com.stone.core.session.BaseActorSession;
  * @author crazyjohn
  *
  */
-public interface CAMessage extends ISessionMessage<BaseActorSession> {
+public interface IActorMessage extends ISessionMessage<BaseActorSession> {
 
 	/**
 	 * Get the player actor;

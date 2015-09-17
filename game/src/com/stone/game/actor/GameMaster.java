@@ -77,7 +77,7 @@ public class GameMaster extends UntypedActor {
 		long playerId = msg.getPlayerId();
 		if (msg.getType() == MessageType.CG_SELECT_ROLE_VALUE) {
 			// create player actor when received select char msg
-			ActorRef playerActor = getContext().actorOf(GamePlayerActor.props(msg.getSession().getSession(), dbMaster), "playerActor" + playerId);
+			ActorRef playerActor = getContext().actorOf(GamePlayerActor.props(msg.getSession().getSession(), dbMaster, playerId), "playerActor" + playerId);
 			// watch this player actor
 			getContext().watch(playerActor);
 			playerActor.forward(msg, getContext());

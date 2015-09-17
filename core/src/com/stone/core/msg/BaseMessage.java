@@ -9,7 +9,7 @@ import org.apache.mina.core.buffer.IoBuffer;
 
 import com.stone.core.constants.Loggers;
 import com.stone.core.constants.SharedConstants;
-import com.stone.core.util.MessageTypeUtil;
+import com.stone.proto.MessageTypes.MessageType;
 
 /**
  * IMessageBase的基本实现
@@ -26,7 +26,7 @@ public abstract class BaseMessage implements IMessage {
 	protected int messageLength;
 
 	/** 消息的类型 * */
-	protected int type;
+	protected short type;
 
 	/** 消息的名称 * */
 	protected String typeName;
@@ -53,7 +53,7 @@ public abstract class BaseMessage implements IMessage {
 		try {
 			int _op = buf.position();
 			writeShort(0);
-			writeInt(getType());
+			writeShort(getType());
 			boolean b = writeBody();
 			if (!b) {
 				return false;
@@ -61,14 +61,11 @@ public abstract class BaseMessage implements IMessage {
 			// 消息体写完之后,修正消息头中的长度字段
 			messageLength = buf.position() - _op;
 			if (messageLength > MAX_MESSAGE_LENGTH) {
-				throw new IllegalArgumentException(
-						"The message length is not invalid,value ["
-								+ messageLength + "],maybe it's too long?"
-								+ this.getTypeName());
+				throw new IllegalArgumentException("The message length is not invalid,value [" + messageLength + "],maybe it's too long?"
+						+ this.getTypeName());
 			}
 			if (messageLength > MAX_MESSAGE_LENGTH / 2) {
-				Loggers.MSG_LOGGER.warn("[#message too big]"
-						+ this.getTypeName() + "|" + getType());
+				Loggers.MSG_LOGGER.warn("[#message too big]" + this.getTypeName() + "|" + getType());
 			}
 			buf.putShort(_op, (short) messageLength);
 			return true;
@@ -86,16 +83,13 @@ public abstract class BaseMessage implements IMessage {
 	 */
 	public boolean read() throws MessageParseException {
 		try {
-			messageLength = IMessage.Packet
-					.seekIntFromUnsignedShort(buf, false);
-			type = readInt();
+			messageLength = IMessage.Packet.seekIntFromUnsignedShort(buf, false);
+			type = readShort();
 			// 统计消息数据; 暂时注释掉;
 			// StatisticsLoggerHelper.logMessageRecived(this);
 			return readBody();
 		} catch (Exception e) {
-			throw new MessageParseException(String.format(
-					" Type: %d, typeName: %s", this.type,
-					MessageTypeUtil.getMessageTypeName(this.type)), e);
+			throw new MessageParseException(String.format(" Type: %d, typeName: %s", this.type, MessageType.valueOf(this.type).toString()), e);
 		}
 	}
 
@@ -113,11 +107,11 @@ public abstract class BaseMessage implements IMessage {
 	}
 
 	@Override
-	public int getType() {
+	public short getType() {
 		return this.type;
 	}
 
-	protected void setType(int type) {
+	protected void setType(short type) {
 		this.type = type;
 	}
 
@@ -242,8 +236,7 @@ public abstract class BaseMessage implements IMessage {
 	 * @param msg
 	 * @throws MessageParseException
 	 */
-	protected void writeMessageWithoutHead(IMessage msg)
-			throws MessageParseException {
+	protected void writeMessageWithoutHead(IMessage msg) throws MessageParseException {
 		IoBuffer _buf = IoBuffer.allocate(msg.getInitBufferLength());
 		_buf.setAutoExpand(true);
 		msg.setBuffer(_buf);
@@ -266,10 +259,10 @@ public abstract class BaseMessage implements IMessage {
 	 */
 	protected void readMessage(IMessage msg) throws MessageParseException {
 		int _length = Packet.popPacketLength(this.buf);
-		short _type = Packet.popPacketType(this.buf);
+		int _type = Packet.popPacketType(this.buf);
 		IoBuffer _buf = IoBuffer.allocate(_length);
 		_buf.putShort((short) _length);
-		_buf.putShort(_type);
+		_buf.putInt(_type);
 		byte[] bytes = new byte[_length - 4];
 		readBytes(bytes);
 		_buf.put(bytes);
@@ -410,8 +403,9 @@ public abstract class BaseMessage implements IMessage {
 	 * 读取buffer中的数据到消息中对应的属性中
 	 * 
 	 * @return true,读取成功;false,读取失败
+	 * @throws Exception
 	 */
-	protected abstract boolean readBody();
+	protected abstract boolean readBody() throws Exception;
 
 	/**
 	 * 将消息的属性按照消息格式写入到buffer中
@@ -420,16 +414,14 @@ public abstract class BaseMessage implements IMessage {
 	 */
 	protected abstract boolean writeBody();
 
-	private final static String[] toStringExcludeFields = { "buf",
-			"messageLength", "type", "typeName", "session" };
+	private final static String[] toStringExcludeFields = { "buf", "messageLength", "type", "typeName", "session" };
 
 	/**
 	 * 此方法效率较低，应只在debug模式下调用
 	 */
 	@Override
 	public String toString() {
-		ReflectionToStringBuilder _builder = new BaseToStringBuilder(this,
-				ToStringStyle.SHORT_PREFIX_STYLE, toStringExcludeFields);
+		ReflectionToStringBuilder _builder = new BaseToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE, toStringExcludeFields);
 		return _builder.toString() + getType();
 	}
 

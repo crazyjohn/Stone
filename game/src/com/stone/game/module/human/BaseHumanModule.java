@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import com.stone.db.entity.HumanEntity;
 import com.stone.game.human.Human;
-import com.stone.game.module.player.Player;
+import com.stone.game.module.player.GamePlayer;
 
 /**
  * The base human module;
@@ -16,7 +16,7 @@ import com.stone.game.module.player.Player;
 public abstract class BaseHumanModule implements IHumanModule {
 	/** host human */
 	protected Human human;
-	protected Player player;
+	protected GamePlayer player;
 	/** logger */
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 	protected boolean open = true;

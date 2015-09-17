@@ -6,10 +6,11 @@ import com.stone.core.session.BaseActorSession;
 
 /**
  * Base session message;
+ * 
  * @author crazyjohn
  *
  */
-public abstract class BaseCAMessage extends BaseSessionMessage<BaseActorSession> implements CAMessage {
+public abstract class BaseActorMessage extends BaseSessionMessage<BaseActorSession> implements IActorMessage {
 
 	@Override
 	public ActorRef getPlayerActor() {

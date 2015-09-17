@@ -23,7 +23,7 @@ public interface IMessage {
 	public static final int HEADER_LEN_BYTES = 2;
 
 	/** 消息头的类型字节数 {@value} */
-	public static final int HEADER_TYPE_BYTES = 4;
+	public static final int HEADER_TYPE_BYTES = 2;
 
 	/** 消息头的长度,4字节,length+type,{@value} */
 	public static final int HEADER_SIZE = HEADER_LEN_BYTES + HEADER_TYPE_BYTES;
@@ -62,7 +62,7 @@ public interface IMessage {
 	 * 
 	 * @return
 	 */
-	public int getType();
+	public short getType();
 
 	/**
 	 * 取得该消息的名称
@@ -137,7 +137,7 @@ public interface IMessage {
 		 *             如果数据包中的类型小于0会抛出此异常
 		 */
 		public static short peekPacketType(IoBuffer buf) {
-			final int _pos = buf.position();
+			final short _pos = (short) buf.position();
 			try {
 				popPacketLength(buf);
 				return popPacketType(buf);
@@ -172,7 +172,23 @@ public interface IMessage {
 			return _type;
 		}
 
-		private static short seekShort(IoBuffer buf, boolean peek) {
+		protected static int seekInt(IoBuffer buf, boolean peek) {
+			if (buf.remaining() >= HEADER_TYPE_BYTES) {
+				int _op = buf.position();
+				int _value = buf.getInt();
+				if (peek) {
+					buf.position(_op);
+				}
+				if (_value < 0) {
+					throw new IllegalStateException(CommonErrorLogInfo.PACKET_BAD_HEADER_LEN);
+				}
+				return _value;
+			} else {
+				return -1;
+			}
+		}
+
+		protected static short seekShort(IoBuffer buf, boolean peek) {
 			if (buf.remaining() >= HEADER_LEN_BYTES) {
 				int _op = buf.position();
 				short _value = buf.getShort();

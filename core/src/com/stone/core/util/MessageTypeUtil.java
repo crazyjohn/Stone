@@ -19,6 +19,7 @@ public class MessageTypeUtil {
 	static {
 		for (Field field : MessageType.class.getFields()) {
 			try {
+
 				intToNames.put(field.getInt(field), field.getName());
 			} catch (IllegalArgumentException e) {
 				// TODO Auto-generated catch block
@@ -52,7 +53,6 @@ public class MessageTypeUtil {
 	 * @return
 	 */
 	public static String getTypeInfo(short messageType) {
-		return String.format("type: %d, typeName: %s", messageType,
-				MessageTypeUtil.getMessageTypeName(messageType));
+		return String.format("type: %d, typeName: %s", messageType, MessageTypeUtil.getMessageTypeName(messageType));
 	}
 }

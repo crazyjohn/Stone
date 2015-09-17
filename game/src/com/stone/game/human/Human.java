@@ -11,7 +11,7 @@ import com.stone.db.entity.HumanEntity;
 import com.stone.game.module.human.IHumanModule;
 import com.stone.game.module.human.item.HumanItemModule;
 import com.stone.game.module.human.scene.HumanSceneModule;
-import com.stone.game.module.player.Player;
+import com.stone.game.module.player.GamePlayer;
 
 /**
  * The human;
@@ -24,7 +24,7 @@ public class Human {
 	private long guid;
 	private String name;
 	/** player */
-	private final Player player;
+	private final GamePlayer player;
 	/** modules */
 	private Map<Class<? extends IHumanModule>, IHumanModule> modules;
 	/** itemModule */
@@ -33,7 +33,7 @@ public class Human {
 	private IHumanModule sceneModule;
 	private int level;
 
-	public Human(Player player) {
+	public Human(GamePlayer player) {
 		this.player = player;
 		// init
 		initModule();
@@ -53,7 +53,7 @@ public class Human {
 		return guid;
 	}
 
-	public Player getPlayer() {
+	public GamePlayer getPlayer() {
 		return player;
 	}
 
@@ -81,7 +81,7 @@ public class Human {
 	 * @param dbMaster
 	 * @throws MessageParseException
 	 */
-	public void onExternalMessage(AGForwardMessage msg, ActorRef playerActor, ActorRef dbMaster) throws MessageParseException {
+	public void onExternalMessage(AGForwardMessage msg, ActorRef playerActor, ActorRef dbMaster) throws Exception {
 		// dispatch external message
 		for (IHumanModule module : modules.values()) {
 			if (!module.isOpen()) {
