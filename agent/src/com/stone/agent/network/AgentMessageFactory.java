@@ -9,7 +9,7 @@ import com.stone.proto.MessageTypes.MessageType;
 public class AgentMessageFactory implements IMessageFactory {
 
 	@Override
-	public IMessage createMessage(short type) {
+	public IMessage createMessage(int type) {
 		switch (type) {
 		case MessageType.GAME_REGISTER_TO_AGENT_VALUE:
 			return new ServerBetweenMessage(type);

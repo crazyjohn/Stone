@@ -16,5 +16,5 @@ public interface IMessageFactory {
 	 * @param type
 	 * @return
 	 */
-	public IMessage createMessage(short type);
+	public IMessage createMessage(int type);
 }

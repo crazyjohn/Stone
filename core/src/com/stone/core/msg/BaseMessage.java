@@ -53,7 +53,7 @@ public abstract class BaseMessage implements IMessage {
 		try {
 			int _op = buf.position();
 			writeShort(0);
-			writeShort(getType());
+			writeInt(getType());
 			boolean b = writeBody();
 			if (!b) {
 				return false;
@@ -88,7 +88,7 @@ public abstract class BaseMessage implements IMessage {
 		try {
 			messageLength = IMessage.Packet
 					.seekIntFromUnsignedShort(buf, false);
-			type = readShort();
+			type = readInt();
 			// 统计消息数据; 暂时注释掉;
 			// StatisticsLoggerHelper.logMessageRecived(this);
 			return readBody();

@@ -9,7 +9,6 @@ import akka.actor.UntypedActor;
 import com.google.protobuf.Message.Builder;
 import com.stone.agent.player.AgentPlayer;
 import com.stone.core.data.msg.DBGetMessage;
-import com.stone.core.msg.MessageParseException;
 import com.stone.core.msg.ProtobufMessage;
 import com.stone.core.msg.server.AGForwardMessage;
 import com.stone.db.annotation.PlayerInternalMessage;
@@ -89,9 +88,9 @@ public class AgentPlayerActor extends UntypedActor {
 
 	}
 
-	private void onExternalMessage(ProtobufMessage msg, ActorRef playerActor) throws MessageParseException {
+	private void onExternalMessage(ProtobufMessage msg, ActorRef playerActor) throws Exception {
 		if (msg.getType() == MessageType.CG_PLAYER_LOGIN_VALUE) {
-			final Login.Builder login = msg.getBuilder();
+			final Login.Builder login = msg.getBuilder(Login.newBuilder());
 			dbMaster.tell(login, playerActor);
 		} else if (msg.getType() == MessageType.CG_GET_ROLE_LIST_VALUE) {
 			// get role list
@@ -99,11 +98,11 @@ public class AgentPlayerActor extends UntypedActor {
 			dbMaster.tell(getRoleList, playerActor);
 		} else if (msg.getType() == MessageType.CG_CREATE_ROLE_VALUE) {
 			// create role list
-			CreateRole.Builder createRole = msg.getBuilder();
+			CreateRole.Builder createRole = msg.getBuilder(CreateRole.newBuilder());
 			dbMaster.tell(new InternalCreateRole(player.getPlayerId(), createRole), playerActor);
 		} else if (msg.getType() == MessageType.CG_SELECT_ROLE_VALUE) {
 			// select role
-			SelectRole.Builder selectRole = msg.getBuilder();
+			SelectRole.Builder selectRole = msg.getBuilder(SelectRole.newBuilder());
 			dbMaster.tell(new DBGetMessage(selectRole.getRoleId(), HumanEntity.class), playerActor);
 			// FIXME: crazyjohn forward this msg to game server, first get the
 			// sceneId

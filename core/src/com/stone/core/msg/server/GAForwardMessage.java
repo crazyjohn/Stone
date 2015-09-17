@@ -8,7 +8,7 @@ public class GAForwardMessage extends AGForwardMessage {
 		super(messageType, builder, playerId, sceneId, clientIp);
 	}
 
-	public GAForwardMessage(short type) {
+	public GAForwardMessage(int type) {
 		this(type, null, -1, -1, null);
 	}
 

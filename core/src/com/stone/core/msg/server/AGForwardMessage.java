@@ -23,7 +23,7 @@ public class AGForwardMessage extends BaseCAMessage {
 		this.builder = builder;
 	}
 
-	public AGForwardMessage(short type) {
+	public AGForwardMessage(int type) {
 		this(type, null, -1, -1, "");
 	}
 

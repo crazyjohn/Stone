@@ -76,11 +76,11 @@ public class AgentMaster extends UntypedActor {
 	 * @param msg
 	 * @throws MessageParseException
 	 */
-	private void onServerInternalMessage(ProtobufMessage msg) throws MessageParseException {
+	private void onServerInternalMessage(ProtobufMessage msg) throws Exception {
 		
 		if (msg.getType() == MessageType.GAME_REGISTER_TO_AGENT_VALUE) {
 			BaseActorSession gameProxySession = msg.getSession();
-			GameRegisterToAgent.Builder register = msg.getBuilder();
+			GameRegisterToAgent.Builder register = msg.getBuilder(GameRegisterToAgent.newBuilder());
 			for (int sceneId : register.getSceneIdsList()) {
 				this.gameServerSessions.put(sceneId, gameProxySession);
 			}

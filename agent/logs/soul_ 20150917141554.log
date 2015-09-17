@@ -1,0 +1,25 @@
+[INFO] 14:15:54,196 - AgentServer.main - Begin to start AgentServer...
+[INFO] 14:15:54,220 - ConfigUtil.loadJsConfig - Load js config, file: agent_server.cfg.js
+[INFO] 14:15:54,999 - JavaReflectionManager.<clinit> - HCANN000001: Hibernate Commons Annotations {4.0.5.Final}
+[INFO] 14:15:55,007 - Version.logVersion - HHH000412: Hibernate Core {4.3.8.Final}
+[INFO] 14:15:55,008 - Environment.<clinit> - HHH000206: hibernate.properties not found
+[INFO] 14:15:55,010 - Environment.buildBytecodeProvider - HHH000021: Bytecode provider name : javassist
+[INFO] 14:15:55,029 - Configuration.configure - HHH000044: Configuring from URL: file:/E:/git/Stone/db/bin/game_server_hibernate.cfg.xml
+[WARN] 14:15:55,068 - DTDEntityResolver.resolveEntity - HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide!
+[INFO] 14:15:55,092 - Configuration.addResource - HHH000221: Reading mappings from resource: game_server_hibernate_query.xml
+[WARN] 14:15:55,116 - DTDEntityResolver.resolveEntity - HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide!
+[INFO] 14:15:55,141 - Configuration.doConfigure - HHH000041: Configured SessionFactory: null
+[INFO] 14:15:55,215 - ConnectionProviderInitiator.instantiateExplicitConnectionProvider - HHH000130: Instantiating explicit connection provider: org.hibernate.connection.C3P0ConnectionProvider
+[INFO] 14:15:55,241 - C3P0ConnectionProvider.configure - HHH010002: C3P0 using driver: com.mysql.jdbc.Driver at URL: jdbc:mysql://localhost:3306/stone?useUnicode=true&characterEncoding=utf-8&useServerPrepStmts=true
+[INFO] 14:15:55,241 - C3P0ConnectionProvider.configure - HHH000046: Connection properties: {useUnicode=true, user=root, password=****, characterEncoding=UTF-8}
+[INFO] 14:15:55,241 - C3P0ConnectionProvider.configure - HHH000006: Autocommit mode: false
+[INFO] 14:15:55,253 - MLog.<clinit> - MLog clients using log4j logging.
+[INFO] 14:15:55,397 - C3P0Registry.banner - Initializing c3p0-0.9.2.1 [built 20-March-2013 10:47:27 +0000; debug? true; trace: 10]
+[INFO] 14:15:55,461 - AbstractPoolBackedDataSource.getPoolManager - Initializing c3p0 pool... com.mchange.v2.c3p0.PoolBackedDataSource@47be462d [ connectionPoolDataSource -> com.mchange.v2.c3p0.WrapperConnectionPoolDataSource@52295930 [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, debugUnreturnedConnectionStackTraces -> false, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, identityToken -> 2rvy2d9b1ogzq1d1oib5nu|170ea80a, idleConnectionTestPeriod -> 0, initialPoolSize -> 5, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 1800, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 20, maxStatements -> 50, maxStatementsPerConnection -> 0, minPoolSize -> 5, nestedDataSource -> com.mchange.v2.c3p0.DriverManagerDataSource@28badebb [ description -> null, driverClass -> null, factoryClassLocation -> null, identityToken -> 2rvy2d9b1ogzq1d1oib5nu|5e5efaeb, jdbcUrl -> jdbc:mysql://localhost:3306/stone?useUnicode=true&characterEncoding=utf-8&useServerPrepStmts=true, properties -> {useUnicode=true, user=******, password=******, characterEncoding=UTF-8} ], preferredTestQuery -> null, propertyCycle -> 0, statementCacheNumDeferredCloseThreads -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> true, unreturnedConnectionTimeout -> 0, usesTraditionalReflectiveProxies -> false; userOverrides: {} ], dataSourceName -> null, factoryClassLocation -> null, identityToken -> 2rvy2d9b1ogzq1d1oib5nu|46681cc3, numHelperThreads -> 3 ]
+[INFO] 14:15:55,645 - Dialect.<init> - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+[INFO] 14:15:55,653 - LobCreatorBuilder.useContextualLobCreation - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+[INFO] 14:15:55,766 - TransactionFactoryInitiator.initiateService - HHH000399: Using default transaction strategy (direct JDBC transactions)
+[INFO] 14:15:55,770 - ASTQueryTranslatorFactory.<init> - HHH000397: Using ASTQueryTranslatorFactory
+[INFO] 14:15:56,164 - ServerNode.startup - ServerIoProcessor: internalProcessor started.
+[INFO] 14:15:56,175 - ServerNode.startup - ServerIoProcessor: mainProcessor started.
+[INFO] 14:15:56,176 - AgentServer.main - AgentServer started.

@@ -7,7 +7,7 @@ import com.stone.core.msg.server.AGForwardMessage;
 public class GameMessageFactory implements IMessageFactory {
 
 	@Override
-	public IMessage createMessage(short type) {
+	public IMessage createMessage(int type) {
 		switch (type) {
 		default:
 			return new AGForwardMessage(type);

@@ -14,6 +14,8 @@ import com.stone.proto.MessageTypes.MessageType;
  */
 public class ProtobufMessage extends BaseSessionMessage<BaseActorSession> implements IProtobufMessage {
 	protected Builder builder;
+	private volatile boolean alreadyParsed = false;
+	private byte[] builderDatas;
 
 	public ProtobufMessage(short messageType) {
 		this.type = messageType;
@@ -33,14 +35,11 @@ public class ProtobufMessage extends BaseSessionMessage<BaseActorSession> implem
 		int bodyLength = this.messageLength - IMessage.HEADER_SIZE;
 		byte[] bodys = new byte[bodyLength];
 		this.buf.get(bodys);
+		this.builderDatas = bodys;
 		if (builder == null) {
 			return true;
 		}
-		try {
-			this.builder = builder.mergeFrom(bodys);
-		} catch (InvalidProtocolBufferException e) {
-			return false;
-		}
+		
 		return true;
 	}
 
@@ -57,6 +56,17 @@ public class ProtobufMessage extends BaseSessionMessage<BaseActorSession> implem
 	public void setBuilder(Builder builder) {
 		this.builder = builder;
 	}
+	
+	@SuppressWarnings("unchecked")
+	protected <B extends Builder> B parseBuilder(Builder builder) throws InvalidProtocolBufferException {
+		if (this.alreadyParsed ) {
+			throw new IllegalStateException(String.format("This %s builder already parsed.", builder.getClass().getSimpleName()));
+		}
+		this.builder = builder;
+		this.builder = builder.mergeFrom(this.builderDatas);
+		this.alreadyParsed = true;
+		return (B) this.builder;
+	}
 
 	@Override
 	public String toString() {
@@ -66,7 +76,10 @@ public class ProtobufMessage extends BaseSessionMessage<BaseActorSession> implem
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public <B extends Builder> B getBuilder() {
+	public <B extends Builder> B getBuilder(Builder builder) throws InvalidProtocolBufferException {
+		if (this.builder == null) {
+			this.parseBuilder(builder);
+		}
 		return (B) this.builder;
 	}
 
