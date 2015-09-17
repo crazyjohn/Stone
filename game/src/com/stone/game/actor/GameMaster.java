@@ -1,4 +1,4 @@
-package com.stone.game;
+package com.stone.game.actor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ import akka.actor.UntypedActor;
 
 import com.stone.core.msg.ProtobufMessage;
 import com.stone.core.session.BaseActorSession;
-import com.stone.game.module.player.PlayerActor;
+import com.stone.game.module.player.GamePlayerActor;
 import com.stone.game.scene.dispatch.SceneDispatcher;
 import com.stone.game.server.msg.AgentServerForwardMessage;
 import com.stone.game.server.msg.AgentSessionOpenMessage;
@@ -59,7 +59,7 @@ public class GameMaster extends UntypedActor {
 		// dispatch cg msg
 		if (msg instanceof AgentServerForwardMessage) {
 			// msg from agent
-			onAgentInternalMessage((AgentServerForwardMessage) msg);
+			onAgentForwardMessage((AgentServerForwardMessage) msg);
 		} else if (msg instanceof AgentSessionOpenMessage) {
 			// agent session opend
 			onAgentSessionOpened((AgentSessionOpenMessage) msg);
@@ -77,11 +77,11 @@ public class GameMaster extends UntypedActor {
 		msg.getSession().writeMessage(message);
 	}
 
-	private void onAgentInternalMessage(AgentServerForwardMessage msg) {
+	private void onAgentForwardMessage(AgentServerForwardMessage msg) {
 		ProtobufMessage protoMessage = msg.getRealMessage();
 		if (protoMessage.getType() == MessageType.CG_SELECT_ROLE_VALUE) {
 			// create player actor when received select char msg
-			ActorRef playerActor = getContext().actorOf(PlayerActor.props(protoMessage.getSession().getSession(), dbMaster),
+			ActorRef playerActor = getContext().actorOf(GamePlayerActor.props(protoMessage.getSession().getSession(), dbMaster),
 					"playerActor" + counter.incrementAndGet());
 			// watch this player actor
 			getContext().watch(playerActor);

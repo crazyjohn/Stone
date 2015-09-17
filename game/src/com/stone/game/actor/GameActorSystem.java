@@ -1,4 +1,4 @@
-package com.stone.game;
+package com.stone.game.actor;
 
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;

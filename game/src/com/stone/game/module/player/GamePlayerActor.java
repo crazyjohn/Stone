@@ -11,7 +11,6 @@ import akka.actor.ActorRef;
 import akka.actor.Cancellable;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
-import akka.japi.Procedure;
 
 import com.stone.core.actor.msg.ActorSendMessage;
 import com.stone.core.data.DataEventBus;
@@ -19,7 +18,6 @@ import com.stone.core.msg.ProtobufMessage;
 import com.stone.db.annotation.PlayerInternalMessage;
 import com.stone.db.entity.HumanItemEntity;
 import com.stone.game.scene.dispatch.SceneDispatchEvent;
-import com.stone.game.session.msg.GameSessionCloseMessage;
 import com.stone.proto.common.Commons.Item;
 
 /**
@@ -28,18 +26,18 @@ import com.stone.proto.common.Commons.Item;
  * @author crazyjohn
  *
  */
-public class PlayerActor extends UntypedActor {
+public class GamePlayerActor extends UntypedActor {
 	private static final String MOCK = "mock";
 	/** real player */
 	protected final Player player;
 	/** db master */
 	protected final ActorRef dbMaster;
 	/** logger */
-	protected Logger logger = LoggerFactory.getLogger(PlayerActor.class);
+	protected Logger logger = LoggerFactory.getLogger(GamePlayerActor.class);
 	/** mock task, just for test */
 	final Cancellable mockUpdateTask;
 
-	public PlayerActor(Player player, ActorRef dbMaster) {
+	public GamePlayerActor(Player player, ActorRef dbMaster) {
 		this.player = player;
 		this.dbMaster = dbMaster;
 		// schedule
@@ -53,11 +51,7 @@ public class PlayerActor extends UntypedActor {
 
 	@Override
 	public void onReceive(Object msg) throws Exception {
-		if (msg instanceof GameSessionCloseMessage) {
-			getContext().become(DISCONNECTED);
-			// forward to player internal modules
-			player.onInternalMessage(msg, PlayerActor.this.getSelf());
-		} else if (msg instanceof ProtobufMessage) {
+		if (msg instanceof ProtobufMessage) {
 			// net message use self execute
 			ProtobufMessage netMessage = (ProtobufMessage) msg;
 			player.onExternalMessage(netMessage, getSelf(), dbMaster);
@@ -84,16 +78,6 @@ public class PlayerActor extends UntypedActor {
 			// unhandled msg
 			unhandled(msg);
 		}
-		// if (msg instanceof GameSessionOpenMessage) {
-		// // open session
-		// GameSessionOpenMessage sessionOpen = (GameSessionOpenMessage) msg;
-		// sessionOpen.execute();
-		// // change state
-		// getContext().become(CONNECTED);
-		// } else {
-		// // unhandle msg
-		// unhandled(msg);
-		// }
 	}
 
 	@Override
@@ -102,34 +86,12 @@ public class PlayerActor extends UntypedActor {
 		mockUpdateTask.cancel();
 	}
 
-	/**
-	 * Connected state;
-	 */
-	protected Procedure<Object> CONNECTED = new Procedure<Object>() {
-
-		@Override
-		public void apply(Object msg) throws Exception {
-			
-		}
-
-	};
-
-	/**
-	 * Disconnected state;
-	 */
-	protected Procedure<Object> DISCONNECTED = new Procedure<Object>() {
-
-		@Override
-		public void apply(Object msg) throws Exception {
-			logger.warn(String.format("PlayerActor in disconnected state now, do not handle any type of message! msg: %s", msg.getClass()
-					.getSimpleName()));
-		}
-	};
+	
 
 	public static Props props(IoSession session, ActorRef dbMaster) {
 		Player player = new Player();
 		player.setSession(session);
-		return Props.create(PlayerActor.class, player, dbMaster);
+		return Props.create(GamePlayerActor.class, player, dbMaster);
 	}
 
 }

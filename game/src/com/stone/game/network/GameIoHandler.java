@@ -1,4 +1,4 @@
-package com.stone.game;
+package com.stone.game.network;
 
 import org.apache.mina.core.session.IoSession;
 

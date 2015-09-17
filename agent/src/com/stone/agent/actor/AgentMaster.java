@@ -15,11 +15,11 @@ import akka.actor.UntypedActor;
 import com.googlecode.protobuf.format.JsonFormat;
 import com.stone.agent.msg.internal.AgentSessionCloseMessage;
 import com.stone.agent.msg.internal.AgentSessionOpenMessage;
-import com.stone.agent.msg.internal.SelectRoleFromGame;
 import com.stone.agent.player.AgentPlayer;
 import com.stone.core.msg.CGMessage;
 import com.stone.core.msg.MessageParseException;
 import com.stone.core.msg.ProtobufMessage;
+import com.stone.core.msg.server.AGForwardMessage;
 import com.stone.core.msg.server.ServerInternalMessage;
 import com.stone.core.session.BaseActorSession;
 import com.stone.proto.MessageTypes.MessageType;
@@ -53,13 +53,14 @@ public class AgentMaster extends UntypedActor {
 		} else if (msg instanceof ServerInternalMessage) {
 			// handle server internal msg
 			onServerInternalMessage((ServerInternalMessage) msg);
-		} else if (msg instanceof SelectRoleFromGame) {
-			SelectRoleFromGame select = (SelectRoleFromGame) msg;
-			BaseActorSession session = this.gameServerSessions.get(select.getSceneId());
+		} else if (msg instanceof AGForwardMessage) {
+			// forward to game server
+			AGForwardMessage forwardMessage = (AGForwardMessage) msg;
+			BaseActorSession session = this.gameServerSessions.get(forwardMessage.getSceneId());
 			if (session == null) {
 				return;
 			}
-			session.getSession().write(select.getProtobufMessage());
+			session.getSession().write(forwardMessage);
 		} else {
 			unhandled(msg);
 		}

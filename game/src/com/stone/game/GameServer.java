@@ -16,6 +16,8 @@ import com.stone.core.node.NodeBuilder;
 import com.stone.core.node.ServerNode;
 import com.stone.core.node.system.IActorSystem;
 import com.stone.db.DBActorSystem;
+import com.stone.game.actor.GameActorSystem;
+import com.stone.game.network.AgentIoHandler;
 
 /**
  * The mmo game server, use stone engine;

@@ -8,6 +8,7 @@ import com.stone.core.msg.ProtobufMessageFactory;
 import com.stone.core.node.NodeBuilder;
 import com.stone.core.node.ServerNode;
 import com.stone.world.actor.WorldActorSystem;
+import com.stone.world.network.WorldIoHandler;
 
 /**
  * The world server;

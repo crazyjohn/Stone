@@ -1,4 +1,4 @@
-package com.stone.game;
+package com.stone.agent.network;
 
 import org.apache.mina.core.session.IoSession;
 
@@ -6,26 +6,25 @@ import akka.actor.ActorRef;
 
 import com.stone.core.msg.ISessionMessage;
 import com.stone.core.msg.ProtobufMessage;
+import com.stone.core.msg.server.ServerInternalMessage;
 import com.stone.core.net.AbstractIoHandler;
 import com.stone.core.session.BaseActorSession;
-import com.stone.game.server.msg.AgentServerForwardMessage;
-import com.stone.game.server.msg.AgentSessionOpenMessage;
-import com.stone.game.server.msg.AgentSesssionCloseMessage;
 
-public class AgentIoHandler extends AbstractIoHandler<BaseActorSession> {
+public class AgentInternalIoHandler extends AbstractIoHandler<BaseActorSession> {
 
-	public AgentIoHandler(ActorRef mainMasterActor) {
+	public AgentInternalIoHandler(ActorRef mainMasterActor) {
 		super(mainMasterActor);
 	}
 
 	@Override
 	protected ISessionMessage<BaseActorSession> createSessionOpenMessage(BaseActorSession sessionInfo) {
-		return new AgentSessionOpenMessage(sessionInfo);
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	protected Object doMessageWrapper(ISessionMessage<BaseActorSession> msg) {
-		return new AgentServerForwardMessage(((ProtobufMessage) msg));
+		return new ServerInternalMessage(((ProtobufMessage) msg));
 	}
 
 	@Override
@@ -35,7 +34,8 @@ public class AgentIoHandler extends AbstractIoHandler<BaseActorSession> {
 
 	@Override
 	protected ISessionMessage<BaseActorSession> createSessionCloseMessage(BaseActorSession sessionInfo) {
-		return new AgentSesssionCloseMessage(sessionInfo);
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

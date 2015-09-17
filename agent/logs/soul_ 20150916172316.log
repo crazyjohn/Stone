@@ -49,3 +49,5 @@ java.io.IOException: 远程主机强迫关闭了一个现有的连接。
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
 	at java.lang.Thread.run(Thread.java:745)
+[INFO] 17:55:14,051 - ServerNode.shutdown - ServerIoProcessor: internalProcessor shutdown.
+[INFO] 17:55:14,054 - ServerNode.shutdown - ServerIoProcessor: mainProcessor shutdown.

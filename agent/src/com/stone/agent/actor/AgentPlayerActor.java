@@ -6,11 +6,12 @@ import org.slf4j.LoggerFactory;
 import akka.actor.ActorRef;
 import akka.actor.UntypedActor;
 
-import com.stone.agent.msg.internal.SelectRoleFromGame;
+import com.google.protobuf.Message.Builder;
 import com.stone.agent.player.AgentPlayer;
 import com.stone.core.data.msg.DBGetMessage;
 import com.stone.core.msg.MessageParseException;
 import com.stone.core.msg.ProtobufMessage;
+import com.stone.core.msg.server.AGForwardMessage;
 import com.stone.db.annotation.PlayerInternalMessage;
 import com.stone.db.entity.HumanEntity;
 import com.stone.db.entity.PlayerEntity;
@@ -18,7 +19,6 @@ import com.stone.db.msg.internal.InternalCreateRole;
 import com.stone.db.msg.internal.InternalGetRoleList;
 import com.stone.db.msg.internal.player.InternalGetRoleListResult;
 import com.stone.db.msg.internal.player.InternalLoginResult;
-import com.stone.db.msg.internal.player.InternalSelectRoleResult;
 import com.stone.proto.Auths.CreateRole;
 import com.stone.proto.Auths.Login;
 import com.stone.proto.Auths.LoginResult;
@@ -58,23 +58,6 @@ public class AgentPlayerActor extends UntypedActor {
 		} else if (msg instanceof InternalGetRoleListResult) {
 			InternalGetRoleListResult roleList = (InternalGetRoleListResult) msg;
 			handleRoleListResult(roleList, player);
-		} else if (msg instanceof InternalSelectRoleResult) {
-			// select role result
-			// send enter scene
-			// Human.Builder humanBuilder = Human.newBuilder();
-			// // bind player and human for each other
-			// com.stone.game.human.Human human = new
-			// com.stone.game.human.Human(player);
-			// player.setHuman(human);
-			// HumanEntity humanEntity = ((InternalSelectRoleResult)
-			// msg).getEntity();
-			// // load
-			// human.onLoad(humanEntity);
-			// humanBuilder.setGuid(humanEntity.getGuid()).setLevel(humanEntity.getLevel()).setName(humanEntity.getName())
-			// .setPlayerId(humanEntity.getPlayerId());
-			// EnterScene.Builder enterScene = EnterScene.newBuilder();
-			// enterScene.setHuman(humanBuilder);
-			// player.sendMessage(MessageType.GC_ENTER_SCENE_VALUE, enterScene);
 		}
 	}
 
@@ -122,10 +105,18 @@ public class AgentPlayerActor extends UntypedActor {
 			// select role
 			SelectRole.Builder selectRole = msg.parseBuilder(SelectRole.newBuilder());
 			dbMaster.tell(new DBGetMessage(selectRole.getRoleId(), HumanEntity.class), playerActor);
-			// FIXME: crazyjohn forward this msg to game server, first get the sceneId
+			// FIXME: crazyjohn forward this msg to game server, first get the
+			// sceneId
 			int sceneId = 1;
-			this.getContext().parent().tell(new SelectRoleFromGame(sceneId, msg), getSelf());
+			forwardToGameServer(MessageType.CG_SELECT_ROLE_VALUE, selectRole, sceneId);
 		}
+	}
+
+	protected void forwardToGameServer(int messageType, Builder builder, int sceneId) {
+		// FIXME: crazyjohn forward this msg to game server
+		// playerId; playerIp; sceneId; msg;
+		AGForwardMessage forwardMsg = new AGForwardMessage(messageType, builder, this.player.getPlayerId(), sceneId, this.player.getClientIp());
+		this.getContext().parent().tell(forwardMsg, getSelf());
 	}
 
 }

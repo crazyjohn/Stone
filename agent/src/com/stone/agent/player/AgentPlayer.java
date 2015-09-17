@@ -7,25 +7,28 @@ import com.stone.core.msg.ProtobufMessage;
 
 public class AgentPlayer {
 	private final IoSession session;
+	private long playerId;
 
 	public AgentPlayer(IoSession session) {
 		this.session = session;
 	}
 
 	public long getPlayerId() {
-		// TODO Auto-generated method stub
-		return 0;
+		return playerId;
 	}
 
-	public void setPlayerId(long id) {
-		// TODO Auto-generated method stub
-
+	public void setPlayerId(long playerId) {
+		this.playerId = playerId;
 	}
 
 	public void sendMessage(int messageType, Builder builder) {
 		ProtobufMessage message = new ProtobufMessage(messageType);
 		message.setBuilder(builder);
 		this.session.write(message);
+	}
+
+	public String getClientIp() {
+		return session.getRemoteAddress().toString();
 	}
 
 }
