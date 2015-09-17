@@ -7,10 +7,11 @@ import akka.actor.ActorRef;
 import akka.actor.UntypedActor;
 
 import com.google.protobuf.Message.Builder;
+import com.stone.agent.msg.external.CAMessage;
+import com.stone.agent.msg.internal.RegisterAgentPlayer;
 import com.stone.agent.player.AgentPlayer;
-import com.stone.core.data.msg.DBGetMessage;
-import com.stone.core.msg.ProtobufMessage;
 import com.stone.core.msg.server.AGForwardMessage;
+import com.stone.core.msg.server.GAForwardMessage;
 import com.stone.db.annotation.PlayerInternalMessage;
 import com.stone.db.entity.HumanEntity;
 import com.stone.db.entity.PlayerEntity;
@@ -38,16 +39,24 @@ public class AgentPlayerActor extends UntypedActor {
 
 	@Override
 	public void onReceive(Object msg) throws Exception {
-		if (msg instanceof ProtobufMessage) {
+		if (msg instanceof CAMessage) {
 			// net message use self execute
-			ProtobufMessage netMessage = (ProtobufMessage) msg;
-			this.onExternalMessage(netMessage, getSelf());
+			CAMessage netMessage = (CAMessage) msg;
+			onExternalMessage(netMessage, getSelf());
 		} else if (msg.getClass().getAnnotation(PlayerInternalMessage.class) != null) {
 			// handle player internal message
-			this.onInternalMessage(msg, getSelf());
-		} else {
+			onInternalMessage(msg, getSelf());
+		} else if (msg instanceof GAForwardMessage) {
+			// handle forward message
+			GAForwardMessage forwardMessage = (GAForwardMessage) msg;
+			onGAForwardMessage(forwardMessage);
+		}else {
 			unhandled(msg);
 		}
+	}
+
+	private void onGAForwardMessage(GAForwardMessage forwardMessage) {
+		this.player.sendMessage(forwardMessage);
 	}
 
 	private void onInternalMessage(Object msg, ActorRef playerActor) {
@@ -83,12 +92,13 @@ public class AgentPlayerActor extends UntypedActor {
 			logger.info(String.format("Player login, puid: %s", playerEntity.getPuid()));
 			// send login result
 			player.sendMessage(MessageType.GC_PLAYER_LOGIN_RESULT_VALUE, LoginResult.newBuilder().setSucceed(true));
-
+			// register agent player actor
+			this.getContext().parent().tell(new RegisterAgentPlayer(this.player.getPlayerId()), getSelf());
 		}
 
 	}
 
-	private void onExternalMessage(ProtobufMessage msg, ActorRef playerActor) throws Exception {
+	private void onExternalMessage(CAMessage msg, ActorRef playerActor) throws Exception {
 		if (msg.getType() == MessageType.CG_PLAYER_LOGIN_VALUE) {
 			final Login.Builder login = msg.getBuilder(Login.newBuilder());
 			dbMaster.tell(login, playerActor);
@@ -103,7 +113,6 @@ public class AgentPlayerActor extends UntypedActor {
 		} else if (msg.getType() == MessageType.CG_SELECT_ROLE_VALUE) {
 			// select role
 			SelectRole.Builder selectRole = msg.getBuilder(SelectRole.newBuilder());
-			dbMaster.tell(new DBGetMessage(selectRole.getRoleId(), HumanEntity.class), playerActor);
 			// FIXME: crazyjohn forward this msg to game server, first get the
 			// sceneId
 			int sceneId = 1;

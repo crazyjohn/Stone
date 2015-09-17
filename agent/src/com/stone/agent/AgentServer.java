@@ -7,10 +7,10 @@ import akka.actor.ActorRef;
 
 import com.stone.agent.actor.AgentActorSystem;
 import com.stone.agent.network.AgentExternalIoHandler;
+import com.stone.agent.network.AgentExternalMessageFactory;
 import com.stone.agent.network.AgentInternalIoHandler;
-import com.stone.agent.network.AgentMessageFactory;
+import com.stone.agent.network.AgentInternalMessageFactory;
 import com.stone.core.codec.GameCodecFactory;
-import com.stone.core.msg.ProtobufMessageFactory;
 import com.stone.core.net.ServerIoProcessor;
 import com.stone.core.node.NodeBuilder;
 import com.stone.core.node.ServerNode;
@@ -36,7 +36,7 @@ public class AgentServer {
 	 */
 	private static void buildInternalProcessor(ServerNode gateServerNode, AgentServerConfig config, ActorRef gateMaster) {
 		ServerIoProcessor ioProcessor = new ServerIoProcessor(config.getBindIp(), config.getInternalPort(), new AgentInternalIoHandler(gateMaster),
-				new GameCodecFactory(new AgentMessageFactory()));
+				new GameCodecFactory(new AgentInternalMessageFactory()));
 		gateServerNode.registerIoProcessor("internalProcessor", ioProcessor);
 	}
 
@@ -58,7 +58,7 @@ public class AgentServer {
 			IActorSystem dbActorSystem = buildDBSystem(config);
 			// init game node
 			AgentActorSystem gateSystem = new AgentActorSystem(dbActorSystem.getMasterActor());
-			gateServerNode.init(config, new AgentExternalIoHandler(gateSystem.getMasterActor()), new ProtobufMessageFactory());
+			gateServerNode.init(config, new AgentExternalIoHandler(gateSystem.getMasterActor()), new AgentExternalMessageFactory());
 			// build internal processor
 			buildInternalProcessor(gateServerNode, config, gateSystem.getMasterActor());
 			// start the gate node

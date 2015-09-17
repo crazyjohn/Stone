@@ -4,6 +4,7 @@ import org.apache.mina.core.session.IoSession;
 
 import com.google.protobuf.Message.Builder;
 import com.stone.core.msg.ProtobufMessage;
+import com.stone.core.msg.server.GAForwardMessage;
 
 public class AgentPlayer {
 	private final IoSession session;
@@ -25,6 +26,13 @@ public class AgentPlayer {
 		ProtobufMessage message = new ProtobufMessage(messageType);
 		message.setBuilder(builder);
 		this.session.write(message);
+	}
+
+	public void sendMessage(GAForwardMessage message) {
+		// build protobuf message
+		ProtobufMessage protoMessage = message.build();
+		protoMessage.setBuilderDatas(message.getBuilderDatas());
+		this.session.write(protoMessage);
 	}
 
 	public String getClientIp() {

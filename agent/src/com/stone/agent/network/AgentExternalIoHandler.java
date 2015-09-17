@@ -4,8 +4,8 @@ import org.apache.mina.core.session.IoSession;
 
 import akka.actor.ActorRef;
 
-import com.stone.agent.msg.internal.AgentSessionCloseMessage;
-import com.stone.agent.msg.internal.AgentSessionOpenMessage;
+import com.stone.agent.msg.external.ClientSessionCloseMessage;
+import com.stone.agent.msg.external.ClientSessionOpenMessage;
 import com.stone.core.msg.ISessionMessage;
 import com.stone.core.net.AbstractIoHandler;
 import com.stone.core.session.BaseActorSession;
@@ -24,7 +24,7 @@ public class AgentExternalIoHandler extends AbstractIoHandler<BaseActorSession> 
 
 	@Override
 	protected ISessionMessage<BaseActorSession> createSessionOpenMessage(BaseActorSession sessionInfo) {
-		return new AgentSessionOpenMessage(sessionInfo);
+		return new ClientSessionOpenMessage(sessionInfo);
 	}
 
 	@Override
@@ -35,7 +35,7 @@ public class AgentExternalIoHandler extends AbstractIoHandler<BaseActorSession> 
 
 	@Override
 	protected ISessionMessage<BaseActorSession> createSessionCloseMessage(BaseActorSession sessionInfo) {
-		return new AgentSessionCloseMessage(sessionInfo);
+		return new ClientSessionCloseMessage(sessionInfo);
 	}
 
 }

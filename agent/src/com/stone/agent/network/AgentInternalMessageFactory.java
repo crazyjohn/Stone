@@ -6,7 +6,7 @@ import com.stone.core.msg.server.GAForwardMessage;
 import com.stone.core.msg.server.ServerBetweenMessage;
 import com.stone.proto.MessageTypes.MessageType;
 
-public class AgentMessageFactory implements IMessageFactory {
+public class AgentInternalMessageFactory implements IMessageFactory {
 
 	@Override
 	public IMessage createMessage(int type) {

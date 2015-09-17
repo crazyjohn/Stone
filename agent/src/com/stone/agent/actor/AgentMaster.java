@@ -13,15 +13,18 @@ import akka.actor.Props;
 import akka.actor.UntypedActor;
 
 import com.googlecode.protobuf.format.JsonFormat;
-import com.stone.agent.msg.internal.AgentSessionCloseMessage;
-import com.stone.agent.msg.internal.AgentSessionOpenMessage;
+import com.stone.agent.msg.external.CAMessage;
+import com.stone.agent.msg.external.ClientSessionCloseMessage;
+import com.stone.agent.msg.external.ClientSessionOpenMessage;
+import com.stone.agent.msg.internal.RegisterAgentPlayer;
 import com.stone.agent.player.AgentPlayer;
-import com.stone.core.msg.CAMessage;
 import com.stone.core.msg.MessageParseException;
 import com.stone.core.msg.ProtobufMessage;
 import com.stone.core.msg.server.AGForwardMessage;
+import com.stone.core.msg.server.GAForwardMessage;
 import com.stone.core.msg.server.ServerBetweenMessage;
 import com.stone.core.session.BaseActorSession;
+import com.stone.proto.Auths.EnterScene;
 import com.stone.proto.MessageTypes.MessageType;
 import com.stone.proto.Servers.GameRegisterToAgent;
 
@@ -32,6 +35,7 @@ public class AgentMaster extends UntypedActor {
 	private AtomicLong counter = new AtomicLong(0);
 	/** the game server sessions */
 	private Map<Integer, BaseActorSession> gameServerSessions = new HashMap<Integer, BaseActorSession>();
+	private Map<Long, ActorRef> playerActors = new HashMap<Long, ActorRef>();
 
 	public AgentMaster(ActorRef dbMaster) {
 		this.dbMaster = dbMaster;
@@ -39,13 +43,13 @@ public class AgentMaster extends UntypedActor {
 
 	@Override
 	public void onReceive(Object msg) throws Exception {
-		if (msg instanceof AgentSessionOpenMessage) {
+		if (msg instanceof ClientSessionOpenMessage) {
 			// open session
-			AgentSessionOpenMessage sessionOpenMsg = (AgentSessionOpenMessage) msg;
+			ClientSessionOpenMessage sessionOpenMsg = (ClientSessionOpenMessage) msg;
 			onGateSessionOpened(sessionOpenMsg);
-		} else if (msg instanceof AgentSessionCloseMessage) {
+		} else if (msg instanceof ClientSessionCloseMessage) {
 			// close session
-			AgentSessionCloseMessage sessionClose = (AgentSessionCloseMessage) msg;
+			ClientSessionCloseMessage sessionClose = (ClientSessionCloseMessage) msg;
 			onGateSessionClosed(sessionClose);
 		} else if (msg instanceof CAMessage) {
 			// dispatch to player actor
@@ -61,8 +65,32 @@ public class AgentMaster extends UntypedActor {
 				return;
 			}
 			session.getSession().write(forwardMessage);
+		} else if (msg instanceof GAForwardMessage) {
+			// handle GAForward message
+			GAForwardMessage forwardMessge = (GAForwardMessage) msg;
+			onGAForwardMessage(forwardMessge);
+		} else if (msg instanceof RegisterAgentPlayer) {
+			RegisterAgentPlayer register = (RegisterAgentPlayer) msg;
+			onRegisterPlayerActor(register.getPlayerId(), getSender());
 		} else {
 			unhandled(msg);
+		}
+	}
+
+	private void onRegisterPlayerActor(long playerId, ActorRef actor) {
+		this.playerActors.put(playerId, actor);
+	}
+
+	private void onGAForwardMessage(GAForwardMessage msg) throws Exception {
+		ActorRef actor = this.playerActors.get(msg.getPlayerId());
+		if (actor == null) {
+			logger.warn(String.format("No such player actor: %d", msg.getPlayerId()));
+			return;
+		}
+		if (msg.getType() == MessageType.GC_ENTER_SCENE_VALUE) {
+			EnterScene.Builder enterScene = msg.getBuilder(EnterScene.newBuilder());
+			logger.info(JsonFormat.printToString(enterScene.build()));
+			actor.tell(msg, ActorRef.noSender());
 		}
 	}
 
@@ -77,7 +105,7 @@ public class AgentMaster extends UntypedActor {
 	 * @throws MessageParseException
 	 */
 	private void onServerInternalMessage(ProtobufMessage msg) throws Exception {
-		
+
 		if (msg.getType() == MessageType.GAME_REGISTER_TO_AGENT_VALUE) {
 			BaseActorSession gameProxySession = msg.getSession();
 			GameRegisterToAgent.Builder register = msg.getBuilder(GameRegisterToAgent.newBuilder());
@@ -88,11 +116,9 @@ public class AgentMaster extends UntypedActor {
 		}
 	}
 
-	private void onGateSessionClosed(AgentSessionCloseMessage sessionClose) throws MessageParseException {
+	private void onGateSessionClosed(ClientSessionCloseMessage sessionClose) throws MessageParseException {
 		// remove
 		sessionClose.execute();
-		// forward
-		sessionClose.getPlayerActor().forward(sessionClose, getContext());
 		// stop the actor
 		// FIXME: crazyjohn at first i use the 'context().stop(subActor)' way,
 		// but it's not work, so i change to poison way
@@ -101,15 +127,14 @@ public class AgentMaster extends UntypedActor {
 
 	}
 
-	private void onGateSessionOpened(AgentSessionOpenMessage sessionOpenMsg) {
+	private void onGateSessionOpened(ClientSessionOpenMessage sessionOpenMsg) {
 		if (sessionOpenMsg.getSession().getActor() == null) {
 			ActorRef gatePlayerActor = getContext().actorOf(
 					Props.create(AgentPlayerActor.class, this.dbMaster, new AgentPlayer(sessionOpenMsg.getSession().getSession())),
-					"gatePlayerActor" + counter.incrementAndGet());
+					"agentPlayerActor" + counter.incrementAndGet());
 			// watch this player actor
 			getContext().watch(gatePlayerActor);
 			sessionOpenMsg.getSession().setActor(gatePlayerActor);
-			gatePlayerActor.forward(sessionOpenMsg, getContext());
 		} else {
 			// invalid, close session
 			sessionOpenMsg.getSession().close();
