@@ -3,7 +3,7 @@ package com.stone.game.module.human.scene;
 import akka.actor.ActorRef;
 
 import com.stone.core.msg.MessageParseException;
-import com.stone.core.msg.ProtobufMessage;
+import com.stone.core.msg.server.AGForwardMessage;
 import com.stone.game.human.Human;
 import com.stone.game.module.human.BaseHumanModule;
 import com.stone.game.scene.dispatch.SceneDispatchEvent;
@@ -66,7 +66,7 @@ public class HumanSceneModule extends BaseHumanModule {
 	}
 
 	@Override
-	public void onExternalMessage(ProtobufMessage msg, ActorRef playerActor, ActorRef dbMaster) throws MessageParseException {
+	public void onExternalMessage(AGForwardMessage msg, ActorRef playerActor, ActorRef dbMaster) throws MessageParseException {
 		if (msg.getType() == MessageType.CG_ENTER_SCENE_READY_VALUE) {
 			logger.info(String.format("%s enter scene ready.", human.getName()));
 			// enter scene
@@ -81,7 +81,7 @@ public class HumanSceneModule extends BaseHumanModule {
 			throw new UnsupportedOperationException("Do not support CG_SYNC_VALUE request");
 		} else if (msg.getType() == MessageType.CG_REQUEST_MOVE_VALUE) {
 			// move
-			Move.Builder move = msg.parseBuilder(Move.newBuilder());
+			Move.Builder move = msg.getBuilder();
 			// publish to scene humans
 			SceneDispatcher.getInstance().dispatchSceneEvent(new SceneDispatchEvent(move.getSceneId(), move));
 			logger.debug(String.format("%s request moveTo (x: %d, y: %d)", human.getName(), move.getX(), move.getY()));

@@ -16,11 +16,11 @@ import com.googlecode.protobuf.format.JsonFormat;
 import com.stone.agent.msg.internal.AgentSessionCloseMessage;
 import com.stone.agent.msg.internal.AgentSessionOpenMessage;
 import com.stone.agent.player.AgentPlayer;
-import com.stone.core.msg.CGMessage;
+import com.stone.core.msg.CAMessage;
 import com.stone.core.msg.MessageParseException;
 import com.stone.core.msg.ProtobufMessage;
 import com.stone.core.msg.server.AGForwardMessage;
-import com.stone.core.msg.server.ServerInternalMessage;
+import com.stone.core.msg.server.ServerBetweenMessage;
 import com.stone.core.session.BaseActorSession;
 import com.stone.proto.MessageTypes.MessageType;
 import com.stone.proto.Servers.GameRegisterToAgent;
@@ -47,12 +47,12 @@ public class AgentMaster extends UntypedActor {
 			// close session
 			AgentSessionCloseMessage sessionClose = (AgentSessionCloseMessage) msg;
 			onGateSessionClosed(sessionClose);
-		} else if (msg instanceof CGMessage) {
+		} else if (msg instanceof CAMessage) {
 			// dispatch to player actor
-			dispatchToTargetPlayerActor((CGMessage) msg);
-		} else if (msg instanceof ServerInternalMessage) {
+			dispatchToTargetPlayerActor((CAMessage) msg);
+		} else if (msg instanceof ServerBetweenMessage) {
 			// handle server internal msg
-			onServerInternalMessage((ServerInternalMessage) msg);
+			onServerInternalMessage((ProtobufMessage) msg);
 		} else if (msg instanceof AGForwardMessage) {
 			// forward to game server
 			AGForwardMessage forwardMessage = (AGForwardMessage) msg;
@@ -66,7 +66,7 @@ public class AgentMaster extends UntypedActor {
 		}
 	}
 
-	private void dispatchToTargetPlayerActor(CGMessage msg) {
+	private void dispatchToTargetPlayerActor(CAMessage msg) {
 		msg.getPlayerActor().tell(msg, getSelf());
 	}
 
@@ -76,11 +76,11 @@ public class AgentMaster extends UntypedActor {
 	 * @param msg
 	 * @throws MessageParseException
 	 */
-	private void onServerInternalMessage(ServerInternalMessage msg) throws MessageParseException {
-		ProtobufMessage protoMessage = msg.getRealMessage();
-		if (protoMessage.getType() == MessageType.GAME_REGISTER_TO_AGENT_VALUE) {
-			BaseActorSession gameProxySession = protoMessage.getSession();
-			GameRegisterToAgent.Builder register = protoMessage.parseBuilder(GameRegisterToAgent.newBuilder());
+	private void onServerInternalMessage(ProtobufMessage msg) throws MessageParseException {
+		
+		if (msg.getType() == MessageType.GAME_REGISTER_TO_AGENT_VALUE) {
+			BaseActorSession gameProxySession = msg.getSession();
+			GameRegisterToAgent.Builder register = msg.getBuilder();
 			for (int sceneId : register.getSceneIdsList()) {
 				this.gameServerSessions.put(sceneId, gameProxySession);
 			}

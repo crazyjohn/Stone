@@ -5,12 +5,11 @@ import akka.actor.ActorRef;
 import com.stone.core.session.BaseActorSession;
 
 /**
- * client和GameServer通信消息接口;
- * 
+ * Message from client to agent server;
  * @author crazyjohn
  *
  */
-public interface CGMessage extends ISessionMessage<BaseActorSession> {
+public interface CAMessage extends ISessionMessage<BaseActorSession> {
 
 	/**
 	 * Get the player actor;

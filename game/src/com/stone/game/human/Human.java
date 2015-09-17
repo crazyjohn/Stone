@@ -6,7 +6,7 @@ import java.util.Map;
 import akka.actor.ActorRef;
 
 import com.stone.core.msg.MessageParseException;
-import com.stone.core.msg.ProtobufMessage;
+import com.stone.core.msg.server.AGForwardMessage;
 import com.stone.db.entity.HumanEntity;
 import com.stone.game.module.human.IHumanModule;
 import com.stone.game.module.human.item.HumanItemModule;
@@ -81,7 +81,7 @@ public class Human {
 	 * @param dbMaster
 	 * @throws MessageParseException
 	 */
-	public void onExternalMessage(ProtobufMessage msg, ActorRef playerActor, ActorRef dbMaster) throws MessageParseException {
+	public void onExternalMessage(AGForwardMessage msg, ActorRef playerActor, ActorRef dbMaster) throws MessageParseException {
 		// dispatch external message
 		for (IHumanModule module : modules.values()) {
 			if (!module.isOpen()) {

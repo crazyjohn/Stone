@@ -10,6 +10,7 @@ import akka.actor.ActorRef;
 import com.google.protobuf.Message.Builder;
 import com.stone.core.msg.MessageParseException;
 import com.stone.core.msg.ProtobufMessage;
+import com.stone.core.msg.server.AGForwardMessage;
 import com.stone.game.human.Human;
 import com.stone.game.player.module.PlayerLoginModule;
 
@@ -110,7 +111,7 @@ public class Player {
 	 * @param dbMaster
 	 * @throws MessageParseException
 	 */
-	public void onExternalMessage(ProtobufMessage msg, ActorRef playerActor, ActorRef dbMaster) throws MessageParseException {
+	public void onExternalMessage(AGForwardMessage msg, ActorRef playerActor, ActorRef dbMaster) throws MessageParseException {
 		// player module
 		for (IPlayerModule eachModule : this.modules) {
 			eachModule.onExternalMessage(msg, playerActor, dbMaster);

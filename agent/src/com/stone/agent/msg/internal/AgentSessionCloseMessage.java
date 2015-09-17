@@ -1,10 +1,10 @@
 package com.stone.agent.msg.internal;
 
-import com.stone.core.msg.BaseCGMessage;
+import com.stone.core.msg.BaseCAMessage;
 import com.stone.core.msg.MessageParseException;
 import com.stone.core.session.BaseActorSession;
 
-public class AgentSessionCloseMessage extends BaseCGMessage {
+public class AgentSessionCloseMessage extends BaseCAMessage {
 
 	public AgentSessionCloseMessage(BaseActorSession sessionInfo) {
 		this.session = sessionInfo;

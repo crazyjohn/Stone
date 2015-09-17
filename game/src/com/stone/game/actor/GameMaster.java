@@ -2,7 +2,6 @@ package com.stone.game.actor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,10 +11,10 @@ import akka.actor.Props;
 import akka.actor.UntypedActor;
 
 import com.stone.core.msg.ProtobufMessage;
+import com.stone.core.msg.server.AGForwardMessage;
 import com.stone.core.session.BaseActorSession;
 import com.stone.game.module.player.GamePlayerActor;
 import com.stone.game.scene.dispatch.SceneDispatcher;
-import com.stone.game.server.msg.AgentServerForwardMessage;
 import com.stone.game.server.msg.AgentSessionOpenMessage;
 import com.stone.proto.MessageTypes.MessageType;
 import com.stone.proto.Servers.GameRegisterToAgent;
@@ -35,9 +34,6 @@ public class GameMaster extends UntypedActor {
 	private final ActorRef dbMaster;
 	/** mock scene data */
 	private List<Integer> sceneDatas = new ArrayList<Integer>();
-
-	/** counter */
-	private AtomicLong counter = new AtomicLong(0);
 	protected BaseActorSession agentSession;
 
 	public GameMaster(ActorRef dbMaster) {
@@ -57,9 +53,9 @@ public class GameMaster extends UntypedActor {
 	@Override
 	public void onReceive(Object msg) throws Exception {
 		// dispatch cg msg
-		if (msg instanceof AgentServerForwardMessage) {
+		if (msg instanceof AGForwardMessage) {
 			// msg from agent
-			onAgentForwardMessage((AgentServerForwardMessage) msg);
+			onAgentForwardMessage((AGForwardMessage) msg);
 		} else if (msg instanceof AgentSessionOpenMessage) {
 			// agent session opend
 			onAgentSessionOpened((AgentSessionOpenMessage) msg);
@@ -77,15 +73,14 @@ public class GameMaster extends UntypedActor {
 		msg.getSession().writeMessage(message);
 	}
 
-	private void onAgentForwardMessage(AgentServerForwardMessage msg) {
-		ProtobufMessage protoMessage = msg.getRealMessage();
-		if (protoMessage.getType() == MessageType.CG_SELECT_ROLE_VALUE) {
+	private void onAgentForwardMessage(AGForwardMessage msg) {
+		long playerId = msg.getPlayerId();
+		if (msg.getType() == MessageType.CG_SELECT_ROLE_VALUE) {
 			// create player actor when received select char msg
-			ActorRef playerActor = getContext().actorOf(GamePlayerActor.props(protoMessage.getSession().getSession(), dbMaster),
-					"playerActor" + counter.incrementAndGet());
+			ActorRef playerActor = getContext().actorOf(GamePlayerActor.props(msg.getSession().getSession(), dbMaster), "playerActor" + playerId);
 			// watch this player actor
 			getContext().watch(playerActor);
-			playerActor.forward(protoMessage, getContext());
+			playerActor.forward(msg, getContext());
 		} else {
 			ActorRef playerActor = getPlayerActor(msg);
 			// put to player actor
@@ -93,7 +88,7 @@ public class GameMaster extends UntypedActor {
 		}
 	}
 
-	private ActorRef getPlayerActor(AgentServerForwardMessage msg) {
+	private ActorRef getPlayerActor(AGForwardMessage msg) {
 		// TODO Auto-generated method stub
 		return null;
 	}

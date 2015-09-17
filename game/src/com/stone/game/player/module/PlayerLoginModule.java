@@ -4,7 +4,7 @@ import akka.actor.ActorRef;
 
 import com.stone.core.data.msg.DBGetMessage;
 import com.stone.core.msg.MessageParseException;
-import com.stone.core.msg.ProtobufMessage;
+import com.stone.core.msg.server.AGForwardMessage;
 import com.stone.db.entity.HumanEntity;
 import com.stone.db.msg.internal.player.InternalSelectRoleResult;
 import com.stone.game.module.player.BasePlayerModule;
@@ -53,10 +53,10 @@ public class PlayerLoginModule extends BasePlayerModule {
 	}
 
 	@Override
-	public void onExternalMessage(ProtobufMessage msg, ActorRef playerActor, ActorRef dbMaster) throws MessageParseException {
+	public void onExternalMessage(AGForwardMessage msg, ActorRef playerActor, ActorRef dbMaster) throws MessageParseException {
 		if (msg.getType() == MessageType.CG_SELECT_ROLE_VALUE) {
 			// select role
-			SelectRole.Builder selectRole = msg.parseBuilder(SelectRole.newBuilder());
+			SelectRole.Builder selectRole = msg.getBuilder();
 			dbMaster.tell(new DBGetMessage(selectRole.getRoleId(), HumanEntity.class), playerActor);
 		}
 	}

@@ -3,7 +3,7 @@ package com.stone.game.session.msg;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.stone.core.msg.BaseCGMessage;
+import com.stone.core.msg.BaseCAMessage;
 import com.stone.core.msg.MessageParseException;
 import com.stone.core.session.BaseActorSession;
 
@@ -13,7 +13,7 @@ import com.stone.core.session.BaseActorSession;
  * @author crazyjohn
  *
  */
-public class GameSessionCloseMessage extends BaseCGMessage {
+public class GameSessionCloseMessage extends BaseCAMessage {
 	private Logger logger = LoggerFactory.getLogger(GameSessionCloseMessage.class);
 
 	public GameSessionCloseMessage(BaseActorSession sessionInfo) {

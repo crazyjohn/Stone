@@ -3,6 +3,7 @@ package com.stone.core.msg;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Message.Builder;
 import com.googlecode.protobuf.format.JsonFormat;
+import com.stone.core.session.BaseActorSession;
 import com.stone.proto.MessageTypes.MessageType;
 
 /**
@@ -11,7 +12,7 @@ import com.stone.proto.MessageTypes.MessageType;
  * @author crazyjohn
  *
  */
-public class ProtobufMessage extends BaseCGMessage implements IProtobufMessage {
+public class ProtobufMessage extends BaseSessionMessage<BaseActorSession> implements IProtobufMessage {
 	protected Builder builder;
 
 	public ProtobufMessage(short messageType) {
@@ -57,18 +58,16 @@ public class ProtobufMessage extends BaseCGMessage implements IProtobufMessage {
 		this.builder = builder;
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public <B extends Builder> B parseBuilder(B newBuilder) throws MessageParseException {
-		this.builder = newBuilder;
-		this.read();
-		return (B) builder;
-	}
-
 	@Override
 	public String toString() {
 		return "[type: " + MessageType.valueOf(this.type).toString() + ", builder: "
 				+ (this.builder == null ? "null]" : JsonFormat.printToString(this.builder.clone().build()) + "]");
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public <B extends Builder> B getBuilder() {
+		return (B) this.builder;
 	}
 
 }

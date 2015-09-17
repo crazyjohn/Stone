@@ -9,7 +9,7 @@ import com.stone.core.constants.CommonErrorLogInfo;
  * 
  * @author crazyjohn;
  */
-public interface IMessage{
+public interface IMessage {
 	/** 最大消息长度为64K，可能超过这个长度的信息，需要自己打包分多次发送* */
 	public static final int MAX_MESSAGE_LENGTH = 65535;
 
@@ -23,7 +23,7 @@ public interface IMessage{
 	public static final int HEADER_LEN_BYTES = 2;
 
 	/** 消息头的类型字节数 {@value} */
-	public static final int HEADER_TYPE_BYTES = 2;
+	public static final int HEADER_TYPE_BYTES = 4;
 
 	/** 消息头的长度,4字节,length+type,{@value} */
 	public static final int HEADER_SIZE = HEADER_LEN_BYTES + HEADER_TYPE_BYTES;
@@ -62,7 +62,7 @@ public interface IMessage{
 	 * 
 	 * @return
 	 */
-	public short getType();
+	public int getType();
 
 	/**
 	 * 取得该消息的名称

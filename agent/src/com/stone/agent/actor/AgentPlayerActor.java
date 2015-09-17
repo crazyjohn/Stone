@@ -91,7 +91,7 @@ public class AgentPlayerActor extends UntypedActor {
 
 	private void onExternalMessage(ProtobufMessage msg, ActorRef playerActor) throws MessageParseException {
 		if (msg.getType() == MessageType.CG_PLAYER_LOGIN_VALUE) {
-			final Login.Builder login = msg.parseBuilder(Login.newBuilder());
+			final Login.Builder login = msg.getBuilder();
 			dbMaster.tell(login, playerActor);
 		} else if (msg.getType() == MessageType.CG_GET_ROLE_LIST_VALUE) {
 			// get role list
@@ -99,11 +99,11 @@ public class AgentPlayerActor extends UntypedActor {
 			dbMaster.tell(getRoleList, playerActor);
 		} else if (msg.getType() == MessageType.CG_CREATE_ROLE_VALUE) {
 			// create role list
-			CreateRole.Builder createRole = msg.parseBuilder(CreateRole.newBuilder());
+			CreateRole.Builder createRole = msg.getBuilder();
 			dbMaster.tell(new InternalCreateRole(player.getPlayerId(), createRole), playerActor);
 		} else if (msg.getType() == MessageType.CG_SELECT_ROLE_VALUE) {
 			// select role
-			SelectRole.Builder selectRole = msg.parseBuilder(SelectRole.newBuilder());
+			SelectRole.Builder selectRole = msg.getBuilder();
 			dbMaster.tell(new DBGetMessage(selectRole.getRoleId(), HumanEntity.class), playerActor);
 			// FIXME: crazyjohn forward this msg to game server, first get the
 			// sceneId

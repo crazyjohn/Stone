@@ -14,12 +14,12 @@ import com.stone.proto.MessageTypes.MessageType;
  */
 public class MessageTypeUtil {
 	/** Short类型到String的映射 */
-	private static Map<Short, String> shortToNames = new HashMap<Short, String>();
+	private static Map<Integer, String> intToNames = new HashMap<Integer, String>();
 
 	static {
 		for (Field field : MessageType.class.getFields()) {
 			try {
-				shortToNames.put(field.getShort(field), field.getName());
+				intToNames.put(field.getInt(field), field.getName());
 			} catch (IllegalArgumentException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -37,10 +37,10 @@ public class MessageTypeUtil {
 	 *            short消息类型
 	 * @return 如果系统中注册了此类型则返回对应的类型名;否则返回"";
 	 */
-	public static String getMessageTypeName(short messageType) {
+	public static String getMessageTypeName(int messageType) {
 		String result = "";
-		if (shortToNames.get(messageType) != null) {
-			return shortToNames.get(messageType);
+		if (intToNames.get(messageType) != null) {
+			return intToNames.get(messageType);
 		}
 		return result;
 	}

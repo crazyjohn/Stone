@@ -11,13 +11,13 @@ import org.slf4j.LoggerFactory;
 import akka.actor.ActorRef;
 
 import com.stone.core.codec.GameCodecFactory;
-import com.stone.core.msg.ProtobufMessageFactory;
 import com.stone.core.node.NodeBuilder;
 import com.stone.core.node.ServerNode;
 import com.stone.core.node.system.IActorSystem;
 import com.stone.db.DBActorSystem;
 import com.stone.game.actor.GameActorSystem;
 import com.stone.game.network.AgentIoHandler;
+import com.stone.game.network.GameMessageFactory;
 
 /**
  * The mmo game server, use stone engine;
@@ -71,7 +71,7 @@ public class GameServer {
 	private static void connectToAgentServer(GameServerConfig config, ActorRef masterActor) {
 		NioSocketConnector connector = new NioSocketConnector();
 		connector.setHandler(new AgentIoHandler(masterActor));
-		connector.getFilterChain().addLast("codec", new ProtocolCodecFilter(new GameCodecFactory(new ProtobufMessageFactory())));
+		connector.getFilterChain().addLast("codec", new ProtocolCodecFilter(new GameCodecFactory(new GameMessageFactory())));
 		// connect to master
 		ConnectFuture future = connector.connect(new InetSocketAddress(config.getAgentHost(), config.getAgentPort()));
 		logger.info("Start to connect to agent server...");

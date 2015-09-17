@@ -2,22 +2,37 @@ package com.stone.core.msg.server;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Message.Builder;
+import com.stone.core.msg.BaseCAMessage;
 import com.stone.core.msg.IMessage;
-import com.stone.core.msg.ProtobufMessage;
+import com.stone.core.msg.MessageParseException;
 
-public class AGForwardMessage extends ProtobufMessage {
+public class AGForwardMessage extends BaseCAMessage {
 
 	private static final int PLAYER_ID_SIZE = 8;
 	private static final int SCENE_ID_SIZE = 4;
 	private long playerId;
 	private int sceneId;
 	private String clientIp;
+	private Builder builder;
 
 	public AGForwardMessage(int messageType, Builder builder, long playerId, int sceneId, String clientIp) {
-		super(messageType);
+		this.type = messageType;
 		this.playerId = playerId;
 		this.sceneId = sceneId;
 		this.clientIp = clientIp;
+		this.builder = builder;
+	}
+
+	public AGForwardMessage(short type) {
+		this(type, null, -1, -1, "");
+	}
+
+	@SuppressWarnings("unchecked")
+	public <B extends Builder> B getBuilder() {
+		return (B) builder;
+	}
+
+	public void setBuilder(Builder builder) {
 		this.builder = builder;
 	}
 
@@ -78,6 +93,12 @@ public class AGForwardMessage extends ProtobufMessage {
 
 	public void setClientIp(String clientIp) {
 		this.clientIp = clientIp;
+	}
+
+	@Override
+	public void execute() throws MessageParseException {
+		// TODO Auto-generated method stub
+
 	}
 
 }

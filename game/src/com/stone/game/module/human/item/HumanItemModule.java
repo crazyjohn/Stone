@@ -7,7 +7,7 @@ import java.util.List;
 import akka.actor.ActorRef;
 
 import com.stone.core.msg.MessageParseException;
-import com.stone.core.msg.ProtobufMessage;
+import com.stone.core.msg.server.AGForwardMessage;
 import com.stone.db.entity.HumanEntity;
 import com.stone.db.entity.HumanItemEntity;
 import com.stone.game.human.Human;
@@ -51,7 +51,7 @@ public class HumanItemModule extends BaseHumanModule {
 	}
 
 	@Override
-	public void onExternalMessage(ProtobufMessage msg, ActorRef playerActor,
+	public void onExternalMessage(AGForwardMessage msg, ActorRef playerActor,
 			ActorRef dbMaster) throws MessageParseException {
 		// TODO Auto-generated method stub
 

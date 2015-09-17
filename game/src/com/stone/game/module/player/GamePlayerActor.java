@@ -14,7 +14,7 @@ import akka.actor.UntypedActor;
 
 import com.stone.core.actor.msg.ActorSendMessage;
 import com.stone.core.data.DataEventBus;
-import com.stone.core.msg.ProtobufMessage;
+import com.stone.core.msg.server.AGForwardMessage;
 import com.stone.db.annotation.PlayerInternalMessage;
 import com.stone.db.entity.HumanItemEntity;
 import com.stone.game.scene.dispatch.SceneDispatchEvent;
@@ -51,9 +51,9 @@ public class GamePlayerActor extends UntypedActor {
 
 	@Override
 	public void onReceive(Object msg) throws Exception {
-		if (msg instanceof ProtobufMessage) {
+		if (msg instanceof AGForwardMessage) {
 			// net message use self execute
-			ProtobufMessage netMessage = (ProtobufMessage) msg;
+			AGForwardMessage netMessage = (AGForwardMessage) msg;
 			player.onExternalMessage(netMessage, getSelf(), dbMaster);
 		} else if (msg.getClass().getAnnotation(PlayerInternalMessage.class) != null) {
 			// handle player internal message

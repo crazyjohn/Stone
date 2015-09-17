@@ -26,7 +26,7 @@ public abstract class BaseMessage implements IMessage {
 	protected int messageLength;
 
 	/** 消息的类型 * */
-	protected short type;
+	protected int type;
 
 	/** 消息的名称 * */
 	protected String typeName;
@@ -113,11 +113,11 @@ public abstract class BaseMessage implements IMessage {
 	}
 
 	@Override
-	public short getType() {
+	public int getType() {
 		return this.type;
 	}
 
-	protected void setType(short type) {
+	protected void setType(int type) {
 		this.type = type;
 	}
 
