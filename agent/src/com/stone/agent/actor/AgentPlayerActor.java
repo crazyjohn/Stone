@@ -117,6 +117,8 @@ public class AgentPlayerActor extends UntypedActor {
 			// sceneId
 			int sceneId = 1;
 			forwardToGameServer(MessageType.CG_SELECT_ROLE_VALUE, selectRole, sceneId);
+		} else {
+			//FIXME: crazyjohn direct forward to game server
 		}
 	}
 
