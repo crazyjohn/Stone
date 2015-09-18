@@ -54,13 +54,13 @@ public class AgentPlayerActor extends UntypedActor {
 		} else if (msg instanceof GCMessage) {
 			// handle forward message
 			GCMessage forwardMessage = (GCMessage) msg;
-			onGAForwardMessage(forwardMessage);
+			onGCMessage(forwardMessage);
 		} else {
 			unhandled(msg);
 		}
 	}
 
-	private void onGAForwardMessage(GCMessage forwardMessage) {
+	private void onGCMessage(GCMessage forwardMessage) {
 		this.player.sendMessage(forwardMessage);
 	}
 

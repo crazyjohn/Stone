@@ -59,15 +59,11 @@ public class AgentMaster extends UntypedActor {
 		} else if (msg instanceof AGForwardMessage) {
 			// forward to game server
 			AGForwardMessage forwardMessage = (AGForwardMessage) msg;
-			BaseActorSession session = this.gameServerSessions.get(forwardMessage.getSceneId());
-			if (session == null) {
-				return;
-			}
-			session.getSession().write(forwardMessage);
+			onAGForwardMessage(forwardMessage);
 		} else if (msg instanceof GCMessage) {
 			// handle GAForward message
 			GCMessage forwardMessge = (GCMessage) msg;
-			onGAForwardMessage(forwardMessge);
+			onGCMessage(forwardMessge);
 		} else if (msg instanceof RegisterAgentPlayer) {
 			RegisterAgentPlayer register = (RegisterAgentPlayer) msg;
 			onRegisterPlayerActor(register.getPlayerId(), getSender());
@@ -76,11 +72,19 @@ public class AgentMaster extends UntypedActor {
 		}
 	}
 
+	private void onAGForwardMessage(AGForwardMessage forwardMessage) {
+		BaseActorSession session = this.gameServerSessions.get(forwardMessage.getSceneId());
+		if (session == null) {
+			return;
+		}
+		session.getSession().write(forwardMessage);
+	}
+
 	private void onRegisterPlayerActor(long playerId, ActorRef actor) {
 		this.playerActors.put(playerId, actor);
 	}
 
-	private void onGAForwardMessage(GCMessage msg) throws Exception {
+	private void onGCMessage(GCMessage msg) throws Exception {
 		ActorRef actor = this.playerActors.get(msg.getPlayerId());
 		if (actor == null) {
 			logger.warn(String.format("No such player actor: %d", msg.getPlayerId()));
