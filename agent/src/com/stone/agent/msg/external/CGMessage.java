@@ -5,9 +5,9 @@ import akka.actor.ActorRef;
 import com.stone.core.msg.IActorMessage;
 import com.stone.core.msg.ProtobufMessage;
 
-public class CAMessage extends ProtobufMessage implements IActorMessage {
+public class CGMessage extends ProtobufMessage implements IActorMessage {
 
-	public CAMessage(int messageType) {
+	public CGMessage(int messageType) {
 		super(messageType);
 	}
 

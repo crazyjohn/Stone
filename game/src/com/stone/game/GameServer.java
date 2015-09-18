@@ -77,6 +77,8 @@ public class GameServer {
 		logger.info("Start to connect to agent server...");
 		// crazy?
 		future.awaitUninterruptibly();
+		// if connect failed, it will return a runtime exception
+		future.getSession();
 		logger.info("Connect to agent server succeed.");
 	}
 }

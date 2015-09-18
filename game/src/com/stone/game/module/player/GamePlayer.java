@@ -10,7 +10,7 @@ import akka.actor.ActorRef;
 import com.google.protobuf.Message.Builder;
 import com.stone.core.msg.MessageParseException;
 import com.stone.core.msg.server.AGForwardMessage;
-import com.stone.core.msg.server.GAForwardMessage;
+import com.stone.core.msg.server.GCMessage;
 import com.stone.game.human.Human;
 import com.stone.game.player.module.PlayerLoginModule;
 
@@ -77,7 +77,7 @@ public class GamePlayer {
 	 * @param builder
 	 */
 	public void sendMessage(int messageType, Builder builder) {
-		GAForwardMessage message = new GAForwardMessage(messageType, builder, this.playerId, 1, this.session.getRemoteAddress().toString());
+		GCMessage message = new GCMessage(messageType, builder, this.playerId, 1, this.session.getRemoteAddress().toString());
 		this.session.write(message);
 	}
 

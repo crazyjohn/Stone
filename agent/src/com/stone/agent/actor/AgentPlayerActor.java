@@ -7,11 +7,11 @@ import akka.actor.ActorRef;
 import akka.actor.UntypedActor;
 
 import com.google.protobuf.Message.Builder;
-import com.stone.agent.msg.external.CAMessage;
+import com.stone.agent.msg.external.CGMessage;
 import com.stone.agent.msg.internal.RegisterAgentPlayer;
 import com.stone.agent.player.AgentPlayer;
 import com.stone.core.msg.server.AGForwardMessage;
-import com.stone.core.msg.server.GAForwardMessage;
+import com.stone.core.msg.server.GCMessage;
 import com.stone.db.annotation.PlayerInternalMessage;
 import com.stone.db.entity.HumanEntity;
 import com.stone.db.entity.PlayerEntity;
@@ -24,9 +24,14 @@ import com.stone.proto.Auths.Login;
 import com.stone.proto.Auths.LoginResult;
 import com.stone.proto.Auths.Role;
 import com.stone.proto.Auths.RoleList;
-import com.stone.proto.Auths.SelectRole;
 import com.stone.proto.MessageTypes.MessageType;
 
+/**
+ * The agent player actor;
+ * 
+ * @author crazyjohn
+ *
+ */
 public class AgentPlayerActor extends UntypedActor {
 	private final ActorRef dbMaster;
 	private final AgentPlayer player;
@@ -39,23 +44,23 @@ public class AgentPlayerActor extends UntypedActor {
 
 	@Override
 	public void onReceive(Object msg) throws Exception {
-		if (msg instanceof CAMessage) {
+		if (msg instanceof CGMessage) {
 			// net message use self execute
-			CAMessage netMessage = (CAMessage) msg;
+			CGMessage netMessage = (CGMessage) msg;
 			onExternalMessage(netMessage, getSelf());
 		} else if (msg.getClass().getAnnotation(PlayerInternalMessage.class) != null) {
 			// handle player internal message
 			onInternalMessage(msg, getSelf());
-		} else if (msg instanceof GAForwardMessage) {
+		} else if (msg instanceof GCMessage) {
 			// handle forward message
-			GAForwardMessage forwardMessage = (GAForwardMessage) msg;
+			GCMessage forwardMessage = (GCMessage) msg;
 			onGAForwardMessage(forwardMessage);
-		}else {
+		} else {
 			unhandled(msg);
 		}
 	}
 
-	private void onGAForwardMessage(GAForwardMessage forwardMessage) {
+	private void onGAForwardMessage(GCMessage forwardMessage) {
 		this.player.sendMessage(forwardMessage);
 	}
 
@@ -98,7 +103,7 @@ public class AgentPlayerActor extends UntypedActor {
 
 	}
 
-	private void onExternalMessage(CAMessage msg, ActorRef playerActor) throws Exception {
+	private void onExternalMessage(CGMessage msg, ActorRef playerActor) throws Exception {
 		if (msg.getType() == MessageType.CG_PLAYER_LOGIN_VALUE) {
 			final Login.Builder login = msg.getBuilder(Login.newBuilder());
 			dbMaster.tell(login, playerActor);
@@ -110,16 +115,19 @@ public class AgentPlayerActor extends UntypedActor {
 			// create role list
 			CreateRole.Builder createRole = msg.getBuilder(CreateRole.newBuilder());
 			dbMaster.tell(new InternalCreateRole(player.getPlayerId(), createRole), playerActor);
-		} else if (msg.getType() == MessageType.CG_SELECT_ROLE_VALUE) {
-			// select role
-			SelectRole.Builder selectRole = msg.getBuilder(SelectRole.newBuilder());
-			// FIXME: crazyjohn forward this msg to game server, first get the
-			// sceneId
-			int sceneId = 1;
-			forwardToGameServer(MessageType.CG_SELECT_ROLE_VALUE, selectRole, sceneId);
 		} else {
-			//FIXME: crazyjohn direct forward to game server
+			// FIXME: crazyjohn direct forward to game server
+			forwarToGameServer(msg);
 		}
+	}
+
+	private void forwarToGameServer(CGMessage msg) throws Exception {
+		AGForwardMessage forwardMessage = new AGForwardMessage(msg.getType());
+		forwardMessage.setPlayerId(this.player.getPlayerId());
+		forwardMessage.setSceneId(1);
+		forwardMessage.setClientIp(player.getClientIp());
+		forwardMessage.setMsgContent(msg);
+		this.getContext().parent().tell(forwardMessage, getSelf());
 	}
 
 	protected void forwardToGameServer(int messageType, Builder builder, int sceneId) {

@@ -12,23 +12,19 @@ import com.stone.core.constants.SharedConstants;
 import com.stone.proto.MessageTypes.MessageType;
 
 /**
- * IMessageBase的基本实现
+ * Base Message;
  * 
- * @author crazyjohn;
+ * @author crazyjohn
+ *
  */
-
 public abstract class BaseMessage implements IMessage {
-
-	/** 与该消息绑定的ByteBuffer,用于read或者write方法的操作对象 * */
+	/** buffer */
 	protected IoBuffer buf;
-
-	/** 消息的长度 * */
+	/** the length of the message */
 	protected int messageLength;
-
-	/** 消息的类型 * */
+	/** the type of the message */
 	protected short type;
-
-	/** 消息的名称 * */
+	/** the name of the message */
 	protected String typeName;
 
 	protected BaseMessage() {
@@ -208,7 +204,7 @@ public abstract class BaseMessage implements IMessage {
 	 * @param msg
 	 * @throws MessageParseException
 	 */
-	protected void writeMessage(IMessage msg) throws MessageParseException {
+	protected void writeCAMessage(IMessage msg) throws MessageParseException {
 		IoBuffer _buf = IoBuffer.allocate(msg.getInitBufferLength());
 		_buf.setAutoExpand(true);
 		msg.setBuffer(_buf);

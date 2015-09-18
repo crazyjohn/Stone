@@ -1,23 +1,23 @@
 package com.stone.core.msg.server;
 
+import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Message.Builder;
-import com.stone.core.msg.BaseMessage;
 import com.stone.core.msg.IMessage;
-import com.stone.core.msg.MessageParseException;
+import com.stone.core.msg.ProtobufMessage;
 
-public class AGForwardMessage extends BaseForwardMessage {
-	private BaseMessage msgContent;
+public class GCMessage extends BaseForwardMessage {
 
-	public AGForwardMessage(int type) {
+	public GCMessage(int type) {
 		super(type);
 	}
 
-	public AGForwardMessage(int messageType, Builder builder, long playerId, int sceneId, String clientIp) {
+	public GCMessage(int messageType, Builder builder, long playerId, int sceneId, String clientIp) {
 		super(messageType, builder, playerId, sceneId, clientIp);
 	}
 
-	public void setMsgContent(BaseMessage msgContent) {
-		this.msgContent = msgContent;
+	public ProtobufMessage build() {
+		ProtobufMessage msg = new ProtobufMessage(this.getType());
+		return msg;
 	}
 
 	@Override
@@ -26,12 +26,8 @@ public class AGForwardMessage extends BaseForwardMessage {
 		this.writeLong(this.playerId);
 		this.writeInt(this.sceneId);
 		this.writeString(this.clientIp);
-		// write content
-		try {
-			this.writeMessageWithoutHead(msgContent);
-		} catch (MessageParseException e) {
-			return false;
-		}
+		// write builder
+		this.buf.put(builder.build().toByteArray());
 		return true;
 	}
 
@@ -47,16 +43,15 @@ public class AGForwardMessage extends BaseForwardMessage {
 		byte[] bodys = new byte[bodyLength];
 		this.buf.get(bodys);
 		this.builderDatas = bodys;
-		// if (builder == null) {
-		// return true;
-		// }
-		// try {
-		// this.builder = builder.mergeFrom(bodys);
-		// this.alreadyParsed = true;
-		// } catch (InvalidProtocolBufferException e) {
-		// return false;
-		// }
+		if (builder == null) {
+			return true;
+		}
+		try {
+			this.builder = builder.mergeFrom(bodys);
+			this.alreadyParsed = true;
+		} catch (InvalidProtocolBufferException e) {
+			return false;
+		}
 		return true;
 	}
-
 }

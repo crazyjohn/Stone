@@ -13,7 +13,7 @@ import akka.actor.Props;
 import akka.actor.UntypedActor;
 
 import com.googlecode.protobuf.format.JsonFormat;
-import com.stone.agent.msg.external.CAMessage;
+import com.stone.agent.msg.external.CGMessage;
 import com.stone.agent.msg.external.ClientSessionCloseMessage;
 import com.stone.agent.msg.external.ClientSessionOpenMessage;
 import com.stone.agent.msg.internal.RegisterAgentPlayer;
@@ -21,10 +21,9 @@ import com.stone.agent.player.AgentPlayer;
 import com.stone.core.msg.MessageParseException;
 import com.stone.core.msg.ProtobufMessage;
 import com.stone.core.msg.server.AGForwardMessage;
-import com.stone.core.msg.server.GAForwardMessage;
+import com.stone.core.msg.server.GCMessage;
 import com.stone.core.msg.server.ServerBetweenMessage;
 import com.stone.core.session.BaseActorSession;
-import com.stone.proto.Auths.EnterScene;
 import com.stone.proto.MessageTypes.MessageType;
 import com.stone.proto.Servers.GameRegisterToAgent;
 
@@ -46,14 +45,14 @@ public class AgentMaster extends UntypedActor {
 		if (msg instanceof ClientSessionOpenMessage) {
 			// open session
 			ClientSessionOpenMessage sessionOpenMsg = (ClientSessionOpenMessage) msg;
-			onGateSessionOpened(sessionOpenMsg);
+			onClientSessionOpened(sessionOpenMsg);
 		} else if (msg instanceof ClientSessionCloseMessage) {
 			// close session
 			ClientSessionCloseMessage sessionClose = (ClientSessionCloseMessage) msg;
-			onGateSessionClosed(sessionClose);
-		} else if (msg instanceof CAMessage) {
+			onClientSessionClosed(sessionClose);
+		} else if (msg instanceof CGMessage) {
 			// dispatch to player actor
-			dispatchToTargetPlayerActor((CAMessage) msg);
+			dispatchClientMessageToTargetActor((CGMessage) msg);
 		} else if (msg instanceof ServerBetweenMessage) {
 			// handle server internal msg
 			onServerInternalMessage((ProtobufMessage) msg);
@@ -65,9 +64,9 @@ public class AgentMaster extends UntypedActor {
 				return;
 			}
 			session.getSession().write(forwardMessage);
-		} else if (msg instanceof GAForwardMessage) {
+		} else if (msg instanceof GCMessage) {
 			// handle GAForward message
-			GAForwardMessage forwardMessge = (GAForwardMessage) msg;
+			GCMessage forwardMessge = (GCMessage) msg;
 			onGAForwardMessage(forwardMessge);
 		} else if (msg instanceof RegisterAgentPlayer) {
 			RegisterAgentPlayer register = (RegisterAgentPlayer) msg;
@@ -81,20 +80,21 @@ public class AgentMaster extends UntypedActor {
 		this.playerActors.put(playerId, actor);
 	}
 
-	private void onGAForwardMessage(GAForwardMessage msg) throws Exception {
+	private void onGAForwardMessage(GCMessage msg) throws Exception {
 		ActorRef actor = this.playerActors.get(msg.getPlayerId());
 		if (actor == null) {
 			logger.warn(String.format("No such player actor: %d", msg.getPlayerId()));
 			return;
 		}
-		if (msg.getType() == MessageType.GC_ENTER_SCENE_VALUE) {
-			EnterScene.Builder enterScene = msg.getBuilder(EnterScene.newBuilder());
-			logger.info(JsonFormat.printToString(enterScene.build()));
-			actor.tell(msg, ActorRef.noSender());
-		}
+		actor.tell(msg, ActorRef.noSender());
 	}
 
-	private void dispatchToTargetPlayerActor(CAMessage msg) {
+	/**
+	 * Dispatch the CAMessage to target actor;
+	 * 
+	 * @param msg
+	 */
+	private void dispatchClientMessageToTargetActor(CGMessage msg) {
 		msg.getPlayerActor().tell(msg, getSelf());
 	}
 
@@ -116,7 +116,7 @@ public class AgentMaster extends UntypedActor {
 		}
 	}
 
-	private void onGateSessionClosed(ClientSessionCloseMessage sessionClose) throws MessageParseException {
+	private void onClientSessionClosed(ClientSessionCloseMessage sessionClose) throws MessageParseException {
 		// remove
 		sessionClose.execute();
 		// stop the actor
@@ -127,7 +127,7 @@ public class AgentMaster extends UntypedActor {
 
 	}
 
-	private void onGateSessionOpened(ClientSessionOpenMessage sessionOpenMsg) {
+	private void onClientSessionOpened(ClientSessionOpenMessage sessionOpenMsg) {
 		if (sessionOpenMsg.getSession().getActor() == null) {
 			ActorRef gatePlayerActor = getContext().actorOf(
 					Props.create(AgentPlayerActor.class, this.dbMaster, new AgentPlayer(sessionOpenMsg.getSession().getSession())),

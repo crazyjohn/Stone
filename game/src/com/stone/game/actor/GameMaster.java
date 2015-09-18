@@ -1,7 +1,9 @@
 package com.stone.game.actor;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +37,7 @@ public class GameMaster extends UntypedActor {
 	/** mock scene data */
 	private List<Integer> sceneDatas = new ArrayList<Integer>();
 	protected BaseActorSession agentSession;
+	private Map<Long, ActorRef> playerActors = new HashMap<Long, ActorRef>();
 
 	public GameMaster(ActorRef dbMaster) {
 		this.dbMaster = dbMaster;
@@ -77,9 +80,11 @@ public class GameMaster extends UntypedActor {
 		long playerId = msg.getPlayerId();
 		if (msg.getType() == MessageType.CG_SELECT_ROLE_VALUE) {
 			// create player actor when received select char msg
-			ActorRef playerActor = getContext().actorOf(GamePlayerActor.props(msg.getSession().getSession(), dbMaster, playerId), "playerActor" + playerId);
+			ActorRef playerActor = getContext().actorOf(GamePlayerActor.props(msg.getSession().getSession(), dbMaster, playerId),
+					"playerActor" + playerId);
 			// watch this player actor
 			getContext().watch(playerActor);
+			this.playerActors.put(playerId, playerActor);
 			playerActor.forward(msg, getContext());
 		} else {
 			ActorRef playerActor = getPlayerActor(msg);
@@ -89,8 +94,8 @@ public class GameMaster extends UntypedActor {
 	}
 
 	private ActorRef getPlayerActor(AGForwardMessage msg) {
-		// TODO Auto-generated method stub
-		return null;
+		ActorRef actor = this.playerActors.get(msg.getPlayerId());
+		return actor;
 	}
 
 	public static Props props(ActorRef dbMaster) {
