@@ -27,6 +27,12 @@ import com.stone.core.session.BaseActorSession;
 import com.stone.proto.MessageTypes.MessageType;
 import com.stone.proto.Servers.GameRegisterToAgent;
 
+/**
+ * The agent master actor;
+ * 
+ * @author crazyjohn
+ *
+ */
 public class AgentMaster extends UntypedActor {
 	private final ActorRef dbMaster;
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
