@@ -6,19 +6,30 @@ a game server engine（
 
 
 
-The engine's structure 
+1. framework 
 ----------
+- core。this is the most important part of the engine，almost the whole framework codes are at here。
 
+- db。this is the data service layer，you can use this project to persistence you db object。
 
-- actor。the actor model implements by java language, instead of thread and lock。but now i use akka to do this thing。
-- aspct。the engine's aspect, use aspectj language。
-- bot。the robot framework, use scala language。
-- core。the engine's common lib, class, and utils。
-- db。the engine's data layer。
-- game。the engine's business logic part。
-- proto。protocol between client and server, use google protobuf。
-- resource。the template data resources。
-- test。the engine test cases。
+- proto。this is the proto between client and server，i use google's protobuf to support this。
+
+- tools。do some tools things，for example generate the Template class。
+
+- test。all the engine test cases are at here。
+
+2. examle
+----------
+> when i have finished write 70 percent of the engine，i begin to write a example to prove this is a amazing engine。i choose to write a mmo game。
+
+- bot。this is the robot framework，i use scala to write it, and it use for pressure test。by the way, i must say that scala is fucking amazing！
+
+- agent。this is the external session manager server。
+
+- game。this is the logic server。
+
+- world。 this is the center server。
+
 
 now, what's the progress?
 ----------
