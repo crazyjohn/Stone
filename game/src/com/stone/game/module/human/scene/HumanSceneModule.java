@@ -89,6 +89,8 @@ public class HumanSceneModule extends BaseHumanModule {
 			// human.getName(), move.getX(), move.getY()));
 		} else if (msg.getType() == MessageType.AG_PLAYER_LOGOUT_VALUE) {
 			logger.info(String.format("%s exit scene.", human.getName()));
+			// leave scene
+			SceneDispatcher.getInstance().leaveScene(human.getSceneId(), playerActor);
 			this.player.sendMessage(MessageType.GA_PLAYER_LOGOUT_OK_VALUE);
 		}
 	}
