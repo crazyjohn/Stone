@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import akka.actor.ActorRef;
 
 import com.stone.core.codec.GameCodecFactory;
-import com.stone.core.node.NodeBuilder;
 import com.stone.core.node.ServerNode;
 import com.stone.core.node.system.IActorSystem;
 import com.stone.db.DBActorSystem;
@@ -46,7 +45,7 @@ public class GameServer {
 		try {
 			logger.info("Begin to start GameServer...");
 			// new node
-			final ServerNode gameServerNode = NodeBuilder.buildCommonNode();
+			final ServerNode gameServerNode = new ServerNode();
 			// load config
 			GameServerConfig config = gameServerNode.loadConfig(GameServerConfig.class, "game_server.cfg.js");
 			// db actor system

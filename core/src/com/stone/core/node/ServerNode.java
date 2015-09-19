@@ -47,7 +47,7 @@ public class ServerNode implements IServerNode {
 	@GuardedByUnit(whoCareMe = "volatile")
 	protected volatile boolean terminated = true;
 
-	protected ServerNode() {
+	public ServerNode() {
 		// shutdown hook
 		this.addShutdownHook(new IShutdownHook() {
 			@Override
