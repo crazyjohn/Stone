@@ -59,7 +59,7 @@ public class AgentMaster extends UntypedActor {
 			onClientSessionClosed(sessionClose);
 		} else if (msg instanceof CGMessage) {
 			// dispatch to player actor
-			dispatchClientMessageToTargetActor((CGMessage) msg);
+			dipatchCGMessage((CGMessage) msg);
 		} else if (msg instanceof ServerBetweenMessage) {
 			// handle server internal msg
 			onServerInternalMessage((ProtobufMessage) msg);
@@ -115,7 +115,7 @@ public class AgentMaster extends UntypedActor {
 	 * 
 	 * @param msg
 	 */
-	private void dispatchClientMessageToTargetActor(CGMessage msg) {
+	private void dipatchCGMessage(CGMessage msg) {
 		msg.getPlayerActor().tell(msg, getSelf());
 	}
 
