@@ -10,6 +10,7 @@ enum MessageType {
 	
 	// AG-GA 200-300
 	AG_PLAYER_LOGOUT = 200;
+	GA_PLAYER_LOGOUT_OK = 201;
 
 	// request login
 	CG_PLAYER_LOGIN = 1001;

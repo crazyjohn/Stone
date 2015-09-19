@@ -24,7 +24,7 @@ public class GamePlayer {
 	/** binded human */
 	private Human human;
 	/** binded io session */
-	private IoSession session;
+	private IoSession agentSession;
 	private final long playerId;
 	/** player modules */
 	private List<IPlayerModule> modules = new ArrayList<IPlayerModule>();
@@ -62,13 +62,12 @@ public class GamePlayer {
 	}
 
 	public void setSession(IoSession session) {
-		this.session = session;
+		this.agentSession = session;
 	}
 
 	public long getPlayerId() {
 		return playerId;
 	}
-
 
 	/**
 	 * Send message;
@@ -77,8 +76,15 @@ public class GamePlayer {
 	 * @param builder
 	 */
 	public void sendMessage(int messageType, Builder builder) {
-		GCMessage message = new GCMessage(messageType, builder, this.playerId, 1, this.session.getRemoteAddress().toString());
-		this.session.write(message);
+		GCMessage message = new GCMessage(messageType, builder, this.playerId, 1);
+		this.agentSession.write(message);
+	}
+
+	public void sendMessage(int messageType) {
+		GCMessage message = new GCMessage(messageType);
+		message.setPlayerId(this.getPlayerId());
+		message.setSceneId(1);
+		this.agentSession.write(message);
 	}
 
 	/**

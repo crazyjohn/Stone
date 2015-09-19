@@ -9,6 +9,7 @@ import akka.actor.UntypedActor;
 import com.stone.agent.msg.external.CGMessage;
 import com.stone.agent.msg.external.ClientSessionCloseMessage;
 import com.stone.agent.msg.internal.RegisterAgentPlayer;
+import com.stone.agent.msg.internal.UnRegisterAgentPlayer;
 import com.stone.agent.player.AgentPlayer;
 import com.stone.core.msg.server.AGForwardMessage;
 import com.stone.core.msg.server.GCMessage;
@@ -53,8 +54,8 @@ public class AgentPlayerActor extends UntypedActor {
 			onInternalMessage(msg, getSelf());
 		} else if (msg instanceof GCMessage) {
 			// handle forward message
-			GCMessage forwardMessage = (GCMessage) msg;
-			onGCMessage(forwardMessage);
+			GCMessage gcMessage = (GCMessage) msg;
+			onGCMessage(gcMessage);
 		} else if (msg instanceof ClientSessionCloseMessage) {
 			// client session closed
 			ClientSessionCloseMessage closeMessage = (ClientSessionCloseMessage) msg;
@@ -65,6 +66,7 @@ public class AgentPlayerActor extends UntypedActor {
 	}
 
 	private void onClientCloseMessage(ClientSessionCloseMessage closeMessage) {
+		// send AGForward to game server
 		AGForwardMessage forwardMessage = new AGForwardMessage(MessageType.AG_PLAYER_LOGOUT_VALUE);
 		forwardMessage.setPlayerId(this.player.getPlayerId());
 		forwardMessage.setSceneId(1);
@@ -72,8 +74,15 @@ public class AgentPlayerActor extends UntypedActor {
 		this.getContext().parent().tell(forwardMessage, getSelf());
 	}
 
-	private void onGCMessage(GCMessage forwardMessage) {
-		this.player.sendMessage(forwardMessage);
+	private void onGCMessage(GCMessage message) {
+		if (message.getType() == MessageType.GA_PLAYER_LOGOUT_OK_VALUE) {
+			// send unregister
+			this.getContext().parent().tell(new UnRegisterAgentPlayer(this.player.getPlayerId()), getSelf());
+			logger.info(String.format("Player logout, puid: %s", player.getPuid()));
+		} else {
+			this.player.sendMessage(message);
+		}
+
 	}
 
 	private void onInternalMessage(Object msg, ActorRef playerActor) {
@@ -101,7 +110,7 @@ public class AgentPlayerActor extends UntypedActor {
 	private void handleLoginResult(InternalLoginResult loginResult, AgentPlayer player, ActorRef playerActor) {
 		if (loginResult.getPlayerEntities().size() > 0) {
 			PlayerEntity playerEntity = loginResult.getPlayerEntities().get(0);
-			player.setPlayerId(playerEntity.getId());
+			player.setEntity(playerEntity);
 			// change state
 			// if (player.canTransferStateTo(PlayerState.AUTHORIZED)) {
 			// player.transferStateTo(PlayerState.AUTHORIZED);

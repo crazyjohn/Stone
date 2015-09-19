@@ -17,6 +17,7 @@ import com.stone.agent.msg.external.CGMessage;
 import com.stone.agent.msg.external.ClientSessionCloseMessage;
 import com.stone.agent.msg.external.ClientSessionOpenMessage;
 import com.stone.agent.msg.internal.RegisterAgentPlayer;
+import com.stone.agent.msg.internal.UnRegisterAgentPlayer;
 import com.stone.agent.player.AgentPlayer;
 import com.stone.core.msg.MessageParseException;
 import com.stone.core.msg.ProtobufMessage;
@@ -72,7 +73,13 @@ public class AgentMaster extends UntypedActor {
 			onGCMessage(forwardMessge);
 		} else if (msg instanceof RegisterAgentPlayer) {
 			RegisterAgentPlayer register = (RegisterAgentPlayer) msg;
-			onRegisterPlayerActor(register.getPlayerId(), getSender());
+			rgisterPlayerActor(register.getPlayerId(), getSender());
+		} else if (msg instanceof UnRegisterAgentPlayer) {
+			UnRegisterAgentPlayer register = (UnRegisterAgentPlayer) msg;
+			unRegisterPlayerActor(register.getPlayerId());
+			// kill actor
+			getSender().tell(PoisonPill.getInstance(), getSender());
+			getContext().unwatch(getSender());
 		} else {
 			unhandled(msg);
 		}
@@ -86,14 +93,18 @@ public class AgentMaster extends UntypedActor {
 		session.getSession().write(forwardMessage);
 	}
 
-	private void onRegisterPlayerActor(long playerId, ActorRef actor) {
+	private void rgisterPlayerActor(long playerId, ActorRef actor) {
 		this.playerActors.put(playerId, actor);
+	}
+
+	private void unRegisterPlayerActor(long playerId) {
+		this.playerActors.remove(playerId);
 	}
 
 	private void onGCMessage(GCMessage msg) throws Exception {
 		ActorRef actor = this.playerActors.get(msg.getPlayerId());
 		if (actor == null) {
-			logger.warn(String.format("No such player actor: %d", msg.getPlayerId()));
+			logger.warn(String.format("No such player actor: %d, type: %d", msg.getPlayerId(), msg.getType()));
 			return;
 		}
 		actor.tell(msg, ActorRef.noSender());
@@ -129,13 +140,8 @@ public class AgentMaster extends UntypedActor {
 	private void onClientSessionClosed(ClientSessionCloseMessage sessionClose) throws MessageParseException {
 		// remove
 		sessionClose.execute();
-		// stop the actor
-		// FIXME: crazyjohn at first i use the 'context().stop(subActor)' way,
-		// but it's not work, so i change to poison way
+		// forward
 		sessionClose.getPlayerActor().tell(sessionClose, getSelf());
-		sessionClose.getPlayerActor().tell(PoisonPill.getInstance(), getSender());
-		getContext().unwatch(sessionClose.getPlayerActor());
-
 	}
 
 	private void onClientSessionOpened(ClientSessionOpenMessage sessionOpenMsg) {

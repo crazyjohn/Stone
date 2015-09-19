@@ -11,8 +11,8 @@ public class GCMessage extends BaseForwardMessage {
 		super(type);
 	}
 
-	public GCMessage(int messageType, Builder builder, long playerId, int sceneId, String clientIp) {
-		super(messageType, builder, playerId, sceneId, clientIp);
+	public GCMessage(int messageType, Builder builder, long playerId, int sceneId) {
+		super(messageType, builder, playerId, sceneId, "");
 	}
 
 	public ProtobufMessage build() {
@@ -25,8 +25,10 @@ public class GCMessage extends BaseForwardMessage {
 		// write playerInfo
 		this.writeLong(this.playerId);
 		this.writeInt(this.sceneId);
-		this.writeString(this.clientIp);
 		// write builder
+		if (this.builder == null) {
+			return true;
+		}
 		this.buf.put(builder.build().toByteArray());
 		return true;
 	}
@@ -36,10 +38,11 @@ public class GCMessage extends BaseForwardMessage {
 		// read playerInfo
 		this.playerId = readLong();
 		this.sceneId = readInt();
-		this.clientIp = readString();
 		// read builder
-		int bodyLength = this.messageLength - IMessage.HEADER_SIZE - PLAYER_ID_SIZE - SCENE_ID_SIZE - this.clientIp.getBytes("UTF-8").length
-				- STRING_LENGTH;
+		int bodyLength = this.messageLength - IMessage.HEADER_SIZE - PLAYER_ID_SIZE - SCENE_ID_SIZE;
+		if (bodyLength == 0) {
+			return true;
+		}
 		byte[] bodys = new byte[bodyLength];
 		this.buf.get(bodys);
 		this.builderDatas = bodys;

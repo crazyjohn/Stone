@@ -7,10 +7,11 @@ import org.apache.mina.core.session.IoSession;
 import com.google.protobuf.Message.Builder;
 import com.stone.core.msg.ProtobufMessage;
 import com.stone.core.msg.server.GCMessage;
+import com.stone.db.entity.PlayerEntity;
 
 public class AgentPlayer {
 	private final IoSession session;
-	private long playerId;
+	private PlayerEntity entity;
 	private String clientIp;
 
 	public AgentPlayer(IoSession session) {
@@ -19,11 +20,7 @@ public class AgentPlayer {
 	}
 
 	public long getPlayerId() {
-		return playerId;
-	}
-
-	public void setPlayerId(long playerId) {
-		this.playerId = playerId;
+		return entity.getId();
 	}
 
 	public void sendMessage(int messageType, Builder builder) {
@@ -41,6 +38,14 @@ public class AgentPlayer {
 
 	public String getClientIp() {
 		return clientIp;
+	}
+
+	public void setEntity(PlayerEntity playerEntity) {
+		this.entity = playerEntity;
+	}
+
+	public String getPuid() {
+		return this.entity.getPuid();
 	}
 
 }
