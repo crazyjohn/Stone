@@ -43,7 +43,7 @@ public class GameDecoder implements ProtocolDecoder {
 			readBuffer.get(datas);
 			IMessage aMessage = messageFactory.createMessage(messageType);
 			if (aMessage != null) {
-				IoBuffer aMessageBuffer = IoBuffer.wrap(datas);
+				IoBuffer aMessageBuffer = IoBuffer.wrap(datas).setAutoExpand(true);
 				aMessage.setBuffer(aMessageBuffer);
 				// read
 				aMessage.read();

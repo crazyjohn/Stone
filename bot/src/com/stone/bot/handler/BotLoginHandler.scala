@@ -25,7 +25,7 @@ object BotLoginHandler {
    */
   Handlers.registHandler(MessageType.GC_PLAYER_LOGIN_RESULT_VALUE, (msg: IMessage, bot: CrazyBot) => {
     val protobufMessage = msg.asInstanceOf[ProtobufMessage]
-    val login = protobufMessage.parseBuilder(LoginResult.newBuilder());
+    val login = protobufMessage.getBuilder(LoginResult.newBuilder()).asInstanceOf[LoginResult.Builder];
     if (login.getSucceed) {
       println(String.format("Login success, puid: %s", bot.puid))
       bot.sendMessage(MessageType.CG_GET_ROLE_LIST_VALUE)
@@ -37,7 +37,7 @@ object BotLoginHandler {
    */
   Handlers.registHandler(MessageType.GC_GET_ROLE_LIST_VALUE, (msg: IMessage, bot: CrazyBot) => {
     val protobufMessage = msg.asInstanceOf[ProtobufMessage]
-    val roleList = protobufMessage.parseBuilder(RoleList.newBuilder())
+    val roleList = protobufMessage.getBuilder(RoleList.newBuilder()).asInstanceOf[RoleList.Builder]
     if (roleList.getRoleListCount > 0) {
       val role = roleList.getRoleList(0)
       println(String.format("Select role, name: %s", role.getName))
@@ -54,7 +54,7 @@ object BotLoginHandler {
    */
   Handlers.registHandler(MessageType.GC_ENTER_SCENE_VALUE, (msg: IMessage, bot: CrazyBot) => {
     val protobufMessage = msg.asInstanceOf[ProtobufMessage]
-    val enterScene = protobufMessage.parseBuilder(EnterScene.newBuilder())
+    val enterScene = protobufMessage.getBuilder(EnterScene.newBuilder()).asInstanceOf[EnterScene.Builder]
     bot.setId(enterScene.getHuman.getGuid)
     bot.botState = BotState.GAMEING
     println(String.format("%s enter scene", enterScene.getHuman.getName))

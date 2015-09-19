@@ -3,7 +3,7 @@ package com.stone.bot.handler
 import com.stone.core.msg.IMessage
 import com.stone.bot.CrazyBot
 import java.util.HashMap
-import com.stone.core.msg.IProtobufMessage
+import com.stone.core.msg.IProtobufMessage;
 /**
  * Handler static factory;
  */

@@ -12,7 +12,7 @@ public class GCMessage extends BaseForwardMessage {
 	}
 
 	public GCMessage(int messageType, Builder builder, long playerId, int sceneId) {
-		super(messageType, builder, playerId, sceneId, "");
+		super(messageType, builder, playerId, sceneId, null);
 	}
 
 	public ProtobufMessage build() {
