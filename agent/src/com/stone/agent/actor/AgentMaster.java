@@ -132,6 +132,7 @@ public class AgentMaster extends UntypedActor {
 		// stop the actor
 		// FIXME: crazyjohn at first i use the 'context().stop(subActor)' way,
 		// but it's not work, so i change to poison way
+		sessionClose.getPlayerActor().tell(sessionClose, getSelf());
 		sessionClose.getPlayerActor().tell(PoisonPill.getInstance(), getSender());
 		getContext().unwatch(sessionClose.getPlayerActor());
 

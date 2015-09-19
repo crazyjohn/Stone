@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import akka.actor.ActorRef;
+import akka.actor.PoisonPill;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
 
@@ -17,6 +18,7 @@ import com.stone.core.msg.server.AGForwardMessage;
 import com.stone.core.session.BaseActorSession;
 import com.stone.game.module.player.GamePlayerActor;
 import com.stone.game.scene.dispatch.SceneDispatcher;
+import com.stone.game.server.msg.AGPlayerLogoutMessage;
 import com.stone.game.server.msg.AgentSessionOpenMessage;
 import com.stone.proto.MessageTypes.MessageType;
 import com.stone.proto.Servers.GameRegisterToAgent;
@@ -56,7 +58,10 @@ public class GameMaster extends UntypedActor {
 	@Override
 	public void onReceive(Object msg) throws Exception {
 		// dispatch cg msg
-		if (msg instanceof AGForwardMessage) {
+		if (msg instanceof AGPlayerLogoutMessage) {
+			AGPlayerLogoutMessage logout = (AGPlayerLogoutMessage) msg;
+			onPlayerLogout(logout);
+		} else if (msg instanceof AGForwardMessage) {
 			// msg from agent
 			onAgentForwardMessage((AGForwardMessage) msg);
 		} else if (msg instanceof AgentSessionOpenMessage) {
@@ -65,6 +70,14 @@ public class GameMaster extends UntypedActor {
 		} else {
 			unhandled(msg);
 		}
+	}
+
+	private void onPlayerLogout(AGPlayerLogoutMessage logout) {
+		ActorRef actor = getPlayerActor(logout.getPlayerId());
+		actor.tell(logout, getSelf());
+		actor.tell(PoisonPill.getInstance(), getSender());
+		getContext().unwatch(actor);
+		this.playerActors.remove(logout.getPlayerId());
 	}
 
 	private void onAgentSessionOpened(AgentSessionOpenMessage msg) {
@@ -87,14 +100,14 @@ public class GameMaster extends UntypedActor {
 			this.playerActors.put(playerId, playerActor);
 			playerActor.forward(msg, getContext());
 		} else {
-			ActorRef playerActor = getPlayerActor(msg);
+			ActorRef playerActor = getPlayerActor(msg.getPlayerId());
 			// put to player actor
 			playerActor.tell(msg, ActorRef.noSender());
 		}
 	}
 
-	private ActorRef getPlayerActor(AGForwardMessage msg) {
-		ActorRef actor = this.playerActors.get(msg.getPlayerId());
+	private ActorRef getPlayerActor(long playerId) {
+		ActorRef actor = this.playerActors.get(playerId);
 		return actor;
 	}
 

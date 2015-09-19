@@ -86,8 +86,6 @@ public class GamePlayerActor extends UntypedActor {
 		mockUpdateTask.cancel();
 	}
 
-	
-
 	public static Props props(IoSession session, ActorRef dbMaster, long playerId) {
 		GamePlayer player = new GamePlayer(playerId);
 		player.setSession(session);

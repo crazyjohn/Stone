@@ -81,10 +81,14 @@ public class HumanSceneModule extends BaseHumanModule {
 			throw new UnsupportedOperationException("Do not support CG_SYNC_VALUE request");
 		} else if (msg.getType() == MessageType.CG_REQUEST_MOVE_VALUE) {
 			// move
-//			Move.Builder move = msg.getBuilder();
-//			// publish to scene humans
-//			SceneDispatcher.getInstance().dispatchSceneEvent(new SceneDispatchEvent(move.getSceneId(), move));
-//			logger.debug(String.format("%s request moveTo (x: %d, y: %d)", human.getName(), move.getX(), move.getY()));
+			// Move.Builder move = msg.getBuilder();
+			// // publish to scene humans
+			// SceneDispatcher.getInstance().dispatchSceneEvent(new
+			// SceneDispatchEvent(move.getSceneId(), move));
+			// logger.debug(String.format("%s request moveTo (x: %d, y: %d)",
+			// human.getName(), move.getX(), move.getY()));
+		} else if (msg.getType() == MessageType.AG_PLAYER_LOGOUT_VALUE) {
+			logger.info(String.format("%s exit scene.", human.getName()));
 		}
 	}
 

@@ -27,6 +27,9 @@ public class AGForwardMessage extends BaseForwardMessage {
 		this.writeInt(this.sceneId);
 		this.writeString(this.clientIp);
 		// write content
+		if (msgContent == null) {
+			return true;
+		}
 		try {
 			this.writeMessageWithoutHead(msgContent);
 		} catch (MessageParseException e) {
@@ -44,6 +47,9 @@ public class AGForwardMessage extends BaseForwardMessage {
 		// read builder
 		int bodyLength = this.messageLength - IMessage.HEADER_SIZE - PLAYER_ID_SIZE - SCENE_ID_SIZE - this.clientIp.getBytes("UTF-8").length
 				- STRING_LENGTH;
+		if (bodyLength == 0) {
+			return true;
+		}
 		byte[] bodys = new byte[bodyLength];
 		this.buf.get(bodys);
 		this.builderDatas = bodys;

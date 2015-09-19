@@ -7,6 +7,9 @@ enum MessageType {
 	SERVER_REGISTER_REQUEST = 100;
 	// game register to agent
 	GAME_REGISTER_TO_AGENT = 101;
+	
+	// AG-GA 200-300
+	AG_PLAYER_LOGOUT = 200;
 
 	// request login
 	CG_PLAYER_LOGIN = 1001;

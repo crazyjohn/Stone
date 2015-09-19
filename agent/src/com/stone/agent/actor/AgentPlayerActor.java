@@ -6,8 +6,8 @@ import org.slf4j.LoggerFactory;
 import akka.actor.ActorRef;
 import akka.actor.UntypedActor;
 
-import com.google.protobuf.Message.Builder;
 import com.stone.agent.msg.external.CGMessage;
+import com.stone.agent.msg.external.ClientSessionCloseMessage;
 import com.stone.agent.msg.internal.RegisterAgentPlayer;
 import com.stone.agent.player.AgentPlayer;
 import com.stone.core.msg.server.AGForwardMessage;
@@ -55,9 +55,21 @@ public class AgentPlayerActor extends UntypedActor {
 			// handle forward message
 			GCMessage forwardMessage = (GCMessage) msg;
 			onGCMessage(forwardMessage);
+		} else if (msg instanceof ClientSessionCloseMessage) {
+			// client session closed
+			ClientSessionCloseMessage closeMessage = (ClientSessionCloseMessage) msg;
+			onClientCloseMessage(closeMessage);
 		} else {
 			unhandled(msg);
 		}
+	}
+
+	private void onClientCloseMessage(ClientSessionCloseMessage closeMessage) {
+		AGForwardMessage forwardMessage = new AGForwardMessage(MessageType.AG_PLAYER_LOGOUT_VALUE);
+		forwardMessage.setPlayerId(this.player.getPlayerId());
+		forwardMessage.setSceneId(1);
+		forwardMessage.setClientIp(player.getClientIp());
+		this.getContext().parent().tell(forwardMessage, getSelf());
 	}
 
 	private void onGCMessage(GCMessage forwardMessage) {
@@ -116,7 +128,7 @@ public class AgentPlayerActor extends UntypedActor {
 			CreateRole.Builder createRole = msg.getBuilder(CreateRole.newBuilder());
 			dbMaster.tell(new InternalCreateRole(player.getPlayerId(), createRole), playerActor);
 		} else {
-			// FIXME: crazyjohn direct forward to game server
+			// direct forward to game server
 			forwarToGameServer(msg);
 		}
 	}
@@ -128,13 +140,6 @@ public class AgentPlayerActor extends UntypedActor {
 		forwardMessage.setClientIp(player.getClientIp());
 		forwardMessage.setMsgContent(msg);
 		this.getContext().parent().tell(forwardMessage, getSelf());
-	}
-
-	protected void forwardToGameServer(int messageType, Builder builder, int sceneId) {
-		// FIXME: crazyjohn forward this msg to game server
-		// playerId; playerIp; sceneId; msg;
-		AGForwardMessage forwardMsg = new AGForwardMessage(messageType, builder, this.player.getPlayerId(), sceneId, this.player.getClientIp());
-		this.getContext().parent().tell(forwardMsg, getSelf());
 	}
 
 }

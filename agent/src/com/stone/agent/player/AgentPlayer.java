@@ -1,5 +1,7 @@
 package com.stone.agent.player;
 
+import java.net.InetSocketAddress;
+
 import org.apache.mina.core.session.IoSession;
 
 import com.google.protobuf.Message.Builder;
@@ -9,9 +11,11 @@ import com.stone.core.msg.server.GCMessage;
 public class AgentPlayer {
 	private final IoSession session;
 	private long playerId;
+	private String clientIp;
 
 	public AgentPlayer(IoSession session) {
 		this.session = session;
+		this.clientIp = ((InetSocketAddress) session.getRemoteAddress()).getAddress().getHostAddress();
 	}
 
 	public long getPlayerId() {
@@ -36,7 +40,7 @@ public class AgentPlayer {
 	}
 
 	public String getClientIp() {
-		return session.getRemoteAddress().toString();
+		return clientIp;
 	}
 
 }
