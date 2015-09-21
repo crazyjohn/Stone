@@ -4,6 +4,8 @@ import org.apache.mina.core.buffer.IoBuffer;
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.codec.ProtocolDecoder;
 import org.apache.mina.filter.codec.ProtocolDecoderOutput;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.stone.core.msg.IMessage;
 
@@ -14,7 +16,8 @@ import com.stone.core.msg.IMessage;
  *
  */
 public class GameDecoder implements ProtocolDecoder {
-	private IoBuffer readBuffer = IoBuffer.allocate(IMessage.DECODE_MESSAGE_LENGTH).setAutoExpand(true);
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	private IoBuffer readBuffer = IoBuffer.allocate(IMessage.DECODE_MESSAGE_LENGTH).setAutoExpand(true).setAutoShrink(true);
 	private IMessageFactory messageFactory;
 
 	public GameDecoder(IMessageFactory messageFactory) {
@@ -22,7 +25,7 @@ public class GameDecoder implements ProtocolDecoder {
 	}
 
 	@Override
-	public void decode(IoSession session, IoBuffer in, ProtocolDecoderOutput out) throws Exception {
+	public synchronized void decode(IoSession session, IoBuffer in, ProtocolDecoderOutput out) throws Exception {
 		// decode
 		readBuffer.put(in);
 		readBuffer.flip();
@@ -34,6 +37,8 @@ public class GameDecoder implements ProtocolDecoder {
 			// 读出消息包的长度
 			short messageLength = readBuffer.getShort(0);
 			short messageType = readBuffer.getShort(2);
+			logger.info(String.format("===============================Pos: %d, type: %d, length: %d", this.readBuffer.position(), messageType,
+					messageLength));
 			if (readBuffer.remaining() < messageLength) {
 				break;
 			}
@@ -51,9 +56,12 @@ public class GameDecoder implements ProtocolDecoder {
 				out.write(aMessage);
 			}
 		}
-		// 调整
-		readBuffer.compact();
-
+		// compact
+		if (readBuffer.hasRemaining()) {
+			readBuffer.compact();
+		} else {
+			readBuffer.clear();
+		}
 	}
 
 	@Override
