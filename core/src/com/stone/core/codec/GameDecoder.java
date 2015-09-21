@@ -17,7 +17,7 @@ import com.stone.core.msg.IMessage;
  */
 public class GameDecoder implements ProtocolDecoder {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
-	private IoBuffer readBuffer = IoBuffer.allocate(IMessage.DECODE_MESSAGE_LENGTH).setAutoExpand(true).setAutoShrink(true);
+	private IoBuffer readBuffer = IoBuffer.allocate(IMessage.DECODE_MESSAGE_LENGTH).setAutoExpand(true);
 	private IMessageFactory messageFactory;
 
 	public GameDecoder(IMessageFactory messageFactory) {
@@ -25,7 +25,7 @@ public class GameDecoder implements ProtocolDecoder {
 	}
 
 	@Override
-	public synchronized void decode(IoSession session, IoBuffer in, ProtocolDecoderOutput out) throws Exception {
+	public void decode(IoSession session, IoBuffer in, ProtocolDecoderOutput out) throws Exception {
 		// decode
 		readBuffer.put(in);
 		readBuffer.flip();
@@ -35,9 +35,12 @@ public class GameDecoder implements ProtocolDecoder {
 				break;
 			}
 			// 读出消息包的长度
-			short messageLength = readBuffer.getShort(0);
-			short messageType = readBuffer.getShort(2);
-			logger.info(String.format("===============================Pos: %d, type: %d, length: %d", this.readBuffer.position(), messageType,
+			short messageLength = readBuffer.getShort(readBuffer.position());
+			if (messageLength <= 0) {
+				break;
+			}
+			short messageType = readBuffer.getShort(readBuffer.position() + 2);
+			logger.debug(String.format("===============================Pos: %d, type: %d, length: %d", this.readBuffer.position(), messageType,
 					messageLength));
 			if (readBuffer.remaining() < messageLength) {
 				break;
