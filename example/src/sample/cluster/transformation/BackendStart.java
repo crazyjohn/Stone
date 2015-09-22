@@ -6,9 +6,9 @@ import com.typesafe.config.ConfigFactory;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
 
-public class TransformationBackendMain {
+public class BackendStart {
 
-  public static void main(String[] args) {
+  public static void start(String[] args) {
     // Override the configuration of the port when specified as program argument
     final String port = args.length > 0 ? args[0] : "0";
     final Config config = ConfigFactory.parseString("akka.remote.netty.tcp.port=" + port).
@@ -17,7 +17,7 @@ public class TransformationBackendMain {
 
     ActorSystem system = ActorSystem.create("ClusterSystem", config);
 
-    system.actorOf(Props.create(TransformationBackend.class), "backend");
+    system.actorOf(Props.create(BackendActor.class), "backend");
 
   }
 
