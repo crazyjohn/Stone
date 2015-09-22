@@ -5,7 +5,8 @@ import java.io.Serializable;
 //#messages
 public interface TransformationMessages {
 
-  public static class TransformationJob implements Serializable {
+  @SuppressWarnings("serial")
+public static class TransformationJob implements Serializable {
     private final String text;
 
     public TransformationJob(String text) {
@@ -17,7 +18,8 @@ public interface TransformationMessages {
     }
   }
 
-  public static class TransformationResult implements Serializable {
+  @SuppressWarnings("serial")
+public static class TransformationResult implements Serializable {
     private final String text;
 
     public TransformationResult(String text) {
@@ -34,7 +36,8 @@ public interface TransformationMessages {
     }
   }
 
-  public static class JobFailed implements Serializable {
+  @SuppressWarnings("serial")
+public static class JobFailed implements Serializable {
     private final String reason;
     private final TransformationJob job;
 
