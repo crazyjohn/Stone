@@ -11,6 +11,9 @@ config.port = "8081";
 // agent server
 config.agentHost = "0.0.0.0";
 config.agentPort = 6001;
+// world server
+config.worldHost = "0.0.0.0";
+config.worldPort = 8082;
 // db
 config.dbServiceType = "hibernate";
 config.dbConfigName="game_server_hibernate.cfg.xml"

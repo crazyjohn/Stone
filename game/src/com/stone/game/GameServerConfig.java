@@ -17,6 +17,24 @@ public class GameServerConfig extends ServerConfig {
 	private String dbConfigName;
 	private String agentHost;
 	private int agentPort;
+	private String worldHost;
+	private int worldPort;
+
+	public String getWorldHost() {
+		return worldHost;
+	}
+
+	public void setWorldHost(String worldHost) {
+		this.worldHost = worldHost;
+	}
+
+	public int getWorldPort() {
+		return worldPort;
+	}
+
+	public void setWorldPort(int worldPort) {
+		this.worldPort = worldPort;
+	}
 
 	public String getAgentHost() {
 		return agentHost;

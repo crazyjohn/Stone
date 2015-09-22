@@ -56,3 +56,11 @@
 [INFO] 22:15:15,002 - HumanSceneModule.onExternalMessage - crazyjohn enter scene ready.
 [INFO] 22:15:16,551 - HumanSceneModule.onExternalMessage - crazyjohn exit scene.
 [INFO] 22:15:16,553 - AgentPlayerActor.onGCMessage - Player logout, puid: crazyjohn
+[INFO] 22:48:40,204 - AgentPlayerActor.handleLoginResult - Player login, puid: crazyjohn
+[INFO] 22:48:40,231 - HumanSceneModule.onExternalMessage - crazyjohn enter scene ready.
+[INFO] 22:55:13,306 - HumanSceneModule.onExternalMessage - crazyjohn exit scene.
+[INFO] 22:55:13,308 - AgentPlayerActor.onGCMessage - Player logout, puid: crazyjohn
+[INFO] 22:55:33,085 - AgentPlayerActor.handleLoginResult - Player login, puid: crazyjohn
+[INFO] 22:55:33,249 - HumanSceneModule.onExternalMessage - crazyjohn enter scene ready.
+[INFO] 23:05:30,823 - HumanSceneModule.onExternalMessage - crazyjohn exit scene.
+[INFO] 23:05:30,824 - AgentPlayerActor.onGCMessage - Player logout, puid: crazyjohn

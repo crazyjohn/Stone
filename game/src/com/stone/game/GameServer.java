@@ -17,6 +17,7 @@ import com.stone.db.DBActorSystem;
 import com.stone.game.actor.GameActorSystem;
 import com.stone.game.network.AgentIoHandler;
 import com.stone.game.network.GameMessageFactory;
+import com.stone.game.network.WorldIoHandler;
 
 /**
  * The mmo game server, use stone engine;
@@ -57,6 +58,8 @@ public class GameServer {
 			gameServerNode.registerActorSystem("DBActorSystem", dbActorSystem);
 			// connect to agent server
 			connectToAgentServer(config, gameActorSystem.getMasterActor());
+			// connect to world server
+			connectToWorldServer(config, gameActorSystem.getMasterActor());
 			// start the game node
 			gameServerNode.startup();
 			logger.info("GameServer started.");
@@ -65,6 +68,20 @@ public class GameServer {
 			// exit
 			System.exit(0);
 		}
+	}
+
+	private static void connectToWorldServer(GameServerConfig config, ActorRef masterActor) {
+		NioSocketConnector connector = new NioSocketConnector();
+		connector.setHandler(new WorldIoHandler(masterActor));
+		connector.getFilterChain().addLast("codec", new ProtocolCodecFilter(new GameCodecFactory(new GameMessageFactory())));
+		// connect to master
+		ConnectFuture future = connector.connect(new InetSocketAddress(config.getWorldHost(), config.getWorldPort()));
+		logger.info("Start to connect to world server...");
+		// crazy?
+		future.awaitUninterruptibly();
+		// if connect failed, it will return a runtime exception
+		future.getSession();
+		logger.info("Connect to world server succeed.");
 	}
 
 	private static void connectToAgentServer(GameServerConfig config, ActorRef masterActor) {
