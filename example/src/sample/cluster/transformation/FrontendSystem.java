@@ -17,9 +17,9 @@ import akka.dispatch.OnSuccess;
 import akka.util.Timeout;
 import static akka.pattern.Patterns.ask;
 
-public class FrontendStart {
+public class FrontendSystem {
 
-	public static void start(String[] args) {
+	public static void startup(String[] args) {
 		// Override the configuration of the port when specified as program
 		// argument
 		final String port = args.length > 0 ? args[0] : "0";

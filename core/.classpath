@@ -41,10 +41,10 @@
 	<classpathentry exported="true" kind="lib" path="lib/jboss-logging-3.1.3.GA.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jboss-logging-annotations-1.2.0.Beta1.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jboss-transaction-api_1.2_spec-1.0.0.Final.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/akka-actor_2.11-2.3.14.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/akka-cluster_2.11-2.3.14.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/akka-actor_2.11-2.3.14.jar" sourcepath="lib-src/akka-actor_2.11-2.3.9-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/akka-cluster_2.11-2.3.14.jar" sourcepath="lib-src/akka-cluster_2.11-2.3.9-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/akka-contrib_2.11-2.3.14.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/akka-remote_2.11-2.3.14.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/akka-remote_2.11-2.3.14.jar" sourcepath="lib-src/akka-remote_2.11-2.3.9-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/akka-slf4j_2.11-2.3.14.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/akka-testkit_2.11-2.3.14.jar"/>
 	<classpathentry kind="output" path="bin"/>
