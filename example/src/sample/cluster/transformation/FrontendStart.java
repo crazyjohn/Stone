@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 
-import sample.cluster.transformation.TransformationMessages.TransformationJob;
+import sample.cluster.transformation.JobMessages.Job;
 import scala.concurrent.ExecutionContext;
 import scala.concurrent.duration.Duration;
 import scala.concurrent.duration.FiniteDuration;
@@ -27,22 +27,23 @@ public class FrontendStart {
 				.withFallback(ConfigFactory.parseString("akka.cluster.roles = [frontend]")).withFallback(ConfigFactory.load("simpleCluster"));
 
 		ActorSystem system = ActorSystem.create("ClusterSystem", config);
-
-		final ActorRef frontend = system.actorOf(Props.create(FrontendActor.class), "frontend");
+		// create front actor
+		final ActorRef frontendActor = system.actorOf(Props.create(FrontendActor.class), "frontend");
+		// schedule
 		final FiniteDuration interval = Duration.create(2, TimeUnit.SECONDS);
 		final Timeout timeout = new Timeout(Duration.create(5, TimeUnit.SECONDS));
-		final ExecutionContext ec = system.dispatcher();
+		final ExecutionContext context = system.dispatcher();
 		final AtomicInteger counter = new AtomicInteger();
 		system.scheduler().schedule(interval, interval, new Runnable() {
 			public void run() {
-				ask(frontend, new TransformationJob("hello-" + counter.incrementAndGet()), timeout).onSuccess(new OnSuccess<Object>() {
+				ask(frontendActor, new Job("ping-" + counter.incrementAndGet()), timeout).onSuccess(new OnSuccess<Object>() {
 					public void onSuccess(Object result) {
 						System.out.println(result);
 					}
-				}, ec);
+				}, context);
 			}
 
-		}, ec);
+		}, context);
 
 	}
 }

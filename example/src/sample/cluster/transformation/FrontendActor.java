@@ -1,12 +1,12 @@
 package sample.cluster.transformation;
 
-import static sample.cluster.transformation.TransformationMessages.BACKEND_REGISTRATION;
+import static sample.cluster.transformation.JobMessages.BACKEND_REGISTRATION;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import sample.cluster.transformation.TransformationMessages.JobFailed;
-import sample.cluster.transformation.TransformationMessages.TransformationJob;
+import sample.cluster.transformation.JobMessages.JobFailed;
+import sample.cluster.transformation.JobMessages.Job;
 import akka.actor.ActorRef;
 import akka.actor.Terminated;
 import akka.actor.UntypedActor;
@@ -19,12 +19,12 @@ public class FrontendActor extends UntypedActor {
 
 	@Override
 	public void onReceive(Object message) {
-		if ((message instanceof TransformationJob) && backends.isEmpty()) {
-			TransformationJob job = (TransformationJob) message;
+		if ((message instanceof Job) && backends.isEmpty()) {
+			Job job = (Job) message;
 			getSender().tell(new JobFailed("Service unavailable, try again later", job), getSender());
 
-		} else if (message instanceof TransformationJob) {
-			TransformationJob job = (TransformationJob) message;
+		} else if (message instanceof Job) {
+			Job job = (Job) message;
 			jobCounter++;
 			backends.get(jobCounter % backends.size()).forward(job, getContext());
 

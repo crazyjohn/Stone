@@ -1,8 +1,8 @@
 package sample.cluster.transformation;
 
-import static sample.cluster.transformation.TransformationMessages.BACKEND_REGISTRATION;
-import sample.cluster.transformation.TransformationMessages.TransformationJob;
-import sample.cluster.transformation.TransformationMessages.TransformationResult;
+import static sample.cluster.transformation.JobMessages.BACKEND_REGISTRATION;
+import sample.cluster.transformation.JobMessages.Job;
+import sample.cluster.transformation.JobMessages.JobResult;
 import akka.actor.UntypedActor;
 import akka.cluster.Cluster;
 import akka.cluster.ClusterEvent.CurrentClusterState;
@@ -29,9 +29,9 @@ public class BackendActor extends UntypedActor {
 
 	@Override
 	public void onReceive(Object message) {
-		if (message instanceof TransformationJob) {
-			TransformationJob job = (TransformationJob) message;
-			getSender().tell(new TransformationResult(job.getText().toUpperCase()), getSelf());
+		if (message instanceof Job) {
+			Job job = (Job) message;
+			getSender().tell(new JobResult(job.getText().toUpperCase()), getSelf());
 
 		} else if (message instanceof CurrentClusterState) {
 			CurrentClusterState state = (CurrentClusterState) message;
