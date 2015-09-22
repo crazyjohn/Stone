@@ -3,7 +3,15 @@ Stone
 a game server engine（
 [**YO YO YO! Click me, biatch !**](https://github.com/crazyjohn/Stone/wiki)）
 
+0. how to run ?
+----------
+> at first, i will tell how to run the mmo game demo which makes by the Stone engine.
 
+1. execute the `stone.sql`which in `db` project,then you can create the mmo's database.
+
+2. call the `Launcher.java`'s main method which in `launcher` project,then you can start the ServerGroup.
+
+3. before this step, the ServerGroup is stared.at this time, you have to chooses:first to use `bot` project to run scala robot to connect to the server.second to use `Dick` client engine,by the way, `Dick` is also an amazing client engine, you can have try.
 
 
 1. framework 
