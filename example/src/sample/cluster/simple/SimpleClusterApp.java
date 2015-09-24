@@ -20,7 +20,7 @@ public class SimpleClusterApp {
       // Override the configuration of the port
       Config config = ConfigFactory.parseString(
           "akka.remote.netty.tcp.port=" + port).withFallback(
-          ConfigFactory.load());
+          ConfigFactory.load("simpleCluster"));
 
       // Create an Akka system
       ActorSystem system = ActorSystem.create("ClusterSystem", config);

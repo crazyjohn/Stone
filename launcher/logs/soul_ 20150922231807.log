@@ -52,3 +52,16 @@
 [INFO] 23:18:09,990 - Launcher.main - ServerGroup started.
 [INFO] 23:18:09,994 - GameMaster.onAgentSessionOpened - Start to register on agent server...
 [INFO] 23:18:10,044 - AgentMaster.onServerInternalMessage - {"sceneIds": [1],"serverInfo": {"type": "GAME","name": "game"}}
+[INFO] 23:22:06,496 - AgentPlayerActor.handleLoginResult - Player login, puid: crazyjohn
+[INFO] 23:22:06,546 - EntityScanner.listAllClassNamesInPackage - [EntityAnnotationScanner#listAllClassNamesInPackage]:com.stone.db.entity.HumanEntity found!
+[INFO] 23:22:06,546 - EntityScanner.listAllClassNamesInPackage - [EntityAnnotationScanner#listAllClassNamesInPackage]:com.stone.db.entity.HumanItemEntity found!
+[INFO] 23:22:06,546 - EntityScanner.listAllClassNamesInPackage - [EntityAnnotationScanner#listAllClassNamesInPackage]:com.stone.db.entity.PlayerEntity found!
+[INFO] 23:22:06,546 - EntityScanner.scanAllEntityClassInPackage - [EntityAnnotationScanner#scanAllEntityClassInPackage]:Entity 'com.stone.db.entity.HumanEntity' loaded successfully!
+[INFO] 23:22:06,547 - EntityScanner.scanAllEntityClassInPackage - [EntityAnnotationScanner#scanAllEntityClassInPackage]:Entity 'com.stone.db.entity.HumanItemEntity' loaded successfully!
+[INFO] 23:22:06,547 - EntityScanner.scanAllEntityClassInPackage - [EntityAnnotationScanner#scanAllEntityClassInPackage]:Entity 'com.stone.db.entity.PlayerEntity' loaded successfully!
+[INFO] 23:22:06,565 - HumanSceneModule.onExternalMessage - crazyjohn enter scene ready.
+[INFO] 23:22:53,961 - HumanSceneModule.onExternalMessage - crazyjohn exit scene.
+[INFO] 23:22:53,963 - AgentPlayerActor.onGCMessage - Player logout, puid: crazyjohn
+[INFO] 23:36:40,126 - ServerNode.shutdown - ServerIoProcessor: internalProcessor shutdown.
+[INFO] 23:36:40,135 - ServerNode.shutdown - ServerIoProcessor: mainProcessor shutdown.
+[INFO] 23:36:40,136 - ServerNode.shutdown - ServerIoProcessor: mainProcessor shutdown.
