@@ -11,7 +11,7 @@ public class AgentFrontSystem {
 	public static void startup(String port) {
 		Config config = ConfigFactory.parseString("akka.remote.netty.tcp.port=" + port)
 				.withFallback(ConfigFactory.parseString("akka.cluster.roles = [frontend]")).withFallback(ConfigFactory.load("agentCluster"));
-		ActorSystem system = ActorSystem.create("FrontSystem", config);
+		ActorSystem system = ActorSystem.create("ClusterSystem", config);
 		system.actorOf(Props.create(AgentFrontActor.class), "frontend");
 	}
 }

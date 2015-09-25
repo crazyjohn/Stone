@@ -14,6 +14,7 @@ import akka.cluster.Member;
 import akka.cluster.MemberStatus;
 
 import com.stone.example.cluster.agent.msg.ClientStringRequest;
+import com.stone.example.cluster.agent.msg.ClientStringResponse;
 
 /**
  * The real agent;
@@ -30,7 +31,7 @@ public class AgentBackActor extends UntypedActor {
 	public void preStart() throws Exception {
 		cluster = Cluster.get(getContext().system());
 		// subscribe
-		cluster.subscribe(getSelf(), MemberEvent.class, UnreachableMember.class);
+		cluster.subscribe(getSelf(), MemberEvent.class, UnreachableMember.class, MemberUp.class);
 	}
 
 	@Override
@@ -44,6 +45,7 @@ public class AgentBackActor extends UntypedActor {
 		if (msg instanceof MemberUp) {
 			MemberUp up = (MemberUp) msg;
 			logger.info(String.format("Yo Yo Yo, receiver: %s, member is up: %s", getSelf(), up.member()));
+			register(up.member());
 		} else if (msg instanceof MemberRemoved) {
 			MemberRemoved remove = (MemberRemoved) msg;
 			logger.info(String.format("Yo Yo Yo, receiver: %s, member is remove: %s", getSelf(), remove.member()));
@@ -69,7 +71,8 @@ public class AgentBackActor extends UntypedActor {
 	}
 
 	private void handlePacket(ClientStringRequest packet) {
-		getSender().tell(packet.getInfo().toUpperCase() + "_FUCKED", getSelf());
+		logger.debug("Sender: " + getSender());
+		getSender().tell(new ClientStringResponse(packet.getInfo().toUpperCase() + "_FUCKED"), getSelf());
 
 	}
 
