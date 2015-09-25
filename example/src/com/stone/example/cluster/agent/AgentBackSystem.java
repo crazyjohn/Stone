@@ -12,6 +12,6 @@ public class AgentBackSystem {
 		// config
 		Config config = ConfigFactory.parseString("akka.remote.netty.tcp.port=" + port).withFallback(ConfigFactory.load("agentCluster"));
 		ActorSystem system = ActorSystem.create("ClusterSystem", config);
-		system.actorOf(Props.create(AgentBackActor.class));
+		system.actorOf(Props.create(AgentBackActor.class), "backend");
 	}
 }
