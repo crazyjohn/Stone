@@ -3,7 +3,10 @@ package com.stone.example.cluster.agent;
 public class AgentApp {
 
 	public static void main(String[] args) {
-		AgentBackSystem.startup("2551");
+		// start an agent
+		AgentBackSystem.startup("2550");
+		// AgentBackSystem.startup("2551");
+
 	}
 
 }

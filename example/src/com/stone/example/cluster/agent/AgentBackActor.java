@@ -5,11 +5,15 @@ import org.slf4j.LoggerFactory;
 
 import akka.actor.UntypedActor;
 import akka.cluster.Cluster;
-import akka.cluster.ClusterEvent;
+import akka.cluster.ClusterEvent.CurrentClusterState;
 import akka.cluster.ClusterEvent.MemberEvent;
 import akka.cluster.ClusterEvent.MemberRemoved;
 import akka.cluster.ClusterEvent.MemberUp;
 import akka.cluster.ClusterEvent.UnreachableMember;
+import akka.cluster.Member;
+import akka.cluster.MemberStatus;
+
+import com.stone.example.cluster.agent.msg.ClientStringRequest;
 
 /**
  * The real agent;
@@ -20,12 +24,13 @@ import akka.cluster.ClusterEvent.UnreachableMember;
 public class AgentBackActor extends UntypedActor {
 	private Cluster cluster;
 	private Logger logger = LoggerFactory.getLogger(getClass());
+	public static final String BACKEND_REGISTRATION = "BackendRegistration";
 
 	@Override
 	public void preStart() throws Exception {
 		cluster = Cluster.get(getContext().system());
 		// subscribe
-		cluster.subscribe(getSelf(), ClusterEvent.initialStateAsEvents(), MemberEvent.class, UnreachableMember.class);
+		cluster.subscribe(getSelf(), MemberEvent.class, UnreachableMember.class);
 	}
 
 	@Override
@@ -42,10 +47,30 @@ public class AgentBackActor extends UntypedActor {
 		} else if (msg instanceof MemberRemoved) {
 			MemberRemoved remove = (MemberRemoved) msg;
 			logger.info(String.format("Yo Yo Yo, receiver: %s, member is remove: %s", getSelf(), remove.member()));
-		} else if (msg instanceof MemberEvent) {
-			MemberEvent event = (MemberEvent) msg;
-			logger.info(String.format("Yo Yo Yo, receive memberEvent, member: %s, event: %s", event.member(), event));
+		} else if (msg instanceof ClientStringRequest) {
+			logger.info(String.format("Received packet from: %s", getSender()));
+			ClientStringRequest packet = (ClientStringRequest) msg;
+			handlePacket(packet);
+		} else if (msg instanceof CurrentClusterState) {
+			// Current snapshot state of the cluster. Sent to new subscriber.
+			CurrentClusterState state = (CurrentClusterState) msg;
+			for (Member member : state.getMembers()) {
+				if (member.status().equals(MemberStatus.up())) {
+					register(member);
+				}
+			}
+
 		}
+	}
+
+	private void register(Member member) {
+		if (member.hasRole("frontend"))
+			getContext().actorSelection(member.address() + "/user/frontend").tell(BACKEND_REGISTRATION, getSelf());
+	}
+
+	private void handlePacket(ClientStringRequest packet) {
+		getSender().tell(packet.getInfo().toUpperCase() + "_FUCKED", getSelf());
+
 	}
 
 }
