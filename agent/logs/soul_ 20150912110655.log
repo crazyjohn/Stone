@@ -1,5 +1,0 @@
-[INFO] 11:06:55,542 - GateServer.main - Begin to start GateServer...
-[INFO] 11:06:55,567 - ConfigUtil.loadJsConfig - Load js config, file: gate_server.cfg.js
-[INFO] 11:06:56,287 - ServerNode.startup - ServerIoProcessor: mainProcessor started.
-[INFO] 11:06:56,288 - GateServer.main - GateServer started.
-[INFO] 11:09:08,310 - GateMaster.onReceive - Received msg:ProtobufMessage[builder=<null>]100

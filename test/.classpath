@@ -4,7 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/core"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/db"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/game"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/proto"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="lib/hessian-4.0.37.jar"/>
@@ -13,5 +12,6 @@
 	<classpathentry kind="lib" path="lib/reflectasm-1.09-shaded.jar"/>
 	<classpathentry kind="lib" path="lib/multiverse-core-0.7.0-javadoc.jar"/>
 	<classpathentry kind="lib" path="lib/multiverse-core-0.7.0.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/mmo"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

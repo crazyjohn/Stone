@@ -1,6 +1,0 @@
-[INFO] 15:20:54,724 - GateServer.main - Begin to start GateServer...
-[INFO] 15:20:55,336 - ConfigUtil.loadJsConfig - Load js config, file: gate_server.cfg.js
-[ERROR] 15:20:55,444 - GateServer.main - Start GateServer failed.
-java.lang.IllegalStateException: Init master processor failed
-	at com.stone.core.node.master.MasterServerNode.init(MasterServerNode.java:39)
-	at com.stone.gate.GateServer.main(GateServer.java:31)

@@ -1,8 +1,0 @@
-[INFO] 21:34:50,347 - AgentServer.main - Begin to start GateServer...
-[INFO] 21:34:50,363 - ConfigUtil.loadJsConfig - Load js config, file: gate_server.cfg.js
-[INFO] 21:34:51,049 - ServerNode.startup - ServerIoProcessor: internalProcessor started.
-[INFO] 21:34:51,065 - ServerNode.startup - ServerIoProcessor: mainProcessor started.
-[INFO] 21:34:51,065 - AgentServer.main - GateServer started.
-[INFO] 21:34:56,137 - AgentMaster.onServerInternalMessage - {"sceneIds": [1],"serverInfo": {"type": "GAME","name": "game"}}
-[INFO] 21:59:20,614 - ServerNode.shutdown - ServerIoProcessor: internalProcessor shutdown.
-[INFO] 21:59:20,614 - ServerNode.shutdown - ServerIoProcessor: mainProcessor shutdown.

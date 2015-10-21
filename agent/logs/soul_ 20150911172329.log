@@ -1,5 +1,0 @@
-[INFO] 17:23:29,057 - GateServer.main - Begin to start WorldServer...
-[INFO] 17:23:29,068 - ConfigUtil.loadJsConfig - Load js config, file: gate_server.cfg.js
-[INFO] 17:23:29,797 - StoneServerNode.startup - ServerIoProcessor: mainProcessor started.
-[INFO] 17:23:29,798 - GateServer.main - WorldServer started.
-[INFO] 17:23:45,898 - StoneServerNode.shutdown - ServerIoProcessor: mainProcessor shutdown.

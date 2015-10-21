@@ -1,5 +1,0 @@
-[INFO] 10:29:15,615 - WorldServer.main - Begin to start WorldServer...
-[INFO] 10:29:15,640 - ConfigUtil.loadJsConfig - Load js config, file: world_server.cfg.js
-[INFO] 10:29:16,336 - ServerNode.startup - ServerIoProcessor: mainProcessor started.
-[INFO] 10:29:16,337 - WorldServer.main - WorldServer started.
-[INFO] 10:31:06,907 - ServerNode.shutdown - ServerIoProcessor: mainProcessor shutdown.

@@ -1,5 +1,0 @@
-[INFO] 10:29:37,314 - GateServer.main - Begin to start GateServer...
-[INFO] 10:29:37,340 - ConfigUtil.loadJsConfig - Load js config, file: gate_server.cfg.js
-[INFO] 10:29:38,064 - ServerNode.startup - ServerIoProcessor: mainProcessor started.
-[INFO] 10:29:38,065 - GateServer.main - GateServer started.
-[INFO] 10:31:03,924 - ServerNode.shutdown - ServerIoProcessor: mainProcessor shutdown.
