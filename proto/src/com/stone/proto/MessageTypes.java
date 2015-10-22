@@ -46,13 +46,25 @@ public final class MessageTypes {
      */
     GA_PLAYER_LOGOUT_OK(3, 201),
     /**
+     * <code>AG_FORWARD_BEGIN = 1000;</code>
+     *
+     * <pre>
+     * AGForward begin - end
+     * </pre>
+     */
+    AG_FORWARD_BEGIN(4, 1000),
+    /**
+     * <code>AG_FORWARD_END = 10000;</code>
+     */
+    AG_FORWARD_END(5, 10000),
+    /**
      * <code>CG_PLAYER_LOGIN = 1001;</code>
      *
      * <pre>
      * request login
      * </pre>
      */
-    CG_PLAYER_LOGIN(4, 1001),
+    CG_PLAYER_LOGIN(6, 1001),
     /**
      * <code>GC_PLAYER_LOGIN_RESULT = 1002;</code>
      *
@@ -60,7 +72,7 @@ public final class MessageTypes {
      * login result
      * </pre>
      */
-    GC_PLAYER_LOGIN_RESULT(5, 1002),
+    GC_PLAYER_LOGIN_RESULT(7, 1002),
     /**
      * <code>CG_GET_ROLE_LIST = 1003;</code>
      *
@@ -68,7 +80,7 @@ public final class MessageTypes {
      * get role list
      * </pre>
      */
-    CG_GET_ROLE_LIST(6, 1003),
+    CG_GET_ROLE_LIST(8, 1003),
     /**
      * <code>GC_GET_ROLE_LIST = 1004;</code>
      *
@@ -76,7 +88,7 @@ public final class MessageTypes {
      * return role list
      * </pre>
      */
-    GC_GET_ROLE_LIST(7, 1004),
+    GC_GET_ROLE_LIST(9, 1004),
     /**
      * <code>CG_SELECT_ROLE = 1005;</code>
      *
@@ -84,7 +96,7 @@ public final class MessageTypes {
      * select role
      * </pre>
      */
-    CG_SELECT_ROLE(8, 1005),
+    CG_SELECT_ROLE(10, 1005),
     /**
      * <code>GC_ROLE_INFO = 1006;</code>
      *
@@ -92,7 +104,7 @@ public final class MessageTypes {
      * role info
      * </pre>
      */
-    GC_ROLE_INFO(9, 1006),
+    GC_ROLE_INFO(11, 1006),
     /**
      * <code>CG_CREATE_ROLE = 1007;</code>
      *
@@ -100,7 +112,7 @@ public final class MessageTypes {
      * create role
      * </pre>
      */
-    CG_CREATE_ROLE(10, 1007),
+    CG_CREATE_ROLE(12, 1007),
     /**
      * <code>GC_CREATE_ROLE_RESULT = 1008;</code>
      *
@@ -108,7 +120,7 @@ public final class MessageTypes {
      * create role result
      * </pre>
      */
-    GC_CREATE_ROLE_RESULT(11, 1008),
+    GC_CREATE_ROLE_RESULT(13, 1008),
     /**
      * <code>GC_ENTER_SCENE = 1009;</code>
      *
@@ -116,7 +128,7 @@ public final class MessageTypes {
      * enter scene
      * </pre>
      */
-    GC_ENTER_SCENE(12, 1009),
+    GC_ENTER_SCENE(14, 1009),
     /**
      * <code>CG_ENTER_SCENE_READY = 1010;</code>
      *
@@ -124,7 +136,7 @@ public final class MessageTypes {
      * enter scene ready
      * </pre>
      */
-    CG_ENTER_SCENE_READY(13, 1010),
+    CG_ENTER_SCENE_READY(15, 1010),
     /**
      * <code>CG_SYNC = 1011;</code>
      *
@@ -132,7 +144,7 @@ public final class MessageTypes {
      * sync
      * </pre>
      */
-    CG_SYNC(14, 1011),
+    CG_SYNC(16, 1011),
     /**
      * <code>GC_SYNC = 1012;</code>
      *
@@ -140,7 +152,7 @@ public final class MessageTypes {
      * sync
      * </pre>
      */
-    GC_SYNC(15, 1012),
+    GC_SYNC(17, 1012),
     /**
      * <code>CG_REQUEST_MOVE = 1013;</code>
      *
@@ -148,7 +160,7 @@ public final class MessageTypes {
      * CG_REQUEST_MOVE
      * </pre>
      */
-    CG_REQUEST_MOVE(16, 1013),
+    CG_REQUEST_MOVE(18, 1013),
     /**
      * <code>GC_BROADCAST_MOVE = 1014;</code>
      *
@@ -156,7 +168,7 @@ public final class MessageTypes {
      * GC_BROADCAST_MOVE
      * </pre>
      */
-    GC_BROADCAST_MOVE(17, 1014),
+    GC_BROADCAST_MOVE(19, 1014),
     /**
      * <code>GC_SCENE_OBJECT_APPEAR = 1015;</code>
      *
@@ -164,7 +176,7 @@ public final class MessageTypes {
      * Scene object appear
      * </pre>
      */
-    GC_SCENE_OBJECT_APPEAR(18, 1015),
+    GC_SCENE_OBJECT_APPEAR(20, 1015),
     ;
 
     /**
@@ -195,6 +207,18 @@ public final class MessageTypes {
      * <code>GA_PLAYER_LOGOUT_OK = 201;</code>
      */
     public static final int GA_PLAYER_LOGOUT_OK_VALUE = 201;
+    /**
+     * <code>AG_FORWARD_BEGIN = 1000;</code>
+     *
+     * <pre>
+     * AGForward begin - end
+     * </pre>
+     */
+    public static final int AG_FORWARD_BEGIN_VALUE = 1000;
+    /**
+     * <code>AG_FORWARD_END = 10000;</code>
+     */
+    public static final int AG_FORWARD_END_VALUE = 10000;
     /**
      * <code>CG_PLAYER_LOGIN = 1001;</code>
      *
@@ -325,6 +349,8 @@ public final class MessageTypes {
         case 101: return GAME_REGISTER_TO_AGENT;
         case 200: return AG_PLAYER_LOGOUT;
         case 201: return GA_PLAYER_LOGOUT_OK;
+        case 1000: return AG_FORWARD_BEGIN;
+        case 10000: return AG_FORWARD_END;
         case 1001: return CG_PLAYER_LOGIN;
         case 1002: return GC_PLAYER_LOGIN_RESULT;
         case 1003: return CG_GET_ROLE_LIST;
@@ -400,19 +426,20 @@ public final class MessageTypes {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\021MessageType.proto*\310\003\n\013MessageType\022\033\n\027S" +
+      "\n\021MessageType.proto*\364\003\n\013MessageType\022\033\n\027S" +
       "ERVER_REGISTER_REQUEST\020d\022\032\n\026GAME_REGISTE" +
       "R_TO_AGENT\020e\022\025\n\020AG_PLAYER_LOGOUT\020\310\001\022\030\n\023G" +
-      "A_PLAYER_LOGOUT_OK\020\311\001\022\024\n\017CG_PLAYER_LOGIN" +
-      "\020\351\007\022\033\n\026GC_PLAYER_LOGIN_RESULT\020\352\007\022\025\n\020CG_G" +
-      "ET_ROLE_LIST\020\353\007\022\025\n\020GC_GET_ROLE_LIST\020\354\007\022\023" +
-      "\n\016CG_SELECT_ROLE\020\355\007\022\021\n\014GC_ROLE_INFO\020\356\007\022\023" +
-      "\n\016CG_CREATE_ROLE\020\357\007\022\032\n\025GC_CREATE_ROLE_RE" +
-      "SULT\020\360\007\022\023\n\016GC_ENTER_SCENE\020\361\007\022\031\n\024CG_ENTER" +
-      "_SCENE_READY\020\362\007\022\014\n\007CG_SYNC\020\363\007\022\014\n\007GC_SYNC",
-      "\020\364\007\022\024\n\017CG_REQUEST_MOVE\020\365\007\022\026\n\021GC_BROADCAS" +
-      "T_MOVE\020\366\007\022\033\n\026GC_SCENE_OBJECT_APPEAR\020\367\007B\037" +
-      "\n\017com.stone.protoB\014MessageTypes"
+      "A_PLAYER_LOGOUT_OK\020\311\001\022\025\n\020AG_FORWARD_BEGI" +
+      "N\020\350\007\022\023\n\016AG_FORWARD_END\020\220N\022\024\n\017CG_PLAYER_L" +
+      "OGIN\020\351\007\022\033\n\026GC_PLAYER_LOGIN_RESULT\020\352\007\022\025\n\020" +
+      "CG_GET_ROLE_LIST\020\353\007\022\025\n\020GC_GET_ROLE_LIST\020" +
+      "\354\007\022\023\n\016CG_SELECT_ROLE\020\355\007\022\021\n\014GC_ROLE_INFO\020" +
+      "\356\007\022\023\n\016CG_CREATE_ROLE\020\357\007\022\032\n\025GC_CREATE_ROL" +
+      "E_RESULT\020\360\007\022\023\n\016GC_ENTER_SCENE\020\361\007\022\031\n\024CG_E",
+      "NTER_SCENE_READY\020\362\007\022\014\n\007CG_SYNC\020\363\007\022\014\n\007GC_" +
+      "SYNC\020\364\007\022\024\n\017CG_REQUEST_MOVE\020\365\007\022\026\n\021GC_BROA" +
+      "DCAST_MOVE\020\366\007\022\033\n\026GC_SCENE_OBJECT_APPEAR\020" +
+      "\367\007B\037\n\017com.stone.protoB\014MessageTypes"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

@@ -12,6 +12,9 @@ enum MessageType {
 	AG_PLAYER_LOGOUT = 200;
 	GA_PLAYER_LOGOUT_OK = 201;
 
+	// AGForward begin - end
+	AG_FORWARD_BEGIN = 1000;
+	AG_FORWARD_END = 10000;
 	// request login
 	CG_PLAYER_LOGIN = 1001;
 	// login result

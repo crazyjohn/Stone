@@ -1,0 +1,514 @@
+[INFO] 18:16:49,002 - Launcher.main - Begin to start the server group...
+[INFO] 18:16:49,009 - AgentServer.main - Begin to start AgentServer...
+[INFO] 18:16:49,031 - ConfigUtil.loadJsConfig - Load js config, file: agent_server.cfg.js
+[INFO] 18:16:49,815 - JavaReflectionManager.<clinit> - HCANN000001: Hibernate Commons Annotations {4.0.5.Final}
+[INFO] 18:16:49,824 - Version.logVersion - HHH000412: Hibernate Core {4.3.8.Final}
+[INFO] 18:16:49,826 - Environment.<clinit> - HHH000206: hibernate.properties not found
+[INFO] 18:16:49,827 - Environment.buildBytecodeProvider - HHH000021: Bytecode provider name : javassist
+[INFO] 18:16:49,847 - Configuration.configure - HHH000044: Configuring from URL: file:/E:/git/Stone/db/bin/game_server_hibernate.cfg.xml
+[WARN] 18:16:49,886 - DTDEntityResolver.resolveEntity - HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide!
+[INFO] 18:16:49,910 - Configuration.addResource - HHH000221: Reading mappings from resource: game_server_hibernate_query.xml
+[WARN] 18:16:49,934 - DTDEntityResolver.resolveEntity - HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide!
+[INFO] 18:16:49,960 - Configuration.doConfigure - HHH000041: Configured SessionFactory: null
+[INFO] 18:16:50,044 - ConnectionProviderInitiator.instantiateExplicitConnectionProvider - HHH000130: Instantiating explicit connection provider: org.hibernate.connection.C3P0ConnectionProvider
+[INFO] 18:16:50,070 - C3P0ConnectionProvider.configure - HHH010002: C3P0 using driver: com.mysql.jdbc.Driver at URL: jdbc:mysql://localhost:3306/stone?useUnicode=true&characterEncoding=utf-8&useServerPrepStmts=true
+[INFO] 18:16:50,070 - C3P0ConnectionProvider.configure - HHH000046: Connection properties: {useUnicode=true, user=root, password=****, characterEncoding=UTF-8}
+[INFO] 18:16:50,071 - C3P0ConnectionProvider.configure - HHH000006: Autocommit mode: false
+[INFO] 18:16:50,084 - MLog.<clinit> - MLog clients using log4j logging.
+[INFO] 18:16:50,238 - C3P0Registry.banner - Initializing c3p0-0.9.2.1 [built 20-March-2013 10:47:27 +0000; debug? true; trace: 10]
+[INFO] 18:16:50,303 - AbstractPoolBackedDataSource.getPoolManager - Initializing c3p0 pool... com.mchange.v2.c3p0.PoolBackedDataSource@cc327dd7 [ connectionPoolDataSource -> com.mchange.v2.c3p0.WrapperConnectionPoolDataSource@16c6dbf0 [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, debugUnreturnedConnectionStackTraces -> false, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, identityToken -> 2rvy2d9c13owatcq4qq6a|25e41b05, idleConnectionTestPeriod -> 0, initialPoolSize -> 5, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 1800, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 20, maxStatements -> 50, maxStatementsPerConnection -> 0, minPoolSize -> 5, nestedDataSource -> com.mchange.v2.c3p0.DriverManagerDataSource@fda532bb [ description -> null, driverClass -> null, factoryClassLocation -> null, identityToken -> 2rvy2d9c13owatcq4qq6a|483406d6, jdbcUrl -> jdbc:mysql://localhost:3306/stone?useUnicode=true&characterEncoding=utf-8&useServerPrepStmts=true, properties -> {useUnicode=true, user=******, password=******, characterEncoding=UTF-8} ], preferredTestQuery -> null, propertyCycle -> 0, statementCacheNumDeferredCloseThreads -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> true, unreturnedConnectionTimeout -> 0, usesTraditionalReflectiveProxies -> false; userOverrides: {} ], dataSourceName -> null, factoryClassLocation -> null, identityToken -> 2rvy2d9c13owatcq4qq6a|49138b3c, numHelperThreads -> 3 ]
+[INFO] 18:16:50,516 - Dialect.<init> - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+[INFO] 18:16:50,524 - LobCreatorBuilder.useContextualLobCreation - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+[INFO] 18:16:50,641 - TransactionFactoryInitiator.initiateService - HHH000399: Using default transaction strategy (direct JDBC transactions)
+[INFO] 18:16:50,645 - ASTQueryTranslatorFactory.<init> - HHH000397: Using ASTQueryTranslatorFactory
+[INFO] 18:16:51,065 - ServerNode.startup - ServerIoProcessor: internalProcessor started.
+[INFO] 18:16:51,075 - ServerNode.startup - ServerIoProcessor: mainProcessor started.
+[INFO] 18:16:51,076 - AgentServer.main - AgentServer started.
+[INFO] 18:16:51,077 - WorldServer.main - Begin to start WorldServer...
+[INFO] 18:16:51,077 - ConfigUtil.loadJsConfig - Load js config, file: world_server.cfg.js
+[INFO] 18:16:51,117 - ServerNode.startup - ServerIoProcessor: mainProcessor started.
+[INFO] 18:16:51,118 - WorldServer.main - WorldServer started.
+[INFO] 18:16:51,119 - GameServer.main - Begin to start GameServer...
+[INFO] 18:16:51,119 - ConfigUtil.loadJsConfig - Load js config, file: game_server.cfg.js
+[INFO] 18:16:51,143 - Configuration.configure - HHH000044: Configuring from URL: file:/E:/git/Stone/db/bin/game_server_hibernate.cfg.xml
+[WARN] 18:16:51,145 - DTDEntityResolver.resolveEntity - HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide!
+[INFO] 18:16:51,148 - Configuration.addResource - HHH000221: Reading mappings from resource: game_server_hibernate_query.xml
+[WARN] 18:16:51,150 - DTDEntityResolver.resolveEntity - HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide!
+[INFO] 18:16:51,164 - Configuration.doConfigure - HHH000041: Configured SessionFactory: null
+[INFO] 18:16:51,172 - ConnectionProviderInitiator.instantiateExplicitConnectionProvider - HHH000130: Instantiating explicit connection provider: org.hibernate.connection.C3P0ConnectionProvider
+[INFO] 18:16:51,172 - C3P0ConnectionProvider.configure - HHH010002: C3P0 using driver: com.mysql.jdbc.Driver at URL: jdbc:mysql://localhost:3306/stone?useUnicode=true&characterEncoding=utf-8&useServerPrepStmts=true
+[INFO] 18:16:51,172 - C3P0ConnectionProvider.configure - HHH000046: Connection properties: {useUnicode=true, user=root, password=****, characterEncoding=UTF-8}
+[INFO] 18:16:51,172 - C3P0ConnectionProvider.configure - HHH000006: Autocommit mode: false
+[INFO] 18:16:51,198 - AbstractPoolBackedDataSource.getPoolManager - Initializing c3p0 pool... com.mchange.v2.c3p0.PoolBackedDataSource@8497d703 [ connectionPoolDataSource -> com.mchange.v2.c3p0.WrapperConnectionPoolDataSource@de990ba7 [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, debugUnreturnedConnectionStackTraces -> false, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, identityToken -> 2rvy2d9c13owatcq4qq6a|76ae88f4, idleConnectionTestPeriod -> 0, initialPoolSize -> 5, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 1800, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 20, maxStatements -> 50, maxStatementsPerConnection -> 0, minPoolSize -> 5, nestedDataSource -> com.mchange.v2.c3p0.DriverManagerDataSource@f0e85726 [ description -> null, driverClass -> null, factoryClassLocation -> null, identityToken -> 2rvy2d9c13owatcq4qq6a|7657d63, jdbcUrl -> jdbc:mysql://localhost:3306/stone?useUnicode=true&characterEncoding=utf-8&useServerPrepStmts=true, properties -> {useUnicode=true, user=******, password=******, characterEncoding=UTF-8} ], preferredTestQuery -> null, propertyCycle -> 0, statementCacheNumDeferredCloseThreads -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> true, unreturnedConnectionTimeout -> 0, usesTraditionalReflectiveProxies -> false; userOverrides: {} ], dataSourceName -> null, factoryClassLocation -> null, identityToken -> 2rvy2d9c13owatcq4qq6a|10eaa946, numHelperThreads -> 3 ]
+[INFO] 18:16:51,228 - Dialect.<init> - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+[INFO] 18:16:51,229 - LobCreatorBuilder.useContextualLobCreation - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+[INFO] 18:16:51,233 - TransactionFactoryInitiator.initiateService - HHH000399: Using default transaction strategy (direct JDBC transactions)
+[INFO] 18:16:51,234 - ASTQueryTranslatorFactory.<init> - HHH000397: Using ASTQueryTranslatorFactory
+[INFO] 18:16:51,274 - GameServer.connectToAgentServer - Start to connect to agent server...
+[INFO] 18:16:51,281 - GameServer.connectToAgentServer - Connect to agent server succeed.
+[INFO] 18:16:51,290 - GameServer.connectToWorldServer - Start to connect to world server...
+[INFO] 18:16:51,291 - GameServer.connectToWorldServer - Connect to world server succeed.
+[INFO] 18:16:51,292 - GameServer.main - GameServer started.
+[INFO] 18:16:51,292 - Launcher.main - ServerGroup started.
+[INFO] 18:16:51,296 - GameMaster.onAgentSessionOpened - Start to register on agent server...
+[INFO] 18:16:51,345 - AgentMaster.onServerInternalMessage - {"sceneIds": [1],"serverInfo": {"type": "GAME","name": "game"}}
+[INFO] 18:16:56,446 - AgentPlayerActor.handleLoginResult - Player login, puid: bot2
+[INFO] 18:16:56,446 - AgentPlayerActor.handleLoginResult - Player login, puid: bot1
+[INFO] 18:16:56,450 - AgentPlayerActor.handleLoginResult - Player login, puid: bot3
+[INFO] 18:16:56,464 - AgentPlayerActor.handleLoginResult - Player login, puid: bot4
+[INFO] 18:16:56,481 - AgentPlayerActor.handleLoginResult - Player login, puid: bot5
+[INFO] 18:16:56,489 - AgentPlayerActor.handleLoginResult - Player login, puid: bot6
+[INFO] 18:16:56,510 - AgentPlayerActor.handleLoginResult - Player login, puid: bot7
+[INFO] 18:16:56,516 - AgentPlayerActor.handleLoginResult - Player login, puid: bot8
+[INFO] 18:16:56,532 - AgentPlayerActor.handleLoginResult - Player login, puid: bot9
+[INFO] 18:16:56,546 - AgentPlayerActor.handleLoginResult - Player login, puid: bot10
+[INFO] 18:16:56,548 - GameMaster.onAgentForwardMessage - Register player actor: Actor[akka://GameActorSystem/user/gameMaster/playerActor_288511851128422504#1304074666]
+[INFO] 18:16:56,549 - GameMaster.onAgentForwardMessage - Register player actor: Actor[akka://GameActorSystem/user/gameMaster/playerActor_288511851128422503#237949763]
+[INFO] 18:16:56,549 - GameMaster.onAgentForwardMessage - Register player actor: Actor[akka://GameActorSystem/user/gameMaster/playerActor_288511851128422505#-1669564690]
+[INFO] 18:16:56,551 - GameMaster.onAgentForwardMessage - Register player actor: Actor[akka://GameActorSystem/user/gameMaster/playerActor_288511851128422508#2094241213]
+[INFO] 18:16:56,560 - GameMaster.onAgentForwardMessage - Register player actor: Actor[akka://GameActorSystem/user/gameMaster/playerActor_288511851128422502#1597051334]
+[INFO] 18:16:56,570 - GameMaster.onAgentForwardMessage - Register player actor: Actor[akka://GameActorSystem/user/gameMaster/playerActor_288511851128422506#-5854661]
+[INFO] 18:16:56,577 - EntityScanner.listAllClassNamesInPackage - [EntityAnnotationScanner#listAllClassNamesInPackage]:com.stone.db.entity.HumanEntity found!
+[INFO] 18:16:56,577 - EntityScanner.listAllClassNamesInPackage - [EntityAnnotationScanner#listAllClassNamesInPackage]:com.stone.db.entity.HumanEntity found!
+[INFO] 18:16:56,578 - EntityScanner.listAllClassNamesInPackage - [EntityAnnotationScanner#listAllClassNamesInPackage]:com.stone.db.entity.HumanEntity found!
+[INFO] 18:16:56,579 - EntityScanner.listAllClassNamesInPackage - [EntityAnnotationScanner#listAllClassNamesInPackage]:com.stone.db.entity.HumanItemEntity found!
+[INFO] 18:16:56,578 - EntityScanner.listAllClassNamesInPackage - [EntityAnnotationScanner#listAllClassNamesInPackage]:com.stone.db.entity.HumanItemEntity found!
+[INFO] 18:16:56,577 - EntityScanner.listAllClassNamesInPackage - [EntityAnnotationScanner#listAllClassNamesInPackage]:com.stone.db.entity.HumanEntity found!
+[INFO] 18:16:56,579 - EntityScanner.listAllClassNamesInPackage - [EntityAnnotationScanner#listAllClassNamesInPackage]:com.stone.db.entity.PlayerEntity found!
+[INFO] 18:16:56,579 - EntityScanner.listAllClassNamesInPackage - [EntityAnnotationScanner#listAllClassNamesInPackage]:com.stone.db.entity.PlayerEntity found!
+[INFO] 18:16:56,578 - EntityScanner.listAllClassNamesInPackage - [EntityAnnotationScanner#listAllClassNamesInPackage]:com.stone.db.entity.HumanItemEntity found!
+[INFO] 18:16:56,579 - EntityScanner.listAllClassNamesInPackage - [EntityAnnotationScanner#listAllClassNamesInPackage]:com.stone.db.entity.PlayerEntity found!
+[INFO] 18:16:56,580 - EntityScanner.scanAllEntityClassInPackage - [EntityAnnotationScanner#scanAllEntityClassInPackage]:Entity 'com.stone.db.entity.HumanEntity' loaded successfully!
+[INFO] 18:16:56,579 - EntityScanner.scanAllEntityClassInPackage - [EntityAnnotationScanner#scanAllEntityClassInPackage]:Entity 'com.stone.db.entity.HumanEntity' loaded successfully!
+[INFO] 18:16:56,579 - EntityScanner.scanAllEntityClassInPackage - [EntityAnnotationScanner#scanAllEntityClassInPackage]:Entity 'com.stone.db.entity.HumanEntity' loaded successfully!
+[INFO] 18:16:56,579 - EntityScanner.listAllClassNamesInPackage - [EntityAnnotationScanner#listAllClassNamesInPackage]:com.stone.db.entity.HumanItemEntity found!
+[INFO] 18:16:56,580 - EntityScanner.listAllClassNamesInPackage - [EntityAnnotationScanner#listAllClassNamesInPackage]:com.stone.db.entity.PlayerEntity found!
+[INFO] 18:16:56,581 - EntityScanner.scanAllEntityClassInPackage - [EntityAnnotationScanner#scanAllEntityClassInPackage]:Entity 'com.stone.db.entity.HumanEntity' loaded successfully!
+[INFO] 18:16:56,582 - GameMaster.onAgentForwardMessage - Register player actor: Actor[akka://GameActorSystem/user/gameMaster/playerActor_288511851128422509#-401158291]
+[INFO] 18:16:56,584 - EntityScanner.scanAllEntityClassInPackage - [EntityAnnotationScanner#scanAllEntityClassInPackage]:Entity 'com.stone.db.entity.HumanItemEntity' loaded successfully!
+[INFO] 18:16:56,584 - EntityScanner.scanAllEntityClassInPackage - [EntityAnnotationScanner#scanAllEntityClassInPackage]:Entity 'com.stone.db.entity.HumanItemEntity' loaded successfully!
+[INFO] 18:16:56,584 - EntityScanner.scanAllEntityClassInPackage - [EntityAnnotationScanner#scanAllEntityClassInPackage]:Entity 'com.stone.db.entity.PlayerEntity' loaded successfully!
+[INFO] 18:16:56,584 - EntityScanner.scanAllEntityClassInPackage - [EntityAnnotationScanner#scanAllEntityClassInPackage]:Entity 'com.stone.db.entity.HumanItemEntity' loaded successfully!
+[INFO] 18:16:56,585 - EntityScanner.scanAllEntityClassInPackage - [EntityAnnotationScanner#scanAllEntityClassInPackage]:Entity 'com.stone.db.entity.PlayerEntity' loaded successfully!
+[INFO] 18:16:56,584 - EntityScanner.scanAllEntityClassInPackage - [EntityAnnotationScanner#scanAllEntityClassInPackage]:Entity 'com.stone.db.entity.HumanItemEntity' loaded successfully!
+[INFO] 18:16:56,585 - EntityScanner.scanAllEntityClassInPackage - [EntityAnnotationScanner#scanAllEntityClassInPackage]:Entity 'com.stone.db.entity.PlayerEntity' loaded successfully!
+[INFO] 18:16:56,584 - EntityScanner.scanAllEntityClassInPackage - [EntityAnnotationScanner#scanAllEntityClassInPackage]:Entity 'com.stone.db.entity.PlayerEntity' loaded successfully!
+[INFO] 18:16:56,601 - GameMaster.onAgentForwardMessage - Register player actor: Actor[akka://GameActorSystem/user/gameMaster/playerActor_288511851128422510#-1620751171]
+[INFO] 18:16:56,602 - GameMaster.onAgentForwardMessage - Register player actor: Actor[akka://GameActorSystem/user/gameMaster/playerActor_288511851128422511#2044558075]
+[INFO] 18:16:56,612 - GameMaster.onAgentForwardMessage - Register player actor: Actor[akka://GameActorSystem/user/gameMaster/playerActor_288511851128422512#806665937]
+[INFO] 18:16:56,616 - HumanSceneModule.onExternalMessage - bot7_role enter scene ready.
+[INFO] 18:16:56,616 - HumanSceneModule.onExternalMessage - bot8_role enter scene ready.
+[INFO] 18:16:56,617 - HumanSceneModule.onExternalMessage - bot4_role enter scene ready.
+[INFO] 18:16:56,617 - HumanSceneModule.onExternalMessage - bot6_role enter scene ready.
+[INFO] 18:16:56,618 - HumanSceneModule.onExternalMessage - bot2_role enter scene ready.
+[INFO] 18:16:56,622 - HumanSceneModule.onExternalMessage - bot9_role enter scene ready.
+[INFO] 18:16:56,623 - HumanSceneModule.onExternalMessage - bot5_role enter scene ready.
+[INFO] 18:16:56,622 - HumanSceneModule.onExternalMessage - bot1_role enter scene ready.
+[INFO] 18:16:56,623 - HumanSceneModule.onExternalMessage - bot3_role enter scene ready.
+[INFO] 18:16:56,626 - HumanSceneModule.onExternalMessage - bot10_role enter scene ready.
+[ERROR] 18:17:02,936 - AbstractIoHandler.exceptionCaught - Exception caught, session: (0x00000009: nio socket, server, /127.0.0.1:30160 => /127.0.0.1:8080)
+java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+	at sun.nio.ch.SocketDispatcher.read0(Native Method)
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43)
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223)
+	at sun.nio.ch.IOUtil.read(IOUtil.java:197)
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:379)
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:311)
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:45)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.read(AbstractPollingIoProcessor.java:694)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:668)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:657)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.access$600(AbstractPollingIoProcessor.java:67)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor$Processor.run(AbstractPollingIoProcessor.java:1121)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+[ERROR] 18:17:02,936 - AbstractIoHandler.exceptionCaught - Exception caught, session: (0x00000008: nio socket, server, /127.0.0.1:30147 => /127.0.0.1:8080)
+java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+	at sun.nio.ch.SocketDispatcher.read0(Native Method)
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43)
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223)
+	at sun.nio.ch.IOUtil.read(IOUtil.java:197)
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:379)
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:311)
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:45)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.read(AbstractPollingIoProcessor.java:694)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:668)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:657)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.access$600(AbstractPollingIoProcessor.java:67)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor$Processor.run(AbstractPollingIoProcessor.java:1121)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+[ERROR] 18:17:02,940 - AbstractIoHandler.exceptionCaught - Exception caught, session: (0x0000000E: nio socket, server, /127.0.0.1:30225 => /127.0.0.1:8080)
+java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+	at sun.nio.ch.SocketDispatcher.read0(Native Method)
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43)
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223)
+	at sun.nio.ch.IOUtil.read(IOUtil.java:197)
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:379)
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:311)
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:45)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.read(AbstractPollingIoProcessor.java:694)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:668)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:657)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.access$600(AbstractPollingIoProcessor.java:67)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor$Processor.run(AbstractPollingIoProcessor.java:1121)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+[ERROR] 18:17:02,940 - AbstractIoHandler.exceptionCaught - Exception caught, session: (0x0000000D: nio socket, server, /127.0.0.1:30212 => /127.0.0.1:8080)
+java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+	at sun.nio.ch.SocketDispatcher.read0(Native Method)
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43)
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223)
+	at sun.nio.ch.IOUtil.read(IOUtil.java:197)
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:379)
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:311)
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:45)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.read(AbstractPollingIoProcessor.java:694)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:668)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:657)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.access$600(AbstractPollingIoProcessor.java:67)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor$Processor.run(AbstractPollingIoProcessor.java:1121)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+[ERROR] 18:17:02,944 - AbstractIoHandler.exceptionCaught - Exception caught, session: (0x00000005: nio socket, server, /127.0.0.1:30108 => /127.0.0.1:8080)
+java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+	at sun.nio.ch.SocketDispatcher.read0(Native Method)
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43)
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223)
+	at sun.nio.ch.IOUtil.read(IOUtil.java:197)
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:379)
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:311)
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:45)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.read(AbstractPollingIoProcessor.java:694)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:668)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:657)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.access$600(AbstractPollingIoProcessor.java:67)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor$Processor.run(AbstractPollingIoProcessor.java:1121)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+[ERROR] 18:17:02,945 - AbstractIoHandler.exceptionCaught - Exception caught, session: (0x00000006: nio socket, server, /127.0.0.1:30121 => /127.0.0.1:8080)
+java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+	at sun.nio.ch.SocketDispatcher.read0(Native Method)
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43)
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223)
+	at sun.nio.ch.IOUtil.read(IOUtil.java:197)
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:379)
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:311)
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:45)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.read(AbstractPollingIoProcessor.java:694)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:668)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:657)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.access$600(AbstractPollingIoProcessor.java:67)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor$Processor.run(AbstractPollingIoProcessor.java:1121)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+[ERROR] 18:17:02,946 - AbstractIoHandler.exceptionCaught - Exception caught, session: (0x0000000A: nio socket, server, /127.0.0.1:30173 => /127.0.0.1:8080)
+java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+	at sun.nio.ch.SocketDispatcher.read0(Native Method)
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43)
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223)
+	at sun.nio.ch.IOUtil.read(IOUtil.java:197)
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:379)
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:311)
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:45)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.read(AbstractPollingIoProcessor.java:694)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:668)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:657)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.access$600(AbstractPollingIoProcessor.java:67)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor$Processor.run(AbstractPollingIoProcessor.java:1121)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+[ERROR] 18:17:02,947 - AbstractIoHandler.exceptionCaught - Exception caught, session: (0x0000000B: nio socket, server, /127.0.0.1:30186 => /127.0.0.1:8080)
+java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+	at sun.nio.ch.SocketDispatcher.read0(Native Method)
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43)
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223)
+	at sun.nio.ch.IOUtil.read(IOUtil.java:197)
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:379)
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:311)
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:45)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.read(AbstractPollingIoProcessor.java:694)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:668)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:657)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.access$600(AbstractPollingIoProcessor.java:67)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor$Processor.run(AbstractPollingIoProcessor.java:1121)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+[ERROR] 18:17:02,950 - AbstractIoHandler.exceptionCaught - Exception caught, session: (0x00000007: nio socket, server, /127.0.0.1:30134 => /127.0.0.1:8080)
+java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+	at sun.nio.ch.SocketDispatcher.read0(Native Method)
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43)
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223)
+	at sun.nio.ch.IOUtil.read(IOUtil.java:197)
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:379)
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:311)
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:45)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.read(AbstractPollingIoProcessor.java:694)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:668)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:657)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.access$600(AbstractPollingIoProcessor.java:67)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor$Processor.run(AbstractPollingIoProcessor.java:1121)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+[ERROR] 18:17:02,952 - AbstractIoHandler.exceptionCaught - Exception caught, session: (0x0000000C: nio socket, server, /127.0.0.1:30199 => /127.0.0.1:8080)
+java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+	at sun.nio.ch.SocketDispatcher.read0(Native Method)
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43)
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223)
+	at sun.nio.ch.IOUtil.read(IOUtil.java:197)
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:379)
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:311)
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:45)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.read(AbstractPollingIoProcessor.java:694)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:668)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:657)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.access$600(AbstractPollingIoProcessor.java:67)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor$Processor.run(AbstractPollingIoProcessor.java:1121)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+[INFO] 18:17:02,954 - HumanSceneModule.onExternalMessage - bot5_role exit scene.
+[INFO] 18:17:02,958 - AgentPlayerActor.onGCMessage - Player logout, puid: bot5
+[INFO] 18:17:02,960 - HumanSceneModule.onExternalMessage - bot10_role exit scene.
+[INFO] 18:17:02,966 - AgentPlayerActor.onGCMessage - Player logout, puid: bot10
+[INFO] 18:17:02,966 - GameMaster.onReceive - UnRegister player actor: Actor[akka://GameActorSystem/user/gameMaster/playerActor_288511851128422512#806665937]
+[INFO] 18:17:02,966 - HumanSceneModule.onExternalMessage - bot1_role exit scene.
+[INFO] 18:17:02,966 - HumanSceneModule.onExternalMessage - bot2_role exit scene.
+[INFO] 18:17:02,966 - HumanSceneModule.onExternalMessage - bot6_role exit scene.
+[INFO] 18:17:02,967 - HumanSceneModule.onExternalMessage - bot7_role exit scene.
+[INFO] 18:17:02,967 - GameMaster.onReceive - UnRegister player actor: Actor[akka://GameActorSystem/user/gameMaster/playerActor_288511851128422505#-1669564690]
+[INFO] 18:17:02,968 - AgentPlayerActor.onGCMessage - Player logout, puid: bot1
+[INFO] 18:17:02,968 - GameMaster.onReceive - UnRegister player actor: Actor[akka://GameActorSystem/user/gameMaster/playerActor_288511851128422502#1597051334]
+[INFO] 18:17:02,968 - AgentPlayerActor.onGCMessage - Player logout, puid: bot2
+[INFO] 18:17:02,968 - GameMaster.onReceive - UnRegister player actor: Actor[akka://GameActorSystem/user/gameMaster/playerActor_288511851128422509#-401158291]
+[INFO] 18:17:02,968 - AgentPlayerActor.onGCMessage - Player logout, puid: bot6
+[INFO] 18:17:02,968 - GameMaster.onReceive - UnRegister player actor: Actor[akka://GameActorSystem/user/gameMaster/playerActor_288511851128422508#2094241213]
+[INFO] 18:17:02,968 - AgentPlayerActor.onGCMessage - Player logout, puid: bot7
+[INFO] 18:17:02,968 - GameMaster.onReceive - UnRegister player actor: Actor[akka://GameActorSystem/user/gameMaster/playerActor_288511851128422503#237949763]
+[INFO] 18:17:30,982 - AgentPlayerActor.handleLoginResult - Player login, puid: bot1
+[INFO] 18:17:30,993 - AgentPlayerActor.handleLoginResult - Player login, puid: bot2
+[INFO] 18:17:31,002 - AgentPlayerActor.handleLoginResult - Player login, puid: bot3
+[INFO] 18:17:31,018 - AgentPlayerActor.handleLoginResult - Player login, puid: bot4
+[INFO] 18:17:31,052 - AgentPlayerActor.handleLoginResult - Player login, puid: bot5
+[INFO] 18:17:31,060 - AgentPlayerActor.handleLoginResult - Player login, puid: bot6
+[INFO] 18:17:31,076 - GameMaster.onAgentForwardMessage - Register player actor: Actor[akka://GameActorSystem/user/gameMaster/playerActor_288511851128422503#-11554930]
+[INFO] 18:17:31,077 - GameMaster.onAgentForwardMessage - Register player actor: Actor[akka://GameActorSystem/user/gameMaster/playerActor_288511851128422506#-1757820240]
+[INFO] 18:17:31,078 - GameMaster.onAgentForwardMessage - Register player actor: Actor[akka://GameActorSystem/user/gameMaster/playerActor_288511851128422502#1160177770]
+[INFO] 18:17:31,078 - GameMaster.onAgentForwardMessage - Register player actor: Actor[akka://GameActorSystem/user/gameMaster/playerActor_288511851128422505#1666930052]
+[INFO] 18:17:31,087 - GameMaster.onAgentForwardMessage - Register player actor: Actor[akka://GameActorSystem/user/gameMaster/playerActor_288511851128422508#-702576566]
+[INFO] 18:17:31,087 - AgentPlayerActor.handleLoginResult - Player login, puid: bot7
+[INFO] 18:17:31,088 - AgentPlayerActor.handleLoginResult - Player login, puid: bot8
+[INFO] 18:17:31,102 - HumanSceneModule.onExternalMessage - bot2_role enter scene ready.
+[INFO] 18:17:31,102 - HumanSceneModule.onExternalMessage - bot6_role enter scene ready.
+[INFO] 18:17:31,111 - AgentPlayerActor.handleLoginResult - Player login, puid: bot9
+[INFO] 18:17:31,114 - AgentPlayerActor.handleLoginResult - Player login, puid: bot10
+[INFO] 18:17:31,116 - GameMaster.onAgentForwardMessage - Register player actor: Actor[akka://GameActorSystem/user/gameMaster/playerActor_288511851128422509#-984193342]
+[INFO] 18:17:31,120 - HumanSceneModule.onExternalMessage - bot7_role enter scene ready.
+[INFO] 18:17:31,120 - GameMaster.onAgentForwardMessage - Register player actor: Actor[akka://GameActorSystem/user/gameMaster/playerActor_288511851128422510#791172880]
+[INFO] 18:17:31,122 - HumanSceneModule.onExternalMessage - bot8_role enter scene ready.
+[INFO] 18:17:31,123 - GameMaster.onAgentForwardMessage - Register player actor: Actor[akka://GameActorSystem/user/gameMaster/playerActor_288511851128422511#-400909441]
+[INFO] 18:17:31,125 - HumanSceneModule.onExternalMessage - bot9_role enter scene ready.
+[INFO] 18:17:31,125 - GameMaster.onAgentForwardMessage - Register player actor: Actor[akka://GameActorSystem/user/gameMaster/playerActor_288511851128422512#538820071]
+[INFO] 18:17:31,127 - HumanSceneModule.onExternalMessage - bot10_role enter scene ready.
+[ERROR] 18:17:41,013 - AbstractIoHandler.exceptionCaught - Exception caught, session: (0x00000012: nio socket, server, /127.0.0.1:30302 => /127.0.0.1:8080)
+java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+	at sun.nio.ch.SocketDispatcher.read0(Native Method)
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43)
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223)
+	at sun.nio.ch.IOUtil.read(IOUtil.java:197)
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:379)
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:311)
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:45)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.read(AbstractPollingIoProcessor.java:694)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:668)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:657)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.access$600(AbstractPollingIoProcessor.java:67)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor$Processor.run(AbstractPollingIoProcessor.java:1121)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+[ERROR] 18:17:41,014 - AbstractIoHandler.exceptionCaught - Exception caught, session: (0x00000017: nio socket, server, /127.0.0.1:30367 => /127.0.0.1:8080)
+java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+	at sun.nio.ch.SocketDispatcher.read0(Native Method)
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43)
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223)
+	at sun.nio.ch.IOUtil.read(IOUtil.java:197)
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:379)
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:311)
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:45)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.read(AbstractPollingIoProcessor.java:694)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:668)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:657)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.access$600(AbstractPollingIoProcessor.java:67)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor$Processor.run(AbstractPollingIoProcessor.java:1121)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+[ERROR] 18:17:41,015 - AbstractIoHandler.exceptionCaught - Exception caught, session: (0x00000011: nio socket, server, /127.0.0.1:30289 => /127.0.0.1:8080)
+java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+	at sun.nio.ch.SocketDispatcher.read0(Native Method)
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43)
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223)
+	at sun.nio.ch.IOUtil.read(IOUtil.java:197)
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:379)
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:311)
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:45)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.read(AbstractPollingIoProcessor.java:694)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:668)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:657)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.access$600(AbstractPollingIoProcessor.java:67)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor$Processor.run(AbstractPollingIoProcessor.java:1121)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+[ERROR] 18:17:41,016 - AbstractIoHandler.exceptionCaught - Exception caught, session: (0x00000016: nio socket, server, /127.0.0.1:30354 => /127.0.0.1:8080)
+java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+	at sun.nio.ch.SocketDispatcher.read0(Native Method)
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43)
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223)
+	at sun.nio.ch.IOUtil.read(IOUtil.java:197)
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:379)
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:311)
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:45)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.read(AbstractPollingIoProcessor.java:694)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:668)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:657)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.access$600(AbstractPollingIoProcessor.java:67)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor$Processor.run(AbstractPollingIoProcessor.java:1121)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+[ERROR] 18:17:41,013 - AbstractIoHandler.exceptionCaught - Exception caught, session: (0x00000013: nio socket, server, /127.0.0.1:30315 => /127.0.0.1:8080)
+java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+	at sun.nio.ch.SocketDispatcher.read0(Native Method)
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43)
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223)
+	at sun.nio.ch.IOUtil.read(IOUtil.java:197)
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:379)
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:311)
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:45)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.read(AbstractPollingIoProcessor.java:694)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:668)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:657)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.access$600(AbstractPollingIoProcessor.java:67)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor$Processor.run(AbstractPollingIoProcessor.java:1121)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+[ERROR] 18:17:41,026 - AbstractIoHandler.exceptionCaught - Exception caught, session: (0x00000010: nio socket, server, /127.0.0.1:30276 => /127.0.0.1:8080)
+java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+	at sun.nio.ch.SocketDispatcher.read0(Native Method)
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43)
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223)
+	at sun.nio.ch.IOUtil.read(IOUtil.java:197)
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:379)
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:311)
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:45)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.read(AbstractPollingIoProcessor.java:694)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:668)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:657)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.access$600(AbstractPollingIoProcessor.java:67)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor$Processor.run(AbstractPollingIoProcessor.java:1121)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+[ERROR] 18:17:41,030 - AbstractIoHandler.exceptionCaught - Exception caught, session: (0x00000015: nio socket, server, /127.0.0.1:30341 => /127.0.0.1:8080)
+java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+	at sun.nio.ch.SocketDispatcher.read0(Native Method)
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43)
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223)
+	at sun.nio.ch.IOUtil.read(IOUtil.java:197)
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:379)
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:311)
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:45)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.read(AbstractPollingIoProcessor.java:694)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:668)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:657)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.access$600(AbstractPollingIoProcessor.java:67)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor$Processor.run(AbstractPollingIoProcessor.java:1121)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+[ERROR] 18:17:41,022 - AbstractIoHandler.exceptionCaught - Exception caught, session: (0x0000000F: nio socket, server, /127.0.0.1:30263 => /127.0.0.1:8080)
+java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+	at sun.nio.ch.SocketDispatcher.read0(Native Method)
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43)
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223)
+	at sun.nio.ch.IOUtil.read(IOUtil.java:197)
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:379)
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:311)
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:45)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.read(AbstractPollingIoProcessor.java:694)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:668)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:657)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.access$600(AbstractPollingIoProcessor.java:67)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor$Processor.run(AbstractPollingIoProcessor.java:1121)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+[ERROR] 18:17:41,030 - AbstractIoHandler.exceptionCaught - Exception caught, session: (0x00000018: nio socket, server, /127.0.0.1:30380 => /127.0.0.1:8080)
+java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+	at sun.nio.ch.SocketDispatcher.read0(Native Method)
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43)
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223)
+	at sun.nio.ch.IOUtil.read(IOUtil.java:197)
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:379)
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:311)
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:45)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.read(AbstractPollingIoProcessor.java:694)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:668)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:657)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.access$600(AbstractPollingIoProcessor.java:67)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor$Processor.run(AbstractPollingIoProcessor.java:1121)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+[ERROR] 18:17:41,034 - AbstractIoHandler.exceptionCaught - Exception caught, session: (0x00000014: nio socket, server, /127.0.0.1:30328 => /127.0.0.1:8080)
+java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+	at sun.nio.ch.SocketDispatcher.read0(Native Method)
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43)
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223)
+	at sun.nio.ch.IOUtil.read(IOUtil.java:197)
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:379)
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:311)
+	at org.apache.mina.transport.socket.nio.NioProcessor.read(NioProcessor.java:45)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.read(AbstractPollingIoProcessor.java:694)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:668)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:657)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.access$600(AbstractPollingIoProcessor.java:67)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor$Processor.run(AbstractPollingIoProcessor.java:1121)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+[INFO] 18:17:52,726 - ServerNode.shutdown - ServerIoProcessor: internalProcessor shutdown.
+[INFO] 18:17:52,729 - ServerNode.shutdown - ServerIoProcessor: mainProcessor shutdown.
+[INFO] 18:17:52,738 - ServerNode.shutdown - ServerIoProcessor: mainProcessor shutdown.

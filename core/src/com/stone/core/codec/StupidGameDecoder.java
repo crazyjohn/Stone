@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.stone.core.msg.IMessage;
+import com.stone.core.msg.MessageParseException;
 
 /**
  * The game decoder;
@@ -15,12 +16,12 @@ import com.stone.core.msg.IMessage;
  * @author crazyjohn
  *
  */
-public class GameDecoder implements ProtocolDecoder {
+public class StupidGameDecoder implements ProtocolDecoder {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	private IoBuffer readBuffer = IoBuffer.allocate(IMessage.DECODE_MESSAGE_LENGTH).setAutoExpand(true);
 	private IMessageFactory messageFactory;
 
-	public GameDecoder(IMessageFactory messageFactory) {
+	public StupidGameDecoder(IMessageFactory messageFactory) {
 		this.messageFactory = messageFactory;
 	}
 
@@ -51,12 +52,18 @@ public class GameDecoder implements ProtocolDecoder {
 			readBuffer.get(datas);
 			IMessage aMessage = messageFactory.createMessage(messageType);
 			if (aMessage != null) {
-				IoBuffer aMessageBuffer = IoBuffer.wrap(datas).setAutoExpand(true);
-				aMessage.setBuffer(aMessageBuffer);
-				// read
-				aMessage.read();
-				// write to out stream
-				out.write(aMessage);
+				try {
+					IoBuffer aMessageBuffer = IoBuffer.wrap(datas).setAutoExpand(true);
+					aMessage.setBuffer(aMessageBuffer);
+					// read
+					aMessage.read();
+					// write to out stream
+					out.write(aMessage);
+				} catch (MessageParseException e) {
+					// handle msg parse exception
+					// just log???
+					logger.error(String.format("Parse message error, type: %d", messageType), e);
+				}
 			}
 		}
 		// compact

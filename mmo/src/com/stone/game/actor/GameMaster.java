@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import akka.actor.ActorRef;
 import akka.actor.PoisonPill;
 import akka.actor.Props;
+import akka.actor.Terminated;
 import akka.actor.UntypedActor;
 
 import com.stone.core.msg.ProtobufMessage;
@@ -67,16 +68,22 @@ public class GameMaster extends UntypedActor {
 		} else if (msg instanceof AgentSessionOpenMessage) {
 			// agent session opend
 			onAgentSessionOpened((AgentSessionOpenMessage) msg);
+		} else if (msg instanceof Terminated) {
+			// when received terminated msg
+			Terminated terminated = (Terminated) msg;
+			this.getContext().unwatch(terminated.actor());
+			logger.info(String.format("UnRegister player actor: %s", terminated.actor()));
 		} else {
 			unhandled(msg);
 		}
 	}
 
 	private void onPlayerLogout(AGPlayerLogoutMessage logout) {
+		// TODO: crazyjohn find bugs???
 		ActorRef actor = getPlayerActor(logout.getPlayerId());
 		actor.tell(logout, getSelf());
 		actor.tell(PoisonPill.getInstance(), getSender());
-		getContext().unwatch(actor);
+		// getContext().unwatch(actor);
 		this.playerActors.remove(logout.getPlayerId());
 	}
 
@@ -97,6 +104,7 @@ public class GameMaster extends UntypedActor {
 					"playerActor_" + playerId);
 			// watch this player actor
 			getContext().watch(playerActor);
+			logger.info(String.format("Register player actor: %s", playerActor));
 			this.playerActors.put(playerId, playerActor);
 			playerActor.forward(msg, getContext());
 		} else {

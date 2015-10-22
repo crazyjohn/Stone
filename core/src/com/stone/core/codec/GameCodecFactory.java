@@ -25,7 +25,7 @@ public class GameCodecFactory implements ProtocolCodecFactory {
 
 	@Override
 	public ProtocolDecoder getDecoder(IoSession session) throws Exception {
-		return new GameDecoder(messageFactory);
+		return new StupidGameDecoder(messageFactory);
 	}
 
 }
