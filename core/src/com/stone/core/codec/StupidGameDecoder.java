@@ -11,7 +11,9 @@ import com.stone.core.msg.IMessage;
 import com.stone.core.msg.MessageParseException;
 
 /**
- * The game decoder;
+ * The game decoder;<br>
+ * when i write this decoder, i have made a lots of stupid mistakes, so i named
+ * this as StupidGameDecoder.
  * 
  * @author crazyjohn
  *
