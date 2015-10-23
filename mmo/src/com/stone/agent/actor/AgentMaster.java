@@ -86,11 +86,11 @@ public class AgentMaster extends UntypedActor {
 	}
 
 	private void onAGForwardMessage(AGForwardMessage forwardMessage) {
-		BaseActorSession session = this.gameServerSessions.get(forwardMessage.getSceneId());
-		if (session == null) {
+		BaseActorSession actorSession = this.gameServerSessions.get(forwardMessage.getSceneId());
+		if (actorSession == null) {
 			return;
 		}
-		session.getSession().write(forwardMessage);
+		actorSession.getSession().write(forwardMessage);
 	}
 
 	private void rgisterPlayerActor(long playerId, ActorRef actor) {

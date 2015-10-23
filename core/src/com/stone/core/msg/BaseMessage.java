@@ -85,7 +85,7 @@ public abstract class BaseMessage implements IMessage {
 			// StatisticsLoggerHelper.logMessageRecived(this);
 			return readBody();
 		} catch (Exception e) {
-			throw new MessageParseException(String.format(" Type: %d, typeName: %s", this.type, MessageType.valueOf(this.type).toString()), e);
+			throw new MessageParseException(String.format(" Type: %d", this.type), e);
 		}
 	}
 

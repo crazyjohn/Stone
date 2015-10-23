@@ -72,7 +72,7 @@ public class GameMaster extends UntypedActor {
 			// when received terminated msg
 			Terminated terminated = (Terminated) msg;
 			this.getContext().unwatch(terminated.actor());
-			logger.info(String.format("UnRegister player actor: %s", terminated.actor()));
+			logger.debug(String.format("UnRegister player actor: %s", terminated.actor()));
 		} else {
 			unhandled(msg);
 		}
@@ -104,7 +104,7 @@ public class GameMaster extends UntypedActor {
 					"playerActor_" + playerId);
 			// watch this player actor
 			getContext().watch(playerActor);
-			logger.info(String.format("Register player actor: %s", playerActor));
+			logger.debug(String.format("Register player actor: %s", playerActor));
 			this.playerActors.put(playerId, playerActor);
 			playerActor.forward(msg, getContext());
 		} else {

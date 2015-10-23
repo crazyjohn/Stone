@@ -65,3 +65,4 @@ test/.cache
 example/logs/
 *.as
 proto/build/as/CreateRole.as
+mmo/logs/
