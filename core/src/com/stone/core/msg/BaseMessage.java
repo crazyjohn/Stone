@@ -9,7 +9,6 @@ import org.apache.mina.core.buffer.IoBuffer;
 
 import com.stone.core.constants.Loggers;
 import com.stone.core.constants.SharedConstants;
-import com.stone.proto.MessageTypes.MessageType;
 
 /**
  * Base Message;
