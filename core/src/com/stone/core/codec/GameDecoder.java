@@ -18,12 +18,12 @@ import com.stone.core.msg.MessageParseException;
  * @author crazyjohn
  *
  */
-public class StupidGameDecoder implements ProtocolDecoder {
+public class GameDecoder implements ProtocolDecoder {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	private IoBuffer readBuffer = IoBuffer.allocate(IMessage.DECODE_MESSAGE_LENGTH).setAutoExpand(true);
 	private IMessageFactory messageFactory;
 
-	public StupidGameDecoder(IMessageFactory messageFactory) {
+	public GameDecoder(IMessageFactory messageFactory) {
 		this.messageFactory = messageFactory;
 	}
 

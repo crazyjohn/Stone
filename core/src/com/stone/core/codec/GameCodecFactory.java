@@ -25,8 +25,8 @@ public class GameCodecFactory implements ProtocolCodecFactory {
 	}
 
 	/**
-	 * In old version, mina do this things by itself, now it's my work, so
-	 * stupid.
+	 * In old version, mina do this things by itself, now it's my work, so mina
+	 * is the real stupid ass.
 	 * 
 	 * <pre>
 	 * private ProtocolDecoder getDecoder(IoSession session) throws Exception {
@@ -43,7 +43,7 @@ public class GameCodecFactory implements ProtocolCodecFactory {
 	public ProtocolDecoder getDecoder(IoSession session) throws Exception {
 		ProtocolDecoder decoder = (ProtocolDecoder) session.getAttribute(DECODER);
 		if (decoder == null) {
-			decoder = new StupidGameDecoder(messageFactory);
+			decoder = new GameDecoder(messageFactory);
 			session.setAttribute(DECODER, decoder);
 		}
 		return decoder;
