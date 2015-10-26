@@ -43,6 +43,7 @@ public class AgentServer {
 		DBActorSystem dbActorSystem = new DBActorSystem();
 		// init db service
 		dbActorSystem.initDBService(config.getDbServiceType(), config.getDbConfigName(), config.getDataServiceProperties());
+		logger.info(String.format("DbType: %s, configName: %s", config.getDbServiceType(), config.getDbConfigName()));
 		return dbActorSystem;
 	}
 

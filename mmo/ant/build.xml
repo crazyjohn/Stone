@@ -85,7 +85,8 @@
 			<!--
 			<fileset dir="${core.dir}/config"/>
 			-->
-			<fileset dir="${core.dir}/config" excludes="*.js,*.tpl,*.conf"/>
+			<fileset dir="${core.dir}/config" excludes="*.js,*.tpl"/>
+			<fileset dir="${ds.dir}/config" includes="*.xml"/>
 			<fileset dir="${mmo.dir}/config" excludes="*.js,*.tpl"/>
 		</copy>
 		<jar basedir="${class.dir}" jarfile="${bin.dir}/mmo.jar"/>
@@ -96,8 +97,7 @@
 	<target name="copy" depends="pack">
 		<copy todir="${bin.dir}">
 			<fileset dir="${core.dir}/config" excludes="*.tpl,*.properties"/>
-			<fileset dir="${ds.dir}/config" includes="*.xml"/>
-			<fileset dir="${mmo.dir}/config" includes="*.js, *.conf"/>
+			<fileset dir="${mmo.dir}/config" includes="*.js"/>
 		</copy>
 		<copy todir="${lib.dir}">
 			<fileset refid="proto_lib"/>
