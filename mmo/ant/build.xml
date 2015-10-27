@@ -107,7 +107,8 @@
 			<fileset dir="${mmo.dir}/scripts" excludes=".*,**/test/"/>
 		</copy>
 		<!-- launcher -->
-		<copy todir="${bin.dir}" file="${root.dir}/launcher.xml"/>
+		<copy todir="${bin.dir}" file="${root.dir}/start/start.sh"/>
+		<copy todir="${bin.dir}" file="${root.dir}/start/start.bat"/>
 		<!--<echo message="ant -f bin\launch.xml" file="${build.dir}/runGameServer.bat"/> -->
 	</target>
 </project>
