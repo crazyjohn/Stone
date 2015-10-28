@@ -18,25 +18,23 @@ a game server engine（
 ----------
 - core.this is the most important part of the engine，almost the whole framework codes are at here.
 
-- db.this is the data service layer，you can use this project to persistence you db object.
-
 - proto.this is the proto between client and server，i use google's protobuf to support this.
 
 - tools.do some tools things，for example generate the Template class.
 
 - test.all the engine test cases are at here.
 
-2. examle
+2. others
 ----------
-> when i have finished write 70 percent of the engine，i begin to write a example to prove this is a amazing engine.i choose to write a mmo game.
+> when i have finished write 70 percent of the engine，i begin to write a example to prove this is a amazing engine. and i choose to write a mmo game.
 
 - bot.this is the robot framework，i use scala to write it, and it use for pressure test.by the way, i must say that scala is fucking amazing！
 
-- mmo.this is a mmo game example, whitch driver by the stone engine.
+- mmo. this is a mmo game example, whitch driver by the stone engine.
 
-- agent.this is the external session manager server.
+- agent. this is the external session manager server.
 
-- game.this is the logic server.
+- game. this is the logic server.
 
 - world. this is the center server.
 
