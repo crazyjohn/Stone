@@ -24,24 +24,24 @@ a game server engine（
 
 - test.all the engine test cases are at here.
 
-2. others
+2. mmo
 ----------
 > when i have finished write 70 percent of the engine，i begin to write a example to prove this is a amazing engine. and i choose to write a mmo game.
 
 - bot.this is the robot framework，i use scala to write it, and it use for pressure test.by the way, i must say that scala is fucking amazing！
 
-- mmo. this is a mmo game example, whitch driver by the stone engine.
+- agent package. this is the external session manager server.
 
-- agent. this is the external session manager server.
+- game package. this is the logic server.
 
-- game. this is the logic server.
+- world package. this is the center server.
 
-- world. this is the center server.
+- data package. this is the data server.
 
 
 now, what's the progress?
 ----------
-- you can create account, login, create role, select role and enter scene.
+- you can do create account, login, create role, select role and enter scene things.
 
 
 
