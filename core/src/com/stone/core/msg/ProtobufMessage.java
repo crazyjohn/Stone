@@ -2,9 +2,7 @@ package com.stone.core.msg;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Message.Builder;
-import com.googlecode.protobuf.format.JsonFormat;
 import com.stone.core.session.BaseActorSession;
-import com.stone.proto.MessageTypes.MessageType;
 
 /**
  * Protobuf message;
@@ -79,11 +77,13 @@ public class ProtobufMessage extends BaseSessionMessage<BaseActorSession> implem
 		return (B) this.builder;
 	}
 
-	@Override
-	public String toString() {
-		return "[type: " + MessageType.valueOf(this.type).toString() + ", builder: "
-				+ (this.builder == null ? "null]" : JsonFormat.printToString(this.builder.clone().build()) + "]");
-	}
+	// @Override
+	// public String toString() {
+	// return "[type: " + MessageType.valueOf(this.type).toString() +
+	// ", builder: "
+	// + (this.builder == null ? "null]" :
+	// JsonFormat.printToString(this.builder.clone().build()) + "]");
+	// }
 
 	@SuppressWarnings("unchecked")
 	@Override

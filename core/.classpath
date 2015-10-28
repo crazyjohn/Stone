@@ -5,7 +5,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="lib" path="lib/mina-core-2.0.9.jar" sourcepath="lib-src/mina-2.0.9-src.zip"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-logging-1.0.3.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/proto"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-io-1.4.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-lang-2.6.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/dom4j-1.6.1.jar"/>
@@ -47,5 +46,6 @@
 	<classpathentry exported="true" kind="lib" path="lib/akka-remote_2.11-2.3.14.jar" sourcepath="lib-src/akka-remote_2.11-2.3.9-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/akka-slf4j_2.11-2.3.14.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/akka-testkit_2.11-2.3.14.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/protobuf-2.6.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

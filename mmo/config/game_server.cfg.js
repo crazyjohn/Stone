@@ -3,7 +3,7 @@ var ServerType = com.stone.proto.Servers.ServerType;
 //=====  do js import end   =====//
 config.name = "game";
 // serverInfo
-config.getServerInfo().setName(config.name).setType(ServerType.GAME);
+//config.getServerInfo().setName(config.name).setType(ServerType.GAME);
 // bind ip
 config.bindIp = "0.0.0.0";
 // bind port 

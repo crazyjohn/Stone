@@ -1,4 +1,4 @@
-package com.stone.core.util;
+package com.stone.mmo.util;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
