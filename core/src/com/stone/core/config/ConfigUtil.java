@@ -24,7 +24,7 @@ import com.stone.core.script.IScriptEngine;
 import com.stone.core.script.JSScriptEngine;
 
 /**
- * 配置工具;
+ * The config util;
  * 
  * @author crazyjohn
  *

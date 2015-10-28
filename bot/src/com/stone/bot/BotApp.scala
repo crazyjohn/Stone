@@ -14,8 +14,8 @@ import com.stone.bot.task.LoopTask
  */
 object BotApp extends App {
   private val logger = LoggerFactory.getLogger("ClientIoHandler")
-  val begin = 0
-  val end = 1000
+  val begin = 1001
+  val end = 5000
   // create robot
   for (i <- begin to end) {
     val bot = new CrazyBot("bot" + i)

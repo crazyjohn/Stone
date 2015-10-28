@@ -32,14 +32,8 @@ public class ServerConfig implements IConfig {
 	}
 
 	@Override
-	public void init() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void validate() {
-		// TODO Auto-generated method stub
+		// TODO do nothing ??
 
 	}
 
