@@ -14,13 +14,13 @@ import com.stone.bot.task.LoopTask
  */
 object BotApp extends App {
   private val logger = LoggerFactory.getLogger("ClientIoHandler")
-  val begin = 1001
-  val end = 5000
+  val begin = 0
+  val end = 10
   // create robot
   for (i <- begin to end) {
     val bot = new CrazyBot("bot" + i)
     // 203.195.218.172
-    val connectFuture = bot.connect("203.195.218.172", 8080)
+    val connectFuture = bot.connect("127.0.0.1", 8080)
     connectFuture.awaitUninterruptibly()
     connectFuture.addListener(new ConnectListener(bot))
     // add task
