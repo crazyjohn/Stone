@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- server pack script  by crazyjohn -->
+<project name="stone.build" basedir="." default="copy">
+	<!-- define all props -->
+	<tstamp>
+		<format property="build.time" pattern="yyyyMMddHHmmss"/>
+	</tstamp>
+	<property name="build.version" value="${build.time}"/>
+	<property name="root.dir" value="${basedir}"/>
+	<property name="engine.dir" value="${root.dir}/../../"/>
+	<property name="build.dir" value="${root.dir}/../build/engine"/>
+	<property name="class.dir" value="${build.dir}/classes"/>
+	<property name="bin.dir" value="${build.dir}"/>
+	<property name="config.dir" value="${bin.dir}"/>
+	<property name="lib.dir" value="${bin.dir}/lib"/>
+	<property name="core.dir" value="${engine.dir}/core"/>
+	
+	<!-- path -->
+	<path id="libs">
+		<pathelement path="${java.class.path}"/>
+		<fileset id="core_lib" dir="${core.dir}/lib" includes="*.jar,*.zip,*.dll,*.so"/>
+	</path>
+
+	<!-- java compile -->
+	<presetdef name="javac17">
+		<javac destdir="${class.dir}" classpathref="libs" nowarn="true" encoding="UTF-8" source="1.7" target="1.7" compiler="javac1.7"/>
+	</presetdef>
+	
+	<!-- reset all local dirs  -->
+	<target name="init">
+		<delete dir="${build.dir}" failonerror="false"/>
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${class.dir}"/>
+		<mkdir dir="${config.dir}"/>
+	</target>
+	
+	<!-- comile all projects code to same dir -->
+	<target name="compile" depends="init" >
+		<!--<echo message="compiling, classpath:${java.class.path}"/>-->
+		<javac17>
+			<src path="${core.dir}/src"/>
+		</javac17>
+	</target>
+	
+	<!-- to jar  -->
+	<target name="pack" depends="compile">
+		<copy todir="${class.dir}">
+			<!--
+			<fileset dir="${core.dir}/config"/>
+			-->
+			<fileset dir="${core.dir}/config" excludes="*.js,*.tpl"/>
+		</copy>
+		<jar basedir="${class.dir}" jarfile="${bin.dir}/stone-1.0.jar"/>
+		<delete dir="${class.dir}" failonerror="false"/>
+	</target>
+	
+	<!-- copy jars and configs and resouces and launchScript to publish dir -->
+	<target name="copy" depends="pack">
+		<copy todir="${bin.dir}">
+			<fileset dir="${core.dir}/config" excludes="*.tpl,*.properties"/>
+		</copy>
+		<copy todir="${lib.dir}">
+			<fileset refid="core_lib"/>
+		</copy>
+	</target>
+</project>

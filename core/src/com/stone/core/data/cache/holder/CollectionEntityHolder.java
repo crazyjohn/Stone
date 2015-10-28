@@ -1,4 +1,4 @@
-package com.stone.db.cache.holder;
+package com.stone.core.data.cache.holder;
 
 import java.io.Serializable;
 import java.util.Collection;

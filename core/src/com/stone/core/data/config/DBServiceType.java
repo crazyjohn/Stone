@@ -1,4 +1,4 @@
-package com.stone.db.service;
+package com.stone.core.data.config;
 
 import com.stone.core.db.service.HibernateDBService;
 import com.stone.core.db.service.IDBService;

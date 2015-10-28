@@ -6,9 +6,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.stone.core.data.cache.holder.HumanEntityHolderCreater;
+import com.stone.core.data.cache.holder.IEntityHolder;
 import com.stone.core.entity.IEntity;
-import com.stone.db.cache.holder.HumanEntityHolderCreater;
-import com.stone.db.cache.holder.IEntityHolder;
 
 /**
  * The human cache;

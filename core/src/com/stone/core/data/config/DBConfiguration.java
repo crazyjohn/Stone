@@ -1,4 +1,4 @@
-package com.stone.db.service;
+package com.stone.core.data.config;
 
 
 import java.net.URL;
