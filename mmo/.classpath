@@ -48,6 +48,6 @@
 	<classpathentry kind="lib" path="/core/lib/slf4j-api-1.7.7.jar"/>
 	<classpathentry kind="lib" path="/core/lib/slf4j-log4j12-1.7.6.jar"/>
 	<classpathentry kind="lib" path="/core/lib/statemap.jar"/>
-	<classpathentry kind="lib" path="lib/stone-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/stone-1.0.jar" sourcepath="/core/src"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

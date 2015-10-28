@@ -17,13 +17,14 @@
 	<property name="proto.dir" location="${engine.dir}/proto"/>
 	<property name="core.dir" value="${engine.dir}/core"/>
 	<property name="mmo.dir" value="${engine.dir}/mmo"/>
-	<property name="ds.script.dir" value="${mmo.dir}/sql"/>
+	<property name="mmo.sql" value="${mmo.dir}/sql"/>
 	
 	<!-- path -->
 	<path id="libs">
 		<pathelement path="${java.class.path}"/>
 		<fileset id="proto_lib" dir="${proto.dir}/lib" includes="*.jar"/>
 		<fileset id="core_lib" dir="${core.dir}/lib" includes="*.jar,*.zip,*.dll,*.so"/>
+		<fileset id="mmo_lib" dir="${mmo.dir}/lib" includes="*.jar"/>
 	</path>
 
 	<!-- java compile -->
@@ -46,7 +47,6 @@
 		<!--<echo message="compiling, classpath:${java.class.path}"/>-->
 		<javac17>
 			<src path="${proto.dir}/src"/>
-			<src path="${core.dir}/src"/>
 			<src path="${mmo.dir}/src"/>
 		</javac17>
 	</target>
@@ -83,8 +83,7 @@
 			<!--
 			<fileset dir="${core.dir}/config"/>
 			-->
-			<fileset dir="${core.dir}/config" excludes="*.js,*.tpl"/>
-			<fileset dir="${mmo.dir}/config" includes="*.xml" excludes="*.js,*.tpl"/>
+			<fileset dir="${mmo.dir}/config" excludes="*.js,*.tpl"/>
 		</copy>
 		<jar basedir="${class.dir}" jarfile="${bin.dir}/mmo.jar"/>
 		<delete dir="${class.dir}" failonerror="false"/>
@@ -93,12 +92,12 @@
 	<!-- copy jars and configs and resouces and launchScript to publish dir -->
 	<target name="copy" depends="pack">
 		<copy todir="${bin.dir}">
-			<fileset dir="${core.dir}/config" excludes="*.tpl,*.properties"/>
 			<fileset dir="${mmo.dir}/config" includes="*.js"/>
 		</copy>
 		<copy todir="${lib.dir}">
 			<fileset refid="proto_lib"/>
 			<fileset refid="core_lib"/>
+			<fileset refid="mmo_lib"/>
 		</copy>
 		<copy todir="${resource.dir}">
 			<fileset dir="${mmo.dir}/scripts" excludes=".*,**/test/"/>
