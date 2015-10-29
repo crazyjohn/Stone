@@ -13,8 +13,6 @@ import java.util.jar.JarFile;
 
 import org.slf4j.Logger;
 
-import scala.reflect.internal.tpe.TypeMaps.AnnotationFilter;
-
 import com.stone.core.annotation.IAnnotationFilter;
 import com.stone.core.constants.Loggers;
 import com.stone.core.entity.IEntity;

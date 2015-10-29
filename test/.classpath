@@ -12,5 +12,6 @@
 	<classpathentry kind="lib" path="lib/multiverse-core-0.7.0-javadoc.jar"/>
 	<classpathentry kind="lib" path="lib/multiverse-core-0.7.0.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/mmo"/>
+	<classpathentry kind="lib" path="lib/akka-testkit_2.11-2.3.14.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
