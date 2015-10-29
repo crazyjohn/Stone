@@ -17,4 +17,9 @@ public class AgentActorSystem extends BaseActorSystem {
 		this.system = ActorSystem.create(this.getClass().getSimpleName(), config);
 		this.master = system.actorOf(Props.create(AgentMaster.class, this.dbMaster), "gateMaster");
 	}
+
+	@Override
+	protected void buildActorSystem() {
+		
+	}
 }

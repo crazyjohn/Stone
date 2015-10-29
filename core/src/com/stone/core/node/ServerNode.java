@@ -126,7 +126,7 @@ public class ServerNode implements IServerNode {
 			logger.info("ServerIoProcessor: " + processorEntry.getKey() + " shutdown.");
 		}
 		this.ioProcessors.clear();
-		// shutdown the service
+		// shutdown all actor systems
 		for (Entry<String, IActorSystem> systemEntry : this.systems.entrySet()) {
 			systemEntry.getValue().shutdown();
 			logger.info("IStoneSystem: " + systemEntry.getKey() + " shutdown.");

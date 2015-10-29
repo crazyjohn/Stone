@@ -65,6 +65,12 @@ public class DBHumanActor extends UntypedActor {
 	@Override
 	public void postStop() throws Exception {
 		scheduleUpdateTask.cancel();
+		// update the dirty data
+		if (this.modifiedSet.size() == 0) {
+			return;
+		}
+		// update
+		handleTickRequest(this.modifiedSet.size());
 	}
 
 	@Override
@@ -76,7 +82,7 @@ public class DBHumanActor extends UntypedActor {
 		} else if (msg.equals(TICK)) {
 			// handle tick request
 			logger.debug("Time to update the dirty human cache.");
-			handleTickRequest();
+			handleTickRequest(BATCH_UPDATE_COUNT);
 		} else if (msg instanceof DBUpdateMessage) {
 			DBUpdateMessage updateMsg = (DBUpdateMessage) msg;
 			// handle update request
@@ -142,9 +148,9 @@ public class DBHumanActor extends UntypedActor {
 	/**
 	 * Handle tick request;
 	 */
-	private void handleTickRequest() {
+	private void handleTickRequest(int updateCount) {
 		// get dirty caches
-		List<HumanCache> humanCaches = this.modifiedSet.getModified(BATCH_UPDATE_COUNT);
+		List<HumanCache> humanCaches = this.modifiedSet.getModified(updateCount);
 		for (HumanCache dirtyCache : humanCaches) {
 			if (dirtyCache.isModified()) {
 				HumanEntity eachEntity = this.converter.convertTo(dirtyCache);
@@ -153,6 +159,7 @@ public class DBHumanActor extends UntypedActor {
 			}
 		}
 	}
+	
 
 	/**
 	 * Handle update request;

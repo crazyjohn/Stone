@@ -3,8 +3,12 @@ package com.stone.db;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import akka.actor.ActorRef;
 import akka.actor.Props;
+import akka.actor.Terminated;
 import akka.actor.UntypedActor;
 import akka.routing.RoundRobinRoutingLogic;
 import akka.routing.Router;
@@ -48,6 +52,7 @@ public class DBMaster extends UntypedActor {
 	protected final Router humanRouter;
 	/** uuid */
 	private IUUIDService uuidActor;
+	private Logger logger = LoggerFactory.getLogger(DBMaster.class);
 
 	public DBMaster(IDBService dbService) {
 		this.dbService = dbService;
@@ -90,6 +95,9 @@ public class DBMaster extends UntypedActor {
 			// handle db entity operation
 			IDBMessage dbMessage = (IDBMessage) msg;
 			handleDBOperation(dbMessage);
+		} else if (msg instanceof Terminated) {
+			Terminated terminate = (Terminated) msg;
+			logger.info(String.format("Actor terminated: %s", terminate.getActor()));
 		}
 	}
 

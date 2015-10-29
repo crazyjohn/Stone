@@ -21,16 +21,17 @@ public class DBActorSystem extends BaseActorSystem {
 	/** dbService */
 	private IDBService dbService;
 
-	public DBActorSystem() {
-		// load DB config
-		Config config = ConfigFactory.load().getConfig("DB");
-		system = ActorSystem.create(this.getClass().getSimpleName(), config);
-	}
-
 	public void initDBService(String dbServiceType, String dbConfigName, Properties props) {
 		dbService = DBServiceFactory.createDBService(new DBConfiguration(dbServiceType, dbConfigName, props));
 		// dbMaster
 		master = system.actorOf(DBMaster.props(dbService), "dBMaster");
+	}
+
+	@Override
+	protected void buildActorSystem() {
+		// load DB config
+		Config config = ConfigFactory.load().getConfig("DB");
+		system = ActorSystem.create(this.getClass().getSimpleName(), config);
 	}
 
 }

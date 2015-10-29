@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 
-public class BaseActorSystem implements IActorSystem {
+public abstract class BaseActorSystem implements IActorSystem {
 	/** ActorSystem */
 	protected ActorSystem system;
 	/** game master */
@@ -19,7 +19,20 @@ public class BaseActorSystem implements IActorSystem {
 	protected BaseActorSystem() {
 		// create logger
 		logger = LoggerFactory.getLogger(this.getClass());
+		// build system
+		buildActorSystem();
 	}
+
+	/**
+	 * Build you actor system here;
+	 * 
+	 * <pre>
+	 * Config config = ConfigFactory.load().getConfig(&quot;WORLD&quot;);
+	 * this.system = ActorSystem.create(this.getClass().getSimpleName(), config);
+	 * this.master = system.actorOf(Props.create(WorldMaster.class), &quot;worldMaster&quot;);
+	 * </pre>
+	 */
+	protected abstract void buildActorSystem();
 
 	@Override
 	public void startup() throws IOException {

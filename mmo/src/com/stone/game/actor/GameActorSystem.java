@@ -45,4 +45,10 @@ public class GameActorSystem extends BaseActorSystem {
 		system.eventStream().subscribe(deadLetterActor, DeadLetter.class);
 	}
 
+	@Override
+	protected void buildActorSystem() {
+		// do nothing
+
+	}
+
 }

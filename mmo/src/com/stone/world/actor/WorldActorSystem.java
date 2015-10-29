@@ -15,9 +15,11 @@ import com.typesafe.config.ConfigFactory;
  */
 public class WorldActorSystem extends BaseActorSystem {
 
-	public WorldActorSystem() {
+	@Override
+	protected void buildActorSystem() {
 		Config config = ConfigFactory.load().getConfig("WORLD");
 		this.system = ActorSystem.create(this.getClass().getSimpleName(), config);
 		this.master = system.actorOf(Props.create(WorldMaster.class), "worldMaster");
 	}
+
 }
