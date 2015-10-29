@@ -110,6 +110,7 @@ public class HumanEntityHolderCreater {
 				try {
 					holderClass = (Class<IEntityHolder<? extends IEntity>>) Class.forName("com.stone.core.data.cache.holder." + annotation.EntityHolderClass());
 				} catch (ClassNotFoundException e1) {
+					e1.printStackTrace();
 					throw new NoClassDefFoundError("Entity Holder:" + annotation.EntityHolderClass() + " not found!");
 				}
 			}

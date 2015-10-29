@@ -19,8 +19,9 @@ object BotApp extends App {
   // create robot
   for (i <- begin to end) {
     val bot = new CrazyBot("bot" + i)
-    // 203.195.218.172
-    val connectFuture = bot.connect("127.0.0.1", 8080)
+    // remote: 203.195.218.172
+    // local: 127.0.0.1
+    val connectFuture = bot.connect("203.195.218.172", 8080)
     connectFuture.awaitUninterruptibly()
     connectFuture.addListener(new ConnectListener(bot))
     // add task
