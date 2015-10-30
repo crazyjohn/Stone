@@ -1,0 +1,8 @@
+[WARN] 13:09:34,551 - NettyUtil.<clinit> - Found Netty's native epoll transport, but not running on linux-based operating system. Using NIO instead.
+[INFO] 13:09:35,019 - DCAwareRoundRobinPolicy.init - Using data-center name 'datacenter1' for DCAwareRoundRobinPolicy (if this is incorrect, please provide the correct datacenter name with DCAwareRoundRobinPolicy constructor)
+[INFO] 13:09:35,021 - Cluster$Manager.init - New Cassandra host /127.0.0.1:9042 added
+[ERROR] 13:18:30,332 - ControlConnection$1.onConnectionException - [Control connection] Cannot connect to any host, scheduling retry in 1000 milliseconds
+[ERROR] 13:18:31,334 - ControlConnection$1.onConnectionException - [Control connection] Cannot connect to any host, scheduling retry in 2000 milliseconds
+[ERROR] 13:18:33,335 - ControlConnection$1.onConnectionException - [Control connection] Cannot connect to any host, scheduling retry in 4000 milliseconds
+[ERROR] 13:18:37,336 - ControlConnection$1.onConnectionException - [Control connection] Cannot connect to any host, scheduling retry in 8000 milliseconds
+[ERROR] 13:18:45,338 - ControlConnection$1.onConnectionException - [Control connection] Cannot connect to any host, scheduling retry in 16000 milliseconds

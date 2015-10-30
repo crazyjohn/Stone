@@ -6,14 +6,14 @@ import java.util.List;
 import com.stone.core.entity.IEntity;
 
 /**
- * 数据服务接口;
+ * The db service;
  * 
  * @author crazyjohn
  *
  */
 public interface IDBService {
 	/**
-	 * 更新实体接口;
+	 * Update the db entity;
 	 * 
 	 * @param entity
 	 */
@@ -29,7 +29,7 @@ public interface IDBService {
 	public IEntity get(Class<?> entityClass, Serializable id);
 
 	/**
-	 * 插入实体接口;
+	 * Insert;
 	 * 
 	 * @param entity
 	 * @return
@@ -37,14 +37,14 @@ public interface IDBService {
 	public Serializable insert(IEntity entity);
 
 	/**
-	 * 删除实体接口;
+	 * Delete;
 	 * 
 	 * @param entity
 	 */
 	public void delete(IEntity entity);
 
 	/**
-	 * 根据id和类名删除实体;
+	 * Delete by id;
 	 * 
 	 * @param entityClass
 	 * @param id
@@ -52,7 +52,7 @@ public interface IDBService {
 	public void deleteById(Class<?> entityClass, Serializable id);
 
 	/**
-	 * 查询接口;
+	 * Query by queryName and params;
 	 * 
 	 * @param queryName
 	 * @param params
@@ -64,7 +64,7 @@ public interface IDBService {
 	public <T> List<T> queryByNameAndParams(String queryName, String[] params, Object[] values, int maxResult, int start);
 
 	/**
-	 * 心跳接口;
+	 * Do heartBeat things;
 	 */
 	public void heartBeat();
 

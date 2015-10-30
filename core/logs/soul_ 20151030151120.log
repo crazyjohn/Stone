@@ -1,0 +1,3 @@
+[WARN] 15:11:20,689 - NettyUtil.<clinit> - Found Netty's native epoll transport, but not running on linux-based operating system. Using NIO instead.
+[INFO] 15:11:21,173 - DCAwareRoundRobinPolicy.init - Using data-center name 'datacenter1' for DCAwareRoundRobinPolicy (if this is incorrect, please provide the correct datacenter name with DCAwareRoundRobinPolicy constructor)
+[INFO] 15:11:21,176 - Cluster$Manager.init - New Cassandra host /127.0.0.1:9042 added
