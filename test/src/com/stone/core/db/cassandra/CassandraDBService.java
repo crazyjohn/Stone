@@ -10,7 +10,7 @@ import com.stone.core.entity.IEntity;
 
 public class CassandraDBService implements IDBService {
 	private Cluster cluster;
-	private Session session;
+	protected Session session;
 
 	public CassandraDBService(String host, int port, String database) {
 		cluster = Cluster.builder().addContactPoint(host).build();
