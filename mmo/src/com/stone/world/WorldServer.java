@@ -3,9 +3,11 @@ package com.stone.world;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.stone.core.config.ConfigUtil;
 import com.stone.core.config.ServerConfig;
 import com.stone.core.msg.ProtobufMessageFactory;
 import com.stone.core.node.ServerNode;
+import com.stone.core.node.system.IActorSystem;
 import com.stone.world.actor.WorldActorSystem;
 import com.stone.world.network.WorldIoHandler;
 
@@ -21,12 +23,14 @@ public class WorldServer {
 	public static void main(String[] args) {
 		try {
 			logger.info("Begin to start WorldServer...");
-			// new node
-			final ServerNode worldServerNode = new ServerNode();
 			// load config
-			ServerConfig config = worldServerNode.loadConfig(ServerConfig.class, "world_server.cfg.js");
+			ServerConfig config = ConfigUtil.loadConfig(ServerConfig.class, "world_server.cfg.js");
+			// new node
+			final ServerNode worldServerNode = new ServerNode(config.getName());
 			// init game node
-			worldServerNode.init(config, new WorldIoHandler(new WorldActorSystem().getMasterActor()), new ProtobufMessageFactory());
+			IActorSystem worldSystem = new WorldActorSystem();
+			worldServerNode.registerActorSystem("WorldActorSystem", worldSystem);
+			worldServerNode.init(config, new WorldIoHandler(worldSystem.getMasterActor()), new ProtobufMessageFactory());
 			// start the world node
 			worldServerNode.startup();
 			logger.info("WorldServer started.");

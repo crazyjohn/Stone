@@ -19,14 +19,14 @@ public class Launcher {
 
 	public static void main(String[] args) {
 		// start the agent server
-		logger.info("Begin to start the server group...");
+		logger.info("Begin to start the mmo server group...");
 		// start the world server
 		AgentServer.main(args);
 		// start the world server
 		WorldServer.main(args);
 		// start the game server
 		GameServer.main(args);
-		logger.info("ServerGroup started.");
+		logger.info("The mmo server group started.");
 	}
 
 }

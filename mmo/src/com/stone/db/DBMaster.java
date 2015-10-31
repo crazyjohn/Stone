@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import akka.actor.ActorRef;
 import akka.actor.Props;
+import akka.actor.SupervisorStrategy;
 import akka.actor.Terminated;
 import akka.actor.UntypedActor;
 import akka.routing.RoundRobinRoutingLogic;
@@ -60,7 +61,7 @@ public class DBMaster extends UntypedActor {
 		int regionId = 1;
 		int serverId = 1;
 		// FIXME: crazyjohn actor or singleton?
-		uuidActor = UUIDService.buildUUIDService(dbService,UUIDType.values(), regionId, serverId);
+		uuidActor = UUIDService.buildUUIDService(dbService, UUIDType.values(), regionId, serverId);
 		// this.getContext().actorOf(UUIDService.props(dbService,
 		// UUIDType.values(), regionId, serverId));
 		// this.getContext().watch(uuidActor);
@@ -77,6 +78,11 @@ public class DBMaster extends UntypedActor {
 				 */
 				, dbService);
 
+	}
+
+	@Override
+	public SupervisorStrategy supervisorStrategy() {
+		return super.supervisorStrategy();
 	}
 
 	@Override
@@ -98,6 +104,8 @@ public class DBMaster extends UntypedActor {
 		} else if (msg instanceof Terminated) {
 			Terminated terminate = (Terminated) msg;
 			logger.info(String.format("Actor terminated: %s", terminate.getActor()));
+		} else {
+			this.unhandled(msg);
 		}
 	}
 

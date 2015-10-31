@@ -11,6 +11,7 @@ import com.stone.agent.network.AgentExternalMessageFactory;
 import com.stone.agent.network.AgentInternalIoHandler;
 import com.stone.agent.network.AgentInternalMessageFactory;
 import com.stone.core.codec.GameCodecFactory;
+import com.stone.core.config.ConfigUtil;
 import com.stone.core.net.ServerIoProcessor;
 import com.stone.core.node.ServerNode;
 import com.stone.core.node.system.IActorSystem;
@@ -50,14 +51,16 @@ public class AgentServer {
 	public static void main(String[] args) {
 		try {
 			logger.info("Begin to start AgentServer...");
-			// new node
-			final ServerNode gateServerNode = new ServerNode();
 			// load config
-			AgentServerConfig config = gateServerNode.loadConfig(AgentServerConfig.class, "agent_server.cfg.js");
+			AgentServerConfig config = ConfigUtil.loadConfig(AgentServerConfig.class, "agent_server.cfg.js");
+			// new node
+			final ServerNode gateServerNode = new ServerNode(config.getName());
 			// db actor system
 			IActorSystem dbActorSystem = buildDBSystem(config);
 			// init game node
 			AgentActorSystem gateSystem = new AgentActorSystem(dbActorSystem.getMasterActor());
+			gateServerNode.registerActorSystem("AgentActorSystem", gateSystem);
+			gateServerNode.registerActorSystem("DBActorSystem", dbActorSystem);
 			gateServerNode.init(config, new AgentExternalIoHandler(gateSystem.getMasterActor()), new AgentExternalMessageFactory());
 			// build internal processor
 			buildInternalProcessor(gateServerNode, config, gateSystem.getMasterActor());

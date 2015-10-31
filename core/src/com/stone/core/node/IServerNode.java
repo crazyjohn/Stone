@@ -60,14 +60,4 @@ public interface IServerNode extends ILifeCircle {
 	 */
 	public void init(ServerConfig config, IoHandler ioHandler, IMessageFactory messageFactory) throws Exception;
 
-	/**
-	 * Load the config;
-	 * 
-	 * @param configClass
-	 * @param configPath
-	 * @return
-	 * @throws Exception
-	 */
-	public <T extends ServerConfig> T loadConfig(Class<?> configClass, String configPath) throws Exception;
-
 }

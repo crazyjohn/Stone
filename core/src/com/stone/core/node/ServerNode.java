@@ -15,7 +15,6 @@ import com.stone.core.codec.GameCodecFactory;
 import com.stone.core.codec.IMessageFactory;
 import com.stone.core.concurrent.annotation.GuardedByUnit;
 import com.stone.core.concurrent.annotation.ThreadSafeUnit;
-import com.stone.core.config.ConfigUtil;
 import com.stone.core.config.ServerConfig;
 import com.stone.core.net.ServerIoProcessor;
 import com.stone.core.node.system.IActorSystem;
@@ -32,22 +31,21 @@ import com.stone.core.util.OSUtil;
 @ThreadSafeUnit
 public class ServerNode implements IServerNode {
 	private Logger logger = LoggerFactory.getLogger(ServerNode.class);
-	protected String nodeName;
+	protected final String nodeName;
 	@GuardedByUnit(whoCareMe = "ConcurrentHashMap")
 	protected Map<String, ServerIoProcessor> ioProcessors = new ConcurrentHashMap<String, ServerIoProcessor>();
 	@GuardedByUnit(whoCareMe = "ConcurrentHashMap")
 	protected Map<String, IActorSystem> systems = new ConcurrentHashMap<String, IActorSystem>();
 	/** main io processor */
 	protected ServerIoProcessor mainIoProcessor;
-	/** server config */
-	protected ServerConfig config;
 	/** hooks */
 	@GuardedByUnit(whoCareMe = "CopyOnWriteArrayList")
 	private List<IShutdownHook> hooks = new CopyOnWriteArrayList<IShutdownHook>();
 	@GuardedByUnit(whoCareMe = "volatile")
 	protected volatile boolean terminated = true;
 
-	public ServerNode() {
+	public ServerNode(String nodeName) {
+		this.nodeName = nodeName;
 		// shutdown hook
 		this.addShutdownHook(new IShutdownHook() {
 			@Override
@@ -112,10 +110,20 @@ public class ServerNode implements IServerNode {
 		terminated = false;
 		// add debug flow
 		addSafeDebugWorkFolow();
+		// add hook
+		Runtime.getRuntime().addShutdownHook(new Thread() {
+			@Override
+			public void run() {
+				for (final IShutdownHook eachHook : hooks) {
+					eachHook.run();
+				}
+			}
+		});
 	}
 
 	@Override
 	public void shutdown() {
+		logger.info(String.format("Begin to shutdown the %s node ...", nodeName));
 		if (terminated) {
 			return;
 		}
@@ -123,54 +131,28 @@ public class ServerNode implements IServerNode {
 		for (Entry<String, ServerIoProcessor> processorEntry : this.ioProcessors.entrySet()) {
 			// shutdown
 			processorEntry.getValue().shutdown();
-			logger.info("ServerIoProcessor: " + processorEntry.getKey() + " shutdown.");
+			logger.debug("ServerIoProcessor: " + processorEntry.getKey() + " shutdown.");
 		}
 		this.ioProcessors.clear();
 		// shutdown all actor systems
 		for (Entry<String, IActorSystem> systemEntry : this.systems.entrySet()) {
 			systemEntry.getValue().shutdown();
-			logger.info("IStoneSystem: " + systemEntry.getKey() + " shutdown.");
+			logger.debug("IStoneSystem: " + systemEntry.getKey() + " shutdown.");
 		}
 		this.systems.clear();
 		terminated = true;
+		logger.info(String.format("Node %s already shutdown.", nodeName));
 	}
 
 	@Override
 	public void init(ServerConfig config, IoHandler ioHandler, IMessageFactory messageFactory) throws Exception {
-		this.config = config;
-		this.nodeName = config.getName();
 		mainIoProcessor = new ServerIoProcessor(config.getBindIp(), config.getPort(), ioHandler, new GameCodecFactory(messageFactory));
 		// add processor
 		this.registerIoProcessor("mainProcessor", mainIoProcessor);
-		// add hook
-		for (final IShutdownHook eachHook : this.hooks) {
-			Runtime.getRuntime().addShutdownHook(new Thread() {
-				@Override
-				public void run() {
-					eachHook.run();
-				}
-			});
-		}
+
 	}
 
 	protected void addShutdownHook(IShutdownHook hook) {
 		hooks.add(hook);
 	}
-
-	/**
-	 * Load the config;
-	 * 
-	 * @param configClass
-	 * @param configPath
-	 * @return
-	 * @throws Exception
-	 */
-	@Override
-	public <T extends ServerConfig> T loadConfig(Class<?> configClass, String configPath) throws Exception {
-		@SuppressWarnings("unchecked")
-		T config = (T) configClass.newInstance();
-		ConfigUtil.loadJsConfig(config, configPath);
-		return config;
-	}
-
 }

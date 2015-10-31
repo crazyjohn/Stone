@@ -188,5 +188,12 @@ public class ConfigUtil {
 	public static IConfig loadJsConfig(IConfig config, String cfgFile) throws ScriptException, IOException {
 		return loadJsConfig(false, config, cfgFile);
 	}
+	
+	public static <T extends ServerConfig> T loadConfig(Class<?> configClass, String configPath) throws Exception {
+		@SuppressWarnings("unchecked")
+		T config = (T) configClass.newInstance();
+		loadJsConfig(config, configPath);
+		return config;
+	}
 
 }

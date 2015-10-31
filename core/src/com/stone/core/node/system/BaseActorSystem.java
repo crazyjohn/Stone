@@ -46,7 +46,10 @@ public abstract class BaseActorSystem implements IActorSystem {
 
 	@Override
 	public void shutdown() {
+		// call shutdown
 		this.system.shutdown();
+		// await termination
+		this.system.awaitTermination();
 	}
 
 	@Override
