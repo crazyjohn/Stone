@@ -7,7 +7,20 @@ import java.util.Random;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
-public class JedisTest {
+/**
+ * Redis写数据测试。<br>
+ * 测试写100w数据用了17分钟左右, 每秒大概1000条的数据，这个效率肯定是很扯淡。但是问题应该在于过多的网络通信导致，后期做个优化看下结果。
+ * 
+ * <pre>
+ * output:<br>
+ * Begin to write data to redis: 1446546309998
+ * Finish to write data to redis: 1446547308456, cost: 998458 ms
+ * </pre>
+ * 
+ * @author crazyjohn
+ *
+ */
+public class JedisWriteTest {
 
 	public static void main(String[] args) {
 		int botCount = 1000000;
