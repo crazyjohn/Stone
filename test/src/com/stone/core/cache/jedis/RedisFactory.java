@@ -2,7 +2,7 @@ package com.stone.core.cache.jedis;
 
 import redis.clients.jedis.JedisPool;
 
-public class RedisFactory implements IRedisFactory {
+public class RedisFactory implements IRedisClientFactory {
 	private JedisPool pool;
 
 	public RedisFactory(String host, int port) {
@@ -10,7 +10,7 @@ public class RedisFactory implements IRedisFactory {
 	}
 
 	@Override
-	public RedisClient getRedisClient() {
+	public RedisClient createRedisClient() {
 		return new RedisClient(pool.getResource());
 	}
 

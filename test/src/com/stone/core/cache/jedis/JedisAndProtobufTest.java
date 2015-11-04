@@ -17,8 +17,8 @@ public class JedisAndProtobufTest {
 	public static void main(String[] args) throws UnsupportedEncodingException, InvalidProtocolBufferException {
 		String host = "10.0.1.139";
 		int port = 6379;
-		IRedisFactory factory = new RedisFactory(host, port);
-		RedisClient client = factory.getRedisClient();
+		IRedisClientFactory factory = new RedisFactory(host, port);
+		RedisClient client = factory.createRedisClient();
 		// set binary datas
 		String puid = "claire";
 		Human.Builder builder = Human.newBuilder();
