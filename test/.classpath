@@ -17,5 +17,7 @@
 	<classpathentry kind="lib" path="lib/guava-18.0.jar"/>
 	<classpathentry kind="lib" path="lib/metrics-core-3.0.0.jar"/>
 	<classpathentry kind="lib" path="lib/netty-all-4.0.32.Final.jar"/>
+	<classpathentry kind="lib" path="lib/jedis-2.7.3.jar"/>
+	<classpathentry kind="lib" path="lib/commons-pool2-2.4.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
