@@ -1,6 +1,5 @@
 package com.stone.core.cache.jedis;
 
-import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
 public class RedisFactory implements IRedisFactory {
@@ -11,8 +10,8 @@ public class RedisFactory implements IRedisFactory {
 	}
 
 	@Override
-	public Jedis getRedisClient() {
-		return pool.getResource();
+	public RedisClient getRedisClient() {
+		return new RedisClient(pool.getResource());
 	}
 
 	@Override
