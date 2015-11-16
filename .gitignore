@@ -69,3 +69,4 @@ mmo/logs/
 mmo/build/
 builder/build/
 jedis/
+test/logs/

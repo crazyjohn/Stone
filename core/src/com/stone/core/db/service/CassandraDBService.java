@@ -1,11 +1,10 @@
-package com.stone.core.db.cassandra;
+package com.stone.core.db.service;
 
 import java.io.Serializable;
 import java.util.List;
 
 import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.Session;
-import com.stone.core.db.service.IDBService;
 import com.stone.core.entity.IEntity;
 
 public class CassandraDBService implements IDBService {

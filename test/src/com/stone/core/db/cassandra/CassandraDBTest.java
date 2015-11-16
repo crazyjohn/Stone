@@ -1,5 +1,6 @@
 package com.stone.core.db.cassandra;
 
+import com.stone.core.db.service.CassandraDBService;
 import com.stone.core.db.service.IDBService;
 
 public class CassandraDBTest {
