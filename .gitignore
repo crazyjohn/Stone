@@ -68,3 +68,4 @@ proto/build/as/CreateRole.as
 mmo/logs/
 mmo/build/
 builder/build/
+jedis/
