@@ -4,10 +4,12 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.datastax.driver.core.Cluster;
+import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Session;
+import com.stone.core.db.service.cassandra.ICassandraDBService;
 import com.stone.core.entity.IEntity;
 
-public class CassandraDBService implements IDBService {
+public class CassandraDBService implements ICassandraDBService {
 	private Cluster cluster;
 	protected Session session;
 
@@ -61,6 +63,11 @@ public class CassandraDBService implements IDBService {
 	public <T> List<T> queryByNameAndParams(String queryName, String[] params, Object[] values) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public ResultSet executeCQL(String cql) {
+		return session.execute(cql);
 	}
 
 }
