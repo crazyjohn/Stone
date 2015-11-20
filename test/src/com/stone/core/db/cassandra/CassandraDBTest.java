@@ -4,7 +4,8 @@ import static com.datastax.driver.core.querybuilder.QueryBuilder.select;
 import static com.datastax.driver.core.querybuilder.QueryBuilder.delete;
 import static com.datastax.driver.core.querybuilder.QueryBuilder.eq;
 import static com.datastax.driver.core.querybuilder.QueryBuilder.insertInto;
-
+import static com.datastax.driver.core.querybuilder.QueryBuilder.update;
+import static com.datastax.driver.core.querybuilder.QueryBuilder.set;
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Row;
 import com.stone.core.db.service.CassandraDBService;
@@ -32,6 +33,8 @@ public class CassandraDBTest {
 		// testInsert(dbService, from, to);
 		// delete test
 		// testDelete(dbService, from, to);
+		// close
+		dbService.close();
 	}
 
 	protected static ResultSet testQueryAll(ICassandraDBService dbService) {
@@ -53,6 +56,15 @@ public class CassandraDBTest {
 			// "insert into player (id, puid) values(" + i + ", '" + ("bot" + i)
 			// + "')"
 			dbService.executeStatement(insertInto("player").value("id", i).value("puid", "bot" + i));
+		}
+		System.out.println(String.format("Insert count: %d, cost time: %d", (to - from), (System.currentTimeMillis() - beginTime)));
+	}
+	
+	protected static void testUpdate(ICassandraDBService dbService, int from, int to) {
+		long beginTime = System.currentTimeMillis();
+		for (int i = from; i <= to; i++) {
+			// + "')"
+			dbService.executeStatement(update("player").with(set("puid", "bot" + i + "_update")).where(eq("id", i)));
 		}
 		System.out.println(String.format("Insert count: %d, cost time: %d", (to - from), (System.currentTimeMillis() - beginTime)));
 	}

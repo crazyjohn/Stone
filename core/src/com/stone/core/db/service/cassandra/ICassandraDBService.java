@@ -11,6 +11,14 @@ public interface ICassandraDBService extends IDBService {
 	 * @param cql
 	 */
 	public ResultSet executeCQL(String cql);
-	
+
+	/**
+	 * Execute the statement;
+	 * 
+	 * @param statement
+	 * @return
+	 */
 	public ResultSet executeStatement(Statement statement);
+
+	public void close();
 }

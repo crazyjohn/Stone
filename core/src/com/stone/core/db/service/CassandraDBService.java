@@ -76,4 +76,9 @@ public class CassandraDBService implements ICassandraDBService {
 		return session.execute(statement);
 	}
 
+	@Override
+	public void close() {
+		this.session.close();
+	}
+
 }
