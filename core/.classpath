@@ -32,7 +32,7 @@
 	<classpathentry exported="true" kind="lib" path="lib/mchange-commons-java-0.2.3.4.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/antlr-2.7.7.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/scala-library-2.11.5.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/cassandra-driver-core-2.1.8.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/cassandra-driver-core-2.1.8.jar" sourcepath="lib-src/cassandra-driver.zip"/>
 	<classpathentry kind="lib" path="lib/metrics-core-3.0.0.jar"/>
 	<classpathentry kind="lib" path="lib/guava-18.0.jar"/>
 	<classpathentry kind="lib" path="lib/netty-all-4.0.32.Final.jar"/>
