@@ -9,7 +9,7 @@ import akka.actor.Props;
 import com.stone.core.annotation.ActorMethod;
 import com.stone.core.concurrent.annotation.GuardedByUnit;
 import com.stone.core.concurrent.annotation.ThreadSafeUnit;
-import com.stone.core.db.service.IDBService;
+import com.stone.core.db.service.orm.IEntityDBService;
 
 /**
  * The uuidService;
@@ -21,16 +21,16 @@ import com.stone.core.db.service.IDBService;
  */
 @ThreadSafeUnit
 public class UUIDService implements IUUIDService {
-	protected IDBService dbService;
+	protected IEntityDBService dbService;
 	@GuardedByUnit(whoCareMe = "ConcurrentHashMap")
 	private Map<UUIDType, IUUID64> uuids;
 
-	public static IUUIDService buildUUIDService(IDBService dbService, UUIDType[] types, int regionId, int serverId) {
+	public static IUUIDService buildUUIDService(IEntityDBService dbService, UUIDType[] types, int regionId, int serverId) {
 		IUUIDService result = new UUIDService(dbService, types, regionId, serverId);
 		return result;
 	}
 
-	private UUIDService(IDBService dbService, UUIDType[] types, int regionId, int serverId) {
+	private UUIDService(IEntityDBService dbService, UUIDType[] types, int regionId, int serverId) {
 		this.dbService = dbService;
 		uuids = new ConcurrentHashMap<UUIDType, IUUID64>();
 		for (UUIDType eachType : types) {
@@ -64,7 +64,7 @@ public class UUIDService implements IUUIDService {
 		return uuid.getNextId();
 	}
 
-	public static Props props(IDBService dbService, UUIDType[] types, int regionId, int serverId) {
+	public static Props props(IEntityDBService dbService, UUIDType[] types, int regionId, int serverId) {
 		return Props.create(UUIDService.class, dbService, types, regionId, serverId);
 	}
 }

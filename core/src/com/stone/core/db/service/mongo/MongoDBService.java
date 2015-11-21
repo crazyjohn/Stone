@@ -1,4 +1,4 @@
-package com.stone.core.db.service;
+package com.stone.core.db.service.mongo;
 
 import java.io.Serializable;
 import java.net.UnknownHostException;
@@ -10,6 +10,7 @@ import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
 import com.mongodb.Mongo;
+import com.stone.core.db.service.orm.IEntityDBService;
 import com.stone.core.entity.IEntity;
 
 /**
@@ -18,7 +19,7 @@ import com.stone.core.entity.IEntity;
  * @author crazyjohn
  *
  */
-public class MongoDBService implements IDBService {
+public class MongoDBService implements IEntityDBService {
 	/** mongo instance */
 	Mongo mongo;
 	/** db instance */
@@ -135,6 +136,18 @@ public class MongoDBService implements IDBService {
 	public static void main(String[] args) throws UnknownHostException {
 		MongoDBService service = new MongoDBService("localhost", 27017);
 		service.foo();
+	}
+
+	@Override
+	public void startup() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void shutdown() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

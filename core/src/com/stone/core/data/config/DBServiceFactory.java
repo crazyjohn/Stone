@@ -3,7 +3,7 @@ package com.stone.core.data.config;
 import java.net.URL;
 import java.util.Properties;
 
-import com.stone.core.db.service.IDBService;
+import com.stone.core.db.service.orm.IEntityDBService;
 
 /**
  * 根据DBConfiguration创建DBService的实例。
@@ -14,7 +14,7 @@ import com.stone.core.db.service.IDBService;
  */
 public class DBServiceFactory {
 
-	public static IDBService createDBService(DBConfiguration dbConfig) {
+	public static IEntityDBService createDBService(DBConfiguration dbConfig) {
 		if (dbConfig == null) {
 			throw new IllegalArgumentException("DBConfiguration can not be null.");
 		}

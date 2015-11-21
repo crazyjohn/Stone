@@ -6,7 +6,7 @@ import akka.actor.UntypedActor;
 import com.stone.core.data.msg.DBDeleteMessage;
 import com.stone.core.data.msg.DBInsertMessage;
 import com.stone.core.data.msg.DBUpdateMessage;
-import com.stone.core.db.service.IDBService;
+import com.stone.core.db.service.orm.IEntityDBService;
 import com.stone.core.entity.IEntity;
 
 /**
@@ -17,9 +17,9 @@ import com.stone.core.entity.IEntity;
  */
 public class DBEntityActor extends UntypedActor {
 	protected final Class<?> entityClass;
-	protected final IDBService dbService;
+	protected final IEntityDBService dbService;
 
-	public DBEntityActor(Class<?> entityClass, IDBService dbService) {
+	public DBEntityActor(Class<?> entityClass, IEntityDBService dbService) {
 		this.entityClass = entityClass;
 		this.dbService = dbService;
 	}
@@ -40,7 +40,7 @@ public class DBEntityActor extends UntypedActor {
 		}
 	}
 
-	public static Props props(Class<?> entityClass, IDBService dbService) {
+	public static Props props(Class<?> entityClass, IEntityDBService dbService) {
 		// no context, so create with router for balance
 		return Props.create(DBEntityActor.class, entityClass, dbService);
 	}

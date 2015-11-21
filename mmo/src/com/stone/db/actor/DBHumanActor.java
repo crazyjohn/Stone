@@ -16,7 +16,7 @@ import com.stone.core.data.msg.DBDeleteMessage;
 import com.stone.core.data.msg.DBGetMessage;
 import com.stone.core.data.msg.DBInsertMessage;
 import com.stone.core.data.msg.DBUpdateMessage;
-import com.stone.core.db.service.IDBService;
+import com.stone.core.db.service.orm.IEntityDBService;
 import com.stone.core.entity.IEntity;
 import com.stone.core.entity.IHumanSubEntity;
 import com.stone.core.util.LRUHashMap;
@@ -40,7 +40,7 @@ public class DBHumanActor extends UntypedActor {
 	/** modified set */
 	private final ModifiedSet<HumanCache> modifiedSet = new ModifiedSet<HumanCache>();
 	/** dbService */
-	protected final IDBService dbService;
+	protected final IEntityDBService dbService;
 	/** converter */
 	protected final IConverter<HumanEntity, HumanCache> converter;
 	/** logger */
@@ -48,7 +48,7 @@ public class DBHumanActor extends UntypedActor {
 	/** schudule task */
 	final Cancellable scheduleUpdateTask;
 
-	public DBHumanActor(int cacheSize, IDBService dbService) {
+	public DBHumanActor(int cacheSize, IEntityDBService dbService) {
 		cache = new LRUHashMap<Long, HumanCache>(cacheSize, null);
 		this.dbService = dbService;
 		// converter
@@ -215,7 +215,7 @@ public class DBHumanActor extends UntypedActor {
 		getSender().tell(new InternalSelectRoleResult(humanEntity), getSelf());
 	}
 
-	public static Props props(int cacheSize, IDBService dbService) {
+	public static Props props(int cacheSize, IEntityDBService dbService) {
 		return Props.create(DBHumanActor.class, cacheSize, dbService);
 	}
 

@@ -19,7 +19,7 @@ import com.stone.core.data.msg.IDBMessage;
 import com.stone.core.data.uuid.IUUIDService;
 import com.stone.core.data.uuid.UUIDService;
 import com.stone.core.data.uuid.UUIDType;
-import com.stone.core.db.service.IDBService;
+import com.stone.core.db.service.orm.IEntityDBService;
 import com.stone.core.entity.IHumanSubEntity;
 import com.stone.db.actor.DBEntityActor;
 import com.stone.db.actor.DBHumanActor;
@@ -46,7 +46,7 @@ public class DBMaster extends UntypedActor {
 	/** default login routees count */
 	private static final int DEFAULT_ROUTEES_COUNT = 10;
 	/** dbService */
-	protected final IDBService dbService;
+	protected final IEntityDBService dbService;
 	/** entity actor */
 	protected final Map<Class<?>, ActorRef> entityActors = new HashMap<Class<?>, ActorRef>();
 	/** human actor */
@@ -55,7 +55,7 @@ public class DBMaster extends UntypedActor {
 	private IUUIDService uuidActor;
 	private Logger logger = LoggerFactory.getLogger(DBMaster.class);
 
-	public DBMaster(IDBService dbService) {
+	public DBMaster(IEntityDBService dbService) {
 		this.dbService = dbService;
 		// uuid
 		int regionId = 1;
@@ -138,7 +138,7 @@ public class DBMaster extends UntypedActor {
 		entityActor.forward(msg, getContext());
 	}
 
-	public static Props props(IDBService dbService) {
+	public static Props props(IEntityDBService dbService) {
 		return Props.create(DBMaster.class, dbService);
 	}
 

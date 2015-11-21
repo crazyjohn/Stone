@@ -21,7 +21,7 @@
  * 51 Franklin Street, Fifth Floor
  * Boston, MA  02110-1301  USA
  */
-package com.stone.core.db.service;
+package com.stone.core.db.service.orm;
 
 import java.util.Map;
 

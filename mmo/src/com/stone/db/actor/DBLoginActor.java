@@ -6,7 +6,7 @@ import akka.actor.UntypedActor;
 
 import com.stone.core.data.uuid.IUUIDService;
 import com.stone.core.data.uuid.UUIDType;
-import com.stone.core.db.service.IDBService;
+import com.stone.core.db.service.orm.IEntityDBService;
 import com.stone.db.entity.PlayerEntity;
 import com.stone.db.msg.internal.player.InternalLoginResult;
 import com.stone.db.query.DBQueryConstants;
@@ -19,10 +19,10 @@ import com.stone.proto.Auths.Login;
  *
  */
 public class DBLoginActor extends UntypedActor {
-	private final IDBService dbService;
+	private final IEntityDBService dbService;
 	private final IUUIDService uuidActor;
 
-	public DBLoginActor(IDBService dbService, IUUIDService uuidActor) {
+	public DBLoginActor(IEntityDBService dbService, IUUIDService uuidActor) {
 		this.dbService = dbService;
 		this.uuidActor = uuidActor;
 	}

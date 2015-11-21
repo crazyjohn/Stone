@@ -6,7 +6,7 @@ import akka.actor.ActorSystem;
 
 import com.stone.core.data.config.DBConfiguration;
 import com.stone.core.data.config.DBServiceFactory;
-import com.stone.core.db.service.IDBService;
+import com.stone.core.db.service.orm.IEntityDBService;
 import com.stone.core.node.system.BaseActorSystem;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
@@ -19,7 +19,7 @@ import com.typesafe.config.ConfigFactory;
  */
 public class DBActorSystem extends BaseActorSystem {
 	/** dbService */
-	private IDBService dbService;
+	private IEntityDBService dbService;
 
 	public void initDBService(String dbServiceType, String dbConfigName, Properties props) {
 		dbService = DBServiceFactory.createDBService(new DBConfiguration(dbServiceType, dbConfigName, props));

@@ -19,6 +19,4 @@ public interface ICassandraDBService extends IDBService {
 	 * @return
 	 */
 	public ResultSet executeStatement(Statement statement);
-
-	public void close();
 }

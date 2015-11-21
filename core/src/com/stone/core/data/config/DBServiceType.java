@@ -1,7 +1,7 @@
 package com.stone.core.data.config;
 
-import com.stone.core.db.service.HibernateDBService;
-import com.stone.core.db.service.IDBService;
+import com.stone.core.db.service.orm.HibernateDBService;
+import com.stone.core.db.service.orm.IEntityDBService;
 
 /**
  * 访问DB的实现类型的枚举。
@@ -29,9 +29,9 @@ public enum DBServiceType {
 		return true;
 	}
 
-	private Class<? extends IDBService> dbServiceClass;
+	private Class<? extends IEntityDBService> dbServiceClass;
 
-	private DBServiceType(Class<? extends IDBService> clazz) {
+	private DBServiceType(Class<? extends IEntityDBService> clazz) {
 		this.dbServiceClass = clazz;
 	}
 
@@ -40,7 +40,7 @@ public enum DBServiceType {
 	 * 
 	 * @return
 	 */
-	public Class<? extends IDBService> getDBServiceClass() {
+	public Class<? extends IEntityDBService> getDBServiceClass() {
 		return dbServiceClass;
 	}
 }

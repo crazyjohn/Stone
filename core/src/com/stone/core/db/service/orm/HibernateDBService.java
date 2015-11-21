@@ -1,4 +1,4 @@
-package com.stone.core.db.service;
+package com.stone.core.db.service.orm;
 
 import java.io.Serializable;
 import java.net.URL;
@@ -23,7 +23,7 @@ import com.stone.core.entity.IEntity;
  * @author crazyjohn
  *
  */
-public class HibernateDBService implements IDBService {
+public class HibernateDBService implements IEntityDBService {
 	private Logger logger = LoggerFactory.getLogger("error");
 	/** session factory */
 	private SessionFactory sessionFactory;
@@ -199,6 +199,18 @@ public class HibernateDBService implements IDBService {
 			}
 			return result;
 		}
+
+	}
+
+	@Override
+	public void startup() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void shutdown() {
+		// TODO Auto-generated method stub
 
 	}
 
