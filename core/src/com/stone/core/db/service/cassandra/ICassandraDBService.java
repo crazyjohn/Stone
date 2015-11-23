@@ -4,6 +4,12 @@ import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Statement;
 import com.stone.core.db.service.IDBService;
 
+/**
+ * The cassandra db service;
+ * 
+ * @author crazyjohn
+ *
+ */
 public interface ICassandraDBService extends IDBService {
 	/**
 	 * Execute the cassandra query language;

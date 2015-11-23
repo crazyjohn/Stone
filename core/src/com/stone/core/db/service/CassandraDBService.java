@@ -15,9 +15,6 @@ public class CassandraDBService implements ICassandraDBService {
 		session = cluster.connect(database);
 	}
 
-
-
-
 	@Override
 	public void heartBeat() {
 		// TODO Auto-generated method stub
@@ -34,23 +31,15 @@ public class CassandraDBService implements ICassandraDBService {
 		return session.execute(statement);
 	}
 
-
-
-
 	@Override
 	public void startup() {
 		// TODO Auto-generated method stub
-		
+
 	}
-
-
-
 
 	@Override
 	public void shutdown() {
-		// TODO Auto-generated method stub
-		
+		this.session.close();
 	}
-
 
 }
