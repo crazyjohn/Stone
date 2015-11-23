@@ -17,12 +17,6 @@ public class CassandraDBService implements ICassandraDBService {
 	}
 
 	@Override
-	public void heartBeat() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public ResultSet executeCQL(String cql) {
 		return session.execute(cql);
 	}
@@ -33,9 +27,8 @@ public class CassandraDBService implements ICassandraDBService {
 	}
 
 	@Override
-	public void startup() {
-		// TODO Auto-generated method stub
-
+	public PreparedStatement prepare(String prepareSql) {
+		return session.prepare(prepareSql);
 	}
 
 	@Override
@@ -45,8 +38,15 @@ public class CassandraDBService implements ICassandraDBService {
 	}
 
 	@Override
-	public PreparedStatement prepare(String prepareSql) {
-		return session.prepare(prepareSql);
+	public void heartBeat() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void startup() {
+		// TODO Auto-generated method stub
+
 	}
 
 }
