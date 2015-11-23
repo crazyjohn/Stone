@@ -7,6 +7,9 @@ import static com.datastax.driver.core.querybuilder.QueryBuilder.select;
 import static com.datastax.driver.core.querybuilder.QueryBuilder.set;
 import static com.datastax.driver.core.querybuilder.QueryBuilder.update;
 
+import com.datastax.driver.core.BatchStatement;
+import com.datastax.driver.core.BoundStatement;
+import com.datastax.driver.core.PreparedStatement;
 import com.datastax.driver.core.ResultSet;
 import com.stone.core.db.service.CassandraDBService;
 import com.stone.core.db.service.cassandra.ICassandraDBService;
@@ -17,8 +20,10 @@ import com.stone.core.db.service.cassandra.ICassandraDBService;
  * localhost cassandra server:
  * <p>
  * <ul>
- * <li>130s: 100000record with primary and puid_index</li>
- * <li>116061ms: 100000record when delete puid_index</li>
+ * <li>130s: 100000write with primary and puid_index; use Statement</li>
+ * <li>116s: 100000write when delete puid_index; use Statement</li>
+ * <li>10s: 10000write when delete puid_index; use PreparedStatement</li>
+ * <li>Insert count: 65534, cost time: 1193; use BatchStatement</li>
  * </ul>
  * 
  * 
@@ -26,7 +31,7 @@ import com.stone.core.db.service.cassandra.ICassandraDBService;
  * remote cassandra server:
  * <ul>
  * <li>
- * <li>5288495ms: 100000record</li>
+ * <li>5288495ms: 100000record(88minutes)</li>
  * </ul>
  * 
  * @author crazyjohn
@@ -37,11 +42,11 @@ public class CassandraDBTest {
 	public static void main(String[] args) {
 		// mac: 10.0.8.5
 		// merge: 203.195.218.172
-		ICassandraDBService dbService = new CassandraDBService("203.195.218.172", 0, "stone");
+		ICassandraDBService dbService = new CassandraDBService("127.0.0.1", 9042, "stone");
 		// truncate table
 		testTruncate(dbService);
 		// insert test
-		testInsert(dbService, 1, 100000);
+		testBatchPrepareInsert(dbService, 1, 65535);
 		// close
 		dbService.shutdown();
 	}
@@ -63,6 +68,37 @@ public class CassandraDBTest {
 			dbService.executeStatement(delete().from("player").where(eq("id", i)));
 		}
 		System.out.println(String.format("Delete count: %d, cost time: %d", (to - from), (System.currentTimeMillis() - beginTime)));
+	}
+
+	protected static void testPrepareInsert(ICassandraDBService dbService, int from, int to) {
+		long beginTime = System.currentTimeMillis();
+		PreparedStatement statement = dbService.prepare("insert into player (id, puid) values(?, ?)");
+		BoundStatement bound = new BoundStatement(statement);
+		for (int i = from; i <= to; i++) {
+			dbService.executeStatement(bound.bind(i, "bot" + i));
+		}
+		System.out.println(String.format("Insert count: %d, cost time: %d", (to - from), (System.currentTimeMillis() - beginTime)));
+	}
+
+	/**
+	 * Batch operation;
+	 * 
+	 * @param dbService
+	 * @param from
+	 * @param to
+	 */
+	protected static void testBatchPrepareInsert(ICassandraDBService dbService, int from, int to) {
+		long beginTime = System.currentTimeMillis();
+		PreparedStatement statement = dbService.prepare("insert into player (id, puid) values(?, ?)");
+		BatchStatement batch = new BatchStatement();
+		// BoundStatement bound = new BoundStatement(statement);
+		for (int i = from; i <= to; i++) {
+			batch.add(statement.bind(i, "bot" + i));
+		}
+		System.out.println("Batch size: " + batch.size());
+		// execute batch
+		dbService.executeStatement(batch);
+		System.out.println(String.format("Insert count: %d, cost time: %d", (to - from), (System.currentTimeMillis() - beginTime)));
 	}
 
 	protected static void testInsert(ICassandraDBService dbService, int from, int to) {

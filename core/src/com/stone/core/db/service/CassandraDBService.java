@@ -1,6 +1,7 @@
 package com.stone.core.db.service;
 
 import com.datastax.driver.core.Cluster;
+import com.datastax.driver.core.PreparedStatement;
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Session;
 import com.datastax.driver.core.Statement;
@@ -11,7 +12,7 @@ public class CassandraDBService implements ICassandraDBService {
 	protected Session session;
 
 	public CassandraDBService(String host, int port, String database) {
-		cluster = Cluster.builder().addContactPoint(host).build();
+		cluster = Cluster.builder().addContactPoint(host).withPort(port).build();
 		session = cluster.connect(database);
 	}
 
@@ -40,6 +41,12 @@ public class CassandraDBService implements ICassandraDBService {
 	@Override
 	public void shutdown() {
 		this.session.close();
+		this.cluster.close();
+	}
+
+	@Override
+	public PreparedStatement prepare(String prepareSql) {
+		return session.prepare(prepareSql);
 	}
 
 }

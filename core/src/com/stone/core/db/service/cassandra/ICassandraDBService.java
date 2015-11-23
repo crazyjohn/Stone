@@ -1,5 +1,6 @@
 package com.stone.core.db.service.cassandra;
 
+import com.datastax.driver.core.PreparedStatement;
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Statement;
 import com.stone.core.db.service.IDBService;
@@ -25,4 +26,12 @@ public interface ICassandraDBService extends IDBService {
 	 * @return
 	 */
 	public ResultSet executeStatement(Statement statement);
+
+	/**
+	 * Generate the prepare statement;
+	 * 
+	 * @param prepareSql
+	 * @return
+	 */
+	public PreparedStatement prepare(String prepareSql);
 }
