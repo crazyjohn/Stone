@@ -23,7 +23,7 @@ import com.stone.core.db.service.cassandra.ICassandraDBService;
  * <li>130s: 100000write with primary and puid_index;(769wr/s) use Statement</li>
  * <li>116s: 100000write when delete puid_index;(862wr/s) use Statement</li>
  * <li>10s: 10000write when delete puid_index;(1000wr/s) use PreparedStatement</li>
- * <li>Insert count: 65534, cost time: 1193;(1000wr/s) use BatchStatement</li>
+ * <li>Insert count: 65534, cost time: 1193; use BatchStatement</li>
  * </ul>
  * 
  * 
