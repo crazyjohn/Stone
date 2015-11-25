@@ -2,6 +2,7 @@ package com.stone.core.db.service.mysql;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -35,6 +36,21 @@ public class MysqlDBService implements IMysqlDBService {
 	@Override
 	public int executeUpdate(String sql) throws SQLException {
 		return statement.executeUpdate(sql);
+	}
+
+	@Override
+	public PreparedStatement createPreparedStatement(String sql) throws SQLException {
+		return this.connection.prepareStatement(sql);
+	}
+
+	@Override
+	public void autoCommit(boolean flag) throws SQLException {
+		this.connection.setAutoCommit(flag);
+	}
+
+	@Override
+	public void commit() throws SQLException {
+		this.connection.commit();
 	}
 
 }
