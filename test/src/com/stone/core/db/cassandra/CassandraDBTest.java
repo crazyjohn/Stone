@@ -11,7 +11,7 @@ import com.datastax.driver.core.BatchStatement;
 import com.datastax.driver.core.BoundStatement;
 import com.datastax.driver.core.PreparedStatement;
 import com.datastax.driver.core.ResultSet;
-import com.stone.core.db.service.CassandraDBService;
+import com.stone.core.db.service.cassandra.CassandraDBService;
 import com.stone.core.db.service.cassandra.ICassandraDBService;
 
 /**

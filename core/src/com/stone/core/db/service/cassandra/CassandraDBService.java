@@ -1,11 +1,10 @@
-package com.stone.core.db.service;
+package com.stone.core.db.service.cassandra;
 
 import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.PreparedStatement;
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Session;
 import com.datastax.driver.core.Statement;
-import com.stone.core.db.service.cassandra.ICassandraDBService;
 
 public class CassandraDBService implements ICassandraDBService {
 	private Cluster cluster;
