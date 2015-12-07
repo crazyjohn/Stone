@@ -24,14 +24,14 @@ import com.stone.core.db.service.mysql.MysqlDBService;
 public class MysqlDBTest {
 
 	public static void main(String[] args) throws Exception {
-		String host = "jdbc:mysql://localhost:3306/stone";
+		String host = "jdbc:mysql://183.111.97.226:3306/test";
 		String user = "root";
-		String password = "";
+		String password = "youai@2015!";
 		IMysqlDBService dbService = new MysqlDBService(host, user, password);
 		// truncate
 		testTruncate(dbService);
 		// insert
-		testPrepareInsert(dbService, 1, 65535, 2000);
+		testPrepareInsert(dbService, 1, 4000, 1000);
 	}
 
 	protected static void testInsert(IMysqlDBService dbService, int from, int to) throws SQLException {
@@ -46,7 +46,7 @@ public class MysqlDBTest {
 
 	protected static void testPrepareInsert(IMysqlDBService dbService, int from, int to, int batchCount) throws SQLException {
 		long beginTime = System.currentTimeMillis();
-		dbService.autoCommit(false);
+		dbService.setAutoCommit(false);
 		PreparedStatement prepare = dbService.createPreparedStatement("insert into player (id, puid) values(?, ?)");
 		for (int i = from; i <= to; i++) {
 			prepare.setInt(1, i);

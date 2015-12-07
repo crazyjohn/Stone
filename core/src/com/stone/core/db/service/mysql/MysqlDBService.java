@@ -44,13 +44,30 @@ public class MysqlDBService implements IMysqlDBService {
 	}
 
 	@Override
-	public void autoCommit(boolean flag) throws SQLException {
+	public void setAutoCommit(boolean flag) throws SQLException {
 		this.connection.setAutoCommit(flag);
 	}
 
 	@Override
 	public void commit() throws SQLException {
 		this.connection.commit();
+	}
+
+	@Override
+	public void heartBeat() throws SQLException {
+		this.statement.executeQuery("select 1");
+	}
+
+	@Override
+	public void startup() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void shutdown() throws SQLException {
+		this.statement.close();
+		this.connection.close();
 	}
 
 }

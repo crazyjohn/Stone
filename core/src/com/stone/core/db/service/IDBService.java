@@ -1,5 +1,6 @@
 package com.stone.core.db.service;
 
+
 /**
  * The db service;
  * 
@@ -9,8 +10,10 @@ package com.stone.core.db.service;
 public interface IDBService {
 	/**
 	 * Do heartBeat things;
+	 * 
+	 * @throws Exception
 	 */
-	public void heartBeat();
+	public void heartBeat() throws Exception;
 
 	/**
 	 * Start up;
@@ -19,7 +22,9 @@ public interface IDBService {
 
 	/**
 	 * Shutdown;
+	 * 
+	 * @throws Exception
 	 */
-	public void shutdown();
+	public void shutdown() throws Exception;
 
 }

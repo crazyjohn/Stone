@@ -39,7 +39,7 @@ import com.stone.core.db.service.cassandra.ICassandraDBService;
  */
 public class CassandraDBTest {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		// mac: 10.0.8.5
 		// merge: 203.195.218.172
 		ICassandraDBService dbService = new CassandraDBService("127.0.0.1", 9042, "stone");
